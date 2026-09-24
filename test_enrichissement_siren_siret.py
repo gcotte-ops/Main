@@ -93,7 +93,7 @@ class TestEnrichissement(unittest.TestCase):
         self.assertEqual(lignes[4][5:], ["", ""])
         # SIREN déjà présent : recherche par SIREN, SIRET complété, SIREN conservé.
         self.assertEqual(lignes[5][5:], ["555 555 555", "55555555500019"])
-        self.assertEqual(compteurs, {"TROUVÉ": 2, "À VÉRIFIER": 1, "NON TROUVÉ": 1,
+        self.assertEqual(compteurs, {"TROUVÉ": 2, "À VÉRIFIER": 1, "NON TROUVÉ": 1, "HORS FRANCE": 0,
                                      "DÉJÀ RENSEIGNÉ": 1})
 
     def test_remplir_a_verifier(self):

@@ -33,6 +33,7 @@ Pour Google Workspace : SMTP_HOST=smtp.gmail.com et un « mot de passe d'applica
 import argparse
 import csv
 import difflib
+import io
 import json
 import os
 import re
@@ -52,6 +53,9 @@ DESTINATAIRE_DEFAUT = "gcotte@alter-watt.fr"
 # L'API autorise 7 requêtes / seconde : on reste largement en dessous.
 DELAI_ENTRE_REQUETES = 0.25
 
+PAYS_FRANCE = {"", "france", "fr", "fra", "france metropolitaine", "reunion", "la reunion",
+               "guadeloupe", "martinique", "guyane", "mayotte"}
+
 SEUIL_NOM = 0.80
 SEUIL_VOIE = 0.75
 
@@ -65,6 +69,7 @@ ALIAS_COLONNES = {
     "adresse": ["adresse postale", "adresse", "street address", "address", "adresse 1",
                 "rue"],
     "ville": ["ville", "city", "commune"],
+    "pays": ["pays/region", "pays", "country", "country/region", "pays region"],
     "code_postal": ["code postal", "postal code", "zip", "cp"],
     "siren": ["siren", "numero siren", "n siren"],
     "siret": ["siret", "numero siret", "n siret"],
@@ -361,7 +366,7 @@ def lire_csv(chemin):
         separateur = dialecte.delimiter
     except csv.Error:
         separateur = ";" if echantillon.count(";") > echantillon.count(",") else ","
-    lignes = list(csv.reader(texte.splitlines(), delimiter=separateur))
+    lignes = list(csv.reader(io.StringIO(texte, newline=""), delimiter=separateur))
     if not lignes:
         raise SystemExit("Le fichier CSV est vide.")
     return lignes[0], lignes[1:], separateur, encodage
@@ -455,7 +460,8 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
     client = client or ClientAnnuaire()
 
     rapport = []
-    compteurs = {"TROUVÉ": 0, "À VÉRIFIER": 0, "NON TROUVÉ": 0, "DÉJÀ RENSEIGNÉ": 0}
+    compteurs = {"TROUVÉ": 0, "À VÉRIFIER": 0, "NON TROUVÉ": 0, "HORS FRANCE": 0,
+                 "DÉJÀ RENSEIGNÉ": 0}
     total = len(lignes)
 
     for numero, ligne in enumerate(lignes, start=1):
@@ -473,10 +479,14 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
             siren = siret[:9]
         donnees["siren"] = siren
 
-        try:
-            res = trouver_entreprise(client, donnees, max_resultats=max_resultats)
-        except RuntimeError as err:
-            res = {"statut": "NON TROUVÉ", "detail": str(err)}
+        if normaliser(donnees["pays"]) not in PAYS_FRANCE:
+            # L'Annuaire des Entreprises ne recense que les entreprises françaises.
+            res = {"statut": "HORS FRANCE", "detail": "pays : " + donnees["pays"]}
+        else:
+            try:
+                res = trouver_entreprise(client, donnees, max_resultats=max_resultats)
+            except RuntimeError as err:
+                res = {"statut": "NON TROUVÉ", "detail": str(err)}
 
         statut = res["statut"]
         compteurs[statut] += 1
@@ -536,7 +546,7 @@ def main(argv=None):
     compteurs = traiter(args.csv, sortie, rapport, forcees, args.max_resultats,
                         args.remplir_a_verifier)
     resume = ("Résultat : {TROUVÉ} trouvée(s), {À VÉRIFIER} à vérifier, {NON TROUVÉ} non "
-              "trouvée(s), {DÉJÀ RENSEIGNÉ} déjà renseignée(s).").format(**compteurs)
+              "trouvée(s), {HORS FRANCE} hors France, {DÉJÀ RENSEIGNÉ} déjà renseignée(s).").format(**compteurs)
     print("\n" + resume)
     print("CSV complété : " + sortie)
     print("Rapport      : " + rapport)
