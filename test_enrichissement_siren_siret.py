@@ -20,6 +20,9 @@ def entreprise(siren, nom, siege, etat="A", matching=None):
             "matching_etablissements": matching or []}
 
 
+AUTRE = entreprise("999000000", "AUTRE SOCIETE",
+                   etab("99900000000010", "1", "RUE", "NATIONALE", "59000", "LILLE"))
+
 RESULTATS = {
     # 1er résultat : bon nom, mauvaise adresse -> il faut prendre le 2e, et le SIRET de
     # l'établissement secondaire situé à l'adresse HubSpot (pas celui du siège).
@@ -37,15 +40,33 @@ RESULTATS = {
                    etab("20004360200017", "1", "RUE", "DES TELLIERS", "02270",
                         "CRECY-SUR-SERRE")),
     ],
-    # Nom trouvé, adresse HubSpot obsolète -> adresse corrigée.
+    # Nom seul : mauvaise adresse. « Nom + ville » : 1er résultat, active -> adresse corrigée
+    # avec l'établissement situé dans la ville du CSV.
     "Demenageurs Bretons": [
         entreprise("333333333", "DEMENAGEURS BRETONS",
                    etab("33333333300010", "12", "AV", "DES CHAMPS ELYSEES", "75008", "PARIS")),
     ],
-    # Rien avec le nom seul ; trouvé en reformulant avec l'adresse.
-    "Mairie de Trifouillis 5 place de l'Eglise Trifouillis": [
-        entreprise("217000000", "COMMUNE DE TRIFOUILLIS",
-                   etab("21700000000011", "5", "PL", "DE L EGLISE", "17000", "TRIFOUILLIS")),
+    "Demenageurs Bretons Rennes": [
+        entreprise("333333333", "DEMENAGEURS BRETONS",
+                   etab("33333333300010", "12", "AV", "DES CHAMPS ELYSEES", "75008", "PARIS"),
+                   matching=[etab("33333333300028", "8", "BD", "DE LA LIBERTE", "35000",
+                                  "RENNES", siege=False)]),
+    ],
+    # Nom seul : rien. « Nom + ville » : trouvée à la bonne adresse.
+    "Atelier Bois Nantes": [
+        entreprise("777777777", "ATELIER BOIS",
+                   etab("77777777700015", "3", "QUA", "DE LA FOSSE", "44000", "NANTES")),
+    ],
+    # Nom trouvé mais à une autre adresse, et pas en 1er résultat avec « nom + ville » :
+    # l'adresse ne doit PAS être modifiée.
+    "Garage Dupuis": [
+        entreprise("888888888", "GARAGE DUPUIS",
+                   etab("88888888800011", "40", "RUE", "SOLFERINO", "59000", "LILLE")),
+    ],
+    "Garage Dupuis Lille": [
+        AUTRE,
+        entreprise("888888888", "GARAGE DUPUIS",
+                   etab("88888888800011", "40", "RUE", "SOLFERINO", "59000", "LILLE")),
     ],
     # Entreprise cessée.
     "Vieille Usine": [
@@ -62,6 +83,15 @@ RESULTATS = {
     "666666666": [
         entreprise("666666666", "DEJA SIREN",
                    etab("66666666600019", "10", "BD", "HAUSSMANN", "75009", "PARIS")),
+    ],
+    # SIRET déjà connu : recherche par SIRET.
+    "12312312300016": [
+        entreprise("123123123", "SIRET BONNE ADRESSE",
+                   etab("12312312300016", "7", "RUE", "DE LA GARE", "38000", "GRENOBLE")),
+    ],
+    "32132132100014": [
+        entreprise("321321321", "SIRET AUTRE ADRESSE",
+                   etab("32132132100014", "9", "AV", "FOCH", "67000", "STRASBOURG")),
     ],
 }
 
@@ -84,7 +114,7 @@ LIGNES = [
     ["2", "Communauté de communes - Pays de la Serre", "Public", "France", "Crecy Sur Serre",
      "1 rue des Telliers  Crécy-sur-Serre", "", ""],
     ["3", "Déménageurs Bretons", "Transport", "France", "Rennes", "4 rue de Brest", "", ""],
-    ["4", "Mairie de Trifouillis", "Public", "", "Trifouillis", "5 place de l'Eglise", "", ""],
+    ["4", "Atelier Bois", "Artisanat", "", "Nantes", "3 quai de la Fosse", "", ""],
     ["5", "Vieille Usine", "Industrie", "France", "Bordeaux", "2 chemin des Vignes", "", ""],
     ["6", "Boulangerie Martin", "Alimentaire", "France", "Nantes", "1 place de la Mairie",
      "", ""],
@@ -92,6 +122,12 @@ LIGNES = [
     ["8", "Déjà SIREN", "Services", "FRANCE", "Paris 9e", "10 boulevard Haussmann",
      "666 666 666", ""],
     ["9", "Acme Inc", "Tech", "United States", "Boston", "1 Main Street", "", ""],
+    ["10", "Garage Dupuis", "Auto", "France", "Lille", "2 rue Faidherbe", "", ""],
+    ["11", "Nom sans importance", "BTP", "France", "Grenoble", "7 rue de la Gare", "",
+     "12312312300016"],
+    ["12", "Nom sans importance", "BTP", "France", "Metz", "1 place d'Armes", "",
+     "32132132100014"],
+    ["13", "Incohérente", "BTP", "France", "Paris", "1 rue Y", "111222333", "44455566600017"],
 ]
 
 
@@ -119,17 +155,19 @@ class TestEnrichissement(unittest.TestCase):
     def test_arbre_de_decision(self):
         compteurs, lignes, rapport = self.lancer()
         par_id = {l[0]: l for l in lignes[1:]}
+        adresse = lambda i: par_id[i][4:6]
         # Bonne adresse (2e résultat, établissement secondaire).
         self.assertEqual(par_id["1"][6:], ["222222222", "22222222200031"])
         # Ville répétée dans l'adresse HubSpot.
         self.assertEqual(par_id["2"][6:], ["200043602", "20004360200017"])
-        self.assertEqual(par_id["2"][4:6], ["Crecy Sur Serre", "1 rue des Telliers  Crécy-sur-Serre"])
-        # Mauvaise adresse -> adresse et ville corrigées, SIRET du siège.
-        self.assertEqual(par_id["3"][4:], ["Paris", "12 Avenue des Champs Elysees",
-                                           "333333333", "33333333300010"])
+        self.assertEqual(adresse("2"), ["Crecy Sur Serre", "1 rue des Telliers  Crécy-sur-Serre"])
+        # Trouvée du 1er coup avec « nom + ville », autre adresse -> adresse corrigée.
+        self.assertEqual(par_id["3"][4:], ["Rennes", "8 Boulevard de la Liberte",
+                                           "333333333", "33333333300028"])
         self.assertEqual(rapport["3"][4], "ADRESSE CORRIGÉE")
-        # Trouvé en reformulant avec l'adresse (nom proche, adresse identique).
-        self.assertEqual(par_id["4"][6:], ["217000000", "21700000000011"])
+        # Trouvée avec « nom + ville » à la bonne adresse.
+        self.assertEqual(par_id["4"][6:], ["777777777", "77777777700015"])
+        self.assertIn("Atelier Bois Nantes", self.client.requetes)
         # Entreprise cessée -> fiche à supprimer.
         self.assertEqual(rapport["5"][4], "FERMÉE")
         # Rien de fiable -> recherche Internet, rien d'écrit.
@@ -142,9 +180,24 @@ class TestEnrichissement(unittest.TestCase):
         self.assertEqual(par_id["8"][6:], ["666 666 666", "66666666600019"])
         # Hors France : non recherchée.
         self.assertEqual(par_id["9"][6:], ["", ""])
-        self.assertEqual(compteurs, {"TROUVÉ": 4, "ADRESSE CORRIGÉE": 1, "FERMÉE": 1,
-                                     "À VÉRIFIER": 0, "RECHERCHE INTERNET": 1,
-                                     "HORS FRANCE": 1, "DÉJÀ RENSEIGNÉ": 1})
+        # Pas trouvée du 1er coup avec « nom + ville » : adresse NON modifiée, rien d'écrit.
+        self.assertEqual(par_id["10"][4:], ["Lille", "2 rue Faidherbe", "", ""])
+        self.assertEqual(rapport["10"][4], "RECHERCHE INTERNET")
+        # SIRET connu : recherche par SIRET (jamais par le nom), SIREN écrit.
+        self.assertEqual(par_id["11"][6:], ["123123123", "12312312300016"])
+        self.assertEqual(rapport["11"][4], "TROUVÉ")
+        self.assertNotIn("Nom sans importance", self.client.requetes)
+        # SIRET connu, adresse différente : SIREN écrit, adresse laissée telle quelle.
+        self.assertEqual(par_id["12"][4:], ["Metz", "1 place d'Armes", "321321321",
+                                            "32132132100014"])
+        self.assertEqual(rapport["12"][4], "ADRESSE À VÉRIFIER")
+        # SIREN et SIRET incohérents : signalés, non modifiés.
+        self.assertEqual(par_id["13"][6:], ["111222333", "44455566600017"])
+        self.assertEqual(rapport["13"][4], "INCOHÉRENT")
+        self.assertEqual(compteurs, {"TROUVÉ": 5, "ADRESSE CORRIGÉE": 1,
+                                     "ADRESSE À VÉRIFIER": 1, "FERMÉE": 1, "À VÉRIFIER": 0,
+                                     "RECHERCHE INTERNET": 2, "HORS FRANCE": 1,
+                                     "DÉJÀ RENSEIGNÉ": 1, "INCOHÉRENT": 1})
 
     def test_ids_et_autres_colonnes_inchanges(self):
         _, lignes, _ = self.lancer(corriger_adresse=False)

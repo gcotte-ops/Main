@@ -8,15 +8,19 @@ ce qui renvoie exactement les mêmes résultats, dans le même ordre, que la rec
 sur le site, sans avoir à analyser les pages HTML.
 
 Arbre de décision (lignes dont le SIREN ou le SIRET est vide ; les autres sont ignorées) :
-  1. Recherche du nom ; résultats examinés dans l'ordre (1er, 2e, ...).
+  0. SIRET déjà renseigné : recherche par SIRET, qui désigne l'établissement à coup sûr.
+     Adresse identique                             -> TROUVÉ : SIREN écrit.
+     Adresse différente                            -> ADRESSE À VÉRIFIER : SIREN écrit,
+                                                      adresse HubSpot laissée telle quelle.
+  1. Recherche du nom (ou du SIREN s'il est connu) ; résultats examinés dans l'ordre.
      Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
-  2. Sinon, recherche reformulée « nom + adresse postale + ville ».
+  2. Sinon, recherche « nom + ville du CSV ».
      Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
-  3. Sinon, si le nom a été trouvé (mauvaise adresse)
-                                                   -> ADRESSE CORRIGÉE : SIREN + SIRET du
-                                                      siège écrits, adresse et ville HubSpot
-                                                      remplacées par celles de l'Annuaire.
-  4. Sinon                                         -> RECHERCHE INTERNET (rien n'est écrit).
+     1er résultat = même entreprise, en activité, autre adresse
+                                                   -> ADRESSE CORRIGÉE : SIREN + SIRET écrits,
+                                                      adresse et ville HubSpot remplacées.
+  3. Sinon                                         -> RECHERCHE INTERNET (rien n'est écrit).
+  L'adresse n'est modifiée que dans le cas ADRESSE CORRIGÉE.
   Entreprise cessée                                -> FERMÉE : fiche à supprimer ou
                                                       entreprise radiée (INPI).
   Entreprise étrangère                             -> HORS FRANCE (non recherchée).
@@ -63,7 +67,6 @@ PAYS_FRANCE = {"", "france", "fr", "fra", "france metropolitaine", "reunion", "l
 
 SEUIL_NOM = 0.80
 SEUIL_NOM_CORRECTION = 0.90   # nom quasi identique exigé avant de corriger une adresse
-SEUIL_NOM_AVEC_ADRESSE = 0.60 # nom proche accepté si l'adresse est exactement la même
 SEUIL_VOIE = 0.75
 
 # Noms de colonnes reconnus automatiquement (comparés sans accents ni casse).
@@ -372,91 +375,113 @@ def examiner(resultats, ligne, max_resultats, siren_connu=None, seuil_nom=SEUIL_
     return adresse_active or adresse_fermee, homonymes, rejets
 
 
-def conclure_sur_adresse(correspondance, recherche):
-    """Nom + adresse trouvés : TROUVÉ, ou FERMÉE si l'entreprise est cessée."""
-    rang, resultat, etab, detail = correspondance
-    if entreprise_fermee(resultat):
-        return reponse("FERMÉE", resultat, etab, rang,
-                       "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)",
-                       recherche)
-    if etab.get("etat_administratif") == "F":
-        # L'établissement à l'adresse HubSpot est fermé mais l'entreprise existe toujours :
-        # elle a déménagé, on retient le siège actuel et on corrige l'adresse.
-        siege = resultat.get("siege") or etab
-        return reponse("ADRESSE CORRIGÉE", resultat, siege, rang,
-                       "établissement fermé à l'adresse HubSpot, siège actuel retenu",
-                       recherche)
-    if detail == "ville seule":
-        return reponse("À VÉRIFIER", resultat, etab, rang,
-                       "pas d'adresse dans HubSpot, seule la ville a été vérifiée", recherche)
-    return reponse("TROUVÉ", resultat, etab, rang, detail, recherche)
+MESSAGE_FERMEE = "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)"
+
+
+def trouver_par_siret(client, ligne, siret, max_resultats=5):
+    """
+    SIRET déjà renseigné : recherche par SIRET, ce qui désigne l'établissement à coup sûr,
+    puis comparaison de son adresse avec celle du CSV. L'adresse n'est jamais modifiée.
+    """
+    siren = siret[:9]
+    for requete in (siret, siren):
+        for rang, resultat in enumerate(client.rechercher(requete, par_page=max_resultats), 1):
+            if resultat.get("siren") != siren:
+                continue
+            etab = next((e for e in etablissements_candidats(resultat)
+                         if e.get("siret") == siret), None)
+            if etab is None:
+                continue
+            if entreprise_fermee(resultat):
+                return reponse("FERMÉE", resultat, etab, rang, MESSAGE_FERMEE, requete)
+            ok, detail = comparer_adresse(ligne["adresse"], ligne["ville"],
+                                          ligne["code_postal"], etab)
+            if ok and detail != "ville seule":
+                return reponse("TROUVÉ", resultat, etab, rang,
+                               "adresse vérifiée par le SIRET", requete)
+            detail = "adresse HubSpot différente de celle du SIRET dans l'Annuaire"
+            if not ligne["adresse"]:
+                detail = "pas d'adresse dans HubSpot : adresse de l'Annuaire à reporter"
+            if etab.get("etat_administratif") == "F":
+                detail += " ; cet établissement est fermé"
+            return reponse("ADRESSE À VÉRIFIER", resultat, etab, rang, detail, requete)
+    return {"statut": "À VÉRIFIER", "detail": "SIRET introuvable dans l'Annuaire des Entreprises"}
 
 
 def trouver_entreprise(client, ligne, max_resultats=5):
     """
     Arbre de décision :
-      1. recherche du nom -> nom + adresse identiques        -> TROUVÉ
-      2. sinon, recherche « nom + adresse postale + ville »   -> nom + adresse -> TROUVÉ
-      3. sinon, si le nom a été trouvé (mauvaise adresse)     -> ADRESSE CORRIGÉE
-         (SIREN/SIRET du siège, adresse HubSpot remplacée par celle de l'Annuaire)
-      4. sinon                                                -> RECHERCHE INTERNET
-    Dans tous les cas, une entreprise cessée donne FERMÉE (fiche à supprimer / radiée INPI).
+      0. SIRET déjà renseigné -> recherche par SIRET (voir trouver_par_siret).
+      1. Recherche du nom (ou du SIREN s'il est connu), résultats examinés dans l'ordre :
+         nom + adresse identiques                                 -> TROUVÉ
+      2. Sinon, recherche « nom + ville du CSV » :
+         nom + adresse identiques                                 -> TROUVÉ
+         1er résultat = même entreprise, active, autre adresse    -> ADRESSE CORRIGÉE
+      3. Sinon                                                    -> RECHERCHE INTERNET
+    L'adresse n'est modifiée que dans le cas « ADRESSE CORRIGÉE ».
+    Une entreprise cessée donne FERMÉE (fiche à supprimer / entreprise radiée INPI).
     """
     nom = ligne["nom"]
+    siret_connu = ligne.get("siret")
+    if siret_connu:
+        return trouver_par_siret(client, ligne, siret_connu, max_resultats)
     siren_connu = ligne["siren"]
     if not (nom or siren_connu):
         return {"statut": "RECHERCHE INTERNET", "detail": "nom de l'entreprise vide"}
-    adresse = retirer_ville(ligne["adresse"], ligne["ville"])
-    requete_adresse = " ".join(x for x in [nom, adresse, ligne["ville"]] if x)
 
-    # 1. Recherche du nom (ou du SIREN s'il est déjà connu).
+    def conclure(correspondance, recherche):
+        """Nom + adresse trouvés. None si l'établissement est fermé mais l'entreprise active."""
+        rang, resultat, etab, detail = correspondance
+        if entreprise_fermee(resultat):
+            return reponse("FERMÉE", resultat, etab, rang, MESSAGE_FERMEE, recherche)
+        if etab.get("etat_administratif") == "F":
+            return None
+        if detail == "ville seule":
+            return reponse("À VÉRIFIER", resultat, etab, rang,
+                           "pas d'adresse dans HubSpot, seule la ville a été vérifiée", recherche)
+        return reponse("TROUVÉ", resultat, etab, rang, detail, recherche)
+
+    # 1. Recherche du nom seul (ou du SIREN).
     requete_1 = siren_connu or nom
     resultats = client.rechercher(requete_1, par_page=max_resultats)
-    correspondance, homonymes, rejets = examiner(resultats, ligne, max_resultats, siren_connu)
+    correspondance, _, rejets = examiner(resultats, ligne, max_resultats, siren_connu)
     if correspondance:
-        return conclure_sur_adresse(correspondance, requete_1)
+        res = conclure(correspondance, requete_1)
+        if res:
+            return res
 
-    # 2. Reformulation avec l'adresse postale.
-    if adresse or ligne["ville"]:
-        resultats_2 = client.rechercher(requete_adresse, par_page=max_resultats)
-        corr_2, homonymes_2, rejets_2 = examiner(resultats_2, ligne, max_resultats, siren_connu)
-        if corr_2:
-            return conclure_sur_adresse(corr_2, requete_adresse)
-        if not siren_connu and adresse:
-            # Même adresse exacte et nom proche (« Mairie de X » / « Commune de X »...).
-            corr_3, _, _ = examiner(resultats_2, ligne, max_resultats,
-                                    seuil_nom=SEUIL_NOM_AVEC_ADRESSE)
-            if corr_3 and corr_3[3] == "adresse identique":
-                res = conclure_sur_adresse(corr_3, requete_adresse)
-                res["detail"] += " ; nom proche, adresse identique : à contrôler"
-                return res
-        vus = {r.get("siren") for _, r, _ in homonymes}
-        homonymes += [h for h in homonymes_2 if h[1].get("siren") not in vus]
+    # 2. Recherche « nom + ville du CSV ».
+    if ligne["ville"] and nom:
+        requete_2 = "{} {}".format(nom, ligne["ville"])
+        resultats_2 = client.rechercher(requete_2, par_page=max_resultats)
+        correspondance, _, rejets_2 = examiner(resultats_2, ligne, max_resultats, siren_connu)
         rejets += rejets_2
+        if correspondance:
+            res = conclure(correspondance, requete_2)
+            if res:
+                return res
+        # Trouvée du premier coup (1er résultat) mais à une autre adresse : on corrige.
+        if resultats_2:
+            premier = resultats_2[0]
+            meme = (premier.get("siren") == siren_connu if siren_connu
+                    else score_nom(nom, premier) >= SEUIL_NOM_CORRECTION)
+            if meme:
+                if entreprise_fermee(premier):
+                    return reponse("FERMÉE", premier, premier.get("siege") or {}, 1,
+                                   MESSAGE_FERMEE, requete_2)
+                ville = normaliser_ville(ligne["ville"])
+                actifs = [e for e in etablissements_candidats(premier)
+                          if e.get("etat_administratif") != "F"]
+                dans_la_ville = [e for e in actifs
+                                 if normaliser_ville(e.get("libelle_commune")) == ville]
+                etab = (dans_la_ville or [premier.get("siege") or {}])[0]
+                if etab.get("siret"):
+                    detail = "trouvée en 1er résultat avec « nom + ville », adresse HubSpot différente"
+                    if not dans_la_ville:
+                        detail += " ; aucun établissement actif dans cette ville : siège retenu"
+                    return reponse("ADRESSE CORRIGÉE", premier, etab, 1, detail, requete_2)
 
-    # 3. Nom trouvé mais mauvaise adresse : on retient le siège et on corrige l'adresse.
-    fiables = [h for h in homonymes if h[2] >= SEUIL_NOM_CORRECTION]
-    if fiables:
-        ville = normaliser_ville(ligne["ville"])
-
-        def priorite(h):
-            rang, resultat, s_nom = h
-            siege = resultat.get("siege") or {}
-            meme_ville = bool(ville) and normaliser_ville(siege.get("libelle_commune")) == ville
-            return (entreprise_fermee(resultat), not meme_ville, -s_nom, rang)
-
-        rang, resultat, _ = sorted(fiables, key=priorite)[0]
-        siege = resultat.get("siege") or {}
-        if entreprise_fermee(resultat):
-            return reponse("FERMÉE", resultat, siege, rang,
-                           "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)",
-                           requete_1)
-        detail = "nom trouvé, adresse HubSpot différente : remplacée par celle du siège"
-        if len({h[1].get("siren") for h in fiables if not entreprise_fermee(h[1])}) > 1:
-            detail += " ; plusieurs homonymes, à contrôler"
-        return reponse("ADRESSE CORRIGÉE", resultat, siege, rang, detail, requete_1)
-
-    # 4. Rien de fiable dans l'Annuaire.
+    # 3. Rien de sûr dans l'Annuaire.
     return {"statut": "RECHERCHE INTERNET",
             "detail": " | ".join(rejets) or "aucun résultat dans l'Annuaire des Entreprises"}
 
@@ -607,11 +632,13 @@ def rue_etablissement(etab):
     return " ".join(mots)
 
 
-STATUTS_ECRITS = {"TROUVÉ", "ADRESSE CORRIGÉE", "FERMÉE"}
+STATUTS_ECRITS = {"TROUVÉ", "ADRESSE CORRIGÉE", "ADRESSE À VÉRIFIER", "FERMÉE"}
 ACTIONS = {
     "TROUVÉ": "SIREN/SIRET ajoutés",
     "ADRESSE CORRIGÉE": "SIREN/SIRET ajoutés + adresse corrigée",
+    "ADRESSE À VÉRIFIER": "SIREN ajouté ; comparer l'adresse HubSpot à celle de l'Annuaire",
     "FERMÉE": "Supprimer la fiche (entreprise cessée / radiée INPI)",
+    "INCOHÉRENT": "Corriger : le SIRET ne commence pas par le SIREN",
     "À VÉRIFIER": "Contrôler manuellement",
     "RECHERCHE INTERNET": "Chercher sur Internet",
     "HORS FRANCE": "Aucune (entreprise étrangère)",
@@ -625,8 +652,9 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
     client = client or ClientAnnuaire()
 
     rapport = []
-    compteurs = {"TROUVÉ": 0, "ADRESSE CORRIGÉE": 0, "FERMÉE": 0, "À VÉRIFIER": 0,
-                 "RECHERCHE INTERNET": 0, "HORS FRANCE": 0, "DÉJÀ RENSEIGNÉ": 0}
+    compteurs = {"TROUVÉ": 0, "ADRESSE CORRIGÉE": 0, "ADRESSE À VÉRIFIER": 0, "FERMÉE": 0,
+                 "À VÉRIFIER": 0, "RECHERCHE INTERNET": 0, "HORS FRANCE": 0,
+                 "DÉJÀ RENSEIGNÉ": 0, "INCOHÉRENT": 0}
     total = len(lignes)
 
     for numero, ligne in enumerate(lignes, start=1):
@@ -637,14 +665,15 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
         donnees = {cle: valeur(ligne, colonnes, cle) for cle in ALIAS_COLONNES}
         siren = nettoyer_numero(donnees["siren"], 9)
         siret = nettoyer_numero(donnees["siret"], 14)
-        if siren and siret:
+        donnees["siren"], donnees["siret"] = siren, siret
+
+        if siren and siret and siret[:9] == siren:
             compteurs["DÉJÀ RENSEIGNÉ"] += 1
             continue
-        if not siren and siret:
-            siren = siret[:9]
-        donnees["siren"] = siren
-
-        if normaliser(donnees["pays"]) not in PAYS_FRANCE:
+        if siren and siret:
+            res = {"statut": "INCOHÉRENT",
+                   "detail": "SIREN {} / SIRET {} : non modifiés".format(siren, siret)}
+        elif normaliser(donnees["pays"]) not in PAYS_FRANCE:
             # L'Annuaire des Entreprises ne recense que les entreprises françaises.
             res = {"statut": "HORS FRANCE", "detail": "pays : " + donnees["pays"]}
         else:
@@ -655,7 +684,8 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
 
         statut = res["statut"]
         compteurs[statut] += 1
-        ecrit = statut in STATUTS_ECRITS or (statut == "À VÉRIFIER" and remplir_a_verifier)
+        ecrit = bool(res.get("siren")) and (
+            statut in STATUTS_ECRITS or (statut == "À VÉRIFIER" and remplir_a_verifier))
         nouvelle_adresse = ""
         if ecrit:
             if not nettoyer_numero(ligne[colonnes["siren"]], 9):
@@ -726,10 +756,12 @@ def main(argv=None):
     compteurs = traiter(args.csv, sortie, rapport, forcees, args.max_resultats,
                         args.remplir_a_verifier,
                         corriger_adresse=not args.sans_correction_adresse)
-    resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {ADRESSE CORRIGÉE} trouvée(s) "
-              "avec adresse corrigée, {FERMÉE} fermée(s) (fiches à supprimer), {À VÉRIFIER} à "
-              "vérifier, {RECHERCHE INTERNET} à chercher sur Internet, {HORS FRANCE} hors France, "
-              "{DÉJÀ RENSEIGNÉ} déjà renseignée(s).").format(**compteurs)
+    resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {ADRESSE CORRIGÉE} avec "
+              "adresse corrigée, {ADRESSE À VÉRIFIER} adresse(s) à vérifier (SIRET connu), "
+              "{FERMÉE} fermée(s) (fiches à supprimer), {À VÉRIFIER} à vérifier, "
+              "{RECHERCHE INTERNET} à chercher sur Internet, {HORS FRANCE} hors France, "
+              "{INCOHÉRENT} SIREN/SIRET incohérent(s), {DÉJÀ RENSEIGNÉ} déjà renseignée(s)."
+              ).format(**compteurs)
     print("\n" + resume)
     print("CSV complété : " + sortie)
     print("Rapport      : " + rapport)
