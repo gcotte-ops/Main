@@ -7,15 +7,20 @@ publique officielle qui alimente ce site (https://recherche-entreprises.api.gouv
 ce qui renvoie exactement les mêmes résultats, dans le même ordre, que la recherche
 sur le site, sans avoir à analyser les pages HTML.
 
-Démarche (identique aux consignes données à un humain) :
-  1. Pour chaque ligne du CSV dont le SIREN ou le SIRET est vide, rechercher le nom
-     de l'entreprise.
-  2. Parcourir les résultats dans l'ordre (1er, puis 2e, ...) et, pour chacun,
-     vérifier que le nom correspond ET que l'adresse postale est la bonne.
-  3. Au premier résultat qui correspond, récupérer le SIREN et le SIRET de
-     l'établissement situé à cette adresse et les écrire dans le CSV.
-  4. Les lignes où SIREN et SIRET sont déjà remplis sont ignorées.
-  5. Optionnel : envoyer le CSV complété par email (par défaut à gcotte@alter-watt.fr).
+Arbre de décision (lignes dont le SIREN ou le SIRET est vide ; les autres sont ignorées) :
+  1. Recherche du nom ; résultats examinés dans l'ordre (1er, 2e, ...).
+     Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
+  2. Sinon, recherche reformulée « nom + adresse postale + ville ».
+     Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
+  3. Sinon, si le nom a été trouvé (mauvaise adresse)
+                                                   -> ADRESSE CORRIGÉE : SIREN + SIRET du
+                                                      siège écrits, adresse et ville HubSpot
+                                                      remplacées par celles de l'Annuaire.
+  4. Sinon                                         -> RECHERCHE INTERNET (rien n'est écrit).
+  Entreprise cessée                                -> FERMÉE : fiche à supprimer ou
+                                                      entreprise radiée (INPI).
+  Entreprise étrangère                             -> HORS FRANCE (non recherchée).
+  Optionnel : envoyer le CSV complété par email (par défaut à gcotte@alter-watt.fr).
 
 Aucune dépendance externe : uniquement la bibliothèque standard Python (3.8+).
 
@@ -57,12 +62,15 @@ PAYS_FRANCE = {"", "france", "fr", "fra", "france metropolitaine", "reunion", "l
                "guadeloupe", "martinique", "guyane", "mayotte"}
 
 SEUIL_NOM = 0.80
+SEUIL_NOM_CORRECTION = 0.90   # nom quasi identique exigé avant de corriger une adresse
+SEUIL_NOM_AVEC_ADRESSE = 0.60 # nom proche accepté si l'adresse est exactement la même
 SEUIL_VOIE = 0.75
 
 # Noms de colonnes reconnus automatiquement (comparés sans accents ni casse).
 ALIAS_COLONNES = {
     "id": ["record id", "id", "id hubspot", "hubspot id", "company id", "id entreprise",
-           "id de la fiche", "id fiche"],
+           "id de la fiche", "id fiche",
+           "id de fiche d'informations", "id de fiche d informations"],
     "nom": ["nom de l'entreprise", "nom entreprise", "nom", "company name", "name",
             "raison sociale", "entreprise"],
     "secteur": ["secteur d'activite", "secteur", "industry", "activite"],
@@ -90,6 +98,8 @@ TYPES_VOIE = {
     "fg": "faubourg", "fbg": "faubourg", "za": "zone", "zi": "zone", "zac": "zone",
     "lot": "lotissement", "res": "residence", "r": "rue", "pass": "passage",
     "prom": "promenade", "sen": "sente", "espl": "esplanade", "hameau": "hameau",
+    "che": "chemin", "tsse": "terrasse", "mte": "montee", "ham": "hameau",
+    "chs": "chaussee", "prv": "parvis", "vla": "villa", "cite": "cite", "ld": "lieu",
     "st": "saint", "ste": "sainte",
 }
 MOTS_VIDES_ADRESSE = {"de", "du", "des", "la", "le", "les", "l", "d", "a", "au", "aux", "et",
@@ -149,6 +159,24 @@ def decomposer_adresse(adresse):
     return numero, mots, code_postal
 
 
+def retirer_ville(adresse, ville):
+    """« 1 rue des Telliers  Crécy-sur-Serre » -> « 1 rue des Telliers »."""
+    if not adresse or not ville:
+        return adresse or ""
+    mots_ville = normaliser(ville).split()
+    mots = normaliser(adresse).split()
+    n = len(mots_ville)
+    if n and len(mots) > n and mots[-n:] == mots_ville:
+        # On retire autant de mots dans le texte d'origine (accents et tirets conservés).
+        brut = re.split(r"[\s,;]+", adresse.strip())
+        compte, i = 0, len(brut)
+        while i > 0 and compte < n:
+            i -= 1
+            compte += len(normaliser(brut[i]).split())
+        return " ".join(brut[:i]).strip(" ,;-")
+    return adresse
+
+
 def similarite(a, b):
     if not a or not b:
         return 0.0
@@ -205,7 +233,7 @@ def comparer_adresse(adresse_crm, ville_crm, code_postal_crm, etab):
     """
     ville_etab = normaliser_ville(etab.get("libelle_commune") or "")
     cp_etab = etab.get("code_postal") or ""
-    num_crm, mots_crm, cp_dans_adresse = decomposer_adresse(adresse_crm)
+    num_crm, mots_crm, cp_dans_adresse = decomposer_adresse(retirer_ville(adresse_crm, ville_crm))
     cp_crm = nettoyer_numero(code_postal_crm, 5) or cp_dans_adresse
 
     ville_ok = None
@@ -282,7 +310,7 @@ class ClientAnnuaire:
 
 
 def etablissements_candidats(resultat):
-    """Siège + établissements correspondant à la recherche, actifs d'abord."""
+    """Établissements correspondant à la recherche + siège, actifs d'abord."""
     etabs, vus = [], set()
     for etab in (resultat.get("matching_etablissements") or []) + [resultat.get("siege") or {}]:
         siret = etab.get("siret")
@@ -293,58 +321,144 @@ def etablissements_candidats(resultat):
     return etabs
 
 
-def trouver_entreprise(client, ligne, max_resultats=5):
-    """
-    Applique la démarche « 1er résultat, sinon 2e, ... » et renvoie un dict
-    {siren, siret, statut, detail, rang, nom_trouve}.
-    """
-    nom = ligne["nom"]
-    siren_connu = ligne["siren"]
-    requete = siren_connu or nom
-    if not requete:
-        return {"statut": "NON TROUVÉ", "detail": "nom de l'entreprise vide"}
+def entreprise_fermee(resultat):
+    return resultat.get("etat_administratif") == "C"
 
-    resultats = client.rechercher(requete, par_page=max_resultats)
-    if not resultats and ligne["ville"] and not siren_connu:
-        # Deuxième essai : nom + ville, utile pour les noms très courants.
-        resultats = client.rechercher("{} {}".format(nom, ligne["ville"]), par_page=max_resultats)
-    if not resultats:
-        return {"statut": "NON TROUVÉ", "detail": "aucun résultat pour « {} »".format(requete)}
 
-    rejets = []
+def reponse(statut, resultat, etab, rang, detail, recherche):
+    return {"siren": resultat.get("siren"), "siret": etab.get("siret"), "statut": statut,
+            "detail": detail, "rang": rang, "recherche": recherche,
+            "nom_trouve": resultat.get("nom_complet") or "",
+            "adresse_trouvee": adresse_etablissement(etab), "etablissement": etab}
+
+
+def examiner(resultats, ligne, max_resultats, siren_connu=None, seuil_nom=SEUIL_NOM):
+    """
+    Parcourt les résultats dans l'ordre (1er, 2e, ...). Renvoie
+    (correspondance_adresse, homonymes, rejets) :
+      - correspondance_adresse : (rang, résultat, établissement, détail) du premier résultat
+        dont le nom ET l'adresse correspondent (établissements actifs privilégiés) ;
+      - homonymes : [(rang, résultat, score_nom)] des résultats dont seul le nom correspond.
+    """
+    adresse_active, adresse_fermee, homonymes, rejets = None, None, [], []
     for rang, resultat in enumerate(resultats[:max_resultats], start=1):
         nom_trouve = resultat.get("nom_complet") or ""
         if siren_connu:
             if resultat.get("siren") != siren_connu:
                 continue
+            s_nom = 1.0
         else:
-            s_nom = score_nom(nom, resultat)
-            if s_nom < SEUIL_NOM:
+            s_nom = score_nom(ligne["nom"], resultat)
+            if s_nom < seuil_nom:
                 rejets.append("#{} {} : nom différent".format(rang, nom_trouve))
                 continue
-
+        trouve = False
         for etab in etablissements_candidats(resultat):
             ok, detail = comparer_adresse(ligne["adresse"], ligne["ville"],
                                           ligne["code_postal"], etab)
-            if ok:
-                statut = "TROUVÉ"
-                if detail == "ville seule":
-                    statut = "À VÉRIFIER"
-                    detail = "pas d'adresse dans HubSpot, seule la ville a été vérifiée"
-                if etab.get("etat_administratif") == "F":
-                    statut = "À VÉRIFIER"
-                    detail += " ; établissement fermé"
-                if resultat.get("etat_administratif") == "C":
-                    statut = "À VÉRIFIER"
-                    detail += " ; entreprise cessée"
-                return {"siren": resultat.get("siren"), "siret": etab.get("siret"),
-                        "statut": statut, "detail": detail, "rang": rang,
-                        "nom_trouve": nom_trouve,
-                        "adresse_trouvee": adresse_etablissement(etab)}
-        rejets.append("#{} {} : adresse différente ({})".format(
-            rang, nom_trouve, adresse_etablissement(resultat.get("siege") or {})))
+            if not ok:
+                continue
+            trouve = True
+            actif = etab.get("etat_administratif") != "F" and not entreprise_fermee(resultat)
+            if actif and adresse_active is None:
+                adresse_active = (rang, resultat, etab, detail)
+            elif not actif and adresse_fermee is None:
+                adresse_fermee = (rang, resultat, etab, detail)
+            break
+        if not trouve:
+            homonymes.append((rang, resultat, s_nom))
+            rejets.append("#{} {} : adresse différente ({})".format(
+                rang, nom_trouve, adresse_etablissement(resultat.get("siege") or {})))
+    return adresse_active or adresse_fermee, homonymes, rejets
 
-    return {"statut": "NON TROUVÉ", "detail": " | ".join(rejets) or "aucune correspondance"}
+
+def conclure_sur_adresse(correspondance, recherche):
+    """Nom + adresse trouvés : TROUVÉ, ou FERMÉE si l'entreprise est cessée."""
+    rang, resultat, etab, detail = correspondance
+    if entreprise_fermee(resultat):
+        return reponse("FERMÉE", resultat, etab, rang,
+                       "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)",
+                       recherche)
+    if etab.get("etat_administratif") == "F":
+        # L'établissement à l'adresse HubSpot est fermé mais l'entreprise existe toujours :
+        # elle a déménagé, on retient le siège actuel et on corrige l'adresse.
+        siege = resultat.get("siege") or etab
+        return reponse("ADRESSE CORRIGÉE", resultat, siege, rang,
+                       "établissement fermé à l'adresse HubSpot, siège actuel retenu",
+                       recherche)
+    if detail == "ville seule":
+        return reponse("À VÉRIFIER", resultat, etab, rang,
+                       "pas d'adresse dans HubSpot, seule la ville a été vérifiée", recherche)
+    return reponse("TROUVÉ", resultat, etab, rang, detail, recherche)
+
+
+def trouver_entreprise(client, ligne, max_resultats=5):
+    """
+    Arbre de décision :
+      1. recherche du nom -> nom + adresse identiques        -> TROUVÉ
+      2. sinon, recherche « nom + adresse postale + ville »   -> nom + adresse -> TROUVÉ
+      3. sinon, si le nom a été trouvé (mauvaise adresse)     -> ADRESSE CORRIGÉE
+         (SIREN/SIRET du siège, adresse HubSpot remplacée par celle de l'Annuaire)
+      4. sinon                                                -> RECHERCHE INTERNET
+    Dans tous les cas, une entreprise cessée donne FERMÉE (fiche à supprimer / radiée INPI).
+    """
+    nom = ligne["nom"]
+    siren_connu = ligne["siren"]
+    if not (nom or siren_connu):
+        return {"statut": "RECHERCHE INTERNET", "detail": "nom de l'entreprise vide"}
+    adresse = retirer_ville(ligne["adresse"], ligne["ville"])
+    requete_adresse = " ".join(x for x in [nom, adresse, ligne["ville"]] if x)
+
+    # 1. Recherche du nom (ou du SIREN s'il est déjà connu).
+    requete_1 = siren_connu or nom
+    resultats = client.rechercher(requete_1, par_page=max_resultats)
+    correspondance, homonymes, rejets = examiner(resultats, ligne, max_resultats, siren_connu)
+    if correspondance:
+        return conclure_sur_adresse(correspondance, requete_1)
+
+    # 2. Reformulation avec l'adresse postale.
+    if adresse or ligne["ville"]:
+        resultats_2 = client.rechercher(requete_adresse, par_page=max_resultats)
+        corr_2, homonymes_2, rejets_2 = examiner(resultats_2, ligne, max_resultats, siren_connu)
+        if corr_2:
+            return conclure_sur_adresse(corr_2, requete_adresse)
+        if not siren_connu and adresse:
+            # Même adresse exacte et nom proche (« Mairie de X » / « Commune de X »...).
+            corr_3, _, _ = examiner(resultats_2, ligne, max_resultats,
+                                    seuil_nom=SEUIL_NOM_AVEC_ADRESSE)
+            if corr_3 and corr_3[3] == "adresse identique":
+                res = conclure_sur_adresse(corr_3, requete_adresse)
+                res["detail"] += " ; nom proche, adresse identique : à contrôler"
+                return res
+        vus = {r.get("siren") for _, r, _ in homonymes}
+        homonymes += [h for h in homonymes_2 if h[1].get("siren") not in vus]
+        rejets += rejets_2
+
+    # 3. Nom trouvé mais mauvaise adresse : on retient le siège et on corrige l'adresse.
+    fiables = [h for h in homonymes if h[2] >= SEUIL_NOM_CORRECTION]
+    if fiables:
+        ville = normaliser_ville(ligne["ville"])
+
+        def priorite(h):
+            rang, resultat, s_nom = h
+            siege = resultat.get("siege") or {}
+            meme_ville = bool(ville) and normaliser_ville(siege.get("libelle_commune")) == ville
+            return (entreprise_fermee(resultat), not meme_ville, -s_nom, rang)
+
+        rang, resultat, _ = sorted(fiables, key=priorite)[0]
+        siege = resultat.get("siege") or {}
+        if entreprise_fermee(resultat):
+            return reponse("FERMÉE", resultat, siege, rang,
+                           "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)",
+                           requete_1)
+        detail = "nom trouvé, adresse HubSpot différente : remplacée par celle du siège"
+        if len({h[1].get("siren") for h in fiables if not entreprise_fermee(h[1])}) > 1:
+            detail += " ; plusieurs homonymes, à contrôler"
+        return reponse("ADRESSE CORRIGÉE", resultat, siege, rang, detail, requete_1)
+
+    # 4. Rien de fiable dans l'Annuaire.
+    return {"statut": "RECHERCHE INTERNET",
+            "detail": " | ".join(rejets) or "aucun résultat dans l'Annuaire des Entreprises"}
 
 
 # --------------------------------------------------------------------------- #
@@ -432,8 +546,9 @@ def envoyer_email(destinataire, fichiers, resume):
         "Bonjour,\n\nVous trouverez ci-joint le fichier CSV des entreprises HubSpot "
         "complété avec les SIREN et SIRET issus de l'Annuaire des Entreprises "
         "(annuaire-entreprises.data.gouv.fr), ainsi que le rapport détaillé ligne par "
-        "ligne.\n\n{}\n\nLes lignes marquées « À VÉRIFIER » ou « NON TROUVÉ » dans le "
-        "rapport demandent un contrôle manuel.\n\nBonne journée".format(resume))
+        "ligne.\n\n{}\n\nLa colonne « Action à mener » du rapport "
+        "indique les fiches à supprimer (FERMÉE), à contrôler (À VÉRIFIER) ou à chercher "
+        "sur Internet (RECHERCHE INTERNET).\n\nBonne journée".format(resume))
     for chemin in fichiers:
         with open(chemin, "rb") as f:
             message.add_attachment(f.read(), maintype="text", subtype="csv",
@@ -453,15 +568,65 @@ def envoyer_email(destinataire, fichiers, resume):
 # Programme principal
 # --------------------------------------------------------------------------- #
 
+MOTS_MINUSCULES = {"de", "du", "des", "la", "le", "les", "d", "l", "et", "a", "au", "aux",
+                   "sur", "sous", "en"}
+
+
+def mettre_en_forme(texte):
+    """« 1 RUE DES TELLIERS » -> « 1 Rue des Telliers » (style des fiches HubSpot)."""
+    def mot(m, premier):
+        if "'" in m:
+            debut, _, fin = m.partition("'")
+            return mot(debut, premier) + "'" + mot(fin, False)
+        if "-" in m:
+            return "-".join(mot(x, premier and i == 0) for i, x in enumerate(m.split("-")))
+        bas = m.lower()
+        return bas if (bas in MOTS_MINUSCULES and not premier) else bas.capitalize()
+    return " ".join(mot(m, i == 0) for i, m in enumerate((texte or "").split()))
+
+
+def rue_etablissement(etab):
+    """Numéro + voie de l'établissement, sans code postal ni commune."""
+    adresse = etab.get("adresse") or ""
+    cp = etab.get("code_postal")
+    if adresse and cp and cp in adresse:
+        rue = adresse[:adresse.index(cp)].strip(" ,")
+    else:
+        rue = " ".join(str(m) for m in [etab.get("complement_adresse"), etab.get("numero_voie"),
+                                        etab.get("indice_repetition"), etab.get("type_voie"),
+                                        etab.get("libelle_voie")] if m)
+    # Type de voie abrégé par l'INSEE (« AV », « BD », « CHE »...) : on l'écrit en entier.
+    mots = rue.split()
+    for i, mot in enumerate(mots):
+        cle = normaliser(mot)
+        if cle.isdigit() or cle in ("bis", "ter", "quater", "b", "t"):
+            continue
+        if cle in TYPES_VOIE and cle not in ("st", "ste"):
+            mots[i] = TYPES_VOIE[cle].upper()
+        break
+    return " ".join(mots)
+
+
+STATUTS_ECRITS = {"TROUVÉ", "ADRESSE CORRIGÉE", "FERMÉE"}
+ACTIONS = {
+    "TROUVÉ": "SIREN/SIRET ajoutés",
+    "ADRESSE CORRIGÉE": "SIREN/SIRET ajoutés + adresse corrigée",
+    "FERMÉE": "Supprimer la fiche (entreprise cessée / radiée INPI)",
+    "À VÉRIFIER": "Contrôler manuellement",
+    "RECHERCHE INTERNET": "Chercher sur Internet",
+    "HORS FRANCE": "Aucune (entreprise étrangère)",
+}
+
+
 def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats,
-            remplir_a_verifier, client=None):
+            remplir_a_verifier, client=None, corriger_adresse=True):
     entetes, lignes, separateur, _ = lire_csv(chemin_entree)
     colonnes = detecter_colonnes(entetes, forcees)
     client = client or ClientAnnuaire()
 
     rapport = []
-    compteurs = {"TROUVÉ": 0, "À VÉRIFIER": 0, "NON TROUVÉ": 0, "HORS FRANCE": 0,
-                 "DÉJÀ RENSEIGNÉ": 0}
+    compteurs = {"TROUVÉ": 0, "ADRESSE CORRIGÉE": 0, "FERMÉE": 0, "À VÉRIFIER": 0,
+                 "RECHERCHE INTERNET": 0, "HORS FRANCE": 0, "DÉJÀ RENSEIGNÉ": 0}
     total = len(lignes)
 
     for numero, ligne in enumerate(lignes, start=1):
@@ -486,33 +651,45 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
             try:
                 res = trouver_entreprise(client, donnees, max_resultats=max_resultats)
             except RuntimeError as err:
-                res = {"statut": "NON TROUVÉ", "detail": str(err)}
+                res = {"statut": "RECHERCHE INTERNET", "detail": str(err)}
 
         statut = res["statut"]
         compteurs[statut] += 1
-        ecrit = statut == "TROUVÉ" or (statut == "À VÉRIFIER" and remplir_a_verifier)
+        ecrit = statut in STATUTS_ECRITS or (statut == "À VÉRIFIER" and remplir_a_verifier)
+        nouvelle_adresse = ""
         if ecrit:
             if not nettoyer_numero(ligne[colonnes["siren"]], 9):
                 ligne[colonnes["siren"]] = res["siren"]
             if not siret:
                 ligne[colonnes["siret"]] = res["siret"]
+        if ecrit and statut == "ADRESSE CORRIGÉE" and corriger_adresse:
+            etab = res["etablissement"]
+            nouvelle_adresse = mettre_en_forme(rue_etablissement(etab))
+            if "adresse" in colonnes and nouvelle_adresse:
+                ligne[colonnes["adresse"]] = nouvelle_adresse
+            if "ville" in colonnes and etab.get("libelle_commune"):
+                ligne[colonnes["ville"]] = mettre_en_forme(etab["libelle_commune"])
+            if "code_postal" in colonnes and etab.get("code_postal"):
+                ligne[colonnes["code_postal"]] = etab["code_postal"]
 
         rapport.append([
             valeur(ligne, colonnes, "id"), donnees["nom"], donnees["adresse"], donnees["ville"],
-            statut, res.get("siren", ""), res.get("siret", ""), res.get("nom_trouve", ""),
-            res.get("adresse_trouvee", ""), res.get("rang", ""), res.get("detail", ""),
+            statut, ACTIONS.get(statut, ""), res.get("siren", ""), res.get("siret", ""),
+            res.get("nom_trouve", ""), res.get("adresse_trouvee", ""), nouvelle_adresse,
+            res.get("rang", ""), res.get("recherche", ""), res.get("detail", ""),
             "oui" if ecrit else "non",
             ANNUAIRE_URL.format(siren=res["siren"]) if res.get("siren") else "",
         ])
-        print("[{}/{}] {:<40.40} {:<12} {} {}".format(
+        print("[{}/{}] {:<40.40} {:<18} {} {}".format(
             numero, total, donnees["nom"], statut, res.get("siren", "") or "",
             res.get("siret", "") or ""), flush=True)
 
     ecrire_csv(chemin_sortie, entetes, lignes, separateur)
     ecrire_csv(chemin_rapport, [
         "ID HubSpot", "Nom HubSpot", "Adresse HubSpot", "Ville HubSpot", "Statut",
-        "SIREN trouvé", "SIRET trouvé", "Nom Annuaire", "Adresse Annuaire",
-        "Rang du résultat", "Détail", "Écrit dans le CSV", "Lien Annuaire",
+        "Action à mener", "SIREN trouvé", "SIRET trouvé", "Nom Annuaire", "Adresse Annuaire",
+        "Nouvelle adresse écrite", "Rang du résultat", "Recherche effectuée", "Détail",
+        "Écrit dans le CSV", "Lien Annuaire",
     ], rapport, separateur)
     return compteurs
 
@@ -528,7 +705,10 @@ def main(argv=None):
                         help="Nombre de résultats de recherche examinés par entreprise (défaut 5)")
     parser.add_argument("--remplir-a-verifier", action="store_true",
                         help="Écrire aussi les correspondances « À VÉRIFIER » (ville seule, "
-                             "établissement fermé) dans le CSV")
+                             "nom proche) dans le CSV")
+    parser.add_argument("--sans-correction-adresse", action="store_true",
+                        help="Ne pas remplacer l'adresse HubSpot quand elle diffère de "
+                             "l'Annuaire (SIREN/SIRET du siège écrits quand même)")
     parser.add_argument("--envoyer", action="store_true",
                         help="Envoyer le CSV complété et le rapport par email")
     parser.add_argument("--destinataire", default=DESTINATAIRE_DEFAUT,
@@ -544,9 +724,12 @@ def main(argv=None):
     forcees = {cle: getattr(args, "col_" + cle) for cle in ALIAS_COLONNES}
 
     compteurs = traiter(args.csv, sortie, rapport, forcees, args.max_resultats,
-                        args.remplir_a_verifier)
-    resume = ("Résultat : {TROUVÉ} trouvée(s), {À VÉRIFIER} à vérifier, {NON TROUVÉ} non "
-              "trouvée(s), {HORS FRANCE} hors France, {DÉJÀ RENSEIGNÉ} déjà renseignée(s).").format(**compteurs)
+                        args.remplir_a_verifier,
+                        corriger_adresse=not args.sans_correction_adresse)
+    resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {ADRESSE CORRIGÉE} trouvée(s) "
+              "avec adresse corrigée, {FERMÉE} fermée(s) (fiches à supprimer), {À VÉRIFIER} à "
+              "vérifier, {RECHERCHE INTERNET} à chercher sur Internet, {HORS FRANCE} hors France, "
+              "{DÉJÀ RENSEIGNÉ} déjà renseignée(s).").format(**compteurs)
     print("\n" + resume)
     print("CSV complété : " + sortie)
     print("Rapport      : " + rapport)

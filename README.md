@@ -10,14 +10,16 @@ python enrichissement_siren_siret.py entreprises.csv            # -> entreprises
 python enrichissement_siren_siret.py entreprises.csv --envoyer  # + envoi par email à gcotte@alter-watt.fr
 ```
 
-- Les lignes où le SIREN **et** le SIRET sont déjà remplis sont ignorées.
-- Pour chaque autre ligne : recherche du nom, puis examen des résultats dans l'ordre
-  (1er, 2e, ...) jusqu'à en trouver un dont le **nom** et l'**adresse** correspondent.
-  Le SIRET retenu est celui de l'établissement situé à l'adresse HubSpot (siège ou établissement secondaire).
-- Si le SIREN est déjà connu, la recherche se fait par SIREN et seul le SIRET est complété.
-- Seules les correspondances sûres sont écrites. Le rapport indique pour chaque ligne :
-  `TROUVÉ`, `À VÉRIFIER` (pas de rue dans HubSpot, établissement fermé...) ou `NON TROUVÉ`, avec le motif et le lien vers la fiche de l'Annuaire.
-  `--remplir-a-verifier` écrit aussi les cas `À VÉRIFIER`.
+- Les lignes où le SIREN **et** le SIRET sont déjà remplis sont ignorées, ainsi que les entreprises hors France.
+- Arbre de décision appliqué à chaque autre ligne :
+  1. Recherche du nom : nom + adresse identiques → **TROUVÉ**, SIREN + SIRET écrits.
+  2. Sinon, recherche reformulée « nom + adresse postale + ville » → **TROUVÉ** si nom + adresse concordent.
+  3. Sinon, si le nom a été trouvé mais à une autre adresse → **ADRESSE CORRIGÉE** : SIREN + SIRET du siège écrits,
+     adresse et ville HubSpot remplacées par celles de l'Annuaire (`--sans-correction-adresse` pour ne pas y toucher).
+  4. Sinon → **RECHERCHE INTERNET** (rien n'est écrit).
+  - Entreprise cessée → **FERMÉE** : fiche à supprimer ou entreprise radiée (INPI).
+- Le rapport indique pour chaque ligne le statut, l'action à mener, la recherche effectuée, l'ancienne et la
+  nouvelle adresse, et le lien vers la fiche de l'Annuaire.
 - Colonnes détectées automatiquement (`Record ID`, `Nom de l'entreprise`, `Adresse`, `Ville`, `SIREN`, `SIRET`...) ;
   sinon `--col-nom "..."`, `--col-adresse "..."`, etc.
 - Séparateur (`,` ou `;`) et encodage (UTF-8 / Windows) conservés : le CSV complété peut être réimporté dans HubSpot.

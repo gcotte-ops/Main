@@ -15,28 +15,53 @@ def etab(siret, numero, type_voie, voie, cp, commune, siege=True, etat="A"):
             "adresse": "{} {} {} {} {}".format(numero, type_voie, voie, cp, commune)}
 
 
+def entreprise(siren, nom, siege, etat="A", matching=None):
+    return {"siren": siren, "nom_complet": nom, "etat_administratif": etat, "siege": siege,
+            "matching_etablissements": matching or []}
+
+
 RESULTATS = {
-    # Le 1er résultat a le bon nom mais pas la bonne adresse : il faut prendre le 2e.
+    # 1er résultat : bon nom, mauvaise adresse -> il faut prendre le 2e, et le SIRET de
+    # l'établissement secondaire situé à l'adresse HubSpot (pas celui du siège).
     "Soleil Energie": [
-        {"siren": "111111111", "nom_complet": "SOLEIL ENERGIE", "etat_administratif": "A",
-         "siege": etab("11111111100011", "3", "RUE", "DU PORT", "13002", "MARSEILLE")},
-        {"siren": "222222222", "nom_complet": "SOLEIL ENERGIE (SE)", "etat_administratif": "A",
-         "siege": etab("22222222200015", "8", "RUE", "DE LA REPUBLIQUE", "69002", "LYON"),
-         "matching_etablissements": [
-             etab("22222222200031", "45", "AV", "JEAN JAURES", "69007", "LYON", siege=False)]},
+        entreprise("111111111", "SOLEIL ENERGIE",
+                   etab("11111111100011", "3", "RUE", "DU PORT", "13002", "MARSEILLE")),
+        entreprise("222222222", "SOLEIL ENERGIE (SE)",
+                   etab("22222222200015", "8", "RUE", "DE LA REPUBLIQUE", "69002", "LYON"),
+                   matching=[etab("22222222200031", "45", "AV", "JEAN JAURES", "69007",
+                                  "LYON", siege=False)]),
     ],
+    # La ville est répétée dans l'adresse HubSpot.
+    "Communauté de communes - Pays de la Serre": [
+        entreprise("200043602", "COMMUNAUTE DE COMMUNES DU PAYS DE LA SERRE",
+                   etab("20004360200017", "1", "RUE", "DES TELLIERS", "02270",
+                        "CRECY-SUR-SERRE")),
+    ],
+    # Nom trouvé, adresse HubSpot obsolète -> adresse corrigée.
+    "Demenageurs Bretons": [
+        entreprise("333333333", "DEMENAGEURS BRETONS",
+                   etab("33333333300010", "12", "AV", "DES CHAMPS ELYSEES", "75008", "PARIS")),
+    ],
+    # Rien avec le nom seul ; trouvé en reformulant avec l'adresse.
+    "Mairie de Trifouillis 5 place de l'Eglise Trifouillis": [
+        entreprise("217000000", "COMMUNE DE TRIFOUILLIS",
+                   etab("21700000000011", "5", "PL", "DE L EGLISE", "17000", "TRIFOUILLIS")),
+    ],
+    # Entreprise cessée.
+    "Vieille Usine": [
+        entreprise("444444444", "VIEILLE USINE",
+                   etab("44444444400012", "2", "CHE", "DES VIGNES", "33000", "BORDEAUX",
+                        etat="F"), etat="C"),
+    ],
+    # Nom différent -> rien de fiable.
     "Boulangerie Martin": [
-        {"siren": "333333333", "nom_complet": "BOULANGERIE DUPONT", "etat_administratif": "A",
-         "siege": etab("33333333300010", "1", "PL", "DE LA MAIRIE", "44000", "NANTES")},
+        entreprise("555555555", "BOULANGERIE DUPONT",
+                   etab("55555555500010", "1", "PL", "DE LA MAIRIE", "44000", "NANTES")),
     ],
-    "Ferme Sans Adresse": [
-        {"siren": "444444444", "nom_complet": "FERME SANS ADRESSE SARL",
-         "etat_administratif": "A",
-         "siege": etab("44444444400012", "2", "CHE", "DES VIGNES", "33000", "BORDEAUX")},
-    ],
-    "555555555": [
-        {"siren": "555555555", "nom_complet": "DEJA SIREN", "etat_administratif": "A",
-         "siege": etab("55555555500019", "10", "BD", "HAUSSMANN", "75009", "PARIS")},
+    # SIREN déjà connu : recherche par SIREN.
+    "666666666": [
+        entreprise("666666666", "DEJA SIREN",
+                   etab("66666666600019", "10", "BD", "HAUSSMANN", "75009", "PARIS")),
     ],
 }
 
@@ -52,53 +77,78 @@ class FauxClient:
         return index.get(enr.normaliser_nom(texte), [])
 
 
+ENTETES = ["ID de fiche d'informations", "Nom de l'entreprise", "Secteur d'activité",
+           "Pays/Région", "Ville", "Adresse postale", "SIREN", "SIRET"]
+LIGNES = [
+    ["1", "Soleil Énergie SAS", "Énergie", "France", "Lyon", "45 avenue Jean-Jaurès", "", ""],
+    ["2", "Communauté de communes - Pays de la Serre", "Public", "France", "Crecy Sur Serre",
+     "1 rue des Telliers  Crécy-sur-Serre", "", ""],
+    ["3", "Déménageurs Bretons", "Transport", "France", "Rennes", "4 rue de Brest", "", ""],
+    ["4", "Mairie de Trifouillis", "Public", "", "Trifouillis", "5 place de l'Eglise", "", ""],
+    ["5", "Vieille Usine", "Industrie", "France", "Bordeaux", "2 chemin des Vignes", "", ""],
+    ["6", "Boulangerie Martin", "Alimentaire", "France", "Nantes", "1 place de la Mairie",
+     "", ""],
+    ["7", "Complet", "BTP", "France", "Paris", "1 rue X", "999999999", "99999999900011"],
+    ["8", "Déjà SIREN", "Services", "FRANCE", "Paris 9e", "10 boulevard Haussmann",
+     "666 666 666", ""],
+    ["9", "Acme Inc", "Tech", "United States", "Boston", "1 Main Street", "", ""],
+]
+
+
 class TestEnrichissement(unittest.TestCase):
     def setUp(self):
         self.dossier = tempfile.mkdtemp()
         self.entree = os.path.join(self.dossier, "entreprises.csv")
         with open(self.entree, "w", newline="", encoding="utf-8") as f:
-            w = csv.writer(f, delimiter=";")
-            w.writerow(["Record ID", "Nom de l'entreprise", "Secteur d'activité",
-                        "Adresse postale", "Ville", "SIREN", "SIRET"])
-            w.writerow(["1", "Soleil Énergie SAS", "Énergie", "45 avenue Jean-Jaurès",
-                        "Lyon", "", ""])
-            w.writerow(["2", "Boulangerie Martin", "Alimentaire", "1 place de la Mairie",
-                        "Nantes", "", ""])
-            w.writerow(["3", "Complet", "BTP", "1 rue X", "Paris", "999999999",
-                        "99999999900011"])
-            w.writerow(["4", "Ferme Sans Adresse", "Agriculture", "", "Bordeaux", "", ""])
-            w.writerow(["5", "Déjà SIREN", "Services", "10 boulevard Haussmann", "Paris 9e",
-                        "555 555 555", ""])
+            w = csv.writer(f)
+            w.writerow(ENTETES)
+            w.writerows(LIGNES)
         self.sortie = os.path.join(self.dossier, "sortie.csv")
         self.rapport = os.path.join(self.dossier, "rapport.csv")
         self.client = FauxClient()
 
-    def lancer(self, remplir_a_verifier=False):
-        compteurs = enr.traiter(self.entree, self.sortie, self.rapport, {}, 5,
-                                remplir_a_verifier, client=self.client)
+    def lancer(self, **options):
+        compteurs = enr.traiter(self.entree, self.sortie, self.rapport, {}, 5, False,
+                                client=self.client, **options)
         with open(self.sortie, encoding="utf-8-sig") as f:
-            lignes = list(csv.reader(f, delimiter=";"))
-        return compteurs, lignes
+            lignes = list(csv.reader(f))
+        with open(self.rapport, encoding="utf-8-sig") as f:
+            rapport = {r[0]: r for r in list(csv.reader(f))[1:]}
+        return compteurs, lignes, rapport
 
-    def test_enrichissement(self):
-        compteurs, lignes = self.lancer()
-        # 2e résultat retenu, SIRET de l'établissement à l'adresse HubSpot (pas le siège).
-        self.assertEqual(lignes[1][5:], ["222222222", "22222222200031"])
-        # Nom différent : rien n'est écrit.
-        self.assertEqual(lignes[2][5:], ["", ""])
+    def test_arbre_de_decision(self):
+        compteurs, lignes, rapport = self.lancer()
+        par_id = {l[0]: l for l in lignes[1:]}
+        # Bonne adresse (2e résultat, établissement secondaire).
+        self.assertEqual(par_id["1"][6:], ["222222222", "22222222200031"])
+        # Ville répétée dans l'adresse HubSpot.
+        self.assertEqual(par_id["2"][6:], ["200043602", "20004360200017"])
+        self.assertEqual(par_id["2"][4:6], ["Crecy Sur Serre", "1 rue des Telliers  Crécy-sur-Serre"])
+        # Mauvaise adresse -> adresse et ville corrigées, SIRET du siège.
+        self.assertEqual(par_id["3"][4:], ["Paris", "12 Avenue des Champs Elysees",
+                                           "333333333", "33333333300010"])
+        self.assertEqual(rapport["3"][4], "ADRESSE CORRIGÉE")
+        # Trouvé en reformulant avec l'adresse (nom proche, adresse identique).
+        self.assertEqual(par_id["4"][6:], ["217000000", "21700000000011"])
+        # Entreprise cessée -> fiche à supprimer.
+        self.assertEqual(rapport["5"][4], "FERMÉE")
+        # Rien de fiable -> recherche Internet, rien d'écrit.
+        self.assertEqual(par_id["6"][6:], ["", ""])
+        self.assertEqual(rapport["6"][4], "RECHERCHE INTERNET")
         # Ligne complète : ignorée, sans appel à l'API.
-        self.assertEqual(lignes[3][5:], ["999999999", "99999999900011"])
+        self.assertEqual(par_id["7"][6:], ["999999999", "99999999900011"])
         self.assertNotIn("Complet", self.client.requetes)
-        # Pas d'adresse : à vérifier, non écrit par défaut.
-        self.assertEqual(lignes[4][5:], ["", ""])
-        # SIREN déjà présent : recherche par SIREN, SIRET complété, SIREN conservé.
-        self.assertEqual(lignes[5][5:], ["555 555 555", "55555555500019"])
-        self.assertEqual(compteurs, {"TROUVÉ": 2, "À VÉRIFIER": 1, "NON TROUVÉ": 1, "HORS FRANCE": 0,
-                                     "DÉJÀ RENSEIGNÉ": 1})
+        # SIREN déjà présent : conservé tel quel, SIRET complété.
+        self.assertEqual(par_id["8"][6:], ["666 666 666", "66666666600019"])
+        # Hors France : non recherchée.
+        self.assertEqual(par_id["9"][6:], ["", ""])
+        self.assertEqual(compteurs, {"TROUVÉ": 4, "ADRESSE CORRIGÉE": 1, "FERMÉE": 1,
+                                     "À VÉRIFIER": 0, "RECHERCHE INTERNET": 1,
+                                     "HORS FRANCE": 1, "DÉJÀ RENSEIGNÉ": 1})
 
-    def test_remplir_a_verifier(self):
-        _, lignes = self.lancer(remplir_a_verifier=True)
-        self.assertEqual(lignes[4][5:], ["444444444", "44444444400012"])
+    def test_ids_et_autres_colonnes_inchanges(self):
+        _, lignes, _ = self.lancer(corriger_adresse=False)
+        self.assertEqual([l[:6] for l in lignes[1:]], [l[:6] for l in LIGNES])
 
     def test_normalisation(self):
         self.assertEqual(enr.normaliser_nom("Soleil Énergie SAS"), "soleil energie")
@@ -106,6 +156,10 @@ class TestEnrichissement(unittest.TestCase):
         self.assertEqual(enr.normaliser_ville("St-Étienne Cedex 2"), "saint etienne")
         self.assertEqual(enr.decomposer_adresse("45 av. Jean-Jaurès 69007 Lyon"),
                          ("45", ["avenue", "jean", "jaures"], "69007"))
+        self.assertEqual(enr.retirer_ville("1 rue des Telliers  Crécy-sur-Serre",
+                                           "Crecy Sur Serre"), "1 rue des Telliers")
+        self.assertEqual(enr.mettre_en_forme("12 AVENUE DES CHAMPS-ELYSEES"),
+                         "12 Avenue des Champs-Elysees")
 
 
 if __name__ == "__main__":
