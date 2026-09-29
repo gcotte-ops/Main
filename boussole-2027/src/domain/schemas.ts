@@ -45,7 +45,9 @@ export const QuestionSchema = z
     text: z.string().min(10),
     type: z.enum(['likert', 'dilemma', 'allocation']),
     primaryAxis: AxisIdSchema,
+    /** Facette (sous-indice d'un axe, ex. « laicite » pour REL) et poids de l'accord sur cette facette. */
     facet: z.string().optional(),
+    facetLoading: Weight.optional(),
     options: z.array(QuestionOptionSchema).optional(),
     loadings: LoadingsSchema.optional(),
     theme: z.string(),
@@ -58,6 +60,7 @@ export const QuestionSchema = z
     contradicts: z.array(z.string()).optional(),
   })
   .superRefine((q, ctx) => {
+    if (q.facet && q.facetLoading === undefined) ctx.addIssue({ code: 'custom', message: `${q.id} : facette sans facetLoading` });
     if (q.type === 'likert' && !q.loadings) ctx.addIssue({ code: 'custom', message: `${q.id} : likert sans loadings` });
     if (q.type === 'dilemma' && q.options?.length !== 2)
       ctx.addIssue({ code: 'custom', message: `${q.id} : un dilemme a exactement 2 options` });
