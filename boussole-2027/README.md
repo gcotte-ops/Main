@@ -18,6 +18,16 @@ npm run preview        # sert dist/ sur http://localhost:4173
 
 Le build est un site statique (routage par fragment `#/…`) déployable sur n'importe quel hébergeur statique (base relative `./`).
 
+## Mise en ligne (GitHub Pages)
+
+Le workflow `.github/workflows/boussole-2027.yml` lance le linter, les tests unitaires et le build à chaque pull request, et publie `dist/` sur GitHub Pages à chaque push sur la branche par défaut du dépôt.
+
+1. Une seule fois : **Settings → Pages → Build and deployment → Source : « GitHub Actions »**.
+2. Fusionner la PR (ou pousser sur la branche par défaut) : le site est publié sur **https://gcotte-ops.github.io/Main/**.
+3. Chaque modification ultérieure de `boussole-2027/` sur la branche par défaut redéploie automatiquement (onglet **Actions** pour suivre ; bouton « Run workflow » pour relancer à la main).
+
+Autres hébergeurs (Netlify, Vercel, Cloudflare Pages…) : dossier de base `boussole-2027`, commande `npm run build`, dossier publié `dist`.
+
 ## Scripts
 
 | Commande | Rôle |

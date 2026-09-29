@@ -11,6 +11,7 @@ export function PrivacyPage() {
       <h2>Ce qui se passe quand vous répondez</h2>
       <ul>
         <li><strong>Tout le calcul se fait dans votre navigateur.</strong> Vos réponses ne sont envoyées à aucun serveur, ni pendant le questionnaire ni après.</li>
+        <li><strong>Hébergement.</strong> Comme tout site web, l'hébergeur qui sert les pages (GitHub Pages pour la version en ligne) peut conserver des journaux techniques de connexion (adresse IP, page demandée, date). Il ne reçoit jamais vos réponses ni vos résultats, qui ne quittent pas votre navigateur.</li>
         <li><strong>Aucun cookie, aucun traceur, aucune mesure d'audience.</strong> Les polices de caractères sont hébergées avec l'application : aucune requête n'est faite vers un service tiers.</li>
         <li><strong>Rien n'est conservé par défaut.</strong> Vos réponses restent dans l'onglet ouvert et disparaissent à sa fermeture.</li>
         <li><strong>Sauvegarde locale facultative.</strong> Si vous cochez « Conserver ma progression sur cet appareil », vos réponses sont enregistrées dans le stockage local de votre navigateur (localStorage), sur cet appareil uniquement. Le bouton « Effacer mes réponses » les supprime. Évitez cette option sur un ordinateur partagé.</li>

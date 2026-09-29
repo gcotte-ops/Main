@@ -1,0 +1,54 @@
+# Boussole 2027 : tests et build à chaque PR ; déploiement sur GitHub Pages à chaque push
+# sur la branche par défaut (prérequis : Settings → Pages → Source : « GitHub Actions »).
+name: Boussole 2027
+
+on:
+  pull_request:
+    paths: ['boussole-2027/**', '.github/workflows/boussole-2027.yml']
+  push:
+    branches: ['claude/siren-siret-crm-enrichment-u0ytb4']
+    paths: ['boussole-2027/**', '.github/workflows/boussole-2027.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: boussole-2027-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: boussole-2027
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: boussole-2027/package-lock.json
+      - run: npm ci
+      - run: npm run lint:questions
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v4
+        if: github.event_name != 'pull_request'
+        with:
+          path: boussole-2027/dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
