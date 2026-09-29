@@ -380,6 +380,7 @@ function CandidatesSection({ data, r }: { data: Dataset; r: Results }) {
   const closest = ranked.slice(0, 5);
   const farthest = ranked.slice(-3).reverse().filter((m) => !closest.includes(m));
   const primary = [...ranked, ...unranked].filter((m) => m.candidate.status === 'Primaire');
+  const primaryCoded = primary.filter((m) => m.completeness > 0).map((m) => m.candidate.name);
   return (
     <section id="r-candidats" aria-labelledby="cand-h">
       <h2 id="cand-h">Comparaison indicative avec les candidat·es</h2>
@@ -392,9 +393,16 @@ function CandidatesSection({ data, r }: { data: Dataset; r: Results }) {
       <ol className="cards">{closest.map((m) => <CandidateCard key={m.candidate.id} m={m} data={data} />)}</ol>
       <h3>Les plus éloigné·es</h3>
       <ol className="cards">{farthest.map((m) => <CandidateCard key={m.candidate.id} m={m} data={data} />)}</ol>
-      <h3>Primaire « Choisir 2027 » (PS et Place publique, 9-10 et 16-17 octobre 2026)</h3>
-      <p className="small">Les cinq candidat·es sont affiché·es jusqu'au résultat. Seul Raphaël Glucksmann est codé dans le fichier 01 ; les autres sont « non renseignés ».</p>
-      <ul className="cards">{primary.map((m) => <CandidateCard key={m.candidate.id} m={m} data={data} />)}</ul>
+      {primary.length > 0 && (
+        <>
+          <h3>Primaire « Choisir 2027 » (PS et Place publique, 9-10 et 16-17 octobre 2026)</h3>
+          <p className="small">
+            Les {primary.length} candidat·es sont affiché·es jusqu'au résultat.{' '}
+            {primaryCoded.length ? `Codé·es dans le fichier 01 : ${primaryCoded.join(', ')} ; les autres sont « non renseignés ».` : 'Aucun·e n\'est codé·e dans le fichier 01.'}
+          </p>
+          <ul className="cards">{primary.map((m) => <CandidateCard key={m.candidate.id} m={m} data={data} />)}</ul>
+        </>
+      )}
       <details>
         <summary>Autres candidatures non classées (données insuffisantes) : {unranked.filter((m) => m.candidate.status !== 'Primaire').length}</summary>
         <ul className="cards">{unranked.filter((m) => m.candidate.status !== 'Primaire').map((m) => <CandidateCard key={m.candidate.id} m={m} data={data} />)}</ul>
