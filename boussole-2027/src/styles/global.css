@@ -96,6 +96,17 @@ legend { padding: 0; }
 .choice.is-selected { border-color: var(--color-navy); background: var(--bg-section); font-weight: 600; }
 .choice input { accent-color: var(--color-navy); width: 1.1rem; height: 1.1rem; }
 .choice-none { margin-top: var(--space-2); }
+.group-context { max-width: 44rem; margin-bottom: var(--space-3); }
+.affirmations { display: grid; gap: var(--space-3); }
+.affirmation { padding: var(--space-3); }
+/* Légende placée dans la carte (et non sur sa bordure) : float + clear. */
+.affirmation-text { float: left; width: 100%; font-weight: 600; margin-bottom: var(--space-2); }
+.affirmation .choices { clear: both; }
+/* 6 réponses sur une ligne ; sur petit écran, 2 lignes de 3 pour garder l'ordre de lecture de l'échelle. */
+.choices-row { grid-template-columns: repeat(6, 1fr); max-width: none; }
+@media (max-width: 40rem) { .choices-row { grid-template-columns: repeat(3, 1fr); } }
+.choices-row .choice { padding: var(--space-1) var(--space-2); font-size: var(--fs-small); }
+.choices-row .choice-none { margin-top: 0; }
 .check { display: flex; gap: var(--space-2); align-items: flex-start; margin: var(--space-3) 0; }
 .check input { accent-color: var(--color-navy); margin-top: 0.3rem; }
 .mode-choice { display: grid; gap: var(--space-2); }

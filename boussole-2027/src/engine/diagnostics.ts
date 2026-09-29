@@ -1,4 +1,4 @@
-import type { Answers, Question } from '../domain/schemas';
+import type { Answers, Group, Question } from '../domain/schemas';
 
 /* ---------------------------------------------------------- Cohérence */
 
@@ -11,9 +11,26 @@ const agreeLabel = (v: number) => (v > 0 ? 'approuvé' : 'rejeté');
  * quand les réponses tirent vers des pôles opposés de l'axe principal du premier item (|r| ≥ 1 des deux côtés).
  * Au plus `max` signalements, les plus marqués d'abord, formulés sans jugement.
  */
-export function findInconsistencies(questions: Question[], answers: Answers, max = 3): Inconsistency[] {
+export function findInconsistencies(questions: Question[], answers: Answers, max = 3, groups: Group[] = []): Inconsistency[] {
   const byId = new Map(questions.map((q) => [q.id, q]));
   const found: Inconsistency[] = [];
+  const title = new Map(groups.map((g) => [g.id, g.title.toLowerCase()]));
+  // Même énoncé posé dans deux contextes (blocs appariés, ex. gouvernement du camp opposé / de votre camp).
+  for (const b of questions) {
+    const a = b.pair ? byId.get(b.pair) : undefined;
+    const ra = a ? answers[a.id] : undefined;
+    const rb = answers[b.id];
+    if (!a || ra?.kind !== 'scale' || rb?.kind !== 'scale' || ra.value === null || rb.value === null) continue;
+    if (Math.abs(ra.value) < 1 || Math.abs(rb.value) < 1 || Math.sign(ra.value) === Math.sign(rb.value)) continue;
+    const ctx = (q: Question) => (q.group && title.get(q.group) ? ` (${title.get(q.group)})` : '');
+    found.push({
+      a, b, strength: Math.abs(ra.value) + Math.abs(rb.value),
+      text:
+        `Vous avez ${agreeLabel(ra.value)} « ${a.text} » dans un premier contexte${ctx(a)}, et ${agreeLabel(rb.value)} le même énoncé dans un second${ctx(b)}. ` +
+        'Ce n\'est pas nécessairement une erreur : on peut accorder plus ou moins de latitude à un pouvoir selon ce qu\'on attend de lui. ' +
+        'Mais une règle institutionnelle s\'applique d\'ordinaire quel que soit le camp au pouvoir : cet écart indique un attachement qui dépend de la conjoncture plutôt que du principe.',
+    });
+  }
   for (const a of questions) {
     for (const bid of a.contradicts ?? []) {
       const b = byId.get(bid);

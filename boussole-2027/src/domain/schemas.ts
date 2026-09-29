@@ -3,8 +3,9 @@ import { z } from 'zod';
 /* ------------------------------------------------------------------ Axes */
 
 export const PRIMARY_AXES = ['ECO', 'IDE', 'ENV', 'REL', 'ETA', 'CUL', 'ALT', 'UE', 'GMO', 'GOV'] as const;
-export const SECONDARY_AXES = ['SEC', 'INS', 'TER', 'POP'] as const;
-export const OPTIONAL_AXES = ['GEN', 'TEC', 'MEM', 'CHG'] as const;
+/** CHG (mode de changement) : axe optionnel de la v1, mesuré depuis le questionnaire v2. */
+export const SECONDARY_AXES = ['SEC', 'INS', 'TER', 'POP', 'CHG'] as const;
+export const OPTIONAL_AXES = ['GEN', 'TEC', 'MEM'] as const;
 export const ALL_AXES = [...PRIMARY_AXES, ...SECONDARY_AXES, ...OPTIONAL_AXES] as const;
 
 export const AxisIdSchema = z.enum(ALL_AXES);
@@ -37,13 +38,20 @@ export type Axis = z.infer<typeof AxisSchema>;
 
 /* ------------------------------------------------------------- Questions */
 
-export const QuestionOptionSchema = z.object({ label: z.string().min(2), loadings: LoadingsSchema });
+export const QuestionOptionSchema = z.object({
+  label: z.string().min(2),
+  loadings: LoadingsSchema,
+  /** Chargements sur des facettes (« REL.laicite ») : questions à choix uniquement. */
+  facets: z.record(z.string(), Weight).optional(),
+});
 
 export const QuestionSchema = z
   .object({
-    id: z.string().regex(/^(Q\d{3}|D\d{2}|A\d{2})$/),
+    /** B01a : affirmation d'un bloc ; C01 : question à choix ; A01 : répartition (Q001 / D01 : format v1). */
+    id: z.string().regex(/^(Q\d{3}|D\d{2}|A\d{2}|B\d{2}[a-d]|C\d{2})$/),
     text: z.string().min(10),
-    type: z.enum(['likert', 'dilemma', 'allocation']),
+    /** likert : affirmation ; dilemma : deux options et échelle bipolaire ; choice : une option parmi N ; allocation : 10 points. */
+    type: z.enum(['likert', 'dilemma', 'choice', 'allocation']),
     primaryAxis: AxisIdSchema,
     /** Facette (sous-indice d'un axe, ex. « laicite » pour REL) et poids de l'accord sur cette facette. */
     facet: z.string().optional(),
@@ -51,7 +59,12 @@ export const QuestionSchema = z
     options: z.array(QuestionOptionSchema).optional(),
     loadings: LoadingsSchema.optional(),
     theme: z.string(),
+    /** Rubrique thématique (ordre et libellé de progression ; « priorites » = répartitions finales). */
     block: z.string(),
+    /** Bloc d'affichage (B01) : les affirmations d'un même groupe partagent un écran et un contexte. */
+    group: z.string().optional(),
+    /** Même énoncé posé dans un autre contexte (bloc apparié) : sert au signalement de cohérence. */
+    pair: z.string().optional(),
     reversed: z.boolean(),
     sourceMeasure: z.array(z.string()).optional(),
     literature: z.array(kebab).min(1).max(3),
@@ -67,10 +80,22 @@ export const QuestionSchema = z
     if (q.type === 'likert' && !q.loadings) ctx.addIssue({ code: 'custom', message: `${q.id} : likert sans loadings` });
     if (q.type === 'dilemma' && q.options?.length !== 2)
       ctx.addIssue({ code: 'custom', message: `${q.id} : un dilemme a exactement 2 options` });
+    if (q.type === 'choice' && (!q.options || q.options.length < 4))
+      ctx.addIssue({ code: 'custom', message: `${q.id} : une question à choix a au moins 4 options` });
     if (q.type === 'allocation' && (!q.options || q.options.length < 3))
       ctx.addIssue({ code: 'custom', message: `${q.id} : une allocation a au moins 3 options` });
   });
 export type Question = z.infer<typeof QuestionSchema>;
+
+/** Bloc d'affirmations affiché sur un même écran. */
+export const GroupSchema = z.object({
+  id: z.string().regex(/^B\d{2}$/),
+  title: z.string().min(3),
+  context: z.string().min(10),
+  /** Bloc affiché juste après un autre (même question dans un second contexte, ex. B30 après B29). */
+  follows: z.string().regex(/^B\d{2}$/).optional(),
+});
+export type Group = z.infer<typeof GroupSchema>;
 
 /* ------------------------------------------------------------ Candidats */
 
@@ -180,9 +205,11 @@ export type Meta = z.infer<typeof MetaSchema>;
 
 /* --------------------------------------------------------------- Réponses */
 
-/** Likert : −2..+2 ; dilemme : −2 (A nettement) .. +2 (B nettement) ; null = « sans avis ». */
+/** Likert : −2..+2 (0 = « neutre ») ; dilemme : −2 (A nettement) .. +2 (B nettement) ; null = « je ne sais pas ». */
 export type LikertAnswer = { kind: 'scale'; value: -2 | -1 | 0 | 1 | 2 | null; ms?: number };
+/** Question à choix : index de l'option retenue ; null = « Aucune de ces réponses / je ne sais pas ». */
+export type ChoiceAnswer = { kind: 'choice'; index: number | null; ms?: number };
 /** Allocation : points par option (total 10). */
 export type AllocationAnswer = { kind: 'allocation'; points: number[]; ms?: number };
-export type Answer = LikertAnswer | AllocationAnswer;
+export type Answer = LikertAnswer | ChoiceAnswer | AllocationAnswer;
 export type Answers = Record<string, Answer>;

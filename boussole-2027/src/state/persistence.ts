@@ -1,4 +1,4 @@
-import type { QuizState } from './quiz';
+import { QUIZ_VERSION, type QuizState } from './quiz';
 
 /**
  * Sauvegarde locale (localStorage) : uniquement si la personne l'a demandé. Rien n'est jamais envoyé
@@ -11,7 +11,8 @@ export function loadSaved(): QuizState | null {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return null;
     const s = JSON.parse(raw) as QuizState;
-    return s && Array.isArray(s.order) && typeof s.answers === 'object' ? { ...s, persist: true } : null;
+    // Une progression enregistrée avec une autre version du questionnaire n'est pas reprise.
+    return s && s.version === QUIZ_VERSION && Array.isArray(s.order) && typeof s.answers === 'object' ? { ...s, persist: true } : null;
   } catch {
     return null;
   }

@@ -1,7 +1,7 @@
 /**
  * Validité interne sur données pilotes (CSV importé manuellement, jamais collecté automatiquement).
  *
- * Format : une ligne par répondant·e, une colonne par item (Q001…, D01…), valeurs −2..+2, vide = sans avis.
+ * Format : une ligne par répondant·e, une colonne par affirmation (B01a…), valeurs −2..+2, vide = « je ne sais pas ».
  *   npm run psychometrics -- pilote.csv [nombre de facteurs]
  *   npm run psychometrics -- --simuler 400      (auto-test sur des répondants simulés, sans aucune donnée réelle)
  *
@@ -16,7 +16,7 @@ import { mulberry32 } from '../src/engine/rng';
 import { personaAnswers } from '../src/engine/simulate';
 import { cronbachAlpha, exploratoryFactorAnalysis, mcdonaldOmega, parseCsv } from '../src/stats/psychometrics';
 
-const qs = questions.map((q) => QuestionSchema.parse(q)).filter((q) => q.type !== 'allocation');
+const qs = questions.map((q) => QuestionSchema.parse(q)).filter((q) => q.type === 'likert' || q.type === 'dilemma');
 let header: string[];
 let rows: (number | null)[][];
 
@@ -56,7 +56,7 @@ for (const axis of [...PRIMARY_AXES, ...SECONDARY_AXES]) {
 
 const present = qs.filter((q) => col.has(q.id));
 const data = rows.map((r) => present.map((q) => { const v = value(r, q); return v === null ? NaN : v * sign(q); }));
-const k = process.argv[2] === '--simuler' ? 14 : process.argv[3] ? Number(process.argv[3]) : undefined;
+const k = process.argv[2] === '--simuler' ? PRIMARY_AXES.length + SECONDARY_AXES.length : process.argv[3] ? Number(process.argv[3]) : undefined;
 const efa = exploratoryFactorAnalysis(data, k);
 console.log(`\nValeurs propres (10 premières) : ${efa.eigenvalues.slice(0, 10).map((v) => v.toFixed(2)).join(' ')}`);
 console.log(`Facteurs extraits : ${efa.factors} (varimax)\n`);

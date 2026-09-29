@@ -17,7 +17,7 @@ export function SharedPage({ data, code }: { data: Dataset; code: string }) {
       <h1>Profil partagé</h1>
       <p>Ce profil a été partagé par une personne ayant répondu à Boussole 2027. Il contient uniquement ses scores arrondis, sans ses réponses. Outil de réflexion, pas une consigne de vote.</p>
       <div className="grid-2">
-        <figure className="chart"><h2>Radar des 14 axes</h2><Radar axes={axes} scores={scores} /></figure>
+        <figure className="chart"><h2>Radar des 15 axes</h2><Radar axes={axes} scores={scores} /></figure>
         <div>
           <h2>Courants les plus proches</h2>
           <ol>{top.map((m) => <li key={m.archetype.id}>{m.archetype.name} ({m.affinity} %)</li>)}</ol>

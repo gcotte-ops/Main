@@ -7,6 +7,8 @@ import { mulberry32 } from './rng';
  *  - Likert r ∈ {−2..+2}, poids w : n = w·r, m = 2|w|  (≡ Σ w·r / (2 Σ|w|) de la spécification).
  *  - Dilemme v ∈ {−2..+2} (−2 = « A nettement », +2 = « B nettement », 0 = « les deux se valent ») :
  *    n = |v|·w(option choisie), m = 2·max(|w_A|, |w_B|).
+ *  - Choix unique parmi N options (même formule, réponse toujours « nette ») : n = 2·w(option choisie),
+ *    m = 2·max_o |w_o| ; vaut aussi pour les facettes portées par les options.
  *  - Allocation (parts s_o, k options) : n = 2·Σ (s_o − 1/k)·w_o, m = 2·max_o |w_o − moyenne(w)| ;
  *    une répartition uniforme est neutre.
  *  - « Sans avis » (null) : item exclu.
@@ -56,6 +58,16 @@ export function contributions(q: Question, a: Answer | undefined): Map<string, C
     }
     // Facette d'un dilemme : facetLoading s'applique dans le sens de l'option B (v > 0).
     if (q.facet && q.facetLoading) out.set(q.facet, { itemId: q.id, n: q.facetLoading * a.value, m: 2 * Math.abs(q.facetLoading) });
+  } else if (q.type === 'choice' && a.kind === 'choice' && a.index !== null) {
+    const opts = q.options!;
+    const chosen = opts[a.index];
+    if (!chosen) return out;
+    const weight = (o: (typeof opts)[number], dim: string) => (o.loadings as Record<string, number | undefined>)[dim] ?? o.facets?.[dim] ?? 0;
+    const dims = new Set(opts.flatMap((o) => [...Object.keys(o.loadings), ...Object.keys(o.facets ?? {})]));
+    for (const dim of dims) {
+      const m = 2 * Math.max(...opts.map((o) => Math.abs(weight(o, dim))));
+      out.set(dim, { itemId: q.id, n: 2 * weight(chosen, dim), m });
+    }
   } else if (q.type === 'allocation' && a.kind === 'allocation') {
     const opts = q.options!;
     const total = a.points.reduce((s, p) => s + p, 0);

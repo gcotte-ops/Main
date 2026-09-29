@@ -1,0 +1,791 @@
+[
+  {
+    "id": "C01",
+    "theme": "democratie",
+    "question": "Quel régime politique vous semble le plus souhaitable ?",
+    "options": [
+      {
+        "texte": "Une démocratie représentative avec des contre-pouvoirs forts (juges, presse, Parlement).",
+        "poids": {
+          "GOV": 0.8
+        }
+      },
+      {
+        "texte": "Une démocratie plus directe, où les citoyens votent régulièrement les lois par référendum.",
+        "poids": {
+          "INS": 0.7,
+          "GOV": 0.2,
+          "POP": -0.2
+        }
+      },
+      {
+        "texte": "Une démocratie des conseils : assemblées de travailleurs et d'habitants, délégués révocables.",
+        "poids": {
+          "INS": 0.6,
+          "CHG": 0.5,
+          "ECO": 0.4
+        }
+      },
+      {
+        "texte": "Une société sans État : une fédération de communes libres et autogérées.",
+        "poids": {
+          "TER": 0.8,
+          "CHG": 0.5
+        }
+      },
+      {
+        "texte": "Un pouvoir fort et stable, dirigé par un chef qui incarne la nation.",
+        "poids": {
+          "GOV": -0.9,
+          "ETA": -0.4
+        }
+      },
+      {
+        "texte": "Un gouvernement d'experts compétents, moins dépendant des élections.",
+        "poids": {
+          "GOV": -0.4,
+          "POP": 0.4,
+          "INS": -0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "dahl",
+      "castoriadis",
+      "bakounine"
+    ],
+    "explication": "Cette question ouvre l'éventail au-delà de l'opposition entre démocratie libérale et autoritarisme : démocratie directe (Rousseau), démocratie des conseils (Castoriadis, la Commune), anarchisme (Bakounine, Bookchin), pouvoir national-autoritaire (doctrines fascistes et bonapartistes), technocratie. Chacune a ses défenseurs et ses critiques."
+  },
+  {
+    "id": "C02",
+    "theme": "systeme-economique",
+    "question": "Quel modèle économique vous semble le plus juste ?",
+    "options": [
+      {
+        "texte": "Une économie de marché libre, avec un État réduit au minimum.",
+        "poids": {
+          "ECO": -1
+        }
+      },
+      {
+        "texte": "Une économie de marché avec un filet de sécurité limité aux plus fragiles.",
+        "poids": {
+          "ECO": -0.6
+        }
+      },
+      {
+        "texte": "Une économie de marché régulée, avec une protection sociale forte, à la nordique.",
+        "poids": {
+          "ECO": 0.3
+        }
+      },
+      {
+        "texte": "Une économie sociale et solidaire : coopératives, mutuelles et biens communs.",
+        "poids": {
+          "ECO": 0.5,
+          "TER": 0.3
+        }
+      },
+      {
+        "texte": "Une planification écologique conduite par l'État.",
+        "poids": {
+          "ECO": 0.6,
+          "ENV": 0.4
+        }
+      },
+      {
+        "texte": "La propriété collective des moyens de production, au-delà du capitalisme.",
+        "poids": {
+          "ECO": 1,
+          "CHG": 0.4
+        }
+      },
+      {
+        "texte": "Une économie nationale protégée, au service d'abord des Français.",
+        "poids": {
+          "ETA": -0.7,
+          "ECO": 0.2
+        }
+      }
+    ],
+    "auteurs": [
+      "hayek",
+      "esping-andersen",
+      "marx-engels"
+    ],
+    "explication": "Du libéralisme de Hayek et Friedman au communisme de Marx, les options couvrent l'éventail des modèles économiques. Entre les deux se situent les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List)."
+  },
+  {
+    "id": "C03",
+    "theme": "immigration",
+    "question": "Quelle politique migratoire vous semble la plus souhaitable ?",
+    "options": [
+      {
+        "texte": "Liberté de circulation et d'installation, sans frontières fermées.",
+        "poids": {
+          "ALT": 1,
+          "ETA": 0.5
+        }
+      },
+      {
+        "texte": "Un accueil large, avec des régularisations et des voies légales d'immigration.",
+        "poids": {
+          "ALT": 0.8
+        }
+      },
+      {
+        "texte": "Le niveau actuel, avec une politique d'intégration renforcée.",
+        "poids": {
+          "ALT": 0.2
+        }
+      },
+      {
+        "texte": "Une immigration choisie selon les besoins de l'économie.",
+        "poids": {
+          "ALT": -0.2,
+          "ECO": -0.3
+        }
+      },
+      {
+        "texte": "Une forte réduction de l'immigration, y compris familiale.",
+        "poids": {
+          "ALT": -0.7
+        }
+      },
+      {
+        "texte": "L'arrêt de l'immigration et le départ organisé d'une partie des immigrés (« remigration »).",
+        "poids": {
+          "ALT": -1,
+          "ETA": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "le-bras-heran",
+      "goodhart",
+      "kymlicka-parekh"
+    ],
+    "explication": "Les options vont du « no border » défendu par une partie de l'extrême gauche à la « remigration » des courants identitaires, en passant par l'immigration choisie et la réduction forte. François Héran plaide pour une politique fondée sur les données ; David Goodhart pour la prise en compte de l'attachement culturel."
+  },
+  {
+    "id": "C04",
+    "theme": "climat",
+    "question": "Face à la crise écologique, quelle stratégie vous paraît la meilleure ?",
+    "options": [
+      {
+        "texte": "La croissance verte, par l'innovation et les mécanismes de marché.",
+        "poids": {
+          "ENV": 0.3,
+          "ECO": -0.5
+        }
+      },
+      {
+        "texte": "La planification publique, avec le nucléaire et les renouvelables.",
+        "poids": {
+          "ENV": 0.5,
+          "ECO": 0.4,
+          "ENV.nucleaire": 0.6
+        }
+      },
+      {
+        "texte": "La sobriété et la décroissance de la production matérielle.",
+        "poids": {
+          "ENV": 0.9,
+          "ECO": 0.3
+        }
+      },
+      {
+        "texte": "Une écologie locale et enracinée : terroirs, paysages, circuits courts.",
+        "poids": {
+          "ENV": 0.5,
+          "IDE": 0.3,
+          "TER": 0.3
+        }
+      },
+      {
+        "texte": "L'adaptation aux changements plutôt que la réduction des émissions.",
+        "poids": {
+          "ENV": -0.5
+        }
+      },
+      {
+        "texte": "D'autres priorités (pouvoir d'achat, emploi, sécurité) passent avant l'écologie.",
+        "poids": {
+          "ENV": -0.8
+        }
+      }
+    ],
+    "auteurs": [
+      "ecomodernisme",
+      "latouche",
+      "lomborg"
+    ],
+    "explication": "L'écomodernisme mise sur la technique, Jancovici sur le nucléaire et la sobriété, Latouche sur la décroissance, les écologies conservatrices sur l'enracinement local ; Bjørn Lomborg privilégie l'adaptation. Les enquêtes montrent que la priorité donnée à l'écologie varie fortement selon les revenus et les territoires."
+  },
+  {
+    "id": "C05",
+    "theme": "ue",
+    "question": "Quel avenir souhaitez-vous pour la France dans l'Union européenne ?",
+    "options": [
+      {
+        "texte": "Une fédération européenne, avec un gouvernement commun.",
+        "poids": {
+          "UE": 1
+        }
+      },
+      {
+        "texte": "Une Union maintenue mais réorientée vers le social et l'écologie.",
+        "poids": {
+          "UE": 0.4,
+          "ECO": 0.4
+        }
+      },
+      {
+        "texte": "L'Union telle qu'elle est, avec des réformes ponctuelles.",
+        "poids": {
+          "UE": 0.4,
+          "ECO": -0.2
+        }
+      },
+      {
+        "texte": "Une Europe des nations, où l'Union rend des compétences aux États.",
+        "poids": {
+          "UE": -0.6
+        }
+      },
+      {
+        "texte": "Rester dans l'Union mais désobéir aux traités qui bloquent nos choix.",
+        "poids": {
+          "UE": -0.5,
+          "ECO": 0.3
+        }
+      },
+      {
+        "texte": "Sortir de l'Union européenne (Frexit).",
+        "poids": {
+          "UE": -1,
+          "ETA": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "spinelli",
+      "lordon",
+      "seguin"
+    ],
+    "explication": "Du fédéralisme de Spinelli au Frexit, en passant par la « désobéissance » aux traités défendue par une partie de la gauche (Lordon) et l'Europe des nations de tradition gaulliste (Séguin). Vous pouvez choisir en pensant à l'Union réelle, pas seulement à l'idéal."
+  },
+  {
+    "id": "C06",
+    "theme": "defense",
+    "question": "Si un pays voisin de l'Union européenne était envahi demain, la France devrait d'abord…",
+    "options": [
+      {
+        "texte": "… envoyer des troupes aux côtés de ses alliés.",
+        "poids": {
+          "GMO": -0.9,
+          "GMO.intervention": -0.8
+        }
+      },
+      {
+        "texte": "… livrer des armes et sanctionner l'agresseur, sans combattre elle-même.",
+        "poids": {
+          "GMO": -0.5,
+          "GMO.intervention": -0.3
+        }
+      },
+      {
+        "texte": "… n'agir que dans le cadre d'une décision de l'ONU.",
+        "poids": {
+          "GMO": -0.2,
+          "GMO.multilateralisme": -0.7
+        }
+      },
+      {
+        "texte": "… pousser à une négociation rapide, même au prix de concessions.",
+        "poids": {
+          "GMO": 0.6,
+          "GMO.intervention": 0.5
+        }
+      },
+      {
+        "texte": "… rester strictement neutre.",
+        "poids": {
+          "GMO": 0.9,
+          "ETA": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "walzer",
+      "keohane-nye",
+      "vedrine"
+    ],
+    "explication": "La théorie de la guerre juste (Walzer) encadre le recours à la force, et le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales. Le réalisme et le pacifisme privilégient la négociation ou la neutralité."
+  },
+  {
+    "id": "C07",
+    "theme": "laicite",
+    "question": "Quelle conception de la laïcité est la plus proche de la vôtre ?",
+    "options": [
+      {
+        "texte": "L'État est neutre, et les citoyens sont libres d'exprimer leur religion, y compris en public.",
+        "poids": {
+          "REL.laicite": -0.6,
+          "ALT": 0.2
+        }
+      },
+      {
+        "texte": "La neutralité doit aussi s'appliquer dans l'école et les services publics, pour les usagers.",
+        "poids": {
+          "REL.laicite": 0.6
+        }
+      },
+      {
+        "texte": "Il faut réduire l'influence des religions dans la société.",
+        "poids": {
+          "REL": -0.8,
+          "REL.laicite": 0.5
+        }
+      },
+      {
+        "texte": "L'État devrait reconnaître les religions et accepter des accommodements (horaires, menus, fêtes).",
+        "poids": {
+          "REL.laicite": -0.7,
+          "ALT": 0.4,
+          "REL": 0.2
+        }
+      },
+      {
+        "texte": "La laïcité doit d'abord protéger l'identité chrétienne de la France face à l'islam.",
+        "poids": {
+          "REL": 0.6,
+          "ALT": -0.6,
+          "REL.laicite": 0.3
+        }
+      },
+      {
+        "texte": "La loi devrait davantage s'inspirer des valeurs religieuses.",
+        "poids": {
+          "REL": 0.9
+        }
+      }
+    ],
+    "auteurs": [
+      "bauberot-pena-ruiz",
+      "buisson",
+      "habermas"
+    ],
+    "explication": "Jean Baubérot décrit plusieurs « laïcités » : libérale, de combat, de reconnaissance, et aussi une « laïcité identitaire » mobilisée contre l'islam par une partie de la droite (Patrick Buisson). Habermas imagine une société post-séculière où les croyants participent au débat public."
+  },
+  {
+    "id": "C08",
+    "theme": "justice",
+    "question": "Face à la délinquance, quelle devrait être la priorité ?",
+    "options": [
+      {
+        "texte": "Des sanctions plus sévères et plus de places de prison.",
+        "poids": {
+          "SEC": -0.9
+        }
+      },
+      {
+        "texte": "L'expulsion des délinquants étrangers et le contrôle des frontières.",
+        "poids": {
+          "SEC": -0.6,
+          "ALT": -0.6
+        }
+      },
+      {
+        "texte": "Plus de police de proximité et de prévention dans les quartiers.",
+        "poids": {
+          "SEC": 0.1,
+          "ECO": 0.2
+        }
+      },
+      {
+        "texte": "S'attaquer aux causes sociales : pauvreté, école, emploi.",
+        "poids": {
+          "SEC": 0.6,
+          "ECO": 0.4
+        }
+      },
+      {
+        "texte": "Légaliser certaines drogues pour assécher les trafics.",
+        "poids": {
+          "SEC": 0.6,
+          "CUL": 0.5
+        }
+      },
+      {
+        "texte": "Sortir progressivement de la prison au profit de la réparation et de la médiation.",
+        "poids": {
+          "SEC": 1
+        }
+      }
+    ],
+    "auteurs": [
+      "hobbes",
+      "foucault",
+      "hill-collins-hooks-davis"
+    ],
+    "explication": "Les réponses vont de la fermeté pénale à l'abolitionnisme carcéral (Angela Davis), en passant par la prévention, l'approche sociale et la légalisation. Chacune repose sur un diagnostic différent des causes de la délinquance."
+  },
+  {
+    "id": "C09",
+    "theme": "inegalites",
+    "question": "Les inégalités de richesse en France sont avant tout…",
+    "options": [
+      {
+        "texte": "… le résultat normal du travail, du talent et du mérite.",
+        "poids": {
+          "ECO": -0.8
+        }
+      },
+      {
+        "texte": "… acceptables tant que les plus pauvres voient aussi leur situation s'améliorer.",
+        "poids": {
+          "ECO": -0.3
+        }
+      },
+      {
+        "texte": "… trop fortes, et à corriger par l'impôt et les services publics.",
+        "poids": {
+          "ECO": 0.5
+        }
+      },
+      {
+        "texte": "… le produit d'un système d'exploitation, qu'il faut dépasser.",
+        "poids": {
+          "ECO": 0.9
+        }
+      },
+      {
+        "texte": "… moins graves que les fractures entre territoires.",
+        "poids": {
+          "POP": -0.3,
+          "TER": 0.3
+        }
+      },
+      {
+        "texte": "… moins graves que les problèmes d'immigration et d'insécurité.",
+        "poids": {
+          "ALT": -0.5,
+          "SEC": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "rawls",
+      "piketty",
+      "boudon"
+    ],
+    "explication": "John Rawls admet des inégalités si elles profitent aux plus défavorisés ; Raymond Boudon les explique par des choix individuels ; Thomas Piketty par la dynamique du capital ; Marx par l'exploitation. D'autres jugent que ces inégalités ne sont pas le clivage principal."
+  },
+  {
+    "id": "C10",
+    "theme": "nationalite",
+    "question": "Qu'est-ce qui fait avant tout qu'une personne est française ?",
+    "options": [
+      {
+        "texte": "Adhérer aux valeurs de la République et parler la langue française.",
+        "poids": {
+          "IDE": -0.4,
+          "ALT": 0.2
+        }
+      },
+      {
+        "texte": "Être né et avoir grandi en France.",
+        "poids": {
+          "ALT": 0.5
+        }
+      },
+      {
+        "texte": "Avoir des parents ou des ancêtres français.",
+        "poids": {
+          "ALT": -0.8,
+          "IDE": 0.5
+        }
+      },
+      {
+        "texte": "Partager une culture, une histoire et une religion héritées.",
+        "poids": {
+          "IDE": 0.6,
+          "ALT": -0.5,
+          "REL": 0.3
+        }
+      },
+      {
+        "texte": "Avoir la nationalité, rien de plus : c'est un statut juridique.",
+        "poids": {
+          "IDE": -0.6,
+          "ETA": 0.3
+        }
+      },
+      {
+        "texte": "Se sentir français : c'est un choix personnel.",
+        "poids": {
+          "IDE": -0.6,
+          "ALT": 0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "renan",
+      "barres",
+      "schnapper"
+    ],
+    "explication": "Deux conceptions de la nation s'opposent classiquement : la nation élective de Renan, « plébiscite de tous les jours », et la nation de « la terre et des morts » de Barrès. Dominique Schnapper décrit une communauté de citoyens ; d'autres réduisent la nationalité à un statut juridique ou à un sentiment."
+  },
+  {
+    "id": "C11",
+    "theme": "protection-sociale",
+    "question": "Pour garantir un revenu à chacun, quel système préférez-vous ?",
+    "options": [
+      {
+        "texte": "Un salaire à vie attaché à la personne, financé par la cotisation.",
+        "poids": {
+          "ECO": 1
+        }
+      },
+      {
+        "texte": "Un revenu universel versé à tous, sans condition.",
+        "poids": {
+          "ECO": 0.6,
+          "CUL": 0.2
+        }
+      },
+      {
+        "texte": "Un revenu minimum pour ceux qui en ont besoin, sans contrepartie.",
+        "poids": {
+          "ECO": 0.5
+        }
+      },
+      {
+        "texte": "Un revenu minimum conditionné à des heures d'activité ou de formation.",
+        "poids": {
+          "ECO": -0.5
+        }
+      },
+      {
+        "texte": "Moins d'aides, pour inciter davantage au travail.",
+        "poids": {
+          "ECO": -0.9
+        }
+      },
+      {
+        "texte": "Des aides réservées aux Français.",
+        "poids": {
+          "ALT": -0.8,
+          "ETA": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "friot",
+      "friedman",
+      "castel"
+    ],
+    "explication": "Bernard Friot propose un salaire attaché à la personne ; Milton Friedman un impôt négatif ; les partisans du revenu universel veulent libérer du travail contraint. D'autres conditionnent les aides à une activité ou les réservent aux nationaux."
+  },
+  {
+    "id": "C12",
+    "theme": "populisme",
+    "question": "Qui détient réellement le pouvoir en France aujourd'hui ?",
+    "options": [
+      {
+        "texte": "Les électeurs, par leurs votes.",
+        "poids": {
+          "POP": 0.7
+        }
+      },
+      {
+        "texte": "Les élus et le gouvernement, sous le contrôle des juges et de la presse.",
+        "poids": {
+          "POP": 0.5,
+          "GOV": 0.2
+        }
+      },
+      {
+        "texte": "Une oligarchie financière et médiatique.",
+        "poids": {
+          "POP": -0.7,
+          "ECO": 0.4
+        }
+      },
+      {
+        "texte": "La bourgeoisie, en tant que classe dominante.",
+        "poids": {
+          "ECO": 0.7,
+          "POP": -0.3
+        }
+      },
+      {
+        "texte": "Bruxelles et les institutions européennes.",
+        "poids": {
+          "UE": -0.6,
+          "POP": -0.4
+        }
+      },
+      {
+        "texte": "Les juges, les médias et une élite « bien-pensante » coupée du peuple.",
+        "poids": {
+          "POP": -0.6,
+          "GOV": -0.3,
+          "CUL": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "dahl",
+      "bourdieu",
+      "mudde-muller"
+    ],
+    "explication": "Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste décrivent une domination de classe. Les mots « oligarchie » et « bourgeoisie » désignent, chez ceux qui les emploient, une minorité fortunée qui concentrerait le pouvoir économique et politique ; leurs contradicteurs y voient une simplification qui ignore la diversité des élites et le poids du vote. Les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques)."
+  },
+  {
+    "id": "C13",
+    "theme": "famille",
+    "question": "Quel modèle familial l'État devrait-il soutenir en priorité ?",
+    "options": [
+      {
+        "texte": "La famille traditionnelle : un père et une mère mariés, avec leurs enfants.",
+        "poids": {
+          "CUL": -0.9,
+          "REL": 0.3
+        }
+      },
+      {
+        "texte": "La natalité des familles françaises avant tout.",
+        "poids": {
+          "CUL": -0.4,
+          "ALT": -0.5
+        }
+      },
+      {
+        "texte": "Les familles modestes d'abord, quel que soit leur modèle.",
+        "poids": {
+          "ECO": 0.6
+        }
+      },
+      {
+        "texte": "Toutes les formes de famille, à égalité.",
+        "poids": {
+          "CUL": 0.8
+        }
+      },
+      {
+        "texte": "Aucun : l'État n'a pas à privilégier un modèle de vie.",
+        "poids": {
+          "IDE": -0.6,
+          "CUL": 0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "scruton",
+      "beauvoir",
+      "delphy"
+    ],
+    "explication": "Les conservateurs défendent la famille comme institution transmise, quand les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise. Le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle."
+  },
+  {
+    "id": "C14",
+    "theme": "changement",
+    "question": "Si vos idées devaient l'emporter, ce serait plutôt…",
+    "options": [
+      {
+        "texte": "… par des réformes progressives votées au Parlement.",
+        "poids": {
+          "CHG": -0.9
+        }
+      },
+      {
+        "texte": "… par un changement lent des mentalités, avant la politique.",
+        "poids": {
+          "CHG": -0.5
+        }
+      },
+      {
+        "texte": "… par une victoire électorale et un programme radical appliqué vite.",
+        "poids": {
+          "CHG": 0.3,
+          "GOV": -0.2
+        }
+      },
+      {
+        "texte": "… par des mobilisations massives : grèves, manifestations, occupations.",
+        "poids": {
+          "CHG": 0.5,
+          "ECO": 0.2
+        }
+      },
+      {
+        "texte": "… par une révolution.",
+        "poids": {
+          "CHG": 1
+        }
+      },
+      {
+        "texte": "… par un pouvoir fort qui imposerait les réformes nécessaires.",
+        "poids": {
+          "GOV": -0.8,
+          "CHG": 0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "bernstein",
+      "gramsci",
+      "lenine"
+    ],
+    "explication": "Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde. Le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort."
+  },
+  {
+    "id": "C15",
+    "theme": "identite",
+    "question": "En cas de désaccord entre la règle commune et les pratiques d'une minorité (religieuse, culturelle, régionale), l'État devrait…",
+    "options": [
+      {
+        "texte": "… imposer la même règle à tous, sans exception.",
+        "poids": {
+          "IDE": -0.7,
+          "TER": -0.3
+        }
+      },
+      {
+        "texte": "… négocier des accommodements raisonnables.",
+        "poids": {
+          "IDE": 0.5,
+          "ALT": 0.4
+        }
+      },
+      {
+        "texte": "… laisser chaque communauté s'organiser selon ses propres règles.",
+        "poids": {
+          "IDE": 0.9
+        }
+      },
+      {
+        "texte": "… protéger d'abord la culture majoritaire du pays.",
+        "poids": {
+          "IDE": 0.4,
+          "ALT": -0.7
+        }
+      },
+      {
+        "texte": "… laisser chaque individu choisir, sans règle collective.",
+        "poids": {
+          "IDE": -0.8,
+          "CUL": 0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "taylor",
+      "kymlicka-parekh",
+      "schnapper"
+    ],
+    "explication": "Charles Taylor et le Québec ont popularisé les « accommodements raisonnables », et Will Kymlicka défend des droits collectifs pour les minorités. L'universalisme républicain (Schnapper) fait primer la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure."
+  }
+]

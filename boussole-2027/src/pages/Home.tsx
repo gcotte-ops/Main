@@ -30,7 +30,7 @@ export function HomePage(props: {
       <div className="grid-3">
         <section className="section">
           <h2>Durée</h2>
-          <p>Environ 20 minutes (100 questions, dont 5 répartitions de priorités à la fin). Vous pouvez revenir en arrière à tout moment et répondre « sans avis ».</p>
+          <p>Environ 35 minutes : 44 blocs de 4 affirmations, 15 questions à choix et 10 répartitions de points. Vous pouvez revenir en arrière à tout moment et répondre « Je ne sais pas ».</p>
         </section>
         <section className="section">
           <h2>Confidentialité</h2>

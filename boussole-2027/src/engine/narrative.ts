@@ -75,7 +75,9 @@ export function buildResults(d: Dataset, answers: Answers, opts: { draws?: numbe
   const contradictor = pickContradictor(archetypes, d.thinkers);
   const indices = computeIndices(scores);
   const tensions = detectTensions(scores, d.tensions, 3);
-  const salience = computeSalience(d.questions, answers);
+  // Saillance : seules les répartitions de la rubrique « priorités » mesurent l'importance des enjeux
+  // (les autres répartitions mesurent des positions et comptent dans les scores).
+  const salience = computeSalience(d.questions.filter((q) => q.block === 'priorites'), answers);
   const candidates = rankCandidates(userVector(scores, [...PRIMARY_AXES]), d.candidates, salience);
 
   const readings = pickReadings(axes, top[0]?.match.archetype, contradictor, byId);
@@ -83,7 +85,7 @@ export function buildResults(d: Dataset, answers: Answers, opts: { draws?: numbe
 
   return {
     scores, axes, archetypes, top, contradictor, indices, tensions,
-    inconsistencies: findInconsistencies(d.questions, answers),
+    inconsistencies: findInconsistencies(d.questions, answers, 3, d.groups),
     bias: detectBias(d.questions, answers),
     salience, candidates, synthesis, readings,
     answeredCount: Object.values(answers).filter((a) => (a.kind === 'scale' ? a.value !== null : true)).length,

@@ -22,7 +22,8 @@ La page « Méthodologie » de l'application reprend ce document en le généran
 | INS | Institutions | Présidentialisme représentatif | Parlementarisme / démocratie directe | secondaire |
 | TER | Territoires | Jacobin | Girondin / municipaliste | secondaire |
 | POP | Populisme | Peuple homogène contre élites | Pluralisme | secondaire |
-| GEN, TEC, MEM, CHG | Genre et famille ; Technique ; Histoire nationale ; Mode de changement | — | — | optionnels, non mesurés (architecture prévue, `enabled: false`) |
+| CHG | Mode de changement | Réformiste | Révolutionnaire | secondaire (depuis le questionnaire v2) |
+| GEN, TEC, MEM | Genre et famille ; Technique ; Histoire nationale | — | — | optionnels, non mesurés (architecture prévue, `enabled: false`) |
 
 Les intitulés des pôles sont **ceux du fichier 01**, conservés tels quels. Quelques précisions de lecture :
 
@@ -42,19 +43,26 @@ Les facettes sont des sous-indices calculés sur les items qui portent un `facet
 
 ## 2. Questions
 
-- 100 items : 81 Likert à 5 degrés (plus « sans avis », qui exclut l'item), 14 dilemmes bipolaires (A nettement … les deux se valent … B nettement), 5 allocations de 10 points.
-- 8 items par axe principal (au moins 3 inversés, 4 le plus souvent), 5 par axe secondaire (au moins 2 inversés). L'axe principal d'un item (`primaryAxis`) est son axe de plus fort chargement ; `reversed` signifie que l'accord (ou l'option B) tire vers le pôle « moins ».
-- 60 items chargent 2 ou 3 axes (poids secondaires ≤ 0,5).
-- 53 items reformulent en principe une mesure réelle du fichier 01 (`sourceMeasure`), sans nommer de candidat·e.
-- Chaque item cite 1 à 3 auteurs du fichier 02 et présente les arguments des deux pôles.
-- `scripts/lint-questions.ts` vérifie : longueur (30 mots au plus), double négation, mots chargés, noms de candidat·es et de partis, plusieurs verbes d'opinion (avertissement), quotas, inversions, chargements, ancrage, thèmes de campagne, auteurs existants et non restreints, biais d'un répondant « tout d'accord ». Les tests heuristiques (double négation, idée unique) ne remplacent pas la relecture humaine : voir `docs/AUDIT_QUESTIONS.md`.
+Questionnaire v2 (source : `docs/questionnaire-v2/*.json`, document de travail `QUESTIONNAIRE_V2.md` ; `npm run build:questions` génère `src/data/questions.json` et `src/data/groups.json`) :
+
+- **44 blocs de 4 affirmations** (176 items Likert) : un contexte (une mesure débattue ou une situation concrète), puis 4 affirmations qui couvrent des positions différentes plutôt que deux pôles. Réponses : pas du tout d'accord, plutôt pas d'accord, neutre (0), plutôt d'accord, tout à fait d'accord, « je ne sais pas » (exclut l'item).
+- **15 questions à choix** : une option parmi 5 à 7, plus « Aucune de ces réponses / je ne sais pas » (exclut la question). Elles remplacent les 14 dilemmes à deux options de la v1 et ouvrent l'éventail (démocratie directe ou des conseils, anarchisme, pouvoir national-autoritaire, technocratie…).
+- **10 répartitions de 10 points**. Les deux répartitions de la rubrique « priorités » (A01, A09) passent en dernier et sont les seules à pondérer la comparaison avec les candidat·es (saillance) ; les huit autres mesurent des positions.
+- **Blocs appariés** : B29 / B30 (l'Union européenne telle qu'elle est / telle que vous la souhaiteriez) et B33 / B34 (gouvernement du camp opposé / de votre camp) s'affichent à la suite. Un même énoncé jugé en sens opposés dans les deux contextes (B33a / B34a) est signalé dans les résultats.
+- Ordre de passage : rubriques thématiques tirées au hasard, écrans mélangés dans chaque rubrique (69 écrans, environ 35 minutes).
+- Au moins 8 items par axe principal (dont au moins 3 inversés) et 5 par axe secondaire (dont au moins 2). L'axe principal d'un item (`primaryAxis`) est son axe de plus fort chargement ; `reversed` signifie que l'accord tire vers le pôle « moins ».
+- 100 items chargent 2 ou 3 axes ; 67 items reformulent une mesure réelle du fichier 01 (`sourceMeasure`), sans nommer de candidat·e.
+- Chaque bloc ou question cite 1 à 3 auteurs du fichier 02 et présente les arguments en présence.
+- **Vocabulaire marqué** (« lutte des classes », « grand remplacement », « remigration », « assistanat », « wokisme »…) : autorisé seulement dans une affirmation que le camp qui l'emploie pourrait signer, et expliqué dans le mode Apprendre. L'outil décrit une adhésion, il ne qualifie pas la personne. Les textes de restitution, eux, n'emploient jamais ces termes en leur nom propre.
+- `scripts/lint-questions.ts` vérifie : blocs de 4 affirmations, longueur (30 mots au plus), double négation, vocabulaire marqué expliqué, noms de candidat·es et de partis, plusieurs verbes d'opinion (avertissement), quotas, inversions, chargements, ancrage, thèmes de campagne, items appariés, auteurs existants et non restreints, biais d'un répondant « tout d'accord ». Les tests heuristiques ne remplacent pas la relecture humaine : voir `docs/AUDIT_QUESTIONS.md`, qui liste aussi chaque terme marqué à valider.
 
 ## 3. Score
 
 Pour chaque axe *a*, chaque item répondu apporte un couple (contribution *n*, maximum *m*) :
 
 - **Likert** (r ∈ {−2..+2}, poids w) : n = w·r, m = 2|w|.
-- **Dilemme** (v ∈ {−2..+2}, v > 0 = option B) : n = |v|·w(option choisie), m = 2·max(|w_A|, |w_B|).
+- **Dilemme** (format v1, v ∈ {−2..+2}, v > 0 = option B) : n = |v|·w(option choisie), m = 2·max(|w_A|, |w_B|).
+- **Question à choix** (N options, même formule avec une réponse toujours nette) : n = 2·w(option choisie), m = 2·max_o |w_o|. Vaut aussi pour les facettes portées par les options.
 - **Allocation** (parts s_o, k options) : n = 2·Σ (s_o − 1/k)·w_o, m = 2·max |w_o − moyenne(w)|. Une répartition uniforme est neutre.
 
 **S_a = 100 × Σn / Σm** ∈ [−100 ; +100], ce qui équivaut, pour les Likert, à Σ w·r / (2 Σ|w|).
@@ -71,7 +79,7 @@ Pour chaque axe *a*, chaque item répondu apporte un couple (contribution *n*, m
 - **Archétypes** (18) : affinité = ½·(1 + cosinus)/2 + ½·(1 − RMS/200). Le top 3 est présenté avec sa filiation (2 à 3 auteurs), ainsi qu'un contradicteur (premier auteur de l'archétype le plus éloigné).
 - **Indices** : intersectionnalité (ALT, GEN si mesuré, ECO, CUL vers leurs pôles égalitaires ; Crenshaw, Hill Collins, Fraser), fusionnisme (−ECO, −CUL, +REL), souverainisme social (+ECO, −ETA, −UE). Valeur = moyenne des composantes orientées ; l'indice est « marqué » si toutes dépassent +30.
 - **Carte des intersections** : l'intensité d'une paire vaut min(|s_i|, |s_j|). Les combinaisons nommées par la littérature sont signalées à partir d'une intensité de 30.
-- **Textes** : 70 textes (14 axes × 5 niveaux, 80 à 120 mots). Chacun contient une description neutre, des auteurs proches, la meilleure objection du pôle opposé et une question de réflexion. S'y ajoutent 15 règles de tension explicites (`texts/tensions.json`) et une synthèse de 250 à 400 mots. Trois lectures sont proposées : une qui confirme (filiation), une qui nuance (centre ou objection de l'axe le plus marqué) et une qui contredit.
+- **Textes** : 75 textes (15 axes × 5 niveaux, 80 à 120 mots). Chacun contient une description neutre, des auteurs proches, la meilleure objection du pôle opposé et une question de réflexion. S'y ajoutent 15 règles de tension explicites (`texts/tensions.json`) et une synthèse de 250 à 400 mots. Trois lectures sont proposées : une qui confirme (filiation), une qui nuance (centre ou objection de l'axe le plus marqué) et une qui contredit.
 - **Auteurs restreints** : les doctrines racistes réfutées (fichier 02, §11) et les auteurs condamnés pour provocation à la haine sont marqués `restricted`. Ils ne sont jamais proposés comme « proches » d'un profil.
 
 ## 5. Correspondance avec les candidat·es
@@ -97,13 +105,13 @@ Cas particuliers :
 
 | Test | Critère | Résultat au 29/09/2026 |
 |---|---|---|
-| Neutralité (10 000 répondants aléatoires) | moyenne ∈ [−5 ; +5] par axe | entre −1,2 et +1,0 |
-| Répondant « tout d'accord » | aucun axe au-delà de ±25 | au plus 21 en valeur absolue (ETA −21) |
+| Neutralité (10 000 répondants aléatoires) | moyenne ∈ [−5 ; +5] par axe | entre −2,2 et +3,7 |
+| Répondant « tout d'accord » | aucun axe au-delà de ±25 | au plus 23 en valeur absolue |
 | Personas candidat·es (≥ 7 axes codés, 15) | top 3 dans ≥ 90 % des cas | 100 % (σ = 0,6) ; robuste jusqu'à σ = 1,2 ; échecs à σ = 1,6 (réponses très bruitées) |
 | Personas archétypes (18) | top 3 dans ≥ 90 % des cas | 100 % (σ = 0,6) |
 | Accessibilité | WCAG 2.2 AA (axe-core) | 0 violation sur toutes les pages |
 | Réseau | aucune donnée de réponse ne quitte le navigateur | aucune requête hors origine, aucun POST |
-| Charte | h1 Fraunces 35 px, Open Sans 11 pt, jaune ≤ 10 % | 0,6 % (accueil), 0,6 % (questionnaire), 0,1 % (résultats) |
+| Charte | h1 Fraunces 35 px, Open Sans 11 pt, jaune ≤ 10 % | 0,6 % (accueil), 0,4 % (questionnaire), 0,1 % (résultats) |
 | Lighthouse (accueil, mobile) | ≥ 90 | performance 98, accessibilité 100, bonnes pratiques 96, SEO 91 |
 
 **Validité interne** : `npm run psychometrics -- pilote.csv` calcule l'alpha de Cronbach et l'oméga par axe, puis une analyse factorielle exploratoire (varimax), sur des données pilotes importées manuellement. L'option `--simuler` sert d'auto-test ; les valeurs obtenues sur des répondants simulés ne prouvent rien sur la validité réelle.
