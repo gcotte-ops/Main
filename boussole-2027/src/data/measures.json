@@ -1,0 +1,2764 @@
+[
+  {
+    "id": "marine-le-pen-01",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Référendum sur l'immigration et la « priorité nationale » (inscription constitutionnelle)"
+  },
+  {
+    "id": "marine-le-pen-02",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Réserver les aides sociales aux Français et conditionner les prestations de solidarité à 5 ans de travail en France"
+  },
+  {
+    "id": "marine-le-pen-03",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Suppression du droit du sol"
+  },
+  {
+    "id": "marine-le-pen-04",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "naturalisation seule, sur critères de mérite et d'assimilation"
+  },
+  {
+    "id": "marine-le-pen-05",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Fin du regroupement familial"
+  },
+  {
+    "id": "marine-le-pen-06",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "AME supprimée « dans sa forme actuelle »"
+  },
+  {
+    "id": "marine-le-pen-07",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "expulsion systématique des clandestins et délinquants étrangers"
+  },
+  {
+    "id": "marine-le-pen-08",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "rétablissement du délit de séjour irrégulier"
+  },
+  {
+    "id": "marine-le-pen-09",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Priorité nationale au logement social et aux APL"
+  },
+  {
+    "id": "marine-le-pen-10",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "Interdiction du voile islamique dans l'espace public, sanctionnée par une amende, soumise à référendum (annonce J.-P. Tanguy 30/08/2026, précision J. Bardella 31/08/2026)"
+  },
+  {
+    "id": "marine-le-pen-11",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Immigration / nationalité",
+    "text": "l'entourage évoque le référendum comme moyen d'« enjamber » le Conseil constitutionnel"
+  },
+  {
+    "id": "marine-le-pen-12",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Retraites",
+    "text": "retour vers 62 ans, départ à 60 ans pour les carrières longues (début avant 20 ans, 40 annuités)"
+  },
+  {
+    "id": "marine-le-pen-13",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Retraites",
+    "text": "coût estimé ~9 Md€/an (débat du 27/08/2026)"
+  },
+  {
+    "id": "marine-le-pen-14",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Retraites",
+    "text": "réindexation des pensions"
+  },
+  {
+    "id": "marine-le-pen-15",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Retraites",
+    "text": "minimum vieillesse à 1 000 €"
+  },
+  {
+    "id": "marine-le-pen-16",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Économie / social",
+    "text": "Impôt sur la fortune financière (IFF), hors résidence principale"
+  },
+  {
+    "id": "marine-le-pen-17",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Économie / social",
+    "text": "Baisse de la TVA sur l'énergie et les carburants à 5,5 %"
+  },
+  {
+    "id": "marine-le-pen-18",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Économie / social",
+    "text": "renationalisation des autoroutes (−15 % sur les péages)"
+  },
+  {
+    "id": "marine-le-pen-19",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Économie / social",
+    "text": "privatisation de l'audiovisuel public"
+  },
+  {
+    "id": "marine-le-pen-20",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Logement",
+    "text": "abrogation de la loi SRU, fin de l'interdiction de louer les logements F/G, suppression du ZAN, MaPrimeRénov' remplacée par des prêts à taux zéro, expulsions accélérées en cas d'impayés"
+  },
+  {
+    "id": "marine-le-pen-21",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Santé",
+    "text": "suppression des ARS (tutelle aux préfets), plafond de 10 % de postes administratifs à l'hôpital, moratoire sur les fermetures de lits, retour à une dotation globale"
+  },
+  {
+    "id": "marine-le-pen-22",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Sécurité / justice",
+    "text": "85 000 places de prison d'ici 2028"
+  },
+  {
+    "id": "marine-le-pen-23",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Sécurité / justice",
+    "text": "présomption de légitime défense pour les forces de l'ordre"
+  },
+  {
+    "id": "marine-le-pen-24",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Sécurité / justice",
+    "text": "7 000 postes de policiers et gendarmes"
+  },
+  {
+    "id": "marine-le-pen-25",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Sécurité / justice",
+    "text": "police municipale obligatoire au-delà de 10 000 habitants"
+  },
+  {
+    "id": "marine-le-pen-26",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Sécurité / justice",
+    "text": "peines planchers, fin des remises automatiques"
+  },
+  {
+    "id": "marine-le-pen-27",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "primauté constitutionnelle du droit national sur le droit européen"
+  },
+  {
+    "id": "marine-le-pen-28",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "contrôle des frontières nationales (suspension de Schengen)"
+  },
+  {
+    "id": "marine-le-pen-29",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "renégociation de la contribution au budget UE"
+  },
+  {
+    "id": "marine-le-pen-30",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "refus du fédéralisme et des élargissements"
+  },
+  {
+    "id": "marine-le-pen-31",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "pas de Frexit"
+  },
+  {
+    "id": "marine-le-pen-32",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Europe / international",
+    "text": "Sortie du commandement intégré de l'OTAN (position constante depuis 2017, reportée tant que dure la guerre en Ukraine en 2022)"
+  },
+  {
+    "id": "marine-le-pen-33",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Énergie / écologie",
+    "text": "relance nucléaire (série d'EPR)"
+  },
+  {
+    "id": "marine-le-pen-34",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Énergie / écologie",
+    "text": "moratoire sur l'éolien"
+  },
+  {
+    "id": "marine-le-pen-35",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Énergie / écologie",
+    "text": "fin des ZFE"
+  },
+  {
+    "id": "marine-le-pen-36",
+    "candidateIds": [
+      "marine-le-pen"
+    ],
+    "section": "§3.1",
+    "theme": "Institutions",
+    "text": "RIC, proportionnelle"
+  },
+  {
+    "id": "jean-luc-melenchon-01",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "SMIC à 1 600 € net et indexation des salaires"
+  },
+  {
+    "id": "jean-luc-melenchon-02",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "retraite à 60 ans"
+  },
+  {
+    "id": "jean-luc-melenchon-03",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "blocage des prix des produits de première nécessité et de l'énergie"
+  },
+  {
+    "id": "jean-luc-melenchon-04",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "retour sur les privatisations (aéroports, autoroutes, FDJ)"
+  },
+  {
+    "id": "jean-luc-melenchon-05",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "droit de réquisition"
+  },
+  {
+    "id": "jean-luc-melenchon-06",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "interdiction des licenciements boursiers"
+  },
+  {
+    "id": "jean-luc-melenchon-07",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "plafonnement des dividendes"
+  },
+  {
+    "id": "jean-luc-melenchon-08",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "fin de la cotation continue"
+  },
+  {
+    "id": "jean-luc-melenchon-09",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "ISF rétabli avec volet climatique"
+  },
+  {
+    "id": "jean-luc-melenchon-10",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "taxe Zucman (2 % au-delà de 100 M€)"
+  },
+  {
+    "id": "jean-luc-melenchon-11",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "suppression de la flat tax"
+  },
+  {
+    "id": "jean-luc-melenchon-12",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "CSG progressive à 14 tranches"
+  },
+  {
+    "id": "jean-luc-melenchon-13",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "héritage maximal de 12 M€"
+  },
+  {
+    "id": "jean-luc-melenchon-14",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "plafond de cinq logements transmissibles"
+  },
+  {
+    "id": "jean-luc-melenchon-15",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "pôle public bancaire, séparation banques d'affaires/de détail, contrôle des mouvements de capitaux"
+  },
+  {
+    "id": "jean-luc-melenchon-16",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Économie / fiscalité",
+    "text": "rachat de dette par la BCE / dette perpétuelle"
+  },
+  {
+    "id": "jean-luc-melenchon-17",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "« 100 % Sécu » (intégration des mutuelles)"
+  },
+  {
+    "id": "jean-luc-melenchon-18",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "AAH au niveau du SMIC"
+  },
+  {
+    "id": "jean-luc-melenchon-19",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "indemnisation chômage dès le 1er jour"
+  },
+  {
+    "id": "jean-luc-melenchon-20",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "abrogation de la loi France Travail (15 h d'activité)"
+  },
+  {
+    "id": "jean-luc-melenchon-21",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "200 000 logements publics/an"
+  },
+  {
+    "id": "jean-luc-melenchon-22",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "encadrement des loyers à la baisse"
+  },
+  {
+    "id": "jean-luc-melenchon-23",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Social / santé",
+    "text": "réquisition des logements vides"
+  },
+  {
+    "id": "jean-luc-melenchon-24",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Mœurs",
+    "text": "droit de mourir dans la dignité constitutionnalisé"
+  },
+  {
+    "id": "jean-luc-melenchon-25",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Mœurs",
+    "text": "changement de sexe à l'état civil déjudiciarisé"
+  },
+  {
+    "id": "jean-luc-melenchon-26",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Mœurs",
+    "text": "légalisation du cannabis sous monopole d'État"
+  },
+  {
+    "id": "jean-luc-melenchon-27",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Mœurs",
+    "text": "refus de la GPA"
+  },
+  {
+    "id": "jean-luc-melenchon-28",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Mœurs",
+    "text": "PMA accessible aux personnes trans"
+  },
+  {
+    "id": "jean-luc-melenchon-29",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "interdiction du LBD, des grenades de désencerclement, du taser, du plaquage ventral"
+  },
+  {
+    "id": "jean-luc-melenchon-30",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "dissolution des BAC"
+  },
+  {
+    "id": "jean-luc-melenchon-31",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "remplacement de l'IGPN par une autorité indépendante"
+  },
+  {
+    "id": "jean-luc-melenchon-32",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "abrogation de la loi de 2017 sur le refus d'obtempérer"
+  },
+  {
+    "id": "jean-luc-melenchon-33",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "interdiction de la reconnaissance faciale"
+  },
+  {
+    "id": "jean-luc-melenchon-34",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "fin de l'état d'urgence permanent"
+  },
+  {
+    "id": "jean-luc-melenchon-35",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Sécurité / justice",
+    "text": "interdiction des instructions individuelles au parquet"
+  },
+  {
+    "id": "jean-luc-melenchon-36",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Immigration",
+    "text": "régularisation des travailleurs, étudiants et parents d'enfants scolarisés"
+  },
+  {
+    "id": "jean-luc-melenchon-37",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Immigration",
+    "text": "abrogation des dernières lois asile-immigration"
+  },
+  {
+    "id": "jean-luc-melenchon-38",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Immigration",
+    "text": "carte de séjour de 10 ans comme titre de référence"
+  },
+  {
+    "id": "jean-luc-melenchon-39",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Immigration",
+    "text": "droit du sol intégral (proposition de loi constitutionnelle 2025)"
+  },
+  {
+    "id": "jean-luc-melenchon-40",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Immigration",
+    "text": "droit de vote des étrangers aux élections locales (programme 2022)"
+  },
+  {
+    "id": "jean-luc-melenchon-41",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "VIe République par Assemblée constituante"
+  },
+  {
+    "id": "jean-luc-melenchon-42",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "régime parlementaire"
+  },
+  {
+    "id": "jean-luc-melenchon-43",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "proportionnelle"
+  },
+  {
+    "id": "jean-luc-melenchon-44",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "RIC (y compris révocatoire)"
+  },
+  {
+    "id": "jean-luc-melenchon-45",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "vote à 16 ans"
+  },
+  {
+    "id": "jean-luc-melenchon-46",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Institutions",
+    "text": "vote obligatoire et reconnaissance du vote blanc"
+  },
+  {
+    "id": "jean-luc-melenchon-47",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Europe / international",
+    "text": "« désobéissance » aux traités (plan A de renégociation, plan B)"
+  },
+  {
+    "id": "jean-luc-melenchon-48",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Europe / international",
+    "text": "fin des règles des 3 % et 60 %"
+  },
+  {
+    "id": "jean-luc-melenchon-49",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Europe / international",
+    "text": "sortie de l'OTAN « par étapes » (réaffirmée sur LCI le 08/05/2026), d'abord du commandement intégré"
+  },
+  {
+    "id": "jean-luc-melenchon-50",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Europe / international",
+    "text": "non-alignement"
+  },
+  {
+    "id": "jean-luc-melenchon-51",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Énergie",
+    "text": "planification écologique"
+  },
+  {
+    "id": "jean-luc-melenchon-52",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Énergie",
+    "text": "sortie planifiée du nucléaire vers 100 % renouvelables"
+  },
+  {
+    "id": "jean-luc-melenchon-53",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Énergie",
+    "text": "interdiction du glyphosate"
+  },
+  {
+    "id": "jean-luc-melenchon-54",
+    "candidateIds": [
+      "jean-luc-melenchon"
+    ],
+    "section": "§3.2",
+    "theme": "Énergie",
+    "text": "interdiction de la publicité pour les produits polluants"
+  },
+  {
+    "id": "edouard-philippe-01",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Méthode",
+    "text": "dissolution de l'Assemblée dès l'élection et trois référendums : dose de capitalisation dans les retraites, règle d'or budgétaire, habilitation à légiférer par ordonnances (santé, éducation, justice) (Lille, mars 2026)"
+  },
+  {
+    "id": "edouard-philippe-02",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "règle d'or constitutionnelle (hors dépenses militaires)"
+  },
+  {
+    "id": "edouard-philippe-03",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "déficit ramené à 2 % du PIB en 2032"
+  },
+  {
+    "id": "edouard-philippe-04",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "« deal fiscal » : −50 Md€ d'impôts de production sur cinq ans contre la suppression de 50 Md€ d'aides jugées improductives"
+  },
+  {
+    "id": "edouard-philippe-05",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "aucun nouvel impôt"
+  },
+  {
+    "id": "edouard-philippe-06",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "défense du pacte Dutreil"
+  },
+  {
+    "id": "edouard-philippe-07",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Finances",
+    "text": "part fiscale dès le 2e enfant"
+  },
+  {
+    "id": "edouard-philippe-08",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Retraites",
+    "text": "10–15 % de capitalisation d'ici 15 ans, inspirée de l'Agirc-Arrco"
+  },
+  {
+    "id": "edouard-philippe-09",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Retraites",
+    "text": "report de l'âge évoqué (65, voire 67 ans) sans calendrier arrêté"
+  },
+  {
+    "id": "edouard-philippe-10",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Retraites",
+    "text": "présentation détaillée reportée à l'automne 2026"
+  },
+  {
+    "id": "edouard-philippe-11",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "liste annuelle de « pays sûrs » votée par le Parlement"
+  },
+  {
+    "id": "edouard-philippe-12",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "restriction de l'immigration familiale"
+  },
+  {
+    "id": "edouard-philippe-13",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "quotas d'immigration économique"
+  },
+  {
+    "id": "edouard-philippe-14",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "expulsion des étrangers délinquants"
+  },
+  {
+    "id": "edouard-philippe-15",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "dénonciation de l'accord franco-algérien de 1968"
+  },
+  {
+    "id": "edouard-philippe-16",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Immigration",
+    "text": "intégration par la langue, le travail et les valeurs"
+  },
+  {
+    "id": "edouard-philippe-17",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "peines courtes dès la 1re infraction"
+  },
+  {
+    "id": "edouard-philippe-18",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "peines planchers ciblées"
+  },
+  {
+    "id": "edouard-philippe-19",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "suppression du juge d'application des peines"
+  },
+  {
+    "id": "edouard-philippe-20",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "instructions individuelles du garde des Sceaux au parquet"
+  },
+  {
+    "id": "edouard-philippe-21",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "pouvoir de sanction pénale des maires"
+  },
+  {
+    "id": "edouard-philippe-22",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Justice",
+    "text": "imprescriptibilité des crimes sur mineurs"
+  },
+  {
+    "id": "edouard-philippe-23",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Narcotrafic",
+    "text": "« état d'urgence narco » limité dans le temps et l'espace (reconnaissance faciale ciblée)"
+  },
+  {
+    "id": "edouard-philippe-24",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Narcotrafic",
+    "text": "levée de l'excuse de minorité"
+  },
+  {
+    "id": "edouard-philippe-25",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Narcotrafic",
+    "text": "« tolérance zéro » envers les consommateurs"
+  },
+  {
+    "id": "edouard-philippe-26",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "École",
+    "text": "priorité n° 1, retour aux fondamentaux, évaluations nationales annuelles"
+  },
+  {
+    "id": "edouard-philippe-27",
+    "candidateIds": [
+      "edouard-philippe"
+    ],
+    "section": "§3.3",
+    "theme": "Europe / défense",
+    "text": "pro-européen, renforcement de la défense dans le cadre OTAN"
+  },
+  {
+    "id": "gabriel-attal-01",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "déficit à 0 % en 2037 (étape 3 % avant 2032, 120–150 Md€ d'économies)"
+  },
+  {
+    "id": "gabriel-attal-02",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "règle d'or « à l'allemande »"
+  },
+  {
+    "id": "gabriel-attal-03",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "suppression de 100 000 postes de fonctionnaires (départs volontaires, hors Éducation, Armées, Justice, Intérieur)"
+  },
+  {
+    "id": "gabriel-attal-04",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "« année blanche » sur les prestations sociales en 2028 (hors petites retraites)"
+  },
+  {
+    "id": "gabriel-attal-05",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "loi de programmation fiscale sur 10 ans"
+  },
+  {
+    "id": "gabriel-attal-06",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Finances",
+    "text": "baisses ciblées (−2 Md€ pour les classes moyennes, impôts de production)"
+  },
+  {
+    "id": "gabriel-attal-07",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Travail",
+    "text": "durcissement de l'assurance chômage (5 Md€)"
+  },
+  {
+    "id": "gabriel-attal-08",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Travail",
+    "text": "lutte contre la « spirale » des arrêts maladie"
+  },
+  {
+    "id": "gabriel-attal-09",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Travail",
+    "text": "réforme systémique des retraites (fin de l'âge légal fixe, part de capitalisation, selon agrégateurs ★)"
+  },
+  {
+    "id": "gabriel-attal-10",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Immigration",
+    "text": "immigration de travail privilégiée"
+  },
+  {
+    "id": "gabriel-attal-11",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Immigration",
+    "text": "restriction du regroupement familial"
+  },
+  {
+    "id": "gabriel-attal-12",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Immigration",
+    "text": "quotas par secteur votés au Parlement"
+  },
+  {
+    "id": "gabriel-attal-13",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Immigration",
+    "text": "permis à points sur le modèle canadien"
+  },
+  {
+    "id": "gabriel-attal-14",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Laïcité / justice",
+    "text": "interdiction du voile pour les moins de 15 ans et délit de contrainte au port du voile"
+  },
+  {
+    "id": "gabriel-attal-15",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Laïcité / justice",
+    "text": "désaccord explicite avec l'interdiction générale du RN (« une femme majeure qui décide librement de porter le voile a le droit de le faire »)"
+  },
+  {
+    "id": "gabriel-attal-16",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Laïcité / justice",
+    "text": "comparution immédiate pour certains mineurs"
+  },
+  {
+    "id": "gabriel-attal-17",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Laïcité / justice",
+    "text": "suppression du JAP"
+  },
+  {
+    "id": "gabriel-attal-18",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "École",
+    "text": "+200 à 500 € net/mois pour les enseignants dès 2027"
+  },
+  {
+    "id": "gabriel-attal-19",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "École",
+    "text": "corps professionnel des AESH"
+  },
+  {
+    "id": "gabriel-attal-20",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "École",
+    "text": "remplacement des absences"
+  },
+  {
+    "id": "gabriel-attal-21",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "Logement",
+    "text": "400 000 logements/an"
+  },
+  {
+    "id": "gabriel-attal-22",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "International",
+    "text": "fermeté face à la Russie, soutien à l'Ukraine, OTAN non remise en cause"
+  },
+  {
+    "id": "gabriel-attal-23",
+    "candidateIds": [
+      "gabriel-attal"
+    ],
+    "section": "§3.4",
+    "theme": "International",
+    "text": "« résolument pro-européen »"
+  },
+  {
+    "id": "bruno-retailleau-01",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Retraites (22/09/2026)",
+    "text": "âge minimal de départ 63 ans avec décote de 7 %/an"
+  },
+  {
+    "id": "bruno-retailleau-02",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Retraites (22/09/2026)",
+    "text": "taux plein automatique à 65 ans (indexé ensuite sur l'espérance de vie)"
+  },
+  {
+    "id": "bruno-retailleau-03",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Retraites (22/09/2026)",
+    "text": "capitalisation « pour les jeunes » (25–30 % de leur future pension, rendement ≥ 4 %)"
+  },
+  {
+    "id": "bruno-retailleau-04",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Retraites (22/09/2026)",
+    "text": "40 Md€ d'économies cumulées sur 5 ans"
+  },
+  {
+    "id": "bruno-retailleau-05",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Retraites (22/09/2026)",
+    "text": "exceptions pour pénibilité négociées"
+  },
+  {
+    "id": "bruno-retailleau-06",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Finances",
+    "text": "120 Md€ de redressement d'ici 2032 par la seule baisse des dépenses"
+  },
+  {
+    "id": "bruno-retailleau-07",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Finances",
+    "text": "règle d'or par révision constitutionnelle soumise à référendum dès 2027"
+  },
+  {
+    "id": "bruno-retailleau-08",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Finances",
+    "text": "250 000 à 300 000 postes publics supprimés (IA, fonctions support)"
+  },
+  {
+    "id": "bruno-retailleau-09",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Finances",
+    "text": "APD −10 %"
+  },
+  {
+    "id": "bruno-retailleau-10",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Travail / fiscalité",
+    "text": "−40 Md€ de cotisations sociales"
+  },
+  {
+    "id": "bruno-retailleau-11",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Travail / fiscalité",
+    "text": "heures supplémentaires totalement exonérées"
+  },
+  {
+    "id": "bruno-retailleau-12",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Travail / fiscalité",
+    "text": "dons familiaux exonérés jusqu'à 150 000 €"
+  },
+  {
+    "id": "bruno-retailleau-13",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Famille / social",
+    "text": "revenu familial de 240 €/enfant dès le 1er (doublé au 3e), remplaçant 12 dispositifs, conditionné à 5 ans de résidence régulière et d'activité, suspendable par le juge en cas de « défaillance éducative »"
+  },
+  {
+    "id": "bruno-retailleau-14",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Famille / social",
+    "text": "compte social unique"
+  },
+  {
+    "id": "bruno-retailleau-15",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Famille / social",
+    "text": "logement social recentré sur ceux qui travaillent"
+  },
+  {
+    "id": "bruno-retailleau-16",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Logement",
+    "text": "fin de l'encadrement des loyers"
+  },
+  {
+    "id": "bruno-retailleau-17",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Logement",
+    "text": "suppression des quotas SRU et du ZAN"
+  },
+  {
+    "id": "bruno-retailleau-18",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Logement",
+    "text": "fin des interdictions DPE"
+  },
+  {
+    "id": "bruno-retailleau-19",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Logement",
+    "text": "1 million de logements en 5 ans"
+  },
+  {
+    "id": "bruno-retailleau-20",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Immigration",
+    "text": "baisse du nombre de bénéficiaires de l'AME et du panier de soins"
+  },
+  {
+    "id": "bruno-retailleau-21",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Immigration",
+    "text": "immigration de travail « plus contrôlée »"
+  },
+  {
+    "id": "bruno-retailleau-22",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Immigration",
+    "text": "référendum sur l'immigration"
+  },
+  {
+    "id": "bruno-retailleau-23",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "« cour disciplinaire de la magistrature » incluant des citoyens tirés au sort"
+  },
+  {
+    "id": "bruno-retailleau-24",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "suppression des JAP"
+  },
+  {
+    "id": "bruno-retailleau-25",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "peines planchers"
+  },
+  {
+    "id": "bruno-retailleau-26",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "castration chimique"
+  },
+  {
+    "id": "bruno-retailleau-27",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "reconnaissance faciale"
+  },
+  {
+    "id": "bruno-retailleau-28",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Justice / sécurité",
+    "text": "« état d'urgence anti-trafics » avec bouclage des quartiers 24 h/24, blindés de gendarmerie et coupure des télécommunications, via réforme constitutionnelle"
+  },
+  {
+    "id": "bruno-retailleau-29",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Énergie",
+    "text": "prolongation du parc, six EPR2, relance des réacteurs à neutrons rapides"
+  },
+  {
+    "id": "bruno-retailleau-30",
+    "candidateIds": [
+      "bruno-retailleau"
+    ],
+    "section": "§3.5",
+    "theme": "Énergie",
+    "text": "arrêt du financement des renouvelables (tribune de juillet 2025)"
+  },
+  {
+    "id": "eric-zemmour-01",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "« remigration » et « immigration négative » (départs > arrivées)"
+  },
+  {
+    "id": "eric-zemmour-02",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "ministère de la Remigration"
+  },
+  {
+    "id": "eric-zemmour-03",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "expulsion des étrangers au chômage au-delà d'un délai (6 mois dans le programme 2022, « un an » en septembre 2026), des détenus et délinquants étrangers"
+  },
+  {
+    "id": "eric-zemmour-04",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "suppression du regroupement familial, du droit du sol, des aides non contributives pour les extra-Européens"
+  },
+  {
+    "id": "eric-zemmour-05",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "asile limité à une centaine de personnes par an et déposé hors du territoire"
+  },
+  {
+    "id": "eric-zemmour-06",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "caution de visa de 10 000 €"
+  },
+  {
+    "id": "eric-zemmour-07",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "naturalisation après 10 ans"
+  },
+  {
+    "id": "eric-zemmour-08",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Immigration",
+    "text": "dénonciation de l'accord de 1968"
+  },
+  {
+    "id": "eric-zemmour-09",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Justice",
+    "text": "peines planchers généralisées, perpétuité réelle, « défense excusable », déchéance de nationalité, expulsion des squatteurs en 72 h"
+  },
+  {
+    "id": "eric-zemmour-10",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Économie",
+    "text": "ligne libérale (coupes budgétaires très importantes, capitalisation, baisse de la CSG, prime « zéro charge »)"
+  },
+  {
+    "id": "eric-zemmour-11",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Énergie",
+    "text": "arrêt de l'éolien, relance nucléaire (2022)"
+  },
+  {
+    "id": "eric-zemmour-12",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Contexte",
+    "text": "Promoteur de la thèse du « grand remplacement »"
+  },
+  {
+    "id": "eric-zemmour-13",
+    "candidateIds": [
+      "eric-zemmour"
+    ],
+    "section": "§3.6",
+    "theme": "Contexte",
+    "text": "condamné à plusieurs reprises, notamment pour provocation à la haine (franceinfo ★★★)"
+  },
+  {
+    "id": "ps-socle-01",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "réorientation de 30 Md€ d'aides aux entreprises et conditionnalité (emploi, environnement, égalité salariale)"
+  },
+  {
+    "id": "ps-socle-02",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "taxe numérique à 10 %"
+  },
+  {
+    "id": "ps-socle-03",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "taxe « anti-rente » dès le 4e logement"
+  },
+  {
+    "id": "ps-socle-04",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "taxe Zucman"
+  },
+  {
+    "id": "ps-socle-05",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "impôt sur les grandes successions"
+  },
+  {
+    "id": "ps-socle-06",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "Nutri-score obligatoire, « loi Evin de l'alimentation »"
+  },
+  {
+    "id": "ps-socle-07",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "régulation de l'installation des médecins"
+  },
+  {
+    "id": "ps-socle-08",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "secrétariat d'État à l'immigration et renouvellement automatique des titres longs"
+  },
+  {
+    "id": "ps-socle-09",
+    "candidateIds": [
+      "olivier-faure",
+      "jerome-guedj",
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Socle programmatique du PS",
+    "text": "foncières publiques"
+  },
+  {
+    "id": "raphael-glucksmann-01",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Europe",
+    "text": "« saut fédéral », suppression du veto, élargissement (dont Ukraine), emprunt commun de 500 Md€, fonds européen de défense"
+  },
+  {
+    "id": "raphael-glucksmann-02",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Défense",
+    "text": "extension de la dissuasion nucléaire française aux partenaires de l'UE (décision d'emploi française)"
+  },
+  {
+    "id": "raphael-glucksmann-03",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Défense",
+    "text": "aide militaire à l'Ukraine « drastiquement » augmentée, soutien à la Moldavie et à l'Arménie"
+  },
+  {
+    "id": "raphael-glucksmann-04",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Défense",
+    "text": "réserve opérationnelle renforcée"
+  },
+  {
+    "id": "raphael-glucksmann-05",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Fiscalité",
+    "text": "taxe Zucman, taxation des méga-héritages (1 % des successions), fin des exonérations sur le kérosène"
+  },
+  {
+    "id": "raphael-glucksmann-06",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Fiscalité",
+    "text": "baisse des cotisations pour rapprocher brut et net"
+  },
+  {
+    "id": "raphael-glucksmann-07",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Social",
+    "text": "SMIC à 1 600 € brut en deux ans (étape à 1 400 €)"
+  },
+  {
+    "id": "raphael-glucksmann-08",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Social",
+    "text": "abrogation de la réforme de l'assurance chômage"
+  },
+  {
+    "id": "raphael-glucksmann-09",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Immigration",
+    "text": "voies légales de migration de travail, accords de réadmission, abrogation de la loi de 2024, carte pluriannuelle de référence"
+  },
+  {
+    "id": "raphael-glucksmann-10",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Énergie",
+    "text": "nucléaire et renouvelables complémentaires"
+  },
+  {
+    "id": "raphael-glucksmann-11",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Énergie",
+    "text": "fin des vols intérieurs avec alternative ferroviaire"
+  },
+  {
+    "id": "raphael-glucksmann-12",
+    "candidateIds": [
+      "raphael-glucksmann"
+    ],
+    "section": "§3.7",
+    "theme": "Mémoire",
+    "text": "« histoire commune de la colonisation et de la décolonisation »"
+  },
+  {
+    "id": "olivier-faure-01",
+    "candidateIds": [
+      "olivier-faure"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "taxe Zucman"
+  },
+  {
+    "id": "olivier-faure-02",
+    "candidateIds": [
+      "olivier-faure"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "défend un rassemblement large de la gauche (débat LCI 23/09/2026)"
+  },
+  {
+    "id": "segolene-royal-01",
+    "candidateIds": [
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "ISF sur la fortune financière (3–4 Md€)"
+  },
+  {
+    "id": "segolene-royal-02",
+    "candidateIds": [
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "suppression des aides « injustifiées »"
+  },
+  {
+    "id": "segolene-royal-03",
+    "candidateIds": [
+      "segolene-royal"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "réduction du train de vie de l'État et des institutions européennes"
+  },
+  {
+    "id": "jerome-guedj-01",
+    "candidateIds": [
+      "jerome-guedj"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "chasse aux redondances et rentes dans la Sécurité sociale"
+  },
+  {
+    "id": "jerome-guedj-02",
+    "candidateIds": [
+      "jerome-guedj"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "hostile à l'alliance avec LFI"
+  },
+  {
+    "id": "emmanuel-maurel-01",
+    "candidateIds": [
+      "emmanuel-maurel"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "rééquilibrage fiscal"
+  },
+  {
+    "id": "emmanuel-maurel-02",
+    "candidateIds": [
+      "emmanuel-maurel"
+    ],
+    "section": "§3.7",
+    "theme": "Programme",
+    "text": "gauche républicaine et souverainiste"
+  },
+  {
+    "id": "marine-tondelier-01",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Programme",
+    "text": "Climat, biodiversité et limites planétaires dans la Constitution"
+  },
+  {
+    "id": "marine-tondelier-02",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Programme",
+    "text": "neutralité carbone visée en 2040"
+  },
+  {
+    "id": "marine-tondelier-03",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Programme",
+    "text": "Sortie planifiée du nucléaire (fin des programmes EPR2 et SMR, arrêt progressif du parc), 44 % d'EnR dans l'électricité en 2030"
+  },
+  {
+    "id": "marine-tondelier-04",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Programme",
+    "text": "500 000 rénovations performantes/an"
+  },
+  {
+    "id": "marine-tondelier-05",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Fiscalité",
+    "text": "ISF climatique"
+  },
+  {
+    "id": "marine-tondelier-06",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Fiscalité",
+    "text": "taxe Zucman"
+  },
+  {
+    "id": "marine-tondelier-07",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Fiscalité",
+    "text": "contribution de 10 % sur les héritages > 4 M€ (+10 % > 13 M€)"
+  },
+  {
+    "id": "marine-tondelier-08",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Fiscalité",
+    "text": "pacte Dutreil ramené de 75 % à 50 %"
+  },
+  {
+    "id": "marine-tondelier-09",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "retraite à 62 ans (60 ans pour carrières longues/pénibles)"
+  },
+  {
+    "id": "marine-tondelier-10",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "RSA remplacé par une « garantie d'autonomie »"
+  },
+  {
+    "id": "marine-tondelier-11",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "« sécurité sociale climatique »"
+  },
+  {
+    "id": "marine-tondelier-12",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "expérimentations de sécurité sociale de l'alimentation"
+  },
+  {
+    "id": "marine-tondelier-13",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "APL +10 %"
+  },
+  {
+    "id": "marine-tondelier-14",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Social",
+    "text": "garantie de l'AME"
+  },
+  {
+    "id": "marine-tondelier-15",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Finance",
+    "text": "pôle public bancaire orienté vers la transition, taux zéro pour les EnR, Community Reinvestment Act"
+  },
+  {
+    "id": "marine-tondelier-16",
+    "candidateIds": [
+      "marine-tondelier"
+    ],
+    "section": "§3.8",
+    "theme": "Europe",
+    "text": "convention constituante pour refondre les traités, traité environnemental européen, Europe fédérale"
+  },
+  {
+    "id": "francois-ruffin-01",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "« Statut des travailleurs essentiels » (salaires, carrières, retraite anticipée)"
+  },
+  {
+    "id": "francois-ruffin-02",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "SMIC à 1 700 € net"
+  },
+  {
+    "id": "francois-ruffin-03",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "prime obligatoire de 1 000 € défiscalisée pour les salariés modestes"
+  },
+  {
+    "id": "francois-ruffin-04",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "Interdiction des licenciements boursiers"
+  },
+  {
+    "id": "francois-ruffin-05",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "conditionnalité des aides"
+  },
+  {
+    "id": "francois-ruffin-06",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "états généraux de la fiscalité"
+  },
+  {
+    "id": "francois-ruffin-07",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "« loi de séparation de l'État et de l'Argent »"
+  },
+  {
+    "id": "francois-ruffin-08",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "Protectionnisme écologique et social"
+  },
+  {
+    "id": "francois-ruffin-09",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "souveraineté alimentaire dans la PAC"
+  },
+  {
+    "id": "francois-ruffin-10",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Programme",
+    "text": "plan « Salles des fêtes et maisons du peuple » (1 Md€/an)"
+  },
+  {
+    "id": "francois-ruffin-11",
+    "candidateIds": [
+      "francois-ruffin"
+    ],
+    "section": "§3.9",
+    "theme": "Immigration",
+    "text": "reconduites « plus ciblées », maintien de l'accueil humanitaire, régularisation (« faire nation par le faire ensemble »)"
+  },
+  {
+    "id": "fabien-roussel-01",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "Hausse générale des salaires, minima et pensions (SMIC 1 500 € net en 2022)"
+  },
+  {
+    "id": "fabien-roussel-02",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "32 h"
+  },
+  {
+    "id": "fabien-roussel-03",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "retraite à 60 ans à taux plein"
+  },
+  {
+    "id": "fabien-roussel-04",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "abrogation des lois El Khomri, ordonnances Macron et réforme de l'assurance chômage"
+  },
+  {
+    "id": "fabien-roussel-05",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "suspension des plans sociaux"
+  },
+  {
+    "id": "fabien-roussel-06",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "ISF rétabli et triplé"
+  },
+  {
+    "id": "fabien-roussel-07",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "IR à 15 tranches"
+  },
+  {
+    "id": "fabien-roussel-08",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "IS progressif modulé selon comportements (délocalisations, pollution)"
+  },
+  {
+    "id": "fabien-roussel-09",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "extinction progressive de la CSG au profit des cotisations patronales"
+  },
+  {
+    "id": "fabien-roussel-10",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Nucléaire",
+    "text": "mix 100 % public et décarboné, construction d'EPR (jusqu'à 20 évoqués)"
+  },
+  {
+    "id": "fabien-roussel-11",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Nucléaire",
+    "text": "nationalisation de TotalEnergies évoquée"
+  },
+  {
+    "id": "fabien-roussel-12",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "100 % Sécu, 100 000 soignants"
+  },
+  {
+    "id": "fabien-roussel-13",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "service public de la petite enfance"
+  },
+  {
+    "id": "fabien-roussel-14",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "Opposé à l'extension européenne de la dissuasion et à une armée européenne fédérale"
+  },
+  {
+    "id": "fabien-roussel-15",
+    "candidateIds": [
+      "fabien-roussel"
+    ],
+    "section": "§3.10",
+    "theme": "Programme",
+    "text": "« Vivre ! » : pacte de non-agression avec les autres candidats de gauche"
+  },
+  {
+    "id": "david-lisnard-01",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "« Révolution de la liberté » : dépenses publiques sous 50 % du PIB en dix ans, 200 à 300 Md€ d'économies, 600 000 postes de fonctionnaires en moins (non-remplacement), suppression de ministères (dont l'Environnement), déclaration unique annuelle"
+  },
+  {
+    "id": "david-lisnard-02",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "suppression de la C3S et de la CVAE"
+  },
+  {
+    "id": "david-lisnard-03",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "décentralisation massive"
+  },
+  {
+    "id": "david-lisnard-04",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "Retraite à 65 ans + capitalisation"
+  },
+  {
+    "id": "david-lisnard-05",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "RSA conditionné"
+  },
+  {
+    "id": "david-lisnard-06",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "contrat unique"
+  },
+  {
+    "id": "david-lisnard-07",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "baisse des charges plutôt que hausse du SMIC"
+  },
+  {
+    "id": "david-lisnard-08",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "chèque éducation et libre choix de l'établissement"
+  },
+  {
+    "id": "david-lisnard-09",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "baisse des droits de succession et liberté de tester"
+  },
+  {
+    "id": "david-lisnard-10",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Justice",
+    "text": "majorité pénale à 16 ans, excuse de minorité inversée dès 13 ans, internats disciplinaires fermés, peines planchers"
+  },
+  {
+    "id": "david-lisnard-11",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Islamisme",
+    "text": "interdiction des Frères musulmans, du voile à l'université, contrôle des écoles hors contrat"
+  },
+  {
+    "id": "david-lisnard-12",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "Immigration légale divisée par huit"
+  },
+  {
+    "id": "david-lisnard-13",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "remise en cause du droit du sol automatique"
+  },
+  {
+    "id": "david-lisnard-14",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "Nucléaire (6+ EPR, SMR)"
+  },
+  {
+    "id": "david-lisnard-15",
+    "candidateIds": [
+      "david-lisnard"
+    ],
+    "section": "§3.11",
+    "theme": "Programme",
+    "text": "suspension des certificats d'économie d'énergie"
+  },
+  {
+    "id": "nicolas-dupont-aignan-01",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Frexit",
+    "text": "« sortie organisée » de l'UE (arrêt de la contribution nette ~15 Md€, frontières nationales, primauté du droit français) vers une « Europe des nations »"
+  },
+  {
+    "id": "nicolas-dupont-aignan-02",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Frexit",
+    "text": "« décoloniser la France »"
+  },
+  {
+    "id": "nicolas-dupont-aignan-03",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Programme",
+    "text": "Baisse des taxes sur les carburants"
+  },
+  {
+    "id": "nicolas-dupont-aignan-04",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Programme",
+    "text": "capital de 10 000 € par nouveau-né"
+  },
+  {
+    "id": "nicolas-dupont-aignan-05",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Programme",
+    "text": "RIC"
+  },
+  {
+    "id": "nicolas-dupont-aignan-06",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Immigration",
+    "text": "sortie de Schengen, suppression de l'AME, du droit du sol (référendum) et des aides non contributives pour les étrangers"
+  },
+  {
+    "id": "nicolas-dupont-aignan-07",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Immigration",
+    "text": "immigration économique conditionnée au chômage"
+  },
+  {
+    "id": "nicolas-dupont-aignan-08",
+    "candidateIds": [
+      "nicolas-dupont-aignan"
+    ],
+    "section": "§3.12",
+    "theme": "Prison",
+    "text": "40 000 places, uniforme des détenus, prisons sous tutelle de l'Intérieur"
+  },
+  {
+    "id": "nathalie-arthaud-01",
+    "candidateIds": [
+      "nathalie-arthaud",
+      "anasse-kazib",
+      "selma-labib"
+    ],
+    "section": "§3.13",
+    "theme": "Contexte",
+    "text": "Candidatures « ouvrières, communistes et révolutionnaires », conçues comme porte-voix des luttes plutôt que programmes de gouvernement : hausse générale des salaires et indexation, interdiction des licenciements, expropriation des grands groupes, contrôle ouvrier, services publics"
+  },
+  {
+    "id": "nathalie-arthaud-02",
+    "candidateIds": [
+      "nathalie-arthaud",
+      "anasse-kazib",
+      "selma-labib"
+    ],
+    "section": "§3.13",
+    "theme": "Contexte",
+    "text": "RP : programme « anticapitaliste, anti-impérialiste et révolutionnaire », centralité des secteurs opprimés (antiracisme, féminisme, LGBT), critique de la « révolution citoyenne » de LFI"
+  },
+  {
+    "id": "nathalie-arthaud-03",
+    "candidateIds": [
+      "nathalie-arthaud",
+      "anasse-kazib",
+      "selma-labib"
+    ],
+    "section": "§3.13",
+    "theme": "Contexte",
+    "text": "Internationalisme prolétarien"
+  },
+  {
+    "id": "nathalie-arthaud-04",
+    "candidateIds": [
+      "nathalie-arthaud",
+      "anasse-kazib",
+      "selma-labib"
+    ],
+    "section": "§3.13",
+    "theme": "Contexte",
+    "text": "hostilité à l'UE « des capitalistes » comme au nationalisme"
+  },
+  {
+    "id": "xavier-bertrand-01",
+    "candidateIds": [
+      "xavier-bertrand"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "droite sociale et territoriale"
+  },
+  {
+    "id": "xavier-bertrand-02",
+    "candidateIds": [
+      "xavier-bertrand"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "candidat indépendant, refuse toute primaire"
+  },
+  {
+    "id": "xavier-bertrand-03",
+    "candidateIds": [
+      "xavier-bertrand"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "programme attendu en fin d'année"
+  },
+  {
+    "id": "francois-hollande-01",
+    "candidateIds": [
+      "francois-hollande"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "TVA à 0 % sur l'alimentation et la rénovation énergétique"
+  },
+  {
+    "id": "francois-hollande-02",
+    "candidateIds": [
+      "francois-hollande"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "baisse des cotisations salariales (+~10 % de net) financée par +4 points de TVA"
+  },
+  {
+    "id": "francois-hollande-03",
+    "candidateIds": [
+      "francois-hollande"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "contribution des patrimoines > 10 M€ lors des transmissions"
+  },
+  {
+    "id": "dominique-de-villepin-01",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "abrogation de la réforme Borne et retraite universelle par points"
+  },
+  {
+    "id": "dominique-de-villepin-02",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "neutralité carbone 2050 constitutionnalisée"
+  },
+  {
+    "id": "dominique-de-villepin-03",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "ISF / impôt unique sur le patrimoine"
+  },
+  {
+    "id": "dominique-de-villepin-04",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "fonds souverain"
+  },
+  {
+    "id": "dominique-de-villepin-05",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "déficit < 3 % en 2032 par loi organique"
+  },
+  {
+    "id": "dominique-de-villepin-06",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "attachement au droit du sol, refus du référendum migratoire"
+  },
+  {
+    "id": "dominique-de-villepin-07",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "gaullisme diplomatique, priorité à la négociation en Ukraine, distance critique envers l'OTAN, renforcement de l'ONU et de la CPI"
+  },
+  {
+    "id": "dominique-de-villepin-08",
+    "candidateIds": [
+      "dominique-de-villepin"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "rétablissement de l'ENA"
+  },
+  {
+    "id": "delphine-batho-01",
+    "candidateIds": [
+      "delphine-batho"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "écologie radicale et transition énergétique"
+  },
+  {
+    "id": "delphine-batho-02",
+    "candidateIds": [
+      "delphine-batho"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "candidature sans appareil lourd"
+  },
+  {
+    "id": "francois-asselineau-01",
+    "candidateIds": [
+      "francois-asselineau"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "sortie de l'UE, de l'euro et de l'OTAN"
+  },
+  {
+    "id": "florian-philippot-01",
+    "candidateIds": [
+      "florian-philippot"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "Frexit comme mesure « non négociable »"
+  },
+  {
+    "id": "florian-philippot-02",
+    "candidateIds": [
+      "florian-philippot"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "appel à une primaire souverainiste (statut de candidature à vérifier)"
+  },
+  {
+    "id": "karim-bouamrane-01",
+    "candidateIds": [
+      "karim-bouamrane"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "social-démocrate hostile à l'alliance avec LFI, hors primaire"
+  },
+  {
+    "id": "clara-egger-01",
+    "candidateIds": [
+      "clara-egger"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "démocratie directe / référendum d'initiative citoyenne"
+  },
+  {
+    "id": "olivier-becht-01",
+    "candidateIds": [
+      "olivier-becht"
+    ],
+    "section": "§3.14",
+    "theme": "Programme partiel ou positionnement",
+    "text": "centre, se positionne en « anti-Attal »"
+  }
+]
