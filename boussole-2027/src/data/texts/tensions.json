@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "id": "marche-tradition", "title": "Marché et tradition",
+    "when": [{ "axis": "ECO", "op": "<", "value": -40 }, { "axis": "CUL", "op": "<", "value": -40 }],
+    "text": "Vous associez liberté économique et attachement aux traditions. Jean-Claude Michéa et Patrick Deneen y voient une tension : le marché, en faisant de chaque chose un objet d'échange et de chaque personne un consommateur mobile, dissout les liens familiaux, locaux et religieux que le conservatisme veut préserver. Les fusionnistes répondent que la propriété, la responsabilité individuelle et la famille se soutiennent mutuellement, et que c'est l'État, plus que le marché, qui affaiblit les communautés.",
+    "thinkers": ["michea", "deneen", "hayek"]
+  },
+  {
+    "id": "libertaire-marche", "title": "Libéralisme culturel et libéralisme économique",
+    "when": [{ "axis": "ECO", "op": "<", "value": -40 }, { "axis": "CUL", "op": ">", "value": 40 }],
+    "text": "Vous combinez libéralisme économique et libéralisme des mœurs. Pour Boltanski et Chiapello, le capitalisme contemporain a absorbé la « critique artiste » de Mai 68 (autonomie, créativité, mobilité) tout en écartant la « critique sociale » ; Michéa juge les deux libéralismes indissociables et également corrosifs pour les solidarités populaires. D'autres y voient au contraire une cohérence : la liberté de choisir sa vie et celle d'entreprendre relèvent d'un même principe, celui de John Stuart Mill.",
+    "thinkers": ["boltanski-chiapello", "michea", "mill"]
+  },
+  {
+    "id": "ecologie-nucleaire", "title": "Écologie et nucléaire",
+    "when": [{ "axis": "ENV", "op": ">", "value": 50 }, { "axis": "ENV.nucleaire", "op": ">", "value": 30 }],
+    "text": "Vous accordez une grande importance à l'écologie tout en soutenant le nucléaire. C'est la position défendue par Jean-Marc Jancovici : décarboner impose sobriété et électricité pilotable bas carbone. Une grande partie de l'écologie politique, dans la lignée de Jonas, d'Illich ou d'Ellul, y voit au contraire une technique centralisée, porteuse de risques et de déchets à très long terme, qui retarde la sobriété et la transformation des modes de vie.",
+    "thinkers": ["jancovici", "jonas", "ellul-anders"]
+  },
+  {
+    "id": "ecologie-technique", "title": "Écologie et confiance dans la technique",
+    "when": [{ "axis": "ENV", "op": ">", "value": 50 }, { "axis": "TEC", "op": "<", "value": -30 }],
+    "text": "Vous accordez une grande importance à l'écologie tout en faisant confiance au progrès technique. Les écomodernistes jugent que l'innovation permettra de découpler prospérité et pressions sur la nature. Les technocritiques (Ellul, Illich) et les décroissants (Latouche) répondent que la technique a ses propres effets de rebond et qu'aucune innovation ne dispense de revoir les besoins.",
+    "thinkers": ["ecomodernisme", "ellul-anders", "latouche"]
+  },
+  {
+    "id": "ecologie-marche", "title": "Écologie et économie de marché",
+    "when": [{ "axis": "ENV", "op": ">", "value": 50 }, { "axis": "ECO", "op": "<", "value": -40 }],
+    "text": "Vous jugez la crise écologique prioritaire tout en faisant confiance au marché. Les tenants d'une écologie de marché misent sur le prix du carbone, l'innovation et la concurrence. Kate Raworth, Tim Jackson ou Andreas Malm répondent que la recherche de croissance et de profit pousse structurellement à dépasser les limites planétaires, et que la transition exige planification et redistribution.",
+    "thinkers": ["raworth-jackson", "malm-saito", "ecomodernisme"]
+  },
+  {
+    "id": "antiracisme-laicite", "title": "Antiracisme et laïcité stricte",
+    "when": [{ "axis": "ALT", "op": ">", "value": 50 }, { "axis": "REL.laicite", "op": ">", "value": 30 }],
+    "text": "Vous êtes très attaché·e à l'égalité et à l'ouverture, et vous défendez une laïcité exigeante envers les signes religieux. C'est le cœur du débat entre Henri Peña-Ruiz, pour qui la laïcité est un principe d'émancipation qui protège aussi les femmes et les minorités, et Jean Baubérot, pour qui la loi de 1905 oblige l'État, non les citoyens, et qu'une laïcité trop stricte finit par viser d'abord les musulmans. Sara Farris parle de « fémonationalisme » quand la défense des droits des femmes sert à stigmatiser.",
+    "thinkers": ["bauberot-pena-ruiz", "badinter", "farris"]
+  },
+  {
+    "id": "europe-puissance", "title": "Europe puissance sans interventionnisme ?",
+    "when": [{ "axis": "UE", "op": ">", "value": 50 }, { "axis": "GMO", "op": ">", "value": 40 }],
+    "text": "Vous souhaitez une Europe plus intégrée, mais une politique étrangère peu interventionniste. Pour Robert Kagan, une Europe qui renonce à la force reste dépendante des États-Unis : une « Europe puissance » supposerait de pouvoir agir militairement. Les héritiers du projet européen comme puissance civile (Monnet, Habermas) répondent que l'Union est d'abord un modèle de règlement pacifique des conflits, dont la force est normative et commerciale.",
+    "thinkers": ["kagan", "habermas", "monnet-schuman"]
+  },
+  {
+    "id": "internationalisme-anti-ue", "title": "Internationalisme et critique de l'Union européenne",
+    "when": [{ "axis": "ETA", "op": ">", "value": 40 }, { "axis": "UE", "op": "<", "value": -40 }],
+    "text": "Vous vous sentez internationaliste tout en étant critique de l'Union européenne. Frédéric Lordon et Wolfgang Streeck jugent que l'Union actuelle est un instrument de dépolitisation au service du capital et qu'une solidarité entre les peuples peut passer par d'autres voies. Habermas et les fédéralistes répondent que, sans institutions communes, l'internationalisme reste une intention et que les nations isolées pèsent peu face aux marchés.",
+    "thinkers": ["lordon", "majone-streeck", "habermas"]
+  },
+  {
+    "id": "souverainisme-social", "title": "Souverainisme social",
+    "when": [{ "axis": "ETA", "op": "<", "value": -50 }, { "axis": "ECO", "op": ">", "value": 50 }],
+    "text": "Vous associez protection sociale forte et primauté de la nation. Karl Polanyi a décrit les « contre-mouvements » par lesquels les sociétés se protègent d'un marché mondialisé, et Friedrich List défendait un protectionnisme éducateur. Joseph Stiglitz et Dani Rodrik partagent la critique de l'hypermondialisation, mais rappellent que le repli national a un coût (hausse des prix, représailles commerciales) et que certaines protections exigent une coopération internationale, par exemple contre l'évasion fiscale.",
+    "thinkers": ["polanyi", "list", "stiglitz-rodrik"]
+  },
+  {
+    "id": "libertes-securite", "title": "Libertés publiques et politiques sécuritaires",
+    "when": [{ "axis": "GOV", "op": ">", "value": 50 }, { "axis": "SEC", "op": "<", "value": -50 }],
+    "text": "Vous êtes attaché·e à l'État de droit et favorable à des politiques de sécurité fermes. Levitsky et Ziblatt montrent que les démocraties s'érodent souvent par des mesures d'exception présentées comme temporaires ; Michel Foucault analysait l'extension des dispositifs de surveillance. Les partisans de la fermeté répondent, avec Norbert Elias, que la sécurité est la condition première des libertés et que le monopole de la violence légitime protège d'abord les plus vulnérables.",
+    "thinkers": ["linz-levitsky-ziblatt", "foucault", "elias"]
+  },
+  {
+    "id": "libertaire-securitaire", "title": "Liberté des mœurs et ordre public",
+    "when": [{ "axis": "CUL", "op": ">", "value": 40 }, { "axis": "SEC", "op": "<", "value": -40 }],
+    "text": "Vous êtes libéral·e en matière de mœurs et plutôt sécuritaire en matière d'ordre public. Pour Foucault, la liberté des mœurs et le contrôle policier relèvent d'un même rapport au pouvoir, et l'on ne peut défendre l'une sans se méfier de l'autre. D'autres, comme Elias, jugent que la pacification des relations sociales par l'État est justement ce qui rend possible l'autonomie individuelle.",
+    "thinkers": ["foucault", "elias"]
+  },
+  {
+    "id": "populisme-etat-de-droit", "title": "Souveraineté populaire et contre-pouvoirs",
+    "when": [{ "axis": "POP", "op": "<", "value": -40 }, { "axis": "GOV", "op": ">", "value": 40 }],
+    "text": "Vous opposez volontiers le peuple aux élites tout en défendant l'État de droit. Jan-Werner Müller estime que le populisme est antipluraliste par nature : qui prétend incarner seul le peuple finit par contester les juges, la presse et l'opposition. Laclau et Mouffe répondent que la construction d'un « peuple » contre une oligarchie peut au contraire revitaliser la démocratie, à condition de respecter l'adversaire.",
+    "thinkers": ["mudde-muller", "laclau-mouffe", "lefort"]
+  },
+  {
+    "id": "democratie-directe-juges", "title": "Démocratie directe et contrôle de constitutionnalité",
+    "when": [{ "axis": "INS", "op": ">", "value": 50 }, { "axis": "GOV", "op": ">", "value": 50 }],
+    "text": "Vous voulez donner plus de pouvoir aux citoyens (référendum, tirage au sort) et vous tenez aux contre-pouvoirs juridictionnels. Rousseau voyait dans la volonté générale une souveraineté qui ne se délègue ni ne se limite ; Montesquieu et Dworkin estiment que certains droits doivent être protégés même contre la majorité. La question est de savoir qui a le dernier mot quand un référendum heurte un droit fondamental.",
+    "thinkers": ["rousseau", "montesquieu", "dworkin"]
+  },
+  {
+    "id": "foi-ouverture", "title": "Attachement religieux et ouverture à l'autre",
+    "when": [{ "axis": "REL", "op": ">", "value": 40 }, { "axis": "ALT", "op": ">", "value": 40 }],
+    "text": "Vous accordez une place importante au religieux et vous êtes favorable à l'accueil. C'est une ligne de la démocratie chrétienne et de la doctrine sociale de l'Église (dignité de la personne, accueil de l'étranger). Elle est contestée, au sein même des milieux croyants, par ceux qui, comme Patrick Buisson, font de l'héritage chrétien un marqueur d'identité nationale à préserver face à l'immigration.",
+    "thinkers": ["doctrine-sociale-eglise", "mounier-maritain", "buisson"]
+  },
+  {
+    "id": "intervention-souverainete", "title": "Interventionnisme et souveraineté nationale",
+    "when": [{ "axis": "GMO", "op": "<", "value": -40 }, { "axis": "ETA", "op": "<", "value": -40 }],
+    "text": "Vous êtes à la fois attaché·e à la souveraineté nationale et favorable à des interventions extérieures. Cette combinaison rappelle le néoconservatisme (Kagan) ou une conception de la France comme puissance militaire autonome. Hubert Védrine et les réalistes y opposent le risque d'une politique de puissance sans alliances ni légitimité internationale ; les multilatéralistes (Keohane, Nye) rappellent qu'aucune nation moyenne n'intervient durablement seule.",
+    "thinkers": ["kagan", "vedrine", "keohane-nye"]
+  }
+]
