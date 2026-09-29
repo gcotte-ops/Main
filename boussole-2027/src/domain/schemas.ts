@@ -58,8 +58,11 @@ export const QuestionSchema = z
     explanation: z.string().min(60),
     factual: z.boolean().optional(),
     contradicts: z.array(z.string()).optional(),
+    /** Pourquoi des réponses opposées à cet item et à ceux de `contradicts` peuvent néanmoins coexister. */
+    coexistence: z.string().optional(),
   })
   .superRefine((q, ctx) => {
+    if (q.contradicts?.length && !q.coexistence) ctx.addIssue({ code: 'custom', message: `${q.id} : contradicts sans coexistence` });
     if (q.facet && q.facetLoading === undefined) ctx.addIssue({ code: 'custom', message: `${q.id} : facette sans facetLoading` });
     if (q.type === 'likert' && !q.loadings) ctx.addIssue({ code: 'custom', message: `${q.id} : likert sans loadings` });
     if (q.type === 'dilemma' && q.options?.length !== 2)
