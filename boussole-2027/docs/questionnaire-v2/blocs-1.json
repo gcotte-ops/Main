@@ -560,6 +560,7 @@
       {
         "id": "B11d",
         "texte": "Les communes qui manquent de logements devraient pouvoir construire sur des terres agricoles.",
+        "theme": "logement-zan",
         "poids": {
           "ENV": -0.5
         },

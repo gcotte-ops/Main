@@ -4,6 +4,7 @@ import {
   AxisLevelTextSchema,
   AxisSchema,
   CandidateSchema,
+  GroupSchema,
   MeasureSchema,
   MetaSchema,
   QuestionSchema,
@@ -12,6 +13,7 @@ import {
 } from './schemas';
 import axesJson from '../data/axes.json';
 import questionsJson from '../data/questions.json';
+import groupsJson from '../data/groups.json';
 import candidatesJson from '../data/candidates.json';
 import measuresJson from '../data/measures.json';
 import thinkersJson from '../data/thinkers.json';
@@ -23,6 +25,7 @@ import metaJson from '../data/meta.json';
 export const DatasetSchema = z.object({
   axes: z.array(AxisSchema),
   questions: z.array(QuestionSchema),
+  groups: z.array(GroupSchema),
   candidates: z.array(CandidateSchema),
   measures: z.array(MeasureSchema),
   thinkers: z.array(ThinkerSchema),
@@ -39,6 +42,7 @@ export function crossCheck(d: Dataset): string[] {
   const thinkerIds = new Set(d.thinkers.map((t) => t.id));
   const measureIds = new Set(d.measures.map((m) => m.id));
   const questionIds = new Set(d.questions.map((q) => q.id));
+  const groupIds = new Set(d.groups.map((g) => g.id));
   const refThinker = (where: string, id: string) => {
     if (!thinkerIds.has(id)) errors.push(`${where} : auteur inconnu « ${id} »`);
   };
@@ -47,6 +51,12 @@ export function crossCheck(d: Dataset): string[] {
     q.literature.forEach((t) => refThinker(q.id, t));
     q.sourceMeasure?.forEach((m) => { if (!measureIds.has(m)) errors.push(`${q.id} : mesure inconnue « ${m} »`); });
     q.contradicts?.forEach((c) => { if (!questionIds.has(c)) errors.push(`${q.id} : item contradictoire inconnu « ${c} »`); });
+    if (q.pair && !questionIds.has(q.pair)) errors.push(`${q.id} : item apparié inconnu « ${q.pair} »`);
+    if (q.group && !groupIds.has(q.group)) errors.push(`${q.id} : bloc inconnu « ${q.group} »`);
+  }
+  for (const g of d.groups) {
+    if (!d.questions.some((q) => q.group === g.id)) errors.push(`bloc ${g.id} sans affirmation`);
+    if (g.follows && !groupIds.has(g.follows)) errors.push(`bloc ${g.id} : suit un bloc inconnu « ${g.follows} »`);
   }
   for (const a of d.archetypes) [...a.lineage, ...a.counterpoints].forEach((t) => refThinker(`archétype ${a.id}`, t));
   for (const t of d.axisLevels) [...t.near, ...t.opposed].forEach((x) => refThinker(`texte ${t.axis}/${t.level}`, x));
@@ -70,6 +80,7 @@ export function loadDataset(): Dataset {
   cached ??= parseDataset({
     axes: axesJson,
     questions: questionsJson,
+    groups: groupsJson,
     candidates: candidatesJson,
     measures: measuresJson,
     thinkers: thinkersJson,

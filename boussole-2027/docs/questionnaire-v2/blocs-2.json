@@ -305,6 +305,7 @@
     "titre": "L'Europe que vous souhaiteriez",
     "theme": "ue",
     "contexte": "Imaginez maintenant une Union européenne dont les orientations politiques vous conviendraient.",
+    "suite_de": "B29",
     "affirmations": [
       {
         "id": "B30a",
@@ -330,6 +331,7 @@
       {
         "id": "B30c",
         "texte": "L'Europe devrait se doter d'une défense commune, y compris d'une dissuasion nucléaire partagée.",
+        "theme": "dissuasion",
         "poids": {
           "UE": 0.6,
           "GMO": -0.4
@@ -462,7 +464,7 @@
       "vedrine",
       "wallerstein-chomsky"
     ],
-    "explication": "La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs."
+    "explication": "La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs. Le mot « impérialisme », hérité de Lénine, désigne pour ceux qui l'emploient une politique de domination d'une puissance sur d'autres pays ; ses critiques lui reprochent d'ignorer les appels à l'aide des populations menacées."
   },
   {
     "id": "B33",
@@ -511,6 +513,7 @@
     "titre": "Si le gouvernement était de votre camp",
     "theme": "democratie",
     "contexte": "Imaginez maintenant que le prochain gouvernement soit issu de votre camp politique.",
+    "suite_de": "B33",
     "affirmations": [
       {
         "id": "B34a",
@@ -713,6 +716,7 @@
       {
         "id": "B38b",
         "texte": "Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers.",
+        "theme": "narcotrafic",
         "poids": {
           "SEC": -0.8,
           "GOV": -0.3
@@ -748,7 +752,7 @@
       "hobbes",
       "elias"
     ],
-    "explication": "Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent."
+    "explication": "Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent. L'expression « violences policières » désigne, pour ceux qui l'emploient, des abus récurrents liés à l'organisation même de la police ; les syndicats de policiers la contestent et parlent de fautes individuelles, sanctionnées comme telles."
   },
   {
     "id": "B39",

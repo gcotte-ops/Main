@@ -1,5 +1,5 @@
 /**
- * Linter des 100 items (spécification §6.2) : longueur, double négation, mots chargés, noms de
+ * Linter du questionnaire (spécification §6.2, formats v2) : longueur, double négation, vocabulaire marqué expliqué, noms de
  * candidat·es, un seul verbe d'opinion (avertissement), équilibre des items inversés, quotas par axe,
  * chargements croisés, ancrage dans le fichier 01, auteurs existants, couverture des thèmes,
  * biais d'un répondant « tout d'accord ».

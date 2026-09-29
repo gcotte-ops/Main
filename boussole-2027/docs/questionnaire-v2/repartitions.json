@@ -25,7 +25,7 @@
       { "texte": "Renforcer la défense", "poids": { "GMO": -0.3 } }
     ],
     "auteurs": ["buchanan", "keynes"],
-    "explication": "Pour Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes ; pour Keynes, la dépense publique utile soutient l'activité."
+    "explication": "Pour James Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes. Pour Keynes, la dépense publique utile soutient l'activité, surtout en période de ralentissement."
   },
   {
     "id": "A03", "theme": "defense",
@@ -38,7 +38,7 @@
       { "texte": "Protection des frontières nationales", "poids": { "ALT": -0.3, "ETA": -0.3 } }
     ],
     "auteurs": ["aron", "vedrine"],
-    "explication": "Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États ; ces priorités traduisent des conceptions différentes de l'intérêt national."
+    "explication": "Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États. Ces priorités traduisent des conceptions différentes de l'intérêt national."
   },
   {
     "id": "A04", "theme": "ue",
@@ -52,7 +52,7 @@
       { "texte": "Protection de l'industrie face à la concurrence mondiale", "poids": { "UE": 0.2, "ETA": -0.2 } }
     ],
     "auteurs": ["delors", "majone-streeck"],
-    "explication": "Jacques Delors voulait une Europe qui protège autant qu'elle ouvre ; Wolfgang Streeck juge qu'elle soustrait l'économie aux choix démocratiques."
+    "explication": "Jacques Delors voulait une Europe qui protège autant qu'elle ouvre. Wolfgang Streeck juge au contraire qu'elle soustrait l'économie aux choix démocratiques."
   },
   {
     "id": "A05", "theme": "decentralisation",
@@ -65,7 +65,7 @@
       { "texte": "L'Union européenne", "poids": { "UE": 0.4, "TER": -0.2 } }
     ],
     "auteurs": ["tocqueville", "rousseau"],
-    "explication": "Tocqueville voyait dans la commune « l'école primaire de la liberté » ; la tradition jacobine fait de l'État le garant de l'égalité."
+    "explication": "Tocqueville voyait dans la commune « l'école primaire de la liberté ». La tradition jacobine fait de l'État le garant de l'égalité entre les territoires."
   },
   {
     "id": "A06", "theme": "services-publics",
@@ -94,7 +94,7 @@
       { "texte": "La discipline et le respect de l'autorité", "poids": { "SEC": -0.3, "CUL": -0.3 } }
     ],
     "auteurs": ["condorcet", "bourdieu", "finkielkraut"],
-    "explication": "Condorcet voulait une instruction qui émancipe ; Bourdieu montre que l'école reproduit les inégalités ; Finkielkraut défend la transmission contre le relativisme."
+    "explication": "Condorcet voulait une instruction qui émancipe, et Pierre Bourdieu montre que l'école reproduit les inégalités. Alain Finkielkraut défend la transmission des savoirs contre le relativisme."
   },
   {
     "id": "A08", "theme": "climat",
@@ -108,7 +108,7 @@
       { "texte": "Personne : il faut ralentir la transition", "poids": { "ENV": -0.6 } }
     ],
     "auteurs": ["zucman", "lomborg"],
-    "explication": "Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches."
+    "explication": "Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches. Beaucoup d'économistes du climat défendent une taxe carbone redistribuée ; d'autres jugent qu'il faut d'abord faire payer les plus gros émetteurs."
   },
   {
     "id": "A09", "theme": "priorites",
@@ -123,7 +123,7 @@
       { "texte": "Pour la liberté d'expression", "poids": { "GOV": 0.3 } }
     ],
     "auteurs": ["fraser", "inglehart"],
-    "explication": "Nancy Fraser distingue les luttes pour la redistribution et pour la reconnaissance ; cette répartition indique lesquelles comptent le plus pour vous."
+    "explication": "Nancy Fraser distingue les luttes pour la redistribution et les luttes pour la reconnaissance. Cette répartition indique lesquelles comptent le plus pour vous."
   },
   {
     "id": "A10", "theme": "dette",

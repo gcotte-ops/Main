@@ -113,7 +113,7 @@
       "esping-andersen",
       "marx-engels"
     ],
-    "explication": "Du libéralisme de Hayek et Friedman au communisme de Marx, en passant par les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List)."
+    "explication": "Du libéralisme de Hayek et Friedman au communisme de Marx, les options couvrent l'éventail des modèles économiques. Entre les deux se situent les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List)."
   },
   {
     "id": "C03",
@@ -321,7 +321,7 @@
       "keohane-nye",
       "vedrine"
     ],
-    "explication": "La théorie de la guerre juste (Walzer) encadre le recours à la force ; le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales ; le réalisme et le pacifisme privilégient la négociation ou la neutralité."
+    "explication": "La théorie de la guerre juste (Walzer) encadre le recours à la force, et le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales. Le réalisme et le pacifisme privilégient la négociation ou la neutralité."
   },
   {
     "id": "C07",
@@ -329,7 +329,7 @@
     "question": "Quelle conception de la laïcité est la plus proche de la vôtre ?",
     "options": [
       {
-        "texte": "L'État est neutre ; les citoyens sont libres d'exprimer leur religion, y compris en public.",
+        "texte": "L'État est neutre, et les citoyens sont libres d'exprimer leur religion, y compris en public.",
         "poids": {
           "REL.laicite": -0.6,
           "ALT": 0.2
@@ -641,7 +641,7 @@
       "bourdieu",
       "mudde-muller"
     ],
-    "explication": "Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste une domination de classe ; les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques)."
+    "explication": "Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste décrivent une domination de classe. Les mots « oligarchie » et « bourgeoisie » désignent, chez ceux qui les emploient, une minorité fortunée qui concentrerait le pouvoir économique et politique ; leurs contradicteurs y voient une simplification qui ignore la diversité des élites et le poids du vote. Les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques)."
   },
   {
     "id": "C13",
@@ -687,7 +687,7 @@
       "beauvoir",
       "delphy"
     ],
-    "explication": "Les conservateurs défendent la famille comme institution transmise ; les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise ; le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle."
+    "explication": "Les conservateurs défendent la famille comme institution transmise, quand les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise. Le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle."
   },
   {
     "id": "C14",
@@ -739,7 +739,7 @@
       "gramsci",
       "lenine"
     ],
-    "explication": "Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde ; le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort."
+    "explication": "Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde. Le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort."
   },
   {
     "id": "C15",
@@ -786,6 +786,6 @@
       "kymlicka-parekh",
       "schnapper"
     ],
-    "explication": "Charles Taylor et le Québec ont popularisé les « accommodements raisonnables » ; Kymlicka défend des droits collectifs pour les minorités ; l'universalisme républicain (Schnapper) la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure."
+    "explication": "Charles Taylor et le Québec ont popularisé les « accommodements raisonnables », et Will Kymlicka défend des droits collectifs pour les minorités. L'universalisme républicain (Schnapper) fait primer la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure."
   }
 ]

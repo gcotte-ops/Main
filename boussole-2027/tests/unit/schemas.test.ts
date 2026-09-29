@@ -16,8 +16,15 @@ describe('Schémas Zod', () => {
     expect(QuestionSchema.safeParse({ ...q, loadings: { ECO: 1.4 } }).success).toBe(false);
     expect(QuestionSchema.safeParse({ ...q, loadings: { XXX: 1 } }).success).toBe(false);
   });
-  it('refuse un dilemme sans deux options', () => {
+  it('refuse un dilemme sans deux options et une question à choix de moins de 4 options', () => {
     expect(QuestionSchema.safeParse({ ...q, id: 'D01', type: 'dilemma', options: [{ label: 'A seul', loadings: {} }] }).success).toBe(false);
+    const opt = (i: number) => ({ label: `Option ${i}`, loadings: { ECO: i / 10 } });
+    expect(QuestionSchema.safeParse({ ...q, id: 'C01', type: 'choice', options: [1, 2, 3].map(opt) }).success).toBe(false);
+    expect(QuestionSchema.safeParse({ ...q, id: 'C01', type: 'choice', options: [1, 2, 3, 4].map(opt) }).success).toBe(true);
+  });
+  it('accepte les identifiants v2 (B01a, C01) et refuse les autres', () => {
+    expect(QuestionSchema.safeParse({ ...q, id: 'B01a', group: 'B01' }).success).toBe(true);
+    expect(QuestionSchema.safeParse({ ...q, id: 'B01e' }).success).toBe(false);
   });
   it('accepte une position de candidat « non renseignée » (null) et refuse une valeur hors échelle', () => {
     const c = {
@@ -34,7 +41,7 @@ describe('Schémas Zod', () => {
     expect(AxisSchema.safeParse(a).success).toBe(false);
   });
   it('signale les références croisées cassées', () => {
-    const base = { axes: [], questions: [q], candidates: [], measures: [], thinkers: [], archetypes: [], axisLevels: [], tensions: [],
+    const base = { axes: [], questions: [q], groups: [], candidates: [], measures: [], thinkers: [], archetypes: [], axisLevels: [], tensions: [],
       meta: { dataDate: '2026-09-25', electionRound1: '', electionRound2: '', version: '0' } };
     expect(() => parseDataset(base)).toThrow(/auteur inconnu « keynes »/);
   });

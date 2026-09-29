@@ -48,6 +48,25 @@ describe('Formule de score', () => {
     expect(computeScores([d], { D01: scale(0) }, { draws: 0 }).GOV!.score).toBe(0);
   });
 
+  it('une question à choix applique l\'option retenue comme un accord net (n = 2w, m = 2·max|w|)', () => {
+    const c = { ...base, id: 'C01', text: 'Régime', type: 'choice', primaryAxis: 'GOV', options: [
+      { label: 'Contre-pouvoirs', loadings: { GOV: 0.8 } },
+      { label: 'Référendums', loadings: { INS: 0.7, GOV: 0.2 } },
+      { label: 'Conseils', loadings: { INS: 0.6, CHG: 0.5 }, facets: { 'REL.laicite': 0.4 } },
+      { label: 'Chef', loadings: { GOV: -0.9 } },
+    ] } as Question;
+    const sc = (index: number | null) => computeScores([c], { C01: { kind: 'choice', index } }, { draws: 0 });
+    expect(sc(0).GOV!.score).toBe(88.9); // 100 × 2·0,8 / (2·0,9), arrondi au dixième
+    expect(sc(3).GOV!.score).toBe(-100);
+    expect(sc(1).INS!.score).toBe(100);
+    // Une option qui ne charge pas un axe mesuré par la question le tire vers le centre (n = 0, m > 0).
+    expect(sc(0).INS!.score).toBe(0);
+    expect(sc(2).CHG!.score).toBe(100);
+    expect(sc(2)['REL.laicite']!.score).toBe(100);
+    // « Aucune de ces réponses / je ne sais pas » exclut la question.
+    expect(sc(null)).toEqual({});
+  });
+
   it('une allocation uniforme est neutre ; tout sur une option donne ±100', () => {
     const a = { ...base, id: 'A01', text: 'Allocation', type: 'allocation', primaryAxis: 'ENV',
       options: [{ label: 'Climat', loadings: { ENV: 0.5 } }, { label: 'Pouvoir d\'achat', loadings: { ENV: -0.5 } }, { label: 'Santé', loadings: {} }] } as Question;
@@ -102,6 +121,16 @@ describe('Cohérence et biais', () => {
     expect(r[0]!.text).toMatch(/Ce n'est pas nécessairement une erreur/);
     expect(findInconsistencies([a, b], { Q010: scale(2), Q011: scale(1) })).toHaveLength(0);
     expect(findInconsistencies([a, b], { Q010: scale(2), Q011: scale(0) })).toHaveLength(0);
+  });
+  it('signale un même énoncé jugé différemment selon le contexte (blocs appariés)', () => {
+    const a = likert('B33a', { GOV: 0.8 }, { group: 'B33', text: 'Les juges devraient pouvoir censurer ses lois.' });
+    const b = likert('B34a', { GOV: 0.8 }, { group: 'B34', pair: 'B33a', text: 'Les juges devraient pouvoir censurer ses lois.' });
+    const groups = [{ id: 'B33', title: 'Si le gouvernement était du camp opposé', context: 'Imaginez…' }, { id: 'B34', title: 'Si le gouvernement était de votre camp', context: 'Imaginez…' }];
+    const r = findInconsistencies([a, b], { B33a: scale(2), B34a: scale(-1) }, 3, groups);
+    expect(r).toHaveLength(1);
+    expect(r[0]!.text).toMatch(/approuvé « Les juges .* \(si le gouvernement était du camp opposé\).* rejeté le même énoncé .* \(si le gouvernement était de votre camp\)/);
+    expect(findInconsistencies([a, b], { B33a: scale(2), B34a: scale(1) }, 3, groups)).toHaveLength(0);
+    expect(findInconsistencies([a, b], { B33a: scale(2), B34a: scale(null) }, 3, groups)).toHaveLength(0);
   });
   it('limite à 3 signalements', () => {
     const qs: Question[] = [];

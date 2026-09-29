@@ -10,16 +10,16 @@ const ORIGINAL: Record<string, [string, string]> = {
   ALT: ['Fermeture ethno-nationale', 'Ouverture / égalitarisme antiraciste'], UE: ['Anti-UE', 'Pro-UE (fédéraliste)'],
   GMO: ['Interventionniste', 'Laisser-faire / non-interventionniste'], GOV: ['Autoritaire', 'Démocratie libérale (État de droit, contre-pouvoirs)'],
   SEC: ['Sécuritaire', 'Garantiste'], INS: ['Présidentialisme représentatif', 'Parlementarisme / démocratie directe'],
-  TER: ['Jacobin', 'Girondin / municipaliste'], POP: ['Peuple homogène contre élites', 'Pluralisme'],
+  TER: ['Jacobin', 'Girondin / municipaliste'], POP: ['Peuple homogène contre élites', 'Pluralisme'], CHG: ['Réformiste', 'Révolutionnaire'],
 };
 
 describe('axes.json', () => {
-  it('décrit les 18 axes, dont 14 actifs et 4 optionnels désactivés', () => {
+  it('décrit les 18 axes, dont 15 actifs (CHG depuis la v2) et 3 optionnels désactivés', () => {
     expect(axes.map((a) => a.id)).toEqual([...ALL_AXES]);
     for (const a of axes) expect(AxisSchema.safeParse(a).success, a.id).toBe(true);
-    expect(axes.filter((a) => a.enabled)).toHaveLength(14);
+    expect(axes.filter((a) => a.enabled)).toHaveLength(15);
     expect(axes.filter((a) => a.primary)).toHaveLength(10);
-    expect(axes.filter((a) => !a.enabled).map((a) => a.id)).toEqual(['GEN', 'TEC', 'MEM', 'CHG']);
+    expect(axes.filter((a) => !a.enabled).map((a) => a.id)).toEqual(['GEN', 'TEC', 'MEM']);
   });
   it('conserve les libellés de pôles du fichier 01', () => {
     for (const [id, [minus, plus]] of Object.entries(ORIGINAL)) {

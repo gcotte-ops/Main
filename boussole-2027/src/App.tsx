@@ -40,7 +40,7 @@ function Shell({ data }: { data: Dataset }) {
   useEffect(() => { if (state?.finished && route.name === 'quiz') navigate(href.results); }, [state?.finished, route.name]);
 
   const start = (mode: Mode, persist: boolean) => {
-    dispatch({ type: 'start', state: initialState(data.questions, mode, persist) });
+    dispatch({ type: 'start', state: initialState(data.questions, mode, persist, undefined, data.groups) });
     navigate(href.quiz);
   };
   const resume = () => { if (saved) { dispatch({ type: 'start', state: { ...saved, finished: false } }); navigate(href.quiz); } };

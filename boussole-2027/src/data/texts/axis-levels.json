@@ -934,5 +934,73 @@
       "laclau-mouffe"
     ],
     "question": "Le compromis que vous valorisez inclut-il vraiment les classes populaires, ou se négocie-t-il surtout entre des groupes déjà bien représentés ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 0,
+    "text": "Vous tenez à ce que la société change par des réformes graduelles, votées et appliquées dans le cadre des institutions existantes. Pour vous, les ruptures brutales détruisent plus qu'elles ne construisent : elles emportent des protections patiemment acquises et ouvrent la voie à l'arbitraire. Edmund Burke voyait dans la société un contrat entre les morts, les vivants et ceux qui sont à naître, qu'on amende sans le déchirer. Karl Popper défend une réforme par petites étapes, qui corrige ses erreurs au fur et à mesure, et Eduard Bernstein pensait que le socialisme adviendrait par la réforme démocratique. Rosa Luxemburg vous objecterait que la réforme seule ne touche jamais aux fondements d'un ordre injuste.",
+    "near": [
+      "burke",
+      "popper",
+      "bernstein"
+    ],
+    "opposed": [
+      "luxemburg"
+    ],
+    "question": "Y a-t-il des injustices du passé qui, selon vous, n'auraient pas pu être corrigées sans une rupture avec l'ordre de leur époque ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 1,
+    "text": "Vous préférez la réforme à la rupture, tout en admettant que de grandes transformations sont parfois nécessaires et qu'elles passent aussi par la mobilisation sociale. Pour vous, conquérir le pouvoir par les urnes puis l'exercer dans le respect des règles reste la voie la plus sûre et la plus durable. Léon Blum distinguait l'« exercice » du pouvoir, dans le cadre légal, de sa « conquête » révolutionnaire ; le Front populaire a obtenu les congés payés et la semaine de 40 heures par la loi et par la grève. Eduard Bernstein misait sur l'accumulation des réformes. Lénine vous objecterait qu'un État construit pour protéger l'ordre existant ne se laisse pas transformer de l'intérieur.",
+    "near": [
+      "blum",
+      "bernstein"
+    ],
+    "opposed": [
+      "lenine"
+    ],
+    "question": "Si les réformes votées démocratiquement étaient systématiquement défaites par la majorité suivante, changeriez-vous de méthode ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 2,
+    "text": "Vous ne tranchez pas entre réforme et rupture : selon les sujets, vous jugez qu'il faut soit améliorer ce qui existe, soit changer profondément de cap. Vous tenez aux voies démocratiques sans exclure qu'une transformation de fond soit nécessaire. Jean Jaurès parlait d'« évolution révolutionnaire » : faire avancer le socialisme par la République, la loi et l'éducation. Antonio Gramsci décrit une « guerre de position » : gagner les idées et la société civile avant de gagner l'État. Du côté réformiste, Karl Popper vous objecterait qu'un projet de transformation globale échappe à tout contrôle ; du côté révolutionnaire, Léon Trotsky répondrait qu'une révolution arrêtée à mi-chemin finit toujours par être défaite.",
+    "near": [
+      "jaures",
+      "gramsci"
+    ],
+    "opposed": [
+      "popper",
+      "trotsky"
+    ],
+    "question": "Sur quel sujet précis estimez-vous qu'une réforme ne suffirait plus et qu'il faudrait changer de système ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 3,
+    "text": "Vous pensez que les réformes graduelles ne suffisent plus et qu'une rupture avec l'ordre existant est nécessaire, par la mobilisation massive, la grève ou la désobéissance civile. Pour vous, les institutions actuelles protègent d'abord ceux qui en profitent. Cette position se rencontre à gauche comme dans un rejet national ou identitaire du « système ». Rosa Luxemburg critiquait le réformisme de Bernstein tout en défendant la liberté « de celui qui pense autrement » contre l'autoritarisme bolchevique. Andreas Malm juge légitimes des actions de sabotage face à l'urgence climatique. Léon Blum vous objecterait qu'une rupture imposée sans majorité démocratique menace les libertés qu'elle prétend défendre.",
+    "near": [
+      "luxemburg",
+      "malm-saito"
+    ],
+    "opposed": [
+      "blum"
+    ],
+    "question": "Quelles limites fixeriez-vous aux moyens employés pour obtenir la rupture que vous souhaitez ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 4,
+    "text": "Vous jugez que l'ordre existant ne peut pas être réformé et qu'il faut le renverser pour construire une société entièrement différente. Selon les traditions, cette rupture prend la forme d'une révolution sociale, de l'abolition de l'État ou d'un changement complet de régime au nom de la nation. Karl Marx et Friedrich Engels voient dans la lutte des classes le moteur de l'histoire ; Lénine théorise le parti d'avant-garde ; Mikhaïl Bakounine veut détruire l'État plutôt que le conquérir. Karl Popper vous objecterait que les projets de refonte totale de la société, faute de pouvoir corriger leurs erreurs, produisent une violence que leurs auteurs n'avaient pas voulue.",
+    "near": [
+      "marx-engels",
+      "lenine",
+      "bakounine"
+    ],
+    "opposed": [
+      "popper"
+    ],
+    "question": "Comment la société que vous souhaitez traiterait-elle celles et ceux qui refuseraient d'y adhérer ?"
   }
 ]

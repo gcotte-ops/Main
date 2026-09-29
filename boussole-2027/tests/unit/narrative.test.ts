@@ -11,10 +11,11 @@ const words = (p: string[]) => p.join(' ').split(/\s+/).filter((w) => /[\p{L}\d]
 
 describe('Données de restitution', () => {
   it('le jeu de données complet est valide et cohérent', () => {
-    expect(d.questions).toHaveLength(100);
-    expect(d.axisLevels).toHaveLength(70);
+    expect(d.questions).toHaveLength(201);
+    expect(d.groups).toHaveLength(44);
+    expect(d.axisLevels).toHaveLength(75);
   });
-  it('70 textes par axe et par niveau (80–120 mots, auteurs proches et contradicteurs)', () => {
+  it('75 textes par axe et par niveau (80–120 mots, auteurs proches et contradicteurs)', () => {
     const raw = JSON.parse(readFileSync('src/data/texts/axis-levels.json', 'utf8'));
     expect(checkAxisLevels(raw, ['ECO', 'IDE', 'ENV', 'REL', 'ETA', 'CUL', 'ALT', 'UE', 'GMO', 'GOV', 'SEC', 'INS', 'TER', 'POP'])).toEqual([]);
   });

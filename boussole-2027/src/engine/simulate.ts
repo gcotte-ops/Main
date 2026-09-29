@@ -8,7 +8,7 @@ import { quickScores } from './scoring';
 type Target = Partial<Record<AxisId, number>>;
 const clampInt = (x: number) => Math.max(-2, Math.min(2, Math.round(x))) as -2 | -1 | 0 | 1 | 2;
 
-/** Répondant aléatoire uniforme : Likert et dilemmes uniformes sur {−2..+2}, allocations aléatoires. */
+/** Répondant aléatoire uniforme : Likert et dilemmes uniformes sur {−2..+2}, choix uniforme, allocations aléatoires. */
 export function randomAnswers(questions: Question[], rng: () => number): Answers {
   const a: Answers = {};
   for (const q of questions) {
@@ -16,17 +16,19 @@ export function randomAnswers(questions: Question[], rng: () => number): Answers
       const pts = q.options!.map(() => 0);
       for (let i = 0; i < 10; i++) pts[Math.floor(rng() * pts.length)]!++;
       a[q.id] = { kind: 'allocation', points: pts };
-    } else a[q.id] = { kind: 'scale', value: clampInt(Math.floor(rng() * 5) - 2) };
+    } else if (q.type === 'choice') a[q.id] = { kind: 'choice', index: Math.floor(rng() * q.options!.length) };
+    else a[q.id] = { kind: 'scale', value: clampInt(Math.floor(rng() * 5) - 2) };
   }
   return a;
 }
 
-/** Répondant « tout d'accord » : +2 à tous les Likert ; dilemmes sans avis ; allocations uniformes. */
+/** Répondant « tout d'accord » : +2 à tous les Likert ; dilemmes et choix sans avis ; allocations uniformes. */
 export function allAgreeAnswers(questions: Question[]): Answers {
   const a: Answers = {};
   for (const q of questions) {
     if (q.type === 'likert') a[q.id] = { kind: 'scale', value: 2 };
     else if (q.type === 'dilemma') a[q.id] = { kind: 'scale', value: null };
+    else if (q.type === 'choice') a[q.id] = { kind: 'choice', index: null };
     else a[q.id] = { kind: 'allocation', points: q.options!.map(() => 1) };
   }
   return a;
@@ -43,7 +45,8 @@ const proj = (loadings: Partial<Record<AxisId, number>>, t: Target) => {
 
 /**
  * Persona : répond selon un vecteur cible (−100..+100) plus un bruit gaussien σ (en points d'échelle).
- * Axes absents du vecteur : position neutre (0). Allocations : parts ∝ exp(3·adhésion de l'option).
+ * Axes absents du vecteur : position neutre (0). Choix : option d'adhésion maximale (bruit 0,3σ).
+ * Allocations : parts ∝ exp(3·adhésion de l'option).
  */
 export function personaAnswers(questions: Question[], target: Target, rng: () => number, sigma = 0.6): Answers {
   const a: Answers = {};
@@ -56,6 +59,9 @@ export function personaAnswers(questions: Question[], target: Target, rng: () =>
       const B = proj(q.options![1]!.loadings, target);
       const latent = (B.n - A.n) / Math.max(1e-9, A.d + B.d);
       a[q.id] = { kind: 'scale', value: clampInt(4 * latent + sigma * gaussian(rng)) };
+    } else if (q.type === 'choice') {
+      const u = q.options!.map((o) => { const { n, d } = proj(o.loadings, target); return (d ? n / d : 0) + 0.3 * sigma * gaussian(rng); });
+      a[q.id] = { kind: 'choice', index: u.indexOf(Math.max(...u)) };
     } else {
       const ws = q.options!.map((o) => Math.exp(3 * proj(o.loadings, target).n + 0.3 * gaussian(rng)));
       const total = ws.reduce((s, x) => s + x, 0);
