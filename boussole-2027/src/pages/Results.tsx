@@ -86,7 +86,7 @@ function RadarSection({ r }: { r: Results }) {
           title={`Radar des ${rows.length} axes`}
           description="Centre du graphique : pôle « moins » de chaque axe (−100) ; cercle médian : position centrale (0) ; bord : pôle « plus » (+100). Le halo indique l'intervalle de confiance à 95 %."
           fileName="boussole-radar"
-          controls={<label className="check small"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Afficher les 14 axes (dont 4 secondaires)</label>}
+          controls={<label className="check small"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Afficher les 15 axes (dont 5 secondaires)</label>}
           legend={<><LegendItem shape="user" label="Votre position" /> <LegendItem shape="ci" label="Intervalle de confiance" /></>}
           table={<ScoreTable rows={rows} />}
         >
@@ -212,7 +212,7 @@ function ArchetypeSection({ r }: { r: Results }) {
   return (
     <section id="r-archetypes" aria-labelledby="arch-h">
       <h2 id="arch-h">Les courants dont vous êtes le plus proche</h2>
-      <p className="small muted">Affinité : moyenne d'une similarité de direction (cosinus) et d'une proximité de position (distance), sur les 14 axes. Un courant est un repère, pas une étiquette.</p>
+      <p className="small muted">Affinité : moyenne d'une similarité de direction (cosinus) et d'une proximité de position (distance), sur les 15 axes. Un courant est un repère, pas une étiquette.</p>
       <ol className="cards">
         {r.top.map(({ match, lineage }) => (
           <li key={match.archetype.id} className="card">

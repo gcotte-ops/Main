@@ -20,8 +20,8 @@ export function MethodologyPage({ data }: { data: Dataset }) {
 
       <h2>1. Les axes</h2>
       <p>
-        Dix axes principaux et quatre secondaires sont mesurés. Quatre axes optionnels (genre et famille, technique, rapport à l'histoire nationale, mode de changement) sont prévus
-        mais ne sont pas mesurés dans cette version. Les intitulés des pôles reprennent la grille du fichier de référence des programmes (fichier 01).
+        Dix axes principaux et cinq secondaires sont mesurés, dont le mode de changement (réformiste ↔ révolutionnaire), ajouté avec la version 2 du questionnaire.
+        Trois axes optionnels (genre et famille, technique, rapport à l'histoire nationale) sont prévus mais ne sont pas mesurés dans cette version. Les intitulés des pôles reprennent la grille du fichier de référence des programmes (fichier 01).
       </p>
       <table>
         <thead><tr><th scope="col">Code</th><th scope="col">Axe</th><th scope="col">Pôle −100</th><th scope="col">Pôle +100</th><th scope="col">Items</th><th scope="col">Inversés</th></tr></thead>
@@ -46,12 +46,20 @@ export function MethodologyPage({ data }: { data: Dataset }) {
 
       <h2>2. Les questions</h2>
       <p>
-        {data.questions.length} questions : {data.questions.filter((q) => q.type === 'likert').length} énoncés à 5 degrés d'accord (plus « sans avis », qui exclut l'item),{' '}
-        {data.questions.filter((q) => q.type === 'dilemma').length} dilemmes entre deux valeurs légitimes (échelle bipolaire à 5 degrés) et{' '}
-        {data.questions.filter((q) => q.type === 'allocation').length} répartitions de 10 points entre priorités. Chaque axe principal compte 8 items dont au moins 3 formulés dans le sens
-        du pôle « moins » (items inversés), chaque axe secondaire 5 items dont au moins 2 inversés. {anchored} items reformulent en principe une mesure réelle d'un programme,
-        sans nommer de candidat·e. Chaque item cite un à trois auteurs et expose les arguments des deux pôles. Un linter vérifie automatiquement longueur (≤ 30 mots),
-        absence de double négation, de mots chargés et de noms de candidat·es, équilibre des inversions et existence des références.
+        {data.groups.length} blocs réunissent chacun un contexte (une mesure débattue, une situation concrète) et 4 affirmations qui couvrent des positions différentes
+        plutôt que deux pôles, soit {data.questions.filter((q) => q.type === 'likert').length} affirmations. Chacune reçoit sa propre réponse : pas du tout d'accord, plutôt pas d'accord,
+        neutre, plutôt d'accord, tout à fait d'accord, ou « je ne sais pas », qui exclut l'affirmation du calcul.{' '}
+        {data.questions.filter((q) => q.type === 'choice').length} questions à choix proposent 5 à 7 options (plus « aucune de ces réponses ») : elles ouvrent l'éventail au-delà
+        de l'opposition entre démocratie libérale et autoritarisme (démocratie directe ou des conseils, anarchisme, pouvoir national-autoritaire, technocratie).{' '}
+        {data.questions.filter((q) => q.type === 'allocation').length} répartitions de 10 points complètent l'ensemble ; les deux dernières, sur les priorités, pondèrent la comparaison avec les candidat·es.
+      </p>
+      <p>
+        Deux paires de blocs posent la même question dans deux contextes : l'Union européenne telle qu'elle est et telle que vous la souhaiteriez ; un gouvernement
+        du camp opposé et un gouvernement de votre camp. Chaque axe principal compte au moins 8 affirmations principales dont au moins 3 dans le sens du pôle « moins »,
+        chaque axe secondaire au moins 5 dont 2. {anchored} affirmations reformulent une mesure réelle d'un programme, sans nommer de candidat·e.
+        Le vocabulaire en usage dans le débat (« lutte des classes », « grand remplacement », « assistanat »…) apparaît seulement dans une affirmation que le camp qui l'emploie
+        pourrait signer, et il est expliqué dans le mode Apprendre ; l'outil décrit une adhésion, il ne qualifie pas la personne. Un linter vérifie automatiquement
+        longueur (≤ 30 mots), absence de double négation et de noms de candidat·es, explication du vocabulaire marqué, équilibre des inversions et existence des références.
       </p>
 
       <h2>3. Calcul des scores</h2>
@@ -60,11 +68,11 @@ export function MethodologyPage({ data }: { data: Dataset }) {
       </p>
       <p className="formula">S<sub>a</sub> = 100 × Σ<sub>i</sub> w<sub>i,a</sub> · r<sub>i</sub> ⁄ (2 × Σ<sub>i</sub> |w<sub>i,a</sub>|), sur les items répondus, dans [−100 ; +100].</p>
       <ul>
-        <li>Dilemme : l'intensité |v| (1 ou 2) multiplie les poids de l'option choisie ; « les deux se valent » compte comme une position centrale.</li>
+        <li>Question à choix : l'option retenue compte comme un accord net (contribution 2 × w, maximum 2 × le plus grand |w| des options) ; « aucune de ces réponses » exclut la question. C'est la formule des dilemmes à deux options de la version 1, étendue à N options.</li>
         <li>Allocation : la part de points de chaque option, centrée sur la répartition uniforme, multiplie ses poids ; une répartition égale est neutre.</li>
         <li>Chargements croisés : un item peut charger 2 ou 3 axes (poids secondaires 0,2 à 0,5), ce qui capture la logique d'intersection.</li>
         <li>Confiance : intervalle à 95 % par bootstrap sur les items ({BOOTSTRAP_DRAWS} tirages, calculés dans le navigateur). En dessous de {MIN_EFFECTIVE_ITEMS} items effectifs (n<sub>eff</sub> = (Σ|w|)² ⁄ Σw²), la position est dite « peu établie ».</li>
-        <li>Cohérence : certaines paires d'items relèvent de la même logique ; au plus trois écarts sont signalés, avec une explication de la manière dont ils peuvent coexister.</li>
+        <li>Cohérence : quand un même énoncé reçoit des réponses opposées dans deux contextes (gouvernement du camp opposé ou de votre camp), l'écart est signalé, avec une explication de la manière dont il peut se comprendre ; au plus trois signalements.</li>
         <li>Biais de réponse : un taux d'accord supérieur à 80 % ou inférieur à 20 % (acquiescence) ou un temps moyen inférieur à 1,5 s par question déclenchent un avertissement.</li>
       </ul>
 
@@ -80,7 +88,7 @@ export function MethodologyPage({ data }: { data: Dataset }) {
       <p>
         {data.candidates.length} candidatures sont recensées (déclarées, en primaire, pressenties ou incertaines), dont {coded} codées dans le fichier 01. Le codage −2..+2 est converti en −100..+100.
         Distance = racine de la moyenne pondérée des écarts au carré, sur les axes codés ; poids = confiance du codage (élevée {CONFIDENCE_WEIGHT.H}, moyenne {CONFIDENCE_WEIGHT.M}, faible {CONFIDENCE_WEIGHT.F})
-        × saillance tirée de vos répartitions de points (bornée entre {SALIENCE_MIN} et {SALIENCE_MAX}). Les axes non codés sont ignorés ; une candidature n'est classée que si au moins {MIN_CODED_AXES} axes sont comparables.
+        × saillance tirée de vos deux répartitions de priorités (bornée entre {SALIENCE_MIN} et {SALIENCE_MAX}). Les axes non codés sont ignorés ; une candidature n'est classée que si au moins {MIN_CODED_AXES} axes sont comparables.
         Aucune position n'est inventée : une donnée manquante est affichée « non renseigné ». Aucun·e candidat·e n'est qualifié·e moralement.
       </p>
 
