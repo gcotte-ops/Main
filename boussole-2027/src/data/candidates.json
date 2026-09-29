@@ -1,1 +1,4833 @@
-[]
+[
+  {
+    "id": "nathalie-arthaud",
+    "name": "Nathalie Arthaud",
+    "party": "Lutte ouvrière",
+    "bloc": "Extrême gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (08/12/2025)",
+    "section": "§3.13",
+    "note": "GOV non codé : visée d'une démocratie ouvrière hors du cadre libéral-représentatif.",
+    "positions": {
+      "ECO": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ENV": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "REL": {
+        "value": -75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ETA": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "CUL": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1,5 (RP) / +1 (LO) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ALT": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "UE": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GMO": {
+        "value": 75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01 (§3.13).",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "nathalie-arthaud-01",
+      "nathalie-arthaud-02",
+      "nathalie-arthaud-03",
+      "nathalie-arthaud-04"
+    ],
+    "sources": [
+      "Fichier 01 §3.13 — état au 25/09/2026",
+      "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "anasse-kazib",
+    "name": "Anasse Kazib",
+    "party": "Révolution permanente",
+    "bloc": "Extrême gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (01/06/2026)",
+    "section": "§3.13",
+    "note": "GOV non codé : visée d'une démocratie ouvrière hors du cadre libéral-représentatif.",
+    "positions": {
+      "ECO": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ENV": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "REL": {
+        "value": -75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ETA": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "CUL": {
+        "value": 75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1,5 (RP) / +1 (LO) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ALT": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "UE": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GMO": {
+        "value": 75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01 (§3.13).",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "nathalie-arthaud-01",
+      "nathalie-arthaud-02",
+      "nathalie-arthaud-03",
+      "nathalie-arthaud-04"
+    ],
+    "sources": [
+      "Fichier 01 §3.13 — état au 25/09/2026",
+      "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "selma-labib",
+    "name": "Selma Labib",
+    "party": "NPA-Révolutionnaires",
+    "bloc": "Extrême gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (17/06/2026)",
+    "section": "§3.13",
+    "note": "GOV non codé : visée d'une démocratie ouvrière hors du cadre libéral-représentatif.",
+    "positions": {
+      "ECO": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ENV": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "REL": {
+        "value": -75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ETA": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01 (§3.13).",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "ALT": {
+        "value": 100,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "UE": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GMO": {
+        "value": 75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.13, « +1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01 (§3.13).",
+        "sources": [
+          "Fichier 01 §3.13 — état au 25/09/2026",
+          "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "nathalie-arthaud-01",
+      "nathalie-arthaud-02",
+      "nathalie-arthaud-03",
+      "nathalie-arthaud-04"
+    ],
+    "sources": [
+      "Fichier 01 §3.13 — état au 25/09/2026",
+      "lutte-ouvriere.org, revolutionpermanente.fr, NPA-R ★★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "jean-luc-melenchon",
+    "name": "Jean-Luc Mélenchon",
+    "party": "La France insoumise",
+    "bloc": "Gauche radicale",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (mai 2026)",
+    "section": "§3.2",
+    "note": "GOV élevé sur les garanties (justice, police, libertés publiques) mais conception « démocratie radicale / souveraineté populaire » plutôt que libérale-représentative ; ETA = synthèse d'un souverainisme populaire et d'un internationalisme altermondialiste.",
+    "positions": {
+      "ECO": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « 0 (M) »), hypothèse de calibrage à auditer. Note de la fiche : GOV élevé sur les garanties (justice, police, libertés publiques) mais conception « démocratie radicale / souveraineté populaire » plutôt que libérale-représentative ; ETA = synthèse d'un souverainisme populaire et d'un internationalisme altermondialiste.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": 75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « −0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.2, « +1 (M) »), hypothèse de calibrage à auditer. Note de la fiche : GOV élevé sur les garanties (justice, police, libertés publiques) mais conception « démocratie radicale / souveraineté populaire » plutôt que libérale-représentative ; ETA = synthèse d'un souverainisme populaire et d'un internationalisme altermondialiste.",
+        "sources": [
+          "Fichier 01 §3.2 — état au 25/09/2026",
+          "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+          "melenchon2027.fr ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "jean-luc-melenchon-01",
+      "jean-luc-melenchon-02",
+      "jean-luc-melenchon-03",
+      "jean-luc-melenchon-04",
+      "jean-luc-melenchon-05",
+      "jean-luc-melenchon-06",
+      "jean-luc-melenchon-07",
+      "jean-luc-melenchon-08",
+      "jean-luc-melenchon-09",
+      "jean-luc-melenchon-10",
+      "jean-luc-melenchon-11",
+      "jean-luc-melenchon-12",
+      "jean-luc-melenchon-13",
+      "jean-luc-melenchon-14",
+      "jean-luc-melenchon-15",
+      "jean-luc-melenchon-16",
+      "jean-luc-melenchon-17",
+      "jean-luc-melenchon-18",
+      "jean-luc-melenchon-19",
+      "jean-luc-melenchon-20",
+      "jean-luc-melenchon-21",
+      "jean-luc-melenchon-22",
+      "jean-luc-melenchon-23",
+      "jean-luc-melenchon-24",
+      "jean-luc-melenchon-25",
+      "jean-luc-melenchon-26",
+      "jean-luc-melenchon-27",
+      "jean-luc-melenchon-28",
+      "jean-luc-melenchon-29",
+      "jean-luc-melenchon-30",
+      "jean-luc-melenchon-31",
+      "jean-luc-melenchon-32",
+      "jean-luc-melenchon-33",
+      "jean-luc-melenchon-34",
+      "jean-luc-melenchon-35",
+      "jean-luc-melenchon-36",
+      "jean-luc-melenchon-37",
+      "jean-luc-melenchon-38",
+      "jean-luc-melenchon-39",
+      "jean-luc-melenchon-40",
+      "jean-luc-melenchon-41",
+      "jean-luc-melenchon-42",
+      "jean-luc-melenchon-43",
+      "jean-luc-melenchon-44",
+      "jean-luc-melenchon-45",
+      "jean-luc-melenchon-46",
+      "jean-luc-melenchon-47",
+      "jean-luc-melenchon-48",
+      "jean-luc-melenchon-49",
+      "jean-luc-melenchon-50",
+      "jean-luc-melenchon-51",
+      "jean-luc-melenchon-52",
+      "jean-luc-melenchon-53",
+      "jean-luc-melenchon-54"
+    ],
+    "sources": [
+      "Fichier 01 §3.2 — état au 25/09/2026",
+      "L'Avenir en commun, édition 2025 (831 mesures) — actualisation annoncée",
+      "melenchon2027.fr ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "fabien-roussel",
+    "name": "Fabien Roussel",
+    "party": "PCF",
+    "bloc": "Gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (vote militant 72 %, sept. 2026)",
+    "section": "§3.10",
+    "positions": {
+      "ECO": {
+        "value": 100,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « +2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « 0 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « 0 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.10, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.10 — état au 25/09/2026",
+          "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "fabien-roussel-01",
+      "fabien-roussel-02",
+      "fabien-roussel-03",
+      "fabien-roussel-04",
+      "fabien-roussel-05",
+      "fabien-roussel-06",
+      "fabien-roussel-07",
+      "fabien-roussel-08",
+      "fabien-roussel-09",
+      "fabien-roussel-10",
+      "fabien-roussel-11",
+      "fabien-roussel-12",
+      "fabien-roussel-13",
+      "fabien-roussel-14",
+      "fabien-roussel-15"
+    ],
+    "sources": [
+      "Fichier 01 §3.10 — état au 25/09/2026",
+      "PCF, programme 2022 « La France des jours heureux », TF1 sept. 2026 ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "francois-ruffin",
+    "name": "François Ruffin",
+    "party": "Debout !",
+    "bloc": "Gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (campagne lancée 25/04/2026)",
+    "section": "§3.9",
+    "positions": {
+      "ECO": {
+        "value": 75,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": 0,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « 0 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.9, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.9 — état au 25/09/2026",
+          "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "francois-ruffin-01",
+      "francois-ruffin-02",
+      "francois-ruffin-03",
+      "francois-ruffin-04",
+      "francois-ruffin-05",
+      "francois-ruffin-06",
+      "francois-ruffin-07",
+      "francois-ruffin-08",
+      "francois-ruffin-09",
+      "francois-ruffin-10",
+      "francois-ruffin-11"
+    ],
+    "sources": [
+      "Fichier 01 §3.9 — état au 25/09/2026",
+      "nouspresident.fr, meeting de Lyon 25/04/2026 ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "marine-tondelier",
+    "name": "Marine Tondelier",
+    "party": "Les Écologistes",
+    "bloc": "Gauche écologiste",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (désignée 08/12/2025, 86 %)",
+    "section": "§3.8",
+    "positions": {
+      "ECO": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "ENV": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "REL": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « −0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "ETA": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "CUL": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "ALT": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "UE": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "GMO": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « −0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      },
+      "GOV": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.8, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.8 — état au 25/09/2026",
+          "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+          "iFRAP ★★",
+          "poligraph ★"
+        ]
+      }
+    },
+    "measureIds": [
+      "marine-tondelier-01",
+      "marine-tondelier-02",
+      "marine-tondelier-03",
+      "marine-tondelier-04",
+      "marine-tondelier-05",
+      "marine-tondelier-06",
+      "marine-tondelier-07",
+      "marine-tondelier-08",
+      "marine-tondelier-09",
+      "marine-tondelier-10",
+      "marine-tondelier-11",
+      "marine-tondelier-12",
+      "marine-tondelier-13",
+      "marine-tondelier-14",
+      "marine-tondelier-15",
+      "marine-tondelier-16"
+    ],
+    "sources": [
+      "Fichier 01 §3.8 — état au 25/09/2026",
+      "texte d'orientation « Notre projet » (19/04/2025) ★★★",
+      "iFRAP ★★",
+      "poligraph ★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "delphine-batho",
+    "name": "Delphine Batho",
+    "party": "Génération écologie",
+    "bloc": "Écologie",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (25/11/2025)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "delphine-batho-01",
+      "delphine-batho-02"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "Génération écologie"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "olivier-faure",
+    "name": "Olivier Faure",
+    "party": "PS",
+    "bloc": "Gauche sociale-démocrate",
+    "status": "Primaire",
+    "statusDetail": "Primaire",
+    "section": "§3.7",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "olivier-faure-01",
+      "olivier-faure-02"
+    ],
+    "sources": [
+      "Fichier 01 §3.7 — état au 25/09/2026",
+      "fiabilité ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "raphael-glucksmann",
+    "name": "Raphaël Glucksmann",
+    "party": "Place publique",
+    "bloc": "Gauche sociale-démocrate",
+    "status": "Primaire",
+    "statusDetail": "Primaire",
+    "section": "§3.7",
+    "positions": {
+      "ECO": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "IDE": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « −0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "ENV": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "REL": {
+        "value": -25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « −0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "ETA": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "CUL": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "ALT": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "UE": {
+        "value": 100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "GMO": {
+        "value": -100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « −2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      },
+      "GOV": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.7, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026",
+          "Place publique ; livre *Nous avons encore envie*, mai 2026",
+          "fiabilité ★★★/★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "raphael-glucksmann-01",
+      "raphael-glucksmann-02",
+      "raphael-glucksmann-03",
+      "raphael-glucksmann-04",
+      "raphael-glucksmann-05",
+      "raphael-glucksmann-06",
+      "raphael-glucksmann-07",
+      "raphael-glucksmann-08",
+      "raphael-glucksmann-09",
+      "raphael-glucksmann-10",
+      "raphael-glucksmann-11",
+      "raphael-glucksmann-12"
+    ],
+    "sources": [
+      "Fichier 01 §3.7 — état au 25/09/2026",
+      "Place publique ; livre *Nous avons encore envie*, mai 2026",
+      "fiabilité ★★★/★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "jerome-guedj",
+    "name": "Jérôme Guedj",
+    "party": "PS",
+    "bloc": "Gauche sociale-démocrate",
+    "status": "Primaire",
+    "statusDetail": "Primaire",
+    "section": "§3.7",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "jerome-guedj-01",
+      "jerome-guedj-02"
+    ],
+    "sources": [
+      "Fichier 01 §3.7 — état au 25/09/2026",
+      "fiabilité ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "emmanuel-maurel",
+    "name": "Emmanuel Maurel",
+    "party": "Gauche républicaine et socialiste",
+    "bloc": "Gauche républicaine",
+    "status": "Primaire",
+    "statusDetail": "Primaire",
+    "section": "§3.7",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "emmanuel-maurel-01",
+      "emmanuel-maurel-02"
+    ],
+    "sources": [
+      "Fichier 01 §3.7 — état au 25/09/2026",
+      "GRS",
+      "fiabilité ★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "segolene-royal",
+    "name": "Ségolène Royal",
+    "party": "PS",
+    "bloc": "Gauche sociale-démocrate",
+    "status": "Primaire",
+    "statusDetail": "Primaire",
+    "section": "§3.7",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.7 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "segolene-royal-01",
+      "segolene-royal-02",
+      "segolene-royal-03"
+    ],
+    "sources": [
+      "Fichier 01 §3.7 — état au 25/09/2026",
+      "fiabilité ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "karim-bouamrane",
+    "name": "Karim Bouamrane",
+    "party": "PS (hors primaire)",
+    "bloc": "Centre-gauche",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (09/06/2026)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "karim-bouamrane-01"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "clementine-autain",
+    "name": "Clémentine Autain",
+    "party": "L'Après",
+    "bloc": "Gauche",
+    "status": "Incertain",
+    "statusDetail": "Candidat·e à une primaire désormais caduque",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "benjamin-lucas",
+    "name": "Benjamin Lucas",
+    "party": "Génération.s",
+    "bloc": "Gauche",
+    "status": "Incertain",
+    "statusDetail": "Candidat·e à une primaire désormais caduque",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "lydie-massard",
+    "name": "Lydie Massard",
+    "party": "UDB",
+    "bloc": "Gauche",
+    "status": "Incertain",
+    "statusDetail": "Candidat·e à une primaire désormais caduque",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "francois-hollande",
+    "name": "François Hollande",
+    "party": "PS",
+    "bloc": "Centre-gauche",
+    "status": "Pressenti",
+    "statusDetail": "Pressentis (Hollande : décision annoncée pour décembre)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "francois-hollande-01",
+      "francois-hollande-02",
+      "francois-hollande-03"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "iFRAP ★★",
+      "pressenti, décision en décembre"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "bernard-cazeneuve",
+    "name": "Bernard Cazeneuve",
+    "party": "La Convergence",
+    "bloc": "Centre-gauche",
+    "status": "Pressenti",
+    "statusDetail": "Pressentis (Hollande : décision annoncée pour décembre)",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "dominique-de-villepin",
+    "name": "Dominique de Villepin",
+    "party": "La France humaniste",
+    "bloc": "Gaullisme humaniste",
+    "status": "Pressenti",
+    "statusDetail": "Pressenti (non déclaré officiellement)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "dominique-de-villepin-01",
+      "dominique-de-villepin-02",
+      "dominique-de-villepin-03",
+      "dominique-de-villepin-04",
+      "dominique-de-villepin-05",
+      "dominique-de-villepin-06",
+      "dominique-de-villepin-07",
+      "dominique-de-villepin-08"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "La France humaniste, non déclaré"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "gabriel-attal",
+    "name": "Gabriel Attal",
+    "party": "Renaissance",
+    "bloc": "Centre",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (22/05/2026)",
+    "section": "§3.4",
+    "positions": {
+      "ECO": {
+        "value": -50,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « −1 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « −1 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « −0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « +0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « −0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": 75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « +1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « −1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.4, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.4 — état au 25/09/2026",
+          "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "gabriel-attal-01",
+      "gabriel-attal-02",
+      "gabriel-attal-03",
+      "gabriel-attal-04",
+      "gabriel-attal-05",
+      "gabriel-attal-06",
+      "gabriel-attal-07",
+      "gabriel-attal-08",
+      "gabriel-attal-09",
+      "gabriel-attal-10",
+      "gabriel-attal-11",
+      "gabriel-attal-12",
+      "gabriel-attal-13",
+      "gabriel-attal-14",
+      "gabriel-attal-15",
+      "gabriel-attal-16",
+      "gabriel-attal-17",
+      "gabriel-attal-18",
+      "gabriel-attal-19",
+      "gabriel-attal-20",
+      "gabriel-attal-21",
+      "gabriel-attal-22",
+      "gabriel-attal-23"
+    ],
+    "sources": [
+      "Fichier 01 §3.4 — état au 25/09/2026",
+      "attalpresident.fr, franceinfo (01/09/2026) ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "edouard-philippe",
+    "name": "Édouard Philippe",
+    "party": "Horizons",
+    "bloc": "Centre-droit",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (03/09/2024)",
+    "section": "§3.3",
+    "positions": {
+      "ECO": {
+        "value": -75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « −1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "IDE": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « −1 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ENV": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "REL": {
+        "value": 0,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « 0 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ETA": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « +0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "CUL": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « 0 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ALT": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « −0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "UE": {
+        "value": 75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « +1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "GMO": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "GOV": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.3, « +0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.3 — état au 25/09/2026",
+          "iFRAP ★★",
+          "entretiens (Le Point, France Inter) ★★★",
+          "agrégateurs ★"
+        ]
+      }
+    },
+    "measureIds": [
+      "edouard-philippe-01",
+      "edouard-philippe-02",
+      "edouard-philippe-03",
+      "edouard-philippe-04",
+      "edouard-philippe-05",
+      "edouard-philippe-06",
+      "edouard-philippe-07",
+      "edouard-philippe-08",
+      "edouard-philippe-09",
+      "edouard-philippe-10",
+      "edouard-philippe-11",
+      "edouard-philippe-12",
+      "edouard-philippe-13",
+      "edouard-philippe-14",
+      "edouard-philippe-15",
+      "edouard-philippe-16",
+      "edouard-philippe-17",
+      "edouard-philippe-18",
+      "edouard-philippe-19",
+      "edouard-philippe-20",
+      "edouard-philippe-21",
+      "edouard-philippe-22",
+      "edouard-philippe-23",
+      "edouard-philippe-24",
+      "edouard-philippe-25",
+      "edouard-philippe-26",
+      "edouard-philippe-27"
+    ],
+    "sources": [
+      "Fichier 01 §3.3 — état au 25/09/2026",
+      "iFRAP ★★",
+      "entretiens (Le Point, France Inter) ★★★",
+      "agrégateurs ★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "olivier-becht",
+    "name": "Olivier Becht",
+    "party": "Ensemble (app.)",
+    "bloc": "Centre",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (sept. 2026)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "olivier-becht-01"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "bruno-retailleau",
+    "name": "Bruno Retailleau",
+    "party": "Les Républicains",
+    "bloc": "Droite",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (12/02/2026), investi par vote militant le 19/04/2026",
+    "section": "§3.5",
+    "positions": {
+      "ECO": {
+        "value": -75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": -50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −1 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.5, « −0,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.5 — état au 25/09/2026",
+          "LCI 22/09/2026 via AFP/franceinfo ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "bruno-retailleau-01",
+      "bruno-retailleau-02",
+      "bruno-retailleau-03",
+      "bruno-retailleau-04",
+      "bruno-retailleau-05",
+      "bruno-retailleau-06",
+      "bruno-retailleau-07",
+      "bruno-retailleau-08",
+      "bruno-retailleau-09",
+      "bruno-retailleau-10",
+      "bruno-retailleau-11",
+      "bruno-retailleau-12",
+      "bruno-retailleau-13",
+      "bruno-retailleau-14",
+      "bruno-retailleau-15",
+      "bruno-retailleau-16",
+      "bruno-retailleau-17",
+      "bruno-retailleau-18",
+      "bruno-retailleau-19",
+      "bruno-retailleau-20",
+      "bruno-retailleau-21",
+      "bruno-retailleau-22",
+      "bruno-retailleau-23",
+      "bruno-retailleau-24",
+      "bruno-retailleau-25",
+      "bruno-retailleau-26",
+      "bruno-retailleau-27",
+      "bruno-retailleau-28",
+      "bruno-retailleau-29",
+      "bruno-retailleau-30"
+    ],
+    "sources": [
+      "Fichier 01 §3.5 — état au 25/09/2026",
+      "LCI 22/09/2026 via AFP/franceinfo ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "xavier-bertrand",
+    "name": "Xavier Bertrand",
+    "party": "Nous France (indépendant, ex-LR)",
+    "bloc": "Droite sociale",
+    "status": "Incertain",
+    "statusDetail": "« Je le serai » (27/08/2026), déclaration formelle fin d'année",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "xavier-bertrand-01",
+      "xavier-bertrand-02",
+      "xavier-bertrand-03"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "david-lisnard",
+    "name": "David Lisnard",
+    "party": "Nouvelle Énergie",
+    "bloc": "Droite libérale",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (31/03/2026)",
+    "section": "§3.11",
+    "positions": {
+      "ECO": {
+        "value": -100,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « 0 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.11, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.11 — état au 25/09/2026",
+          "unenouvelleenergie.fr ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "david-lisnard-01",
+      "david-lisnard-02",
+      "david-lisnard-03",
+      "david-lisnard-04",
+      "david-lisnard-05",
+      "david-lisnard-06",
+      "david-lisnard-07",
+      "david-lisnard-08",
+      "david-lisnard-09",
+      "david-lisnard-10",
+      "david-lisnard-11",
+      "david-lisnard-12",
+      "david-lisnard-13",
+      "david-lisnard-14",
+      "david-lisnard-15"
+    ],
+    "sources": [
+      "Fichier 01 §3.11 — état au 25/09/2026",
+      "unenouvelleenergie.fr ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "marine-le-pen",
+    "name": "Marine Le Pen",
+    "party": "Rassemblement national",
+    "bloc": "Extrême droite / droite nationale",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (07/07/2026), sous réserve cassation — remplaçant désigné : Jordan Bardella",
+    "section": "§3.1",
+    "alternates": [
+      "Jordan Bardella"
+    ],
+    "note": "programme économique « social-protectionniste » (retraites, TVA) combiné à des mesures libérales (logement, audiovisuel) → ECO proche du centre. GOV : référendums conçus pour contourner le contrôle de constitutionnalité.",
+    "positions": {
+      "ECO": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « +0,5 (M) »), hypothèse de calibrage à auditer. Note de la fiche : programme économique « social-protectionniste » (retraites, TVA) combiné à des mesures libérales (logement, audiovisuel) → ECO proche du centre. GOV : référendums conçus pour contourner le contrôle de constitutionnalité.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "IDE": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « +1 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ENV": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "REL": {
+        "value": 25,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « +0,5 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ETA": {
+        "value": -100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "CUL": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "ALT": {
+        "value": -75,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −1,5 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "UE": {
+        "value": -50,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −1 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "GMO": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      },
+      "GOV": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.1, « −1 (M) »), hypothèse de calibrage à auditer. Note de la fiche : programme économique « social-protectionniste » (retraites, TVA) combiné à des mesures libérales (logement, audiovisuel) → ECO proche du centre. GOV : référendums conçus pour contourner le contrôle de constitutionnalité.",
+        "sources": [
+          "Fichier 01 §3.1 — état au 25/09/2026",
+          "rassemblementnational.fr",
+          "iFRAP ★★",
+          "France 24, LeJDD, franceinfo ★★★",
+          "agrégateurs ★"
+        ]
+      }
+    },
+    "measureIds": [
+      "marine-le-pen-01",
+      "marine-le-pen-02",
+      "marine-le-pen-03",
+      "marine-le-pen-04",
+      "marine-le-pen-05",
+      "marine-le-pen-06",
+      "marine-le-pen-07",
+      "marine-le-pen-08",
+      "marine-le-pen-09",
+      "marine-le-pen-10",
+      "marine-le-pen-11",
+      "marine-le-pen-12",
+      "marine-le-pen-13",
+      "marine-le-pen-14",
+      "marine-le-pen-15",
+      "marine-le-pen-16",
+      "marine-le-pen-17",
+      "marine-le-pen-18",
+      "marine-le-pen-19",
+      "marine-le-pen-20",
+      "marine-le-pen-21",
+      "marine-le-pen-22",
+      "marine-le-pen-23",
+      "marine-le-pen-24",
+      "marine-le-pen-25",
+      "marine-le-pen-26",
+      "marine-le-pen-27",
+      "marine-le-pen-28",
+      "marine-le-pen-29",
+      "marine-le-pen-30",
+      "marine-le-pen-31",
+      "marine-le-pen-32",
+      "marine-le-pen-33",
+      "marine-le-pen-34",
+      "marine-le-pen-35",
+      "marine-le-pen-36"
+    ],
+    "sources": [
+      "Fichier 01 §3.1 — état au 25/09/2026",
+      "rassemblementnational.fr",
+      "iFRAP ★★",
+      "France 24, LeJDD, franceinfo ★★★",
+      "agrégateurs ★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "eric-zemmour",
+    "name": "Éric Zemmour",
+    "party": "Reconquête",
+    "bloc": "Extrême droite",
+    "status": "Incertain",
+    "statusDetail": "A confirmé être candidat (17/09/2026), déclaration formelle « avant décembre »",
+    "section": "§3.6",
+    "positions": {
+      "ECO": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": 75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « +1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −1,5 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "REL": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « +1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": -100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": -100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": -100,
+        "confidence": "H",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −2 (H) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "UE": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": 50,
+        "confidence": "F",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « +1 (F) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.6, « −1 (M) »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.6 — état au 25/09/2026",
+          "BFMTV 17/09/2026 via AFP ★★★",
+          "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "eric-zemmour-01",
+      "eric-zemmour-02",
+      "eric-zemmour-03",
+      "eric-zemmour-04",
+      "eric-zemmour-05",
+      "eric-zemmour-06",
+      "eric-zemmour-07",
+      "eric-zemmour-08",
+      "eric-zemmour-09",
+      "eric-zemmour-10",
+      "eric-zemmour-11",
+      "eric-zemmour-12",
+      "eric-zemmour-13"
+    ],
+    "sources": [
+      "Fichier 01 §3.6 — état au 25/09/2026",
+      "BFMTV 17/09/2026 via AFP ★★★",
+      "iFRAP ★★ (en partie issu du programme 2022). Aucun programme 2027 formel au 19/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "nicolas-dupont-aignan",
+    "name": "Nicolas Dupont-Aignan",
+    "party": "Debout la France",
+    "bloc": "Droite souverainiste",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (19/09/2026)",
+    "section": "§3.12",
+    "positions": {
+      "ECO": {
+        "value": 0,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « 0 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "IDE": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ENV": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "REL": {
+        "value": 25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « +0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ETA": {
+        "value": -100,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "CUL": {
+        "value": -50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "ALT": {
+        "value": -75,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −1,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "UE": {
+        "value": -100,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −2 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GMO": {
+        "value": 50,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « +1 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      },
+      "GOV": {
+        "value": -25,
+        "confidence": "M",
+        "justification": "Codage indicatif du fichier 01 (§3.12, « −0,5 »), hypothèse de calibrage à auditer.",
+        "sources": [
+          "Fichier 01 §3.12 — état au 25/09/2026",
+          "meeting de Yerres 19/09/2026 ★★★",
+          "iFRAP ★★"
+        ]
+      }
+    },
+    "measureIds": [
+      "nicolas-dupont-aignan-01",
+      "nicolas-dupont-aignan-02",
+      "nicolas-dupont-aignan-03",
+      "nicolas-dupont-aignan-04",
+      "nicolas-dupont-aignan-05",
+      "nicolas-dupont-aignan-06",
+      "nicolas-dupont-aignan-07",
+      "nicolas-dupont-aignan-08"
+    ],
+    "sources": [
+      "Fichier 01 §3.12 — état au 25/09/2026",
+      "meeting de Yerres 19/09/2026 ★★★",
+      "iFRAP ★★"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "francois-asselineau",
+    "name": "François Asselineau",
+    "party": "UPR",
+    "bloc": "Souverainisme",
+    "status": "Déclaré",
+    "statusDetail": "Déclaré (21/03/2026)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "francois-asselineau-01"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "UPR"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "florian-philippot",
+    "name": "Florian Philippot",
+    "party": "Les Patriotes",
+    "bloc": "Souverainisme",
+    "status": "Incertain",
+    "statusDetail": "Déclaré (09/03/2026 selon Le JDD) — ⚠️ sources contradictoires",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "florian-philippot-01",
+      "florian-philippot-02"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "Les Patriotes"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "clara-egger",
+    "name": "Clara Egger",
+    "party": "Solution démocratique",
+    "bloc": "Démocratie directe",
+    "status": "Déclaré",
+    "statusDetail": "Déclarée (20/04/2026)",
+    "section": "§3.14",
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §3.14 — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [
+      "clara-egger-01"
+    ],
+    "sources": [
+      "Fichier 01 §3.14 — état au 25/09/2026",
+      "Solution démocratique"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "juan-branco",
+    "name": "Juan Branco",
+    "party": "Divers",
+    "bloc": "Divers",
+    "status": "Incertain",
+    "statusDetail": "Déclarés / pressentis",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "francis-lalanne",
+    "name": "Francis Lalanne",
+    "party": "Divers",
+    "bloc": "Divers",
+    "status": "Incertain",
+    "statusDetail": "Déclarés / pressentis",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "antoine-mikolajczak",
+    "name": "Antoine Mikolajczak",
+    "party": "Équinoxe",
+    "bloc": "Divers",
+    "status": "Incertain",
+    "statusDetail": "Déclarés / pressentis",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "jean-lassalle",
+    "name": "Jean Lassalle",
+    "party": "Divers",
+    "bloc": "Divers",
+    "status": "Pressenti",
+    "statusDetail": "Pressenti",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "michel-edouard-leclerc",
+    "name": "Michel-Édouard Leclerc",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "matthieu-pigasse",
+    "name": "Matthieu Pigasse",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "manuel-valls",
+    "name": "Manuel Valls",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "bruno-le-maire",
+    "name": "Bruno Le Maire",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "gerald-darmanin",
+    "name": "Gérald Darmanin",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "yael-braun-pivet",
+    "name": "Yaël Braun-Pivet",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  },
+  {
+    "id": "michel-barnier",
+    "name": "Michel Barnier",
+    "party": "n. c.",
+    "bloc": "n. c.",
+    "status": "Incertain",
+    "statusDetail": "Cité au §3.14 : déclarés marginaux ou simplement pressentis ; à suivre.",
+    "section": null,
+    "positions": {
+      "ECO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "IDE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ENV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "REL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ETA": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "CUL": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "ALT": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "UE": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GMO": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      },
+      "GOV": {
+        "value": null,
+        "confidence": "F",
+        "justification": "Non codé dans le fichier 01.",
+        "sources": [
+          "Fichier 01 §2 (panorama) — état au 25/09/2026"
+        ]
+      }
+    },
+    "measureIds": [],
+    "sources": [
+      "Fichier 01 §2 (panorama) — état au 25/09/2026"
+    ],
+    "lastUpdated": "2026-09-25"
+  }
+]
