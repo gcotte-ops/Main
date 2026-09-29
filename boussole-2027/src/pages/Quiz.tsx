@@ -34,12 +34,12 @@ export function QuizPage({ data, state, dispatch, onErase }: { data: Dataset; st
 
   return (
     <div className="quiz">
-      <div className="progress" aria-label="Progression">
+      <div className="progress">
         <div className="progress-label small">
           <span>Question {state.index + 1} sur {state.order.length} · {blockLabel[q.block] ?? q.block}</span>
           <span>{done} réponse{done > 1 ? 's' : ''}</span>
         </div>
-        <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-valuetext={`${pct} %`}>
+        <div className="progress-track" role="progressbar" aria-label="Progression du questionnaire" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-valuetext={`${pct} %`}>
           <div className="progress-bar" style={{ width: `${pct}%` }} />
         </div>
       </div>
