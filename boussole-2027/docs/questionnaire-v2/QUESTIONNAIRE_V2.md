@@ -1,6 +1,6 @@
-# Boussole 2027 — Questionnaire, version 2 (brouillon de travail)
+# Boussole 2027 — Questionnaire, version 2 (document de travail)
 
-_Document de travail généré le 29 septembre 2026 à partir de `docs/questionnaire-v2/*.json` par `build-md.ts`. Contrôlé par `check-v2.ts` avec le moteur de calcul actuel (inchangé)._
+_Document généré à partir de `docs/questionnaire-v2/*.json` par `build-md.ts`. Ces fichiers JSON sont la source du questionnaire de l'application (voir §4). Les contrôles sont recalculés à chaque génération avec le moteur de l'application._
 
 ## 1. Ce qui change par rapport à la version 1
 
@@ -10,11 +10,11 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | Affirmations : toujours **4 propositions**, chacune avec neutre / je ne sais pas / plutôt / tout à fait. | Toutes les affirmations sont regroupées en **44 blocs de 4 affirmations** (176 au total), qui couvrent des positions différentes plutôt que deux pôles. Chaque affirmation reçoit sa propre réponse. |
 | Questions : **au moins 4 choix**, jamais deux propositions stéréotypées (ex. libre-échange). | Les 14 dilemmes à deux options sont supprimés. **15 questions à choix** proposent 5 à 7 options, plus « aucune de ces réponses ». Le libre-échange est traité par le bloc B16 (4 positions : libre-échange, protectionnisme national, protectionnisme européen, commerce sous conditions sociales et écologiques) et le choix C02. |
 | Trop abstrait, pas assez appliqué au terrain. | Des **situations concrètes** : une usine qui délocalise (B03), une maternité qui ferme (B06), une zone à faibles émissions (B10), des agriculteurs qui manifestent (B11), une sortie scolaire (B13), des caricatures (B14), une famille en difficulté (B24), des contrôles au faciès (B28), un cambriolage de récidiviste (B37), un pays voisin envahi (C06), le budget de votre commune (A06). |
-| Trop fermé, trop centré sur démocratie libérale vs autoritarisme ; il manque les volets révolutionnaire, anarchiste, fasciste. | Nouvelles options explicites : révolution et sabotage (B42), abolition du capitalisme ou de l'État (B43), pouvoir autoritaire, chef qui incarne la nation au-dessus des partis et des classes, démocratie des conseils (B44), six régimes au choix (C01), mode de changement (C14). **Proposition : activer l'axe CHG** (réformiste ↔ révolutionnaire), déjà prévu dans l'architecture. |
+| Trop fermé, trop centré sur démocratie libérale vs autoritarisme ; il manque les volets révolutionnaire, anarchiste, fasciste. | Nouvelles options explicites : révolution et sabotage (B42), abolition du capitalisme ou de l'État (B43), pouvoir autoritaire, chef qui incarne la nation au-dessus des partis et des classes, démocratie des conseils (B44), six régimes au choix (C01), mode de changement (C14). **L'axe CHG** (réformiste ↔ révolutionnaire), prévu dans l'architecture, est activé. |
 | Le vocabulaire réel manque (« grand remplacement », « lutte des classes »…). | Le vocabulaire en usage apparaît, **toujours dans une affirmation que le camp qui l'emploie pourrait signer**, et il est expliqué dans le mode Apprendre. Termes : lutte des classes, grand remplacement, remigration, préférence nationale, assistanat, écologie punitive, mondialisme, wokisme, patriarcat, racisme systémique, islamophobie, ensauvagement, violences policières, oligarchie, bourgeoisie, bien-pensants, impérialisme. |
 | Répartitions de points : passer de 5 à 10. | **10 répartitions** : 5 conservées (A01 à A05) et 5 nouvelles (A06 budget communal, A07 école, A08 qui paie la transition, A09 combats prioritaires, A10 où économiser). |
 | Fabien Roussel n'est pas si « socialiste ». | Hors questionnaire : son codage ECO +2 vient du fichier 01 (§3.10). À revoir au moment de la mise à jour des données candidat·es (par exemple +1,5), sans toucher au calcul. |
-| Ne pas modifier l'algorithme. | Le calcul des scores, de la confiance, des correspondances et des graphiques est **inchangé** (voir §4 pour les deux petits ajouts de format nécessaires à la réintégration). |
+| Ne pas modifier l'algorithme. | Le calcul des scores, de la confiance, des correspondances et des graphiques est **inchangé** (voir §4 : deux ajouts de format seulement). |
 
 ## 2. Formats de réponse
 
@@ -52,25 +52,30 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | INS | Institutions | Présidentialisme représentatif | Parlementarisme / démocratie directe | |
 | TER | Territoires | Jacobin | Girondin / municipaliste | |
 | POP | Populisme | Peuple homogène contre élites | Pluralisme | |
-| CHG | Mode de changement | Réformiste | Révolutionnaire | **à activer** |
+| CHG | Mode de changement | Réformiste | Révolutionnaire | ajouté en v2 |
 
-## 4. Réintégration dans l'application (plus tard)
+## 4. Intégration dans l'application
 
-- **Calcul inchangé** : chaque affirmation se comporte exactement comme un item Likert actuel. Chaque répartition utilise la formule actuelle des allocations.
-- **Choix à N options** : ils utilisent la même formule que les dilemmes actuels (contribution = 2 × poids de l'option choisie, maximum = 2 × plus grand poids en valeur absolue). Il faudra seulement accepter plus de deux options dans le format de données et dans l'écran de question.
-- **Blocs** : c'est un regroupement d'affichage (4 affirmations par écran). Il ne change pas le calcul.
-- **Axe CHG** : il suffit de passer `enabled: true` dans `axes.json` et de rédiger ses 5 textes de restitution. Les 18 archétypes n'ont pas de position CHG ; il faudra la leur ajouter pour qu'elle compte dans l'affinité.
-- **Linter** : la liste de mots interdits (« grand remplacement », « remigration », « assistanat », « wokisme »…) devra être remplacée par la règle ci-dessus, « vocabulaire marqué, porté par son camp et expliqué ».
-- **Contrôle actuel** (`npx tsx docs/questionnaire-v2/check-v2.ts`, avec le moteur actuel) :
+- **Chaîne de travail** : modifier les fichiers JSON de ce dossier, puis lancer `npm run build:questions` (génère `src/data/questions.json` et `src/data/groups.json`), `npm run lint:questions`, `npm test`, `npm run audit:questions` et `npx tsx docs/questionnaire-v2/build-md.ts` (ce document). Un test échoue si les fichiers générés ne sont pas à jour.
+- **Classement** : chaque bloc, choix ou répartition appartient à une rubrique (`RUBRIQUES` dans `scripts/build-questions.ts`). Les rubriques sont présentées dans un ordre tiré au hasard, les écrans aussi à l'intérieur de chaque rubrique ; les deux répartitions de priorités (A01, A09) viennent en dernier. Un bloc marqué `suite_de` (B30, B34) est toujours affiché juste après l'autre bloc de sa paire.
+- **Calcul inchangé** : chaque affirmation se comporte exactement comme un item Likert de la version 1. Chaque répartition utilise la formule des allocations.
+- **Choix à N options** : même formule que les dilemmes de la version 1 (contribution = 2 × poids de l'option choisie, maximum = 2 × plus grand poids en valeur absolue). « Aucune de ces réponses » exclut la question.
+- **Blocs** : un regroupement d'affichage (4 affirmations par écran), sans effet sur le calcul. Un champ `theme` sur une affirmation remplace le thème du bloc (B11d, B30c, B38b).
+- **Saillance** : seules les répartitions de la rubrique « priorités » (A01, A09) pondèrent la comparaison avec les candidat·es. Les autres répartitions mesurent des positions et comptent dans les scores.
+- **Cohérence** : un même énoncé posé dans deux contextes (`paire`, B34a / B33a) et jugé en sens opposés est signalé dans les résultats.
+- **Axe CHG** : activé, avec 5 textes de restitution et une position pour chacun des 18 archétypes.
+- **Linter** : la liste de mots interdits est remplacée par la règle « vocabulaire marqué, porté par son camp et expliqué ». Le linter vérifie que le terme figure dans l'explication ; la relecture humaine (`docs/AUDIT_QUESTIONS.md`) vérifie que l'affirmation pourrait être signée par le camp qui l'emploie.
+- **Contrôles** (moteur de l'application, recalculés à chaque génération) :
+  - linter : 0 erreur(s), 2 avertissement(s) ;
   - neutralité sur 10 000 répondants aléatoires : moyenne de chaque axe entre −2,2 et +3,7 ;
   - répondant « tout d'accord » : au plus 23 en valeur absolue ;
-  - personas : les 18 archétypes et les 15 candidat·es codé·es se retrouvent dans le top 3 dans 99 à 100 % des tirages.
+  - personas : les 18 archétypes et les candidat·es codé·es sur au moins 7 axes se retrouvent dans le top 3 dans 100 % des tirages.
 
 ## 5. Points de vigilance
 
 - **« Grand remplacement »** (B25b) : l'affirmation est marquée « dimension factuelle ». L'explication rappelle l'origine de l'expression et sa réfutation par les démographes. L'outil décrit une adhésion, il ne qualifie pas la personne.
 - **Options national-autoritaires et révolutionnaires** (B42, B43, B44, C01, C14) : elles sont formulées pour que leurs partisans s'y reconnaissent. L'explication nomme les doctrines (fascisme, communisme révolutionnaire, anarchisme) sans jugement moral.
-- **Quelques axes restent courts** : IDE (8 affirmations principales), TER (6), UE et GMO (8). Ce sont les axes à enrichir en priorité si vous ajoutez des blocs.
+- **Axes les plus courts** (items dont c'est l'axe principal) : TER (7), INS (8), IDE (9), CHG (9). Ce sont les axes à enrichir en priorité si vous ajoutez des blocs.
 
 ---
 
@@ -252,13 +257,13 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | a | Leurs revendications sont justes : les normes environnementales sont devenues excessives. | ENV −0.7 |
 | b | Il faut garder les normes, et taxer les importations qui ne les respectent pas. | ETA −0.5, ENV +0.2 |
 | c | Il faut sortir des pesticides comme le glyphosate, en accompagnant les agriculteurs, même si cela coûte cher. | ENV +0.8 |
-| d | Les communes qui manquent de logements devraient pouvoir construire sur des terres agricoles. | ENV −0.5 |
+| d | Les communes qui manquent de logements devraient pouvoir construire sur des terres agricoles. *(thème : logement-zan)* | ENV −0.5 |
 
 - **Auteurs** : Rachel Carson ; Friedrich List ; Garrett Hardin et Elinor Ostrom
 - **Mesures du fichier 01** : souveraineté alimentaire dans la PAC (François Ruffin, §3.9) `francois-ruffin-09` ; interdiction du glyphosate (Jean-Luc Mélenchon, §3.2) `jean-luc-melenchon-53` ; abrogation de la loi SRU, fin de l'interdiction de louer les logements F/G, suppression du ZAN, MaPrimeRénov' remplacée par des prêts à taux zéro, expulsions accélérées en cas d'impayés (Marine Le Pen, §3.1) `marine-le-pen-20` ; suppression des quotas SRU et du ZAN (Bruno Retailleau, §3.5) `bruno-retailleau-17`
 - **Explication (mode Apprendre)** : Depuis Rachel Carson, les défenseurs des normes rappellent leurs effets sur la santé et la biodiversité ; leurs critiques dénoncent une concurrence déloyale et un empilement de règles. Le protectionnisme agricole renoue avec Friedrich List ; la limitation de l'artificialisation des sols oppose préservation des terres et besoins de logement des communes.
 
-## Religion et laïcité
+## Religion, laïcité et école
 
 ### B12 · Place des religions
 
@@ -533,7 +538,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 - **Mesures du fichier 01** : « sortie organisée » de l'UE (arrêt de la contribution nette ~15 Md€, frontières nationales, primauté du droit français) vers une « Europe des nations » (Nicolas Dupont-Aignan, §3.12) `nicolas-dupont-aignan-01` ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) `francois-asselineau-01` ; Frexit comme mesure « non négociable » (Florian Philippot, §3.14) `florian-philippot-01` ; primauté constitutionnelle du droit national sur le droit européen (Marine Le Pen, §3.1) `marine-le-pen-27`
 - **Explication (mode Apprendre)** : Ce bloc porte sur l'Union actuelle, le suivant sur l'Europe que vous souhaiteriez : on peut soutenir l'idée européenne tout en rejetant la politique menée aujourd'hui. Wolfgang Streeck juge l'Union structurellement libérale ; Jacques Delors voulait une Europe sociale ; Philippe Séguin voyait dans les traités une dépossession de la souveraineté démocratique.
 
-### B30 · L'Europe que vous souhaiteriez
+### B30 · L'Europe que vous souhaiteriez (affiché juste après B29)
 
 **Contexte** : Imaginez maintenant une Union européenne dont les orientations politiques vous conviendraient.
 
@@ -541,7 +546,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 |---|---|---|
 | a | Dans ce cas, je souhaiterais une Europe fédérale, avec un gouvernement et un budget communs. | UE +0.9 |
 | b | Même dans ce cas, je préférerais une Europe des nations où chaque pays garde le dernier mot. | UE −0.7 |
-| c | L'Europe devrait se doter d'une défense commune, y compris d'une dissuasion nucléaire partagée. | UE +0.6, GMO −0.4 |
+| c | L'Europe devrait se doter d'une défense commune, y compris d'une dissuasion nucléaire partagée. *(thème : dissuasion)* | UE +0.6, GMO −0.4 |
 | d | L'Union devrait emprunter en commun pour financer la transition écologique et l'industrie. | UE +0.7, ECO +0.2 |
 
 - **Auteurs** : Altiero Spinelli ; Charles de Gaulle ; Jürgen Habermas
@@ -576,7 +581,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 
 - **Auteurs** : Droit d'ingérence et responsabilité de protéger ; Hubert Védrine ; Immanuel Wallerstein et Noam Chomsky
 - **Mesures du fichier 01** : sortie de l'OTAN « par étapes » (réaffirmée sur LCI le 08/05/2026), d'abord du commandement intégré (Jean-Luc Mélenchon, §3.2) `jean-luc-melenchon-49` ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) `francois-asselineau-01` ; Sortie du commandement intégré de l'OTAN (position constante depuis 2017, reportée tant que dure la guerre en Ukraine en 2022) (Marine Le Pen, §3.1) `marine-le-pen-32` ; non-alignement (Jean-Luc Mélenchon, §3.2) `jean-luc-melenchon-50`
-- **Explication (mode Apprendre)** : La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs.
+- **Explication (mode Apprendre)** : La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs. Le mot « impérialisme », hérité de Lénine, désigne pour ceux qui l'emploient une politique de domination d'une puissance sur d'autres pays ; ses critiques lui reprochent d'ignorer les appels à l'aide des populations menacées.
 
 ## Démocratie, pouvoir et changement
 
@@ -594,7 +599,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 - **Auteurs** : Montesquieu ; Juan Linz, Steven Levitsky et Daniel Ziblatt ; Jean-Jacques Rousseau
 - **Explication (mode Apprendre)** : Ce bloc et le suivant posent les mêmes questions dans deux contextes opposés. Il est humain de vouloir plus de contre-pouvoirs face à un adversaire ; Montesquieu, Levitsky et Ziblatt rappellent que des règles ne protègent que si elles s'appliquent à tous les camps. Rousseau fonde au contraire la légitimité sur la volonté générale du peuple souverain.
 
-### B34 · Si le gouvernement était de votre camp
+### B34 · Si le gouvernement était de votre camp (affiché juste après B33)
 
 **Contexte** : Imaginez maintenant que le prochain gouvernement soit issu de votre camp politique.
 
@@ -719,13 +724,13 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | # | Affirmation | Poids |
 |---|---|---|
 | a | La reconnaissance faciale automatisée dans l'espace public devrait être interdite. | SEC +0.8, GOV +0.2 |
-| b | Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers. | SEC −0.8, GOV −0.3 |
+| b | Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers. *(thème : narcotrafic)* | SEC −0.8, GOV −0.3 |
 | c | Les violences policières sont un problème structurel qui exige une autorité de contrôle indépendante. | SEC +0.7 |
 | d | Les forces de l'ordre devraient bénéficier d'une présomption de légitime défense. | SEC −0.8 |
 
 - **Auteurs** : Shoshana Zuboff et Evgeny Morozov ; Thomas Hobbes ; Norbert Elias
 - **Mesures du fichier 01** : interdiction de la reconnaissance faciale (Jean-Luc Mélenchon, §3.2) `jean-luc-melenchon-33` ; reconnaissance faciale (Bruno Retailleau, §3.5) `bruno-retailleau-27` ; « état d'urgence anti-trafics » avec bouclage des quartiers 24 h/24, blindés de gendarmerie et coupure des télécommunications, via réforme constitutionnelle (Bruno Retailleau, §3.5) `bruno-retailleau-28` ; « état d'urgence narco » limité dans le temps et l'espace (reconnaissance faciale ciblée) (Édouard Philippe, §3.3) `edouard-philippe-23` ; remplacement de l'IGPN par une autorité indépendante (Jean-Luc Mélenchon, §3.2) `jean-luc-melenchon-31` ; présomption de légitime défense pour les forces de l'ordre (Marine Le Pen, §3.1) `marine-le-pen-23`
-- **Explication (mode Apprendre)** : Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent.
+- **Explication (mode Apprendre)** : Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent. L'expression « violences policières » désigne, pour ceux qui l'emploient, des abus récurrents liés à l'organisation même de la police ; les syndicats de policiers la contestent et parlent de fautes individuelles, sanctionnées comme telles.
 
 ## Territoires
 
@@ -776,7 +781,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Friedrich Hayek ; Gøsta Esping-Andersen ; Karl Marx et Friedrich Engels
-- **Explication (mode Apprendre)** : Du libéralisme de Hayek et Friedman au communisme de Marx, en passant par les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List).
+- **Explication (mode Apprendre)** : Du libéralisme de Hayek et Friedman au communisme de Marx, les options couvrent l'éventail des modèles économiques. Entre les deux se situent les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List).
 
 ### C03 · Quelle politique migratoire vous semble la plus souhaitable ?
 
@@ -835,13 +840,13 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Michael Walzer ; Robert Keohane et Joseph Nye ; Hubert Védrine
-- **Explication (mode Apprendre)** : La théorie de la guerre juste (Walzer) encadre le recours à la force ; le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales ; le réalisme et le pacifisme privilégient la négociation ou la neutralité.
+- **Explication (mode Apprendre)** : La théorie de la guerre juste (Walzer) encadre le recours à la force, et le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales. Le réalisme et le pacifisme privilégient la négociation ou la neutralité.
 
 ### C07 · Quelle conception de la laïcité est la plus proche de la vôtre ?
 
 | # | Option | Poids |
 |---|---|---|
-| 1 | L'État est neutre ; les citoyens sont libres d'exprimer leur religion, y compris en public. | REL.laicite −0.6, ALT +0.2 |
+| 1 | L'État est neutre, et les citoyens sont libres d'exprimer leur religion, y compris en public. | REL.laicite −0.6, ALT +0.2 |
 | 2 | La neutralité doit aussi s'appliquer dans l'école et les services publics, pour les usagers. | REL.laicite +0.6 |
 | 3 | Il faut réduire l'influence des religions dans la société. | REL −0.8, REL.laicite +0.5 |
 | 4 | L'État devrait reconnaître les religions et accepter des accommodements (horaires, menus, fêtes). | REL.laicite −0.7, ALT +0.4, REL +0.2 |
@@ -925,7 +930,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Robert Dahl ; Pierre Bourdieu ; Cas Mudde et Jan-Werner Müller
-- **Explication (mode Apprendre)** : Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste une domination de classe ; les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques).
+- **Explication (mode Apprendre)** : Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste décrivent une domination de classe. Les mots « oligarchie » et « bourgeoisie » désignent, chez ceux qui les emploient, une minorité fortunée qui concentrerait le pouvoir économique et politique ; leurs contradicteurs y voient une simplification qui ignore la diversité des élites et le poids du vote. Les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques).
 
 ### C13 · Quel modèle familial l'État devrait-il soutenir en priorité ?
 
@@ -939,7 +944,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Roger Scruton ; Simone de Beauvoir ; Christine Delphy
-- **Explication (mode Apprendre)** : Les conservateurs défendent la famille comme institution transmise ; les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise ; le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle.
+- **Explication (mode Apprendre)** : Les conservateurs défendent la famille comme institution transmise, quand les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise. Le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle.
 
 ### C14 · Si vos idées devaient l'emporter, ce serait plutôt…
 
@@ -954,7 +959,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Eduard Bernstein ; Antonio Gramsci ; Lénine
-- **Explication (mode Apprendre)** : Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde ; le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort.
+- **Explication (mode Apprendre)** : Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde. Le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort.
 
 ### C15 · En cas de désaccord entre la règle commune et les pratiques d'une minorité (religieuse, culturelle, régionale), l'État devrait…
 
@@ -968,7 +973,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | — | Aucune de ces réponses / je ne sais pas | (exclu du calcul) |
 
 - **Auteurs** : Charles Taylor ; Will Kymlicka et Bhikhu Parekh ; Dominique Schnapper
-- **Explication (mode Apprendre)** : Charles Taylor et le Québec ont popularisé les « accommodements raisonnables » ; Kymlicka défend des droits collectifs pour les minorités ; l'universalisme républicain (Schnapper) la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure.
+- **Explication (mode Apprendre)** : Charles Taylor et le Québec ont popularisé les « accommodements raisonnables », et Will Kymlicka défend des droits collectifs pour les minorités. L'universalisme républicain (Schnapper) fait primer la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure.
 
 
 # Partie 3 — Répartitions de points (10)
@@ -999,7 +1004,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 6 | Renforcer la défense | GMO −0.3 |
 
 - **Auteurs** : James Buchanan ; John Maynard Keynes
-- **Explication (mode Apprendre)** : Pour Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes ; pour Keynes, la dépense publique utile soutient l'activité.
+- **Explication (mode Apprendre)** : Pour James Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes. Pour Keynes, la dépense publique utile soutient l'activité, surtout en période de ralentissement.
 
 ### A03 · Répartissez 10 points entre ces priorités de politique étrangère.
 
@@ -1012,7 +1017,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 5 | Protection des frontières nationales | ALT −0.3, ETA −0.3 |
 
 - **Auteurs** : Raymond Aron ; Hubert Védrine
-- **Explication (mode Apprendre)** : Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États ; ces priorités traduisent des conceptions différentes de l'intérêt national.
+- **Explication (mode Apprendre)** : Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États. Ces priorités traduisent des conceptions différentes de l'intérêt national.
 
 ### A04 · Répartissez 10 points entre les domaines où l'Union européenne devrait agir davantage, ou pas du tout.
 
@@ -1026,7 +1031,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 6 | Protection de l'industrie face à la concurrence mondiale | UE +0.2, ETA −0.2 |
 
 - **Auteurs** : Jacques Delors ; Giandomenico Majone et Wolfgang Streeck
-- **Explication (mode Apprendre)** : Jacques Delors voulait une Europe qui protège autant qu'elle ouvre ; Wolfgang Streeck juge qu'elle soustrait l'économie aux choix démocratiques.
+- **Explication (mode Apprendre)** : Jacques Delors voulait une Europe qui protège autant qu'elle ouvre. Wolfgang Streeck juge au contraire qu'elle soustrait l'économie aux choix démocratiques.
 
 ### A05 · Pour les politiques du quotidien (écoles, transports, logement), répartissez 10 points selon le niveau qui devrait décider.
 
@@ -1039,7 +1044,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 5 | L'Union européenne | UE +0.4, TER −0.2 |
 
 - **Auteurs** : Alexis de Tocqueville ; Jean-Jacques Rousseau
-- **Explication (mode Apprendre)** : Tocqueville voyait dans la commune « l'école primaire de la liberté » ; la tradition jacobine fait de l'État le garant de l'égalité.
+- **Explication (mode Apprendre)** : Tocqueville voyait dans la commune « l'école primaire de la liberté ». La tradition jacobine fait de l'État le garant de l'égalité entre les territoires.
 
 ### A06 · Votre commune dispose d'un budget supplémentaire. Répartissez 10 points entre ces usages.
 
@@ -1068,7 +1073,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 7 | La discipline et le respect de l'autorité | SEC −0.3, CUL −0.3 |
 
 - **Auteurs** : Condorcet ; Pierre Bourdieu ; Alain Finkielkraut
-- **Explication (mode Apprendre)** : Condorcet voulait une instruction qui émancipe ; Bourdieu montre que l'école reproduit les inégalités ; Finkielkraut défend la transmission contre le relativisme.
+- **Explication (mode Apprendre)** : Condorcet voulait une instruction qui émancipe, et Pierre Bourdieu montre que l'école reproduit les inégalités. Alain Finkielkraut défend la transmission des savoirs contre le relativisme.
 
 ### A08 · Qui devrait payer en priorité la transition écologique ? Répartissez 10 points.
 
@@ -1082,7 +1087,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 6 | Personne : il faut ralentir la transition | ENV −0.6 |
 
 - **Auteurs** : Gabriel Zucman ; Bjørn Lomborg
-- **Explication (mode Apprendre)** : Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches.
+- **Explication (mode Apprendre)** : Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches. Beaucoup d'économistes du climat défendent une taxe carbone redistribuée ; d'autres jugent qu'il faut d'abord faire payer les plus gros émetteurs.
 
 ### A09 · Quels combats vous semblent les plus importants aujourd'hui ? Répartissez 10 points.
 
@@ -1097,7 +1102,7 @@ _Document de travail généré le 29 septembre 2026 à partir de `docs/questionn
 | 7 | Pour la liberté d'expression | GOV +0.3 |
 
 - **Auteurs** : Nancy Fraser ; Ronald Inglehart
-- **Explication (mode Apprendre)** : Nancy Fraser distingue les luttes pour la redistribution et pour la reconnaissance ; cette répartition indique lesquelles comptent le plus pour vous.
+- **Explication (mode Apprendre)** : Nancy Fraser distingue les luttes pour la redistribution et les luttes pour la reconnaissance. Cette répartition indique lesquelles comptent le plus pour vous.
 
 ### A10 · L'État doit économiser 10 milliards d'euros. Où prendriez-vous l'argent ? Répartissez 10 points.
 

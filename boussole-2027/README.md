@@ -1,6 +1,6 @@
 # Boussole 2027
 
-Application web de 100 questions qui situe chacun·e sur 10 axes principaux et 4 axes secondaires. Elle restitue ces positions sous forme de graphiques et de textes, avec les traditions intellectuelles proches, les meilleures objections et les tensions internes du profil. Elle propose enfin une comparaison **indicative** avec les candidat·es à l'élection présidentielle de 2027.
+Application web qui situe chacun·e sur 10 axes principaux et 5 axes secondaires, à partir d'un questionnaire de 44 blocs de 4 affirmations, 15 questions à choix et 10 répartitions de points (environ 35 minutes). Elle restitue ces positions sous forme de graphiques et de textes, avec les traditions intellectuelles proches, les meilleures objections et les tensions internes du profil. Elle propose enfin une comparaison **indicative** avec les candidat·es à l'élection présidentielle de 2027.
 
 **Outil de réflexion, pas une consigne de vote.** Tout le calcul se fait dans le navigateur : aucune réponse n'est envoyée ni stockée par défaut, aucun cookie, aucun traceur, aucune police chargée depuis un tiers.
 
@@ -36,17 +36,19 @@ Autres hébergeurs (Netlify, Vercel, Cloudflare Pages…) : dossier de base `bou
 | `npm run test:e2e` | Tests Playwright : parcours complet, réseau, stockage, accessibilité (axe-core, WCAG 2.2 AA), charte (polices, part de jaune) |
 | `npm run extract:candidates` | Fichier 01 → `src/data/candidates.json` et `measures.json` (+ rapport `scripts/reports/extract-candidates.md`) |
 | `npm run extract:thinkers` | Fichier 02 → `src/data/thinkers.json` (+ rapport) |
-| `npm run lint:questions` | Linter des 100 items |
+| `npm run build:questions` | Questionnaire rédigé (`docs/questionnaire-v2/*.json`) → `src/data/questions.json` et `groups.json` (`--check` : vérifie qu'ils sont à jour) |
+| `npm run lint:questions` | Linter du questionnaire |
 | `npm run simulate:neutrality` | Test de neutralité |
 | `npm run simulate:personas [runs] [sigma]` | Test des personas (candidat·es et archétypes) |
 | `npm run audit:questions` | Génère `docs/AUDIT_QUESTIONS.md` pour relecture pluraliste |
 | `npm run psychometrics -- pilote.csv` | Alpha, oméga, AFE sur des données pilotes (`--simuler N` pour un auto-test) |
-| `npx tsx scripts/check-axis-levels.ts` | Contrôle des 70 textes par axe et niveau |
+| `npx tsx scripts/check-axis-levels.ts` | Contrôle des 75 textes par axe et niveau |
+| `npx tsx docs/questionnaire-v2/build-md.ts` | Régénère le document de travail `QUESTIONNAIRE_V2.md` (avec les contrôles recalculés) |
 
 ## Organisation
 
 ```
-docs/        fichiers sources 01 et 02, METHODOLOGIE.md, AUDIT_QUESTIONS.md (généré), MISE_A_JOUR.md
+docs/        fichiers sources 01 et 02, questionnaire-v2/ (source du questionnaire), METHODOLOGIE.md, AUDIT_QUESTIONS.md (généré), MISE_A_JOUR.md
 scripts/     extraction, linter, simulations, audit, psychométrie
 src/data/    axes, questions, candidates, measures, thinkers, archetypes, meta, texts/ (validés par Zod au chargement)
 src/domain/  schémas Zod, chargement et références croisées, règles du linter

@@ -18,7 +18,7 @@ Les positions des candidat·es proviennent **exclusivement** de `docs/01_program
    ```
    Lire `scripts/reports/extract-candidates.md` : chaque ligne non standard ou cellule non analysable y est signalée.
 3. **Mettre à jour `src/data/meta.json`** (`dataDate`, `version`). La date s'affiche dans le bandeau permanent et sur la page de résultats.
-4. **Identifiants de mesures** : ils sont numérotés par candidat·e dans l'ordre du fichier (`marine-le-pen-03`). L'insertion d'une mesure décale donc les suivantes. Si le linter signale une `sourceMeasure` inconnue ou décalée, corriger les références dans `src/data/questions.json` (vérifier le texte dans `docs/AUDIT_QUESTIONS.md`).
+4. **Identifiants de mesures** : ils sont numérotés par candidat·e dans l'ordre du fichier (`marine-le-pen-03`). L'insertion d'une mesure décale donc les suivantes. Si le linter signale une `sourceMeasure` inconnue ou décalée, corriger les références (`mesures`) dans `docs/questionnaire-v2/*.json`, puis `npm run build:questions` (vérifier le texte dans `docs/AUDIT_QUESTIONS.md`).
 5. Faire relire les nouveaux codages par au moins deux personnes de sensibilités différentes, puis commiter.
 
 ## Échéances connues
@@ -36,3 +36,17 @@ Les positions des candidat·es proviennent **exclusivement** de `docs/01_program
 - `npm test` et `npm run test:e2e` au vert (neutralité, personas, réseau, accessibilité, charte).
 - Aucune position n'est inventée : chaque valeur non nulle de `candidates.json` doit correspondre à une cellule du fichier 01. Le rapport d'extraction liste les cas limites.
 - La date affichée sur la page de résultats correspond à la date du fichier 01.
+
+## Modifier le questionnaire
+
+Le questionnaire se rédige dans `docs/questionnaire-v2/` (`blocs-1.json`, `blocs-2.json`, `choix.json`, `repartitions.json`) ; ne jamais modifier `src/data/questions.json` ni `groups.json` à la main. Conventions : `QUESTIONNAIRE_V2.md` §3. Après chaque modification :
+
+```bash
+npm run build:questions                     # génère questions.json et groups.json
+npm run lint:questions                      # rédaction, quotas, vocabulaire marqué, équilibre
+npm test                                    # dont : fichiers générés à jour, neutralité, personas
+npm run audit:questions                     # docs/AUDIT_QUESTIONS.md pour relecture
+npx tsx docs/questionnaire-v2/build-md.ts   # document de travail
+```
+
+Un nouveau bloc, choix ou répartition doit être rangé dans une rubrique (`RUBRIQUES`, `scripts/build-questions.ts`), sinon la génération échoue. Un changement de questionnaire invalide les progressions sauvegardées d'une autre version (`QUIZ_VERSION`, `src/state/quiz.ts`).

@@ -1,122 +1,395 @@
 # Audit des questions — Boussole 2027
 
-_Document généré par `npm run audit:questions` — ne pas modifier à la main. Données au 2026-09-25._
+_Document généré par `npm run audit:questions` — ne pas modifier à la main. Données au 2026-09-25. Source du questionnaire : `docs/questionnaire-v2/*.json`._
 
-Ce document est destiné à un panel de relecture pluraliste (sensibilités politiques différentes). Pour chaque item : l'énoncé, les chargements (signe = pôle favorisé par l'accord ou par l'option), l'explication affichée en mode « Apprendre », les auteurs et, le cas échéant, les mesures de programme dont l'item reformule le principe (les candidat·es ne sont jamais nommé·es dans l'énoncé).
+Ce document est destiné à un panel de relecture pluraliste (sensibilités politiques différentes). Pour chaque bloc : le contexte, les 4 affirmations et leurs chargements (signe = pôle favorisé par l'accord), l'explication affichée en mode « Apprendre », les auteurs et, le cas échéant, les mesures de programme dont une affirmation reformule le principe (les candidat·es ne sont jamais nommé·es). Même présentation pour les questions à choix (signe = pôle favorisé par l'option) et les répartitions.
 
 ## Synthèse
 
-- 100 items : {"likert":81,"dilemma":14,"allocation":5}
-- 60 items à chargements croisés ; 53 items ancrés dans une mesure du fichier 01
-- Linter : 0 erreur(s), 0 avertissement(s)
+- 44 blocs, 201 items : {"likert":176,"dilemma":0,"choice":15,"allocation":10}
+- 100 items à chargements croisés ; 67 items ancrés dans une mesure du fichier 01
+- Linter : 0 erreur(s), 2 avertissement(s)
 
-| Axe | Pôle − | Pôle + | Items | Inversés | Biais « tout d'accord » |
+| Axe | Pôle − | Pôle + | Items (axe principal) | Inversés | Biais « tout d'accord » |
 |---|---|---|---|---|---|
-| ECO | Néolibéral | Socialiste | 8 | 3 | 9 |
-| IDE | Individualiste | Communautariste | 8 | 4 | 17 |
-| ENV | Dénialiste | Activiste | 8 | 4 | 8 |
-| REL | Anticlérical | Traditionnaliste | 8 | 4 | 9 |
-| ETA | Nationaliste | Internationaliste | 8 | 4 | -21 |
-| CUL | Conservateur | Libertaire | 8 | 4 | 11 |
-| ALT | Fermeture ethno-nationale | Ouverture / égalitarisme antiraciste | 8 | 4 | -2 |
-| UE | Anti-UE | Pro-UE (fédéraliste) | 8 | 4 | 14 |
-| GMO | Interventionniste | Laisser-faire / non-interventionniste | 8 | 4 | -12 |
-| GOV | Autoritaire | Démocratie libérale (État de droit, contre-pouvoirs) | 8 | 4 | -11 |
-| SEC | Sécuritaire | Garantiste | 5 | 2 | 3 |
-| INS | Présidentialisme représentatif | Parlementarisme / démocratie directe | 5 | 3 | 11 |
-| TER | Jacobin | Girondin / municipaliste | 5 | 2 | 17 |
-| POP | Peuple homogène contre élites | Pluralisme | 5 | 3 | 11 |
+| ECO | Néolibéral | Socialiste | 37 | 15 | 11 |
+| IDE | Individualiste | Communautariste | 9 | 4 | -1 |
+| ENV | Dénialiste | Activiste | 16 | 6 | 18 |
+| REL | Anticlérical | Traditionnaliste | 11 | 4 | 23 |
+| ETA | Nationaliste | Internationaliste | 14 | 8 | -20 |
+| CUL | Conservateur | Libertaire | 13 | 6 | -2 |
+| ALT | Fermeture ethno-nationale | Ouverture / égalitarisme antiraciste | 26 | 12 | -8 |
+| UE | Anti-UE | Pro-UE (fédéraliste) | 10 | 3 | 16 |
+| GMO | Interventionniste | Laisser-faire / non-interventionniste | 10 | 3 | 10 |
+| GOV | Autoritaire | Démocratie libérale (État de droit, contre-pouvoirs) | 10 | 5 | -20 |
+| SEC | Sécuritaire | Garantiste | 11 | 5 | -17 |
+| INS | Présidentialisme représentatif | Parlementarisme / démocratie directe | 8 | 3 | 21 |
+| TER | Jacobin | Girondin / municipaliste | 7 | 2 | 16 |
+| POP | Peuple homogène contre élites | Pluralisme | 10 | 6 | -23 |
+| CHG | Réformiste | Révolutionnaire | 9 | 3 | 21 |
 
-## Items par axe principal
+## Vocabulaire marqué
 
-### Économie (ECO)
+Ces termes sont employés parce qu'ils sont en usage dans le débat. Le linter vérifie qu'ils sont expliqués en mode Apprendre ; le panel vérifie que l'affirmation pourrait être signée par le camp qui les emploie.
 
-#### Q001 — Likert · Économie (ECO)
+- ☐ B04a : « lutte des classes »
+- ☐ B07d : « assistanat »
+- ☐ B10b : « écologie punitive »
+- ☐ B17d : « mondialisme »
+- ☐ B21c : « patriarcat »
+- ☐ B21d : « wokisme »
+- ☐ B25b : « grand remplacement »
+- ☐ B26a : « préférence nationale »
+- ☐ B27d : « remigration »
+- ☐ B28c : « ensauvagement »
+- ☐ B28d : « islamophobie »
+- ☐ B32d : « impérialisme »
+- ☐ B35d : « oligarchie »
+- ☐ B38c : « violences policières »
+- ☐ C03 : « remigration »
+- ☐ C12 : « oligarchie »
+- ☐ C12 : « bourgeoisie »
 
-> L'État devrait garantir un emploi à toute personne qui en demande un.
+## Économie et travail
+
+#### B01 — Retraites
+
+**Contexte** : Le système de retraite doit à nouveau être réformé. Que pensez-vous de chacune de ces pistes ?
+
+- **Thème** : retraites · **Auteurs** : Bernard Friot ; Milton Friedman ; Gøsta Esping-Andersen
+- **Explication** (mode Apprendre) : Les défenseurs d'un retour à 62 ou 60 ans invoquent la pénibilité et une espérance de vie en bonne santé très inégale selon les métiers ; Bernard Friot voit dans la pension un « salaire continué ». Les partisans d'un report ou de la capitalisation soulignent le vieillissement démographique et le poids des retraites dans les dépenses publiques ; la liberté de choix séduit les libéraux mais pénalise ceux qui ne peuvent pas travailler plus longtemps.
+
+##### B01a — Affirmation · Économie (ECO)
+
+> Revenir à un départ à 62 ans, voire 60 ans, financé par des cotisations patronales plus élevées.
+
+- **Chargements** (accord) : ECO +0,8
+- **Mesures du fichier 01** : retraite à 60 ans (Jean-Luc Mélenchon, §3.2) ; retour vers 62 ans, départ à 60 ans pour les carrières longues (début avant 20 ans, 40 annuités) (Marine Le Pen, §3.1) ; retraite à 62 ans (60 ans pour carrières longues/pénibles) (Marine Tondelier, §3.8) ; retraite à 60 ans à taux plein (Fabien Roussel, §3.10)
+
+##### B01b — Affirmation · Économie (ECO) · inversé
+
+> Relever progressivement l'âge de départ pour tenir compte de l'allongement de la durée de vie.
+
+- **Chargements** (accord) : ECO -0,7
+- **Mesures du fichier 01** : report de l'âge évoqué (65, voire 67 ans) sans calendrier arrêté (Édouard Philippe, §3.3) ; taux plein automatique à 65 ans (indexé ensuite sur l'espérance de vie) (Bruno Retailleau, §3.5) ; Retraite à 65 ans + capitalisation (David Lisnard, §3.11)
+
+##### B01c — Affirmation · Économie (ECO) · inversé
+
+> Introduire une part de retraite par capitalisation, c'est-à-dire une épargne individuelle placée sur les marchés.
+
+- **Chargements** (accord) : ECO -0,8
+- **Mesures du fichier 01** : 10–15 % de capitalisation d'ici 15 ans, inspirée de l'Agirc-Arrco (Édouard Philippe, §3.3) ; capitalisation « pour les jeunes » (25–30 % de leur future pension, rendement ≥ 4 %) (Bruno Retailleau, §3.5) ; réforme systémique des retraites (fin de l'âge légal fixe, part de capitalisation, selon agrégateurs ★) (Gabriel Attal, §3.4)
+
+##### B01d — Affirmation · Économie (ECO) · inversé
+
+> Laisser chacun choisir librement son âge de départ, avec une pension ajustée en conséquence.
+
+- **Chargements** (accord) : ECO -0,4 ; CUL +0,2
+- **Mesures du fichier 01** : réforme systémique des retraites (fin de l'âge légal fixe, part de capitalisation, selon agrégateurs ★) (Gabriel Attal, §3.4)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B02 — Patrimoine et héritage
+
+**Contexte** : Faut-il taxer davantage les patrimoines et les héritages ?
+
+- **Thème** : fiscalite-patrimoine · **Auteurs** : Gabriel Zucman ; Thomas Piketty ; Arthur Laffer
+- **Explication** (mode Apprendre) : Gabriel Zucman et Thomas Piketty montrent que les très grandes fortunes paient proportionnellement peu d'impôt et que l'héritage est la première source d'inégalités non choisies. Leurs contradicteurs invoquent le risque d'exil fiscal, la difficulté d'évaluer les entreprises non cotées et l'argument d'Arthur Laffer : trop d'impôt tue l'impôt. La transmission familiale est aussi défendue comme un lien entre générations.
+
+##### B02a — Affirmation · Économie (ECO)
+
+> Un impôt minimal de 2 % par an sur les fortunes de plus de 100 millions d'euros serait juste.
+
+- **Chargements** (accord) : ECO +0,8
+- **Mesures du fichier 01** : taxe Zucman (2 % au-delà de 100 M€) (Jean-Luc Mélenchon, §3.2) ; taxe Zucman (Olivier Faure, Jérôme Guedj, Ségolène Royal, §3.7) ; taxe Zucman, taxation des méga-héritages (1 % des successions), fin des exonérations sur le kérosène (Raphaël Glucksmann, §3.7) ; taxe Zucman (Marine Tondelier, §3.8)
+
+##### B02b — Affirmation · Économie (ECO)
+
+> Les héritages devraient être plafonnés : au-delà d'un certain montant, tout devrait revenir à la collectivité.
 
 - **Chargements** (accord) : ECO +1
-- **Thème** : emploi · **bloc** : economie
-- **Auteurs** : John Maynard Keynes ; Stephanie Kelton ; Friedrich Hayek
-- **Même logique que** : Q002 — coexistence : on peut vouloir une garantie d'emploi pour les personnes que le marché exclut tout en jugeant que, pour le reste de l'économie, l'initiative privée crée davantage de richesses.
-- **Explication** : Pour ses partisans, un « État employeur en dernier ressort » supprime le chômage involontaire et redonne à chacun une place sociale, dans la lignée de Keynes et de la théorie monétaire moderne. Pour ses critiques, de tels emplois risquent d'être peu productifs, coûteux et de concurrencer le secteur privé ; mieux vaudrait lever les freins à l'embauche.
+- **Mesures du fichier 01** : héritage maximal de 12 M€ (Jean-Luc Mélenchon, §3.2)
+
+##### B02c — Affirmation · Économie (ECO) · inversé
+
+> Transmettre son patrimoine à ses enfants est un droit que l'impôt ne devrait presque pas toucher.
+
+- **Chargements** (accord) : ECO -0,8 ; IDE +0,3
+- **Mesures du fichier 01** : baisse des droits de succession et liberté de tester (David Lisnard, §3.11) ; dons familiaux exonérés jusqu'à 150 000 € (Bruno Retailleau, §3.5)
+
+##### B02d — Affirmation · Économie (ECO) · inversé
+
+> Trop taxer le capital fait fuir les investisseurs et finit par pénaliser l'emploi.
+
+- **Chargements** (accord) : ECO -0,8
+- **Mesures du fichier 01** : aucun nouvel impôt (Édouard Philippe, §3.3)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q002 — Likert · Économie (ECO) · inversé
+#### B03 — Une usine qui délocalise
 
-> Les entreprises créent plus de richesses pour tous quand l'État intervient le moins possible.
+**Contexte** : Une usine rentable de votre région annonce sa fermeture pour produire à l'étranger. Que pensez-vous de ces réponses ?
 
-- **Chargements** (accord) : ECO -1
-- **Thème** : role-etat · **bloc** : economie
-- **Auteurs** : Friedrich Hayek ; Milton Friedman ; John Maynard Keynes
-- **Explication** : La tradition libérale (Hayek, Friedman) soutient que le marché coordonne mieux que l'État des informations dispersées et que les prélèvements découragent l'initiative. Les keynésiens et les socialistes répondent que le marché laissé à lui-même produit crises, chômage et inégalités, et que les infrastructures, l'éducation ou la recherche publiques sont des conditions de la prospérité privée.
+- **Thème** : emploi · **Auteurs** : Karl Polanyi ; Pierre-Joseph Proudhon ; Friedrich Hayek
+- **Explication** (mode Apprendre) : Pour Karl Polanyi, une société se protège quand le marché menace ses équilibres ; la reprise en coopérative prolonge la tradition mutuelliste de Proudhon. Pour Friedrich Hayek, l'État qui fige les emplois empêche l'économie de se réallouer vers des activités plus productives, et la liberté d'entreprendre est une liberté fondamentale.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B03a — Affirmation · Économie (ECO)
 
-#### Q003 — Likert · Économie (ECO)
-
-> Les patrimoines supérieurs à 100 millions d'euros devraient payer un impôt minimal de 2 % par an.
+> L'État devrait pouvoir interdire les licenciements dans une entreprise qui fait des bénéfices.
 
 - **Chargements** (accord) : ECO +0,9
-- **Thème** : fiscalite-patrimoine · **bloc** : economie
-- **Auteurs** : Gabriel Zucman ; Thomas Piketty ; Arthur Laffer
-- **Mesures du fichier 01** : taxe Zucman (2 % au-delà de 100 M€) (Jean-Luc Mélenchon, §3.2) ; taxe Zucman (Olivier Faure, Jérôme Guedj, Ségolène Royal, §3.7) ; taxe Zucman, taxation des méga-héritages (1 % des successions), fin des exonérations sur le kérosène (Raphaël Glucksmann, §3.7) ; taxe Zucman (Marine Tondelier, §3.8)
-- **Explication** : Proposée par Gabriel Zucman, cette taxe vise les très grandes fortunes qui, selon ses travaux, paient proportionnellement moins d'impôts que les classes moyennes. Ses opposants craignent l'exil fiscal, la difficulté d'évaluer des actifs non cotés et une ponction sur l'outil de travail des entreprises familiales ; l'argument de Laffer veut qu'un impôt trop lourd réduise sa propre base.
+- **Mesures du fichier 01** : interdiction des licenciements boursiers (Jean-Luc Mélenchon, §3.2) ; Interdiction des licenciements boursiers (François Ruffin, §3.9) ; suspension des plans sociaux (Fabien Roussel, §3.10)
+
+##### B03b — Affirmation · Économie (ECO)
+
+> Les salariés devraient pouvoir reprendre l'usine en coopérative, avec l'aide de fonds publics.
+
+- **Chargements** (accord) : ECO +0,6
+
+##### B03c — Affirmation · Économie (ECO) · inversé
+
+> Mieux vaut aider les salariés à se reconvertir que chercher à retenir l'entreprise.
+
+- **Chargements** (accord) : ECO -0,5
+
+##### B03d — Affirmation · Économie (ECO) · inversé
+
+> C'est la liberté de l'entreprise : l'État n'a pas à s'en mêler.
+
+- **Chargements** (accord) : ECO -0,9
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q004 — Likert · Économie (ECO)
+#### B04 — Comprendre la société française
 
-> L'âge légal de départ à la retraite devrait revenir à 62 ans ou moins.
+**Contexte** : Pour comprendre les grands conflits de la société française, quelle lecture vous paraît juste ?
 
-- **Chargements** (accord) : ECO +0,7
-- **Thème** : retraites · **bloc** : economie
-- **Auteurs** : Bernard Friot ; Gøsta Esping-Andersen
-- **Mesures du fichier 01** : retour vers 62 ans, départ à 60 ans pour les carrières longues (début avant 20 ans, 40 annuités) (Marine Le Pen, §3.1) ; retraite à 60 ans (Jean-Luc Mélenchon, §3.2) ; retraite à 62 ans (60 ans pour carrières longues/pénibles) (Marine Tondelier, §3.8) ; retraite à 60 ans à taux plein (Fabien Roussel, §3.10)
-- **Explication** : Les partisans d'un retour à 62 ans (ou 60 ans) invoquent la pénibilité, l'espérance de vie en bonne santé inégale selon les métiers et la possibilité de financer les retraites par les cotisations ou d'autres recettes. Les opposants soulignent le vieillissement démographique, le déséquilibre du système par répartition et le poids des dépenses de retraite dans les finances publiques.
+- **Thème** : lecture-sociale · **Auteurs** : Karl Marx et Friedrich Engels ; Christophe Guilluy ; Raymond Boudon
+- **Explication** (mode Apprendre) : Marx fait de la lutte des classes le moteur de l'histoire ; Christophe Guilluy décrit une fracture territoriale entre métropoles et « France périphérique », contestée méthodologiquement. Raymond Boudon explique les parcours par des choix individuels plutôt que par des classes ; d'autres, à droite, placent la question identitaire au centre du conflit politique.
+
+##### B04a — Affirmation · Économie (ECO)
+
+> La lutte des classes entre travailleurs et possédants reste la clé de lecture principale.
+
+- **Chargements** (accord) : ECO +0,8 ; CHG +0,3
+
+##### B04b — Affirmation · Populisme (POP) · inversé
+
+> Le clivage principal oppose désormais les grandes métropoles gagnantes et la France périphérique.
+
+- **Chargements** (accord) : POP -0,4
+
+##### B04c — Affirmation · Économie (ECO) · inversé
+
+> Chacun peut réussir par son travail : raisonner en classes sociales divise inutilement.
+
+- **Chargements** (accord) : ECO -0,7 ; IDE -0,3
+
+##### B04d — Affirmation · Altérité (ALT) · inversé
+
+> Le clivage essentiel oppose ceux qui défendent l'identité nationale et ceux qui la dissolvent.
+
+- **Chargements** (accord) : ALT -0,6 ; ETA -0,4
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q005 — Likert · Économie (ECO) · inversé
+#### B05 — Dette publique
 
-> Une partie des retraites devrait être financée par capitalisation, c'est-à-dire par une épargne placée sur les marchés.
+**Contexte** : La dette publique française atteint un niveau historiquement élevé. Que faudrait-il faire ?
+
+- **Thème** : dette · **Auteurs** : James Buchanan ; John Maynard Keynes ; Stephanie Kelton
+- **Explication** (mode Apprendre) : James Buchanan défend des règles constitutionnelles pour empêcher les gouvernements de reporter les coûts sur les générations futures. Keynes, et plus radicalement Stephanie Kelton, jugent qu'une dépense utile soutient l'activité et que la dette d'un État n'est pas celle d'un ménage ; le débat porte aussi sur la répartition de l'effort entre dépenses et impôts.
+
+##### B05a — Affirmation · Économie (ECO) · inversé
+
+> Inscrire dans la Constitution une règle d'or qui interdise les déficits.
+
+- **Chargements** (accord) : ECO -0,7 ; INS -0,2
+- **Mesures du fichier 01** : règle d'or constitutionnelle (hors dépenses militaires) (Édouard Philippe, §3.3) ; règle d'or « à l'allemande » (Gabriel Attal, §3.4) ; règle d'or par révision constitutionnelle soumise à référendum dès 2027 (Bruno Retailleau, §3.5)
+
+##### B05b — Affirmation · Économie (ECO) · inversé
+
+> La réduire d'abord en baissant fortement les dépenses publiques et le nombre de fonctionnaires.
+
+- **Chargements** (accord) : ECO -0,9
+- **Mesures du fichier 01** : 250 000 à 300 000 postes publics supprimés (IA, fonctions support) (Bruno Retailleau, §3.5) ; suppression de 100 000 postes de fonctionnaires (départs volontaires, hors Éducation, Armées, Justice, Intérieur) (Gabriel Attal, §3.4) ; « Révolution de la liberté » : dépenses publiques sous 50 % du PIB en dix ans, 200 à 300 Md€ d'économies, 600 000 postes de fonctionnaires en moins (non-remplacement), suppression de ministères (dont l'Environnement), déclaration unique annuelle (David Lisnard, §3.11)
+
+##### B05c — Affirmation · Économie (ECO)
+
+> La réduire surtout en taxant davantage les plus riches et les grandes entreprises.
+
+- **Chargements** (accord) : ECO +0,8
+
+##### B05d — Affirmation · Économie (ECO)
+
+> La dette n'est pas un problème urgent : l'investissement public utile doit primer.
+
+- **Chargements** (accord) : ECO +0,6
+- **Mesures du fichier 01** : rachat de dette par la BCE / dette perpétuelle (Jean-Luc Mélenchon, §3.2)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B06 — Une maternité menacée
+
+**Contexte** : La maternité de votre bassin de vie doit fermer faute de médecins. Que pensez-vous de ces réponses ?
+
+- **Thème** : services-publics · **Auteurs** : William Beveridge ; Alexis de Tocqueville ; James C. Scott
+- **Explication** (mode Apprendre) : La tradition de Beveridge veut un service public de santé égal pour tous, garanti par l'État. D'autres privilégient l'efficacité et la sécurité des soins par la concentration des moyens ; Tocqueville et James C. Scott défendent la décision au plus près des habitants, contre des plans uniformes décidés de loin.
+
+##### B06a — Affirmation · Économie (ECO)
+
+> L'État doit la maintenir ouverte, quel qu'en soit le coût.
+
+- **Chargements** (accord) : ECO +0,6 ; TER -0,3
+
+##### B06b — Affirmation · Économie (ECO)
+
+> Il faut obliger les jeunes médecins à s'installer quelques années dans les territoires qui en manquent.
+
+- **Chargements** (accord) : ECO +0,5
+- **Mesures du fichier 01** : régulation de l'installation des médecins (Olivier Faure, Jérôme Guedj, Ségolène Royal, §3.7)
+
+##### B06c — Affirmation · Économie (ECO) · inversé
+
+> Mieux vaut regrouper les moyens dans de grands hôpitaux plus sûrs, avec de meilleurs transports.
+
+- **Chargements** (accord) : ECO -0,3 ; TER -0,3
+
+##### B06d — Affirmation · Territoires (TER)
+
+> Les élus locaux et les habitants devraient décider eux-mêmes de l'organisation des soins sur leur territoire.
+
+- **Chargements** (accord) : TER +0,7
+- **Mesures du fichier 01** : décentralisation massive (David Lisnard, §3.11)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B07 — Salaires et pouvoir d'achat
+
+**Contexte** : Pour améliorer le pouvoir d'achat, que pensez-vous de ces mesures ?
+
+- **Thème** : pouvoir-achat · **Auteurs** : John Maynard Keynes ; Milton Friedman ; Robert Castel
+- **Explication** (mode Apprendre) : Pour les keynésiens, la hausse des bas salaires soutient la demande ; pour Milton Friedman, les prix administrés créent pénuries et effets pervers, et la baisse des charges favorise l'emploi. Le terme « assistanat », employé par ceux qui veulent conditionner les aides, est récusé par ceux qui, comme Robert Castel, voient dans la protection sociale un droit acquis par le travail.
+
+##### B07a — Affirmation · Économie (ECO)
+
+> Porter rapidement le SMIC à 1 600 € net par mois.
+
+- **Chargements** (accord) : ECO +0,8
+- **Mesures du fichier 01** : SMIC à 1 600 € net et indexation des salaires (Jean-Luc Mélenchon, §3.2) ; SMIC à 1 700 € net (François Ruffin, §3.9)
+
+##### B07b — Affirmation · Économie (ECO) · inversé
+
+> Plutôt qu'augmenter le SMIC, baisser les cotisations pour que le salaire net augmente.
+
+- **Chargements** (accord) : ECO -0,6
+- **Mesures du fichier 01** : baisse des charges plutôt que hausse du SMIC (David Lisnard, §3.11) ; baisse des cotisations pour rapprocher brut et net (Raphaël Glucksmann, §3.7) ; baisse des cotisations salariales (+~10 % de net) financée par +4 points de TVA (François Hollande, §3.14)
+
+##### B07c — Affirmation · Économie (ECO)
+
+> Bloquer les prix de l'énergie et des produits de première nécessité.
+
+- **Chargements** (accord) : ECO +0,8
+- **Mesures du fichier 01** : blocage des prix des produits de première nécessité et de l'énergie (Jean-Luc Mélenchon, §3.2)
+
+##### B07d — Affirmation · Économie (ECO) · inversé
+
+> Notre modèle social encourage l'assistanat : les aides devraient être conditionnées à une activité.
 
 - **Chargements** (accord) : ECO -0,8
-- **Thème** : retraites · **bloc** : economie
-- **Auteurs** : Milton Friedman ; Bernard Friot
-- **Mesures du fichier 01** : 10–15 % de capitalisation d'ici 15 ans, inspirée de l'Agirc-Arrco (Édouard Philippe, §3.3) ; capitalisation « pour les jeunes » (25–30 % de leur future pension, rendement ≥ 4 %) (Bruno Retailleau, §3.5) ; Retraite à 65 ans + capitalisation (David Lisnard, §3.11) ; réforme systémique des retraites (fin de l'âge légal fixe, part de capitalisation, selon agrégateurs ★) (Gabriel Attal, §3.4)
-- **Explication** : Pour ses défenseurs, une dose de capitalisation diversifie le financement, profite du rendement des marchés et soulage les actifs face au vieillissement. Pour ses critiques, elle expose les pensions aux krachs financiers, avantage ceux qui peuvent épargner et affaiblit la solidarité entre générations qui fonde la répartition ; Bernard Friot y voit l'inverse du « salaire continué ».
+- **Mesures du fichier 01** : RSA conditionné (David Lisnard, §3.11) ; durcissement de l'assurance chômage (5 Md€) (Gabriel Attal, §3.4)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q006 — Likert · Économie (ECO) · inversé
+#### B43 — Le capitalisme
 
-> Les droits de succession devraient être réduits, y compris sur les gros héritages.
+**Contexte** : À propos du capitalisme, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : ECO -0,8
-- **Thème** : fiscalite-patrimoine · **bloc** : economie
-- **Auteurs** : Robert Nozick ; Thomas Piketty
-- **Mesures du fichier 01** : baisse des droits de succession et liberté de tester (David Lisnard, §3.11) ; dons familiaux exonérés jusqu'à 150 000 € (Bruno Retailleau, §3.5) ; défense du pacte Dutreil (Édouard Philippe, §3.3)
-- **Explication** : Les partisans d'une baisse jugent injuste de taxer à nouveau un patrimoine déjà imposé et défendent la liberté de transmettre à ses enfants, notamment une entreprise familiale. Leurs contradicteurs, comme Thomas Piketty, rappellent que l'héritage est la première source d'inégalités non choisies et que sa taxation finance l'égalité des chances.
+- **Thème** : systeme-economique · **Auteurs** : Karl Marx et Friedrich Engels ; Eduard Bernstein ; Mikhaïl Bakounine
+- **Explication** (mode Apprendre) : Marx et Engels veulent le dépassement du capitalisme par l'appropriation collective ; la social-démocratie (Bernstein, Blum) veut le réformer ; les libéraux (Hayek, Friedman) y voient le système le plus efficace et le plus compatible avec la liberté. Bakounine et les anarchistes récusent l'État comme le capital, au profit de communautés fédérées.
+
+##### B43a — Affirmation · Économie (ECO)
+
+> Le capitalisme doit être aboli et remplacé par la propriété collective des moyens de production.
+
+- **Chargements** (accord) : ECO +0,9 ; CHG +0,4
+- **Mesures du fichier 01** : Candidatures « ouvrières, communistes et révolutionnaires », conçues comme porte-voix des luttes plutôt que programmes de gouvernement : hausse générale des salaires et indexation, interdiction des licenciements, expropriation des grands groupes, contrôle ouvrier, services publics (Nathalie Arthaud, Anasse Kazib, Selma Labib, §3.13)
+
+##### B43b — Affirmation · Mode de changement (CHG) · inversé
+
+> Le capitalisme peut être transformé par des lois sociales et écologiques ambitieuses.
+
+- **Chargements** (accord) : CHG -0,6 ; ECO +0,2
+
+##### B43c — Affirmation · Économie (ECO) · inversé
+
+> L'économie de marché est le meilleur système connu : il faut surtout la laisser fonctionner.
+
+- **Chargements** (accord) : ECO -0,9 ; CHG -0,3
+
+##### B43d — Affirmation · Territoires (TER)
+
+> L'État lui-même est le problème : il faudrait le remplacer par des communautés libres et autogérées.
+
+- **Chargements** (accord) : TER +0,6 ; CHG +0,5
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D01 — Dilemme · Économie (ECO)
+#### C02 — Question à choix · Économie (ECO)
 
-> Entre ces deux orientations économiques, laquelle a votre préférence ?
+> Quel modèle économique vous semble le plus juste ?
 
-- **A** : Un peu plus de croissance, même avec un peu plus d'inégalités. — ECO -0,8
-- **B** : Un peu moins de croissance, mais moins d'inégalités. — ECO +0,8 ; ENV +0,2
-- **Thème** : inegalites · **bloc** : economie
-- **Auteurs** : John Rawls ; Friedrich Hayek ; Thomas Piketty
-- **Explication** : Rawls admet des inégalités si elles améliorent le sort des plus défavorisés, et les libéraux jugent que la croissance profite finalement à tous. Piketty et les égalitaristes répondent que les inégalités fortes minent la cohésion, la démocratie et même la croissance à long terme.
+- **Option 1** : Une économie de marché libre, avec un État réduit au minimum. — ECO -1
+- **Option 2** : Une économie de marché avec un filet de sécurité limité aux plus fragiles. — ECO -0,6
+- **Option 3** : Une économie de marché régulée, avec une protection sociale forte, à la nordique. — ECO +0,3
+- **Option 4** : Une économie sociale et solidaire : coopératives, mutuelles et biens communs. — ECO +0,5 ; TER +0,3
+- **Option 5** : Une planification écologique conduite par l'État. — ECO +0,6 ; ENV +0,4
+- **Option 6** : La propriété collective des moyens de production, au-delà du capitalisme. — ECO +1 ; CHG +0,4
+- **Option 7** : Une économie nationale protégée, au service d'abord des Français. — ETA -0,7 ; ECO +0,2
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : systeme-economique
+- **Auteurs** : Friedrich Hayek ; Gøsta Esping-Andersen ; Karl Marx et Friedrich Engels
+- **Explication** : Du libéralisme de Hayek et Friedman au communisme de Marx, les options couvrent l'éventail des modèles économiques. Entre les deux se situent les trois mondes de l'État-providence décrits par Esping-Andersen, l'économie sociale et solidaire (Proudhon, Ostrom), la planification écologique (Gorz, Malm) et le nationalisme économique (List).
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### A02 — Allocation · Économie (ECO)
+#### C09 — Question à choix · Économie (ECO)
 
-> Si l'État disposait de 10 milliards d'euros de plus chaque année, comment les répartiriez-vous ? (10 points)
+> Les inégalités de richesse en France sont avant tout…
+
+- **Option 1** : … le résultat normal du travail, du talent et du mérite. — ECO -0,8
+- **Option 2** : … acceptables tant que les plus pauvres voient aussi leur situation s'améliorer. — ECO -0,3
+- **Option 3** : … trop fortes, et à corriger par l'impôt et les services publics. — ECO +0,5
+- **Option 4** : … le produit d'un système d'exploitation, qu'il faut dépasser. — ECO +0,9
+- **Option 5** : … moins graves que les fractures entre territoires. — POP -0,3 ; TER +0,3
+- **Option 6** : … moins graves que les problèmes d'immigration et d'insécurité. — ALT -0,5 ; SEC -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : inegalites
+- **Auteurs** : John Rawls ; Thomas Piketty ; Raymond Boudon
+- **Explication** : John Rawls admet des inégalités si elles profitent aux plus défavorisés ; Raymond Boudon les explique par des choix individuels ; Thomas Piketty par la dynamique du capital ; Marx par l'exploitation. D'autres jugent que ces inégalités ne sont pas le clivage principal.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C11 — Question à choix · Économie (ECO)
+
+> Pour garantir un revenu à chacun, quel système préférez-vous ?
+
+- **Option 1** : Un salaire à vie attaché à la personne, financé par la cotisation. — ECO +1
+- **Option 2** : Un revenu universel versé à tous, sans condition. — ECO +0,6 ; CUL +0,2
+- **Option 3** : Un revenu minimum pour ceux qui en ont besoin, sans contrepartie. — ECO +0,5
+- **Option 4** : Un revenu minimum conditionné à des heures d'activité ou de formation. — ECO -0,5
+- **Option 5** : Moins d'aides, pour inciter davantage au travail. — ECO -0,9
+- **Option 6** : Des aides réservées aux Français. — ALT -0,8 ; ETA -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : protection-sociale
+- **Auteurs** : Bernard Friot ; Milton Friedman ; Robert Castel
+- **Explication** : Bernard Friot propose un salaire attaché à la personne ; Milton Friedman un impôt négatif ; les partisans du revenu universel veulent libérer du travail contraint. D'autres conditionnent les aides à une activité ou les réservent aux nationaux.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### A02 — Répartition · Économie (ECO)
+
+> Si l'État disposait de 10 milliards d'euros de plus chaque année, comment les répartiriez-vous ?
 
 - **Option 1** : Baisser les impôts et les cotisations — ECO -0,5
 - **Option 2** : Réduire la dette publique — ECO -0,4
@@ -124,684 +397,1085 @@ Ce document est destiné à un panel de relecture pluraliste (sensibilités poli
 - **Option 4** : Augmenter les aides sociales et les minima — ECO +0,5
 - **Option 5** : Investir dans la transition écologique — ENV +0,4
 - **Option 6** : Renforcer la défense — GMO -0,3
-- **Thème** : dette · **bloc** : priorites
-- **Auteurs** : James Buchanan ; John Maynard Keynes ; Stephanie Kelton
-- **Mesures du fichier 01** : 120 Md€ de redressement d'ici 2032 par la seule baisse des dépenses (Bruno Retailleau, §3.5) ; règle d'or constitutionnelle (hors dépenses militaires) (Édouard Philippe, §3.3) ; déficit à 0 % en 2037 (étape 3 % avant 2032, 120–150 Md€ d'économies) (Gabriel Attal, §3.4)
-- **Explication** : Pour Buchanan et les partisans d'une règle d'or, la dette reporte sur les générations futures le coût des dépenses présentes. Keynes et, plus radicalement, Stephanie Kelton jugent que la dépense publique utile soutient l'activité et que la dette d'un État n'est pas celle d'un ménage.
+- **Thème** : dette
+- **Auteurs** : James Buchanan ; John Maynard Keynes
+- **Explication** : Pour James Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes. Pour Keynes, la dépense publique utile soutient l'activité, surtout en période de ralentissement.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Identité (IDE)
+#### A10 — Répartition · Altérité (ALT)
 
-#### Q013 — Likert · Identité (IDE)
+> L'État doit économiser 10 milliards d'euros. Où prendriez-vous l'argent ? Répartissez 10 points.
 
-> Mes appartenances (famille, religion, région, communauté) définissent davantage ce que je suis que mes choix personnels.
-
-- **Chargements** (accord) : IDE +1
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Charles Taylor ; Alasdair MacIntyre ; Benjamin Constant
-- **Même logique que** : Q016 — coexistence : on peut constater le poids de ses appartenances tout en souhaitant que chacun reste libre de s'en affranchir, ce que Charles Taylor appelle un libéralisme de la reconnaissance.
-- **Explication** : Les penseurs communautariens (Taylor, MacIntyre) estiment que l'identité se forme dans des traditions et des liens qui précèdent l'individu et lui donnent sens. La tradition libérale (Constant, Mill) valorise au contraire la capacité de chacun à choisir sa vie, à s'affranchir de ses origines et à se redéfinir.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q014 — Likert · Identité (IDE) · inversé
-
-> La loi ne devrait reconnaître que des individus, jamais des groupes.
-
-- **Chargements** (accord) : IDE -0,8 ; ALT -0,2
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Dominique Schnapper ; Will Kymlicka et Bhikhu Parekh
-- **Explication** : L'universalisme républicain (Schnapper) veut que la citoyenneté transcende les appartenances pour garantir l'égalité de tous devant la loi. Les théoriciens du multiculturalisme (Kymlicka, Parekh) répondent que des droits collectifs peuvent être nécessaires pour protéger des minorités culturelles ou linguistiques dans une société qui n'est jamais neutre.
+- **Option 1** : Défense — GMO +0,4
+- **Option 2** : Aides aux entreprises — ECO +0,5
+- **Option 3** : Prestations sociales — ECO -0,5
+- **Option 4** : Fonctionnement de l'État et nombre de fonctionnaires — ECO -0,5
+- **Option 5** : Contribution à l'Union européenne et aide au développement — UE -0,4 ; ETA -0,4
+- **Option 6** : Aide médicale et aides aux étrangers — ALT -0,6
+- **Option 7** : Subventions aux énergies renouvelables — ENV -0,5
+- **Thème** : dette
+- **Auteurs** : James Buchanan ; Mariana Mazzucato
+- **Explication** : Choisir où économiser révèle les dépenses que l'on juge les moins légitimes. Mariana Mazzucato souligne le rôle de l'investissement public dans l'innovation ; les partisans de la baisse des dépenses visent d'abord le fonctionnement de l'État ou les transferts.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q015 — Likert · Identité (IDE)
+## Écologie et énergie
 
-> Une société juste repose d'abord sur des liens de solidarité entre ses membres, plus que sur des contrats entre individus.
+#### B08 — Climat
 
-- **Chargements** (accord) : IDE +0,8 ; ECO +0,2
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Michael Sandel ; Amitai Etzioni ; Robert Nozick
-- **Explication** : Sandel et Etzioni défendent une société fondée sur des obligations mutuelles et un bien commun qui dépasse la somme des intérêts individuels. Les libertariens comme Nozick répondent que seuls des engagements librement consentis sont légitimes et qu'une solidarité imposée restreint la liberté.
+**Contexte** : À propos du changement climatique, que pensez-vous de ces affirmations ?
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+- **Thème** : climat · **Auteurs** : Le déni climatique et sa sociologie ; Bjørn Lomborg ; Serge Latouche
+- **Explication** (mode Apprendre) : La première affirmation a une dimension factuelle : le GIEC conclut que l'influence humaine est la cause principale du réchauffement observé. Bjørn Lomborg accepte ce constat mais juge les coûts surestimés ; les écomodernistes misent sur l'innovation ; Serge Latouche et les décroissants estiment qu'aucune technique ne dispense de consommer moins.
 
-#### Q016 — Likert · Identité (IDE) · inversé
-
-> Chacun devrait pouvoir se définir librement, indépendamment de son origine, de sa religion ou de sa famille.
-
-- **Chargements** (accord) : IDE -0,8 ; CUL +0,3
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : John Stuart Mill ; Alasdair MacIntyre
-- **Explication** : Pour John Stuart Mill, l'autonomie de la personne est la condition d'une vie accomplie et d'une société qui progresse. MacIntyre objecte qu'un individu détaché de toute tradition perd les repères qui rendent possibles le jugement moral et la vie bonne.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q017 — Likert · Identité (IDE)
-
-> Les minorités culturelles ou régionales devraient pouvoir obtenir des droits spécifiques, par exemple un enseignement dans leur langue.
-
-- **Chargements** (accord) : IDE +0,7 ; ALT +0,3 ; TER +0,3
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Will Kymlicka et Bhikhu Parekh ; Dominique Schnapper
-- **Explication** : Kymlicka voit dans ces droits un moyen d'assurer l'égalité réelle de minorités nationales ou régionales (langues régionales, peuples autochtones). La tradition républicaine française (Schnapper) craint qu'ils fragmentent la communauté des citoyens et créent des statuts différents selon l'appartenance.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q018 — Likert · Identité (IDE) · inversé
-
-> Réussir sa vie dépend surtout des efforts personnels, bien plus que du milieu d'origine.
-
-- **Chargements** (accord) : IDE -0,6 ; ECO -0,4
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Raymond Boudon ; Pierre Bourdieu ; Michael Sandel
-- **Explication** : Raymond Boudon explique les trajectoires par des choix individuels rationnels, et beaucoup défendent le mérite comme moteur de justice et d'effort. Bourdieu insiste sur la reproduction des inégalités par les capitaux hérités ; Sandel ajoute que croire au seul mérite peut humilier ceux qui échouent.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q019 — Likert · Identité (IDE)
-
-> Les associations, paroisses, syndicats et communautés locales devraient jouer un plus grand rôle que l'État dans la solidarité.
-
-- **Chargements** (accord) : IDE +0,6 ; TER +0,3 ; ECO -0,2
-- **Thème** : services-publics · **bloc** : societe
-- **Auteurs** : Alexis de Tocqueville ; Doctrine sociale de l'Église ; William Beveridge
-- **Explication** : Tocqueville et la doctrine sociale de l'Église (principe de subsidiarité) valorisent les corps intermédiaires, plus proches des personnes et porteurs de liens. Les défenseurs de l'État-providence (Beveridge) répondent que seule une solidarité nationale et obligatoire garantit des droits égaux, sans dépendre de la générosité ou de l'appartenance.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### D02 — Dilemme · Identité (IDE) · inversé
-
-> Quelle société vous paraît la plus souhaitable ?
-
-- **A** : Une société où chacun se sent d'abord membre de communautés qui le portent (famille, culture, religion). — IDE +1
-- **B** : Une société où chacun est d'abord un individu libre de ses choix et de ses appartenances. — IDE -1
-- **Thème** : identite · **bloc** : societe
-- **Auteurs** : Louis Dumont ; Michael Sandel ; Benjamin Constant
-- **Explication** : Louis Dumont oppose les sociétés « holistes », où le tout prime, à la modernité individualiste. Les communautariens (Sandel) jugent que l'individu isolé est une fiction appauvrissante ; les libéraux (Constant) y voient la condition de la liberté des Modernes.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-### Environnement (ENV)
-
-#### Q021 — Likert · Environnement (ENV) · dimension factuelle
+##### B08a — Affirmation · Environnement (ENV) · dimension factuelle
 
 > Le réchauffement climatique actuel est principalement dû aux activités humaines.
 
 - **Chargements** (accord) : ENV +1
-- **Thème** : climat · **bloc** : ecologie
-- **Auteurs** : Le déni climatique et sa sociologie ; Bjørn Lomborg
-- **Explication** : Cet énoncé a une dimension factuelle : le GIEC conclut que l'influence humaine est la cause principale du réchauffement observé depuis le milieu du XXe siècle. Oreskes et Conway ont documenté la fabrication du doute sur ce point ; Bjørn Lomborg, qui accepte ce constat, conteste en revanche l'ampleur des coûts et les politiques choisies.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B08b — Affirmation · Environnement (ENV) · inversé
 
-#### Q022 — Likert · Environnement (ENV)
+> Le réchauffement est réel, mais ses conséquences sont exagérées par les médias et les militants.
 
-> Les pays riches doivent accepter de consommer moins pour préserver le climat.
+- **Chargements** (accord) : ENV -0,7
+
+##### B08c — Affirmation · Environnement (ENV) · inversé
+
+> L'innovation technologique suffira à régler la crise climatique sans changer nos modes de vie.
+
+- **Chargements** (accord) : ENV -0,5
+
+##### B08d — Affirmation · Environnement (ENV)
+
+> Il faudra réduire notre consommation et renoncer à une partie de notre confort.
 
 - **Chargements** (accord) : ENV +0,8 ; ECO +0,2
-- **Thème** : climat · **bloc** : ecologie
-- **Auteurs** : Serge Latouche ; Kate Raworth et Tim Jackson ; Écomodernisme
-- **Explication** : Les tenants de la sobriété et de la décroissance (Latouche, Jackson) jugent impossible de découpler durablement croissance et émissions. Les écomodernistes estiment au contraire que l'innovation, le nucléaire et l'efficacité permettent de décarboner sans réduire le niveau de vie, et que la sobriété imposée pèse sur les plus modestes.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q023 — Likert · Environnement (ENV) · inversé
+#### B09 — Énergie
 
-> Les normes environnementales imposées aux agriculteurs et aux entreprises sont devenues excessives.
+**Contexte** : Pour l'énergie de demain, que pensez-vous de ces choix ?
 
-- **Chargements** (accord) : ENV -0,8 ; ECO -0,2
-- **Thème** : agriculture · **bloc** : ecologie
-- **Auteurs** : Bjørn Lomborg ; Rachel Carson
-- **Explication** : Pour beaucoup d'agriculteurs et d'entrepreneurs, l'accumulation des normes renchérit la production, crée une concurrence déloyale avec les pays moins exigeants et décourage l'activité. Dans la lignée de Rachel Carson, d'autres rappellent que ces normes protègent la santé, les sols et la biodiversité, dont dépend l'agriculture elle-même.
+- **Thème** : energie-nucleaire · **Auteurs** : Jean-Marc Jancovici ; Ivan Illich ; Écologies conservatrices
+- **Explication** (mode Apprendre) : Jean-Marc Jancovici défend nucléaire et sobriété pour décarboner ; une grande partie de l'écologie politique, dans la lignée d'Illich, rejette une technique centralisée et risquée. L'opposition aux éoliennes mêle défense des paysages, portée par des écologies conservatrices, et scepticisme sur leur efficacité.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B09a — Affirmation · Environnement (ENV)
 
-#### Q024 — Likert · Environnement (ENV) · inversé
+> La France devrait construire de nombreux nouveaux réacteurs nucléaires.
 
-> Les zones à faibles émissions, qui restreignent la circulation des véhicules anciens en ville, devraient être supprimées.
+- **Chargements** (accord) : ENV.nucleaire +0,8
+- **Mesures du fichier 01** : relance nucléaire (série d'EPR) (Marine Le Pen, §3.1) ; prolongation du parc, six EPR2, relance des réacteurs à neutrons rapides (Bruno Retailleau, §3.5) ; mix 100 % public et décarboné, construction d'EPR (jusqu'à 20 évoqués) (Fabien Roussel, §3.10) ; Nucléaire (6+ EPR, SMR) (David Lisnard, §3.11)
 
-- **Chargements** (accord) : ENV -0,7
-- **Thème** : mobilite · **bloc** : ecologie
-- **Auteurs** : Christophe Guilluy ; Jean-Marc Jancovici
-- **Mesures du fichier 01** : fin des ZFE (Marine Le Pen, §3.1)
-- **Explication** : Les opposants aux ZFE y voient une mesure qui pénalise les ménages modestes et périphériques, contraints à la voiture et incapables de changer de véhicule, un thème documenté par Christophe Guilluy. Leurs défenseurs rappellent que la pollution de l'air cause des milliers de décès prématurés et que la décarbonation des transports est incontournable.
+##### B09b — Affirmation · Environnement (ENV)
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+> La France devrait sortir progressivement du nucléaire et miser sur les énergies renouvelables.
 
-#### Q025 — Likert · Environnement (ENV) · inversé
+- **Chargements** (accord) : ENV +0,2 ; ENV.nucleaire -0,8
+- **Mesures du fichier 01** : Sortie planifiée du nucléaire (fin des programmes EPR2 et SMR, arrêt progressif du parc), 44 % d'EnR dans l'électricité en 2030 (Marine Tondelier, §3.8) ; sortie planifiée du nucléaire vers 100 % renouvelables (Jean-Luc Mélenchon, §3.2)
 
-> L'objectif de zéro artificialisation nette, qui limite la construction sur les terres naturelles, devrait être abandonné.
+##### B09c — Affirmation · Environnement (ENV) · inversé
 
-- **Chargements** (accord) : ENV -0,7
-- **Thème** : logement-zan · **bloc** : ecologie
-- **Auteurs** : Garrett Hardin et Elinor Ostrom ; Bruno Latour et Philippe Descola
-- **Mesures du fichier 01** : abrogation de la loi SRU, fin de l'interdiction de louer les logements F/G, suppression du ZAN, MaPrimeRénov' remplacée par des prêts à taux zéro, expulsions accélérées en cas d'impayés (Marine Le Pen, §3.1) ; suppression des quotas SRU et du ZAN (Bruno Retailleau, §3.5)
-- **Explication** : Les critiques du ZAN estiment qu'il bloque la construction de logements, renchérit le foncier et prive les communes rurales de développement. Ses partisans rappellent que l'artificialisation détruit sols, biodiversité et terres agricoles de manière quasi irréversible, et qu'il faut densifier plutôt qu'étaler.
+> Les éoliennes défigurent les paysages : il faut un moratoire sur leur installation.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+- **Chargements** (accord) : ENV -0,5 ; CUL -0,2
+- **Mesures du fichier 01** : moratoire sur l'éolien (Marine Le Pen, §3.1)
 
-#### Q026 — Likert · Environnement (ENV)
+##### B09d — Affirmation · Environnement (ENV)
 
-> Le respect des limites planétaires (climat, biodiversité) devrait être inscrit dans la Constitution.
+> La priorité est la sobriété : consommer moins d'énergie, quelle qu'en soit la source.
 
 - **Chargements** (accord) : ENV +0,8
-- **Thème** : climat · **bloc** : ecologie
-- **Auteurs** : Hans Jonas ; Bjørn Lomborg
-- **Mesures du fichier 01** : Climat, biodiversité et limites planétaires dans la Constitution (Marine Tondelier, §3.8) ; neutralité carbone 2050 constitutionnalisée (Dominique de Villepin, §3.14)
-- **Explication** : Hans Jonas plaide pour une responsabilité envers les générations futures qui justifie de placer la préservation du vivant au sommet des normes. Les opposants craignent un « gouvernement des juges » écologique, un frein à l'activité et une rigidité qui empêcherait d'arbitrer entre objectifs légitimes.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D03 — Dilemme · Environnement (ENV) · inversé
+#### B10 — Une zone à faibles émissions
 
-> Face au changement climatique, laquelle de ces orientations préférez-vous ?
+**Contexte** : Votre ville instaure une zone à faibles émissions qui interdit les véhicules anciens. Qu'en pensez-vous ?
 
-- **A** : Accélérer fortement la transition écologique, même si elle coûte cher à court terme. — ENV +0,8
-- **B** : Avancer plus lentement pour préserver le pouvoir d'achat et l'emploi. — ENV -0,8
-- **Thème** : climat · **bloc** : ecologie
-- **Auteurs** : Jean-Marc Jancovici ; Bjørn Lomborg
-- **Mesures du fichier 01** : neutralité carbone visée en 2040 (Marine Tondelier, §3.8) ; arrêt du financement des renouvelables (tribune de juillet 2025) (Bruno Retailleau, §3.5)
-- **Explication** : Les partisans d'une accélération (Jancovici) rappellent que chaque année de retard alourdit les coûts futurs et les dommages irréversibles. Ceux qui préfèrent une transition graduelle (Lomborg) craignent un rejet social, comme lors du mouvement des gilets jaunes, et misent sur l'innovation et l'adaptation.
+- **Thème** : mobilite · **Auteurs** : Christophe Guilluy ; André Gorz ; Andreas Malm et Kohei Saito
+- **Explication** (mode Apprendre) : La pollution de l'air cause de nombreux décès prématurés, d'où ces zones. L'expression « écologie punitive », employée par leurs opposants, traduit le sentiment d'injustice des ménages périphériques dépendants de la voiture, documenté par Christophe Guilluy. André Gorz et Andreas Malm lient au contraire la question écologique à la question sociale : les plus riches émettent le plus.
+
+##### B10a — Affirmation · Environnement (ENV)
+
+> C'est une mesure nécessaire pour protéger la santé des habitants.
+
+- **Chargements** (accord) : ENV +0,7
+
+##### B10b — Affirmation · Environnement (ENV) · inversé
+
+> C'est de l'« écologie punitive » qui frappe d'abord les ménages modestes.
+
+- **Chargements** (accord) : ENV -0,6
+- **Mesures du fichier 01** : fin des ZFE (Marine Le Pen, §3.1)
+
+##### B10c — Affirmation · Économie (ECO)
+
+> Elle n'est acceptable qu'avec des aides massives pour changer de véhicule et des transports gratuits.
+
+- **Chargements** (accord) : ECO +0,5
+
+##### B10d — Affirmation · Économie (ECO)
+
+> Ce sont les plus riches et les grandes entreprises qui polluent le plus : c'est à eux de payer d'abord.
+
+- **Chargements** (accord) : ECO +0,6 ; ENV +0,2
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### A01 — Allocation · Environnement (ENV)
+#### B11 — Agriculture et terres
 
-> Répartissez 10 points entre ces priorités pour le prochain quinquennat, selon l'importance que vous leur accordez.
+**Contexte** : Des agriculteurs manifestent contre les normes environnementales. Que pensez-vous de ces positions ?
 
-- **Option 1** : Climat et biodiversité — ENV +0,5
-- **Option 2** : Pouvoir d'achat — ECO +0,3
-- **Option 3** : Sécurité — SEC -0,4
-- **Option 4** : Réduction de la dette — ECO -0,4
-- **Option 5** : Maîtrise de l'immigration — ALT -0,4
-- **Option 6** : Santé et hôpital — ECO +0,2
-- **Thème** : priorites · **bloc** : priorites
-- **Auteurs** : Ronald Inglehart ; John Maynard Keynes
-- **Explication** : Cette répartition indique la saillance des enjeux pour vous : elle pondère la comparaison avec les candidat·es, sans changer vos positions. Ronald Inglehart a montré que les priorités « postmatérialistes » (environnement) et « matérialistes » (sécurité, revenu) structurent durablement les choix politiques.
+- **Thème** : agriculture · **Auteurs** : Rachel Carson ; Friedrich List ; Garrett Hardin et Elinor Ostrom
+- **Explication** (mode Apprendre) : Depuis Rachel Carson, les défenseurs des normes rappellent leurs effets sur la santé et la biodiversité ; leurs critiques dénoncent une concurrence déloyale et un empilement de règles. Le protectionnisme agricole renoue avec Friedrich List ; la limitation de l'artificialisation des sols oppose préservation des terres et besoins de logement des communes.
+
+##### B11a — Affirmation · Environnement (ENV) · inversé
+
+> Leurs revendications sont justes : les normes environnementales sont devenues excessives.
+
+- **Chargements** (accord) : ENV -0,7
+
+##### B11b — Affirmation · État (ETA) · inversé
+
+> Il faut garder les normes, et taxer les importations qui ne les respectent pas.
+
+- **Chargements** (accord) : ETA -0,5 ; ENV +0,2
+- **Mesures du fichier 01** : souveraineté alimentaire dans la PAC (François Ruffin, §3.9)
+
+##### B11c — Affirmation · Environnement (ENV)
+
+> Il faut sortir des pesticides comme le glyphosate, en accompagnant les agriculteurs, même si cela coûte cher.
+
+- **Chargements** (accord) : ENV +0,8
+- **Mesures du fichier 01** : interdiction du glyphosate (Jean-Luc Mélenchon, §3.2)
+
+##### B11d — Affirmation · Environnement (ENV) · inversé
+
+> Les communes qui manquent de logements devraient pouvoir construire sur des terres agricoles.
+
+- **Chargements** (accord) : ENV -0,5
+- **Thème** : logement-zan
+- **Mesures du fichier 01** : abrogation de la loi SRU, fin de l'interdiction de louer les logements F/G, suppression du ZAN, MaPrimeRénov' remplacée par des prêts à taux zéro, expulsions accélérées en cas d'impayés (Marine Le Pen, §3.1) ; suppression des quotas SRU et du ZAN (Bruno Retailleau, §3.5)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Religion (REL)
+#### C04 — Question à choix · Environnement (ENV)
 
-#### Q031 — Likert · Religion (REL)
+> Face à la crise écologique, quelle stratégie vous paraît la meilleure ?
+
+- **Option 1** : La croissance verte, par l'innovation et les mécanismes de marché. — ENV +0,3 ; ECO -0,5
+- **Option 2** : La planification publique, avec le nucléaire et les renouvelables. — ENV +0,5 ; ECO +0,4 ; ENV.nucleaire +0,6
+- **Option 3** : La sobriété et la décroissance de la production matérielle. — ENV +0,9 ; ECO +0,3
+- **Option 4** : Une écologie locale et enracinée : terroirs, paysages, circuits courts. — ENV +0,5 ; IDE +0,3 ; TER +0,3
+- **Option 5** : L'adaptation aux changements plutôt que la réduction des émissions. — ENV -0,5
+- **Option 6** : D'autres priorités (pouvoir d'achat, emploi, sécurité) passent avant l'écologie. — ENV -0,8
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : climat
+- **Auteurs** : Écomodernisme ; Serge Latouche ; Bjørn Lomborg
+- **Explication** : L'écomodernisme mise sur la technique, Jancovici sur le nucléaire et la sobriété, Latouche sur la décroissance, les écologies conservatrices sur l'enracinement local ; Bjørn Lomborg privilégie l'adaptation. Les enquêtes montrent que la priorité donnée à l'écologie varie fortement selon les revenus et les territoires.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### A08 — Répartition · Environnement (ENV)
+
+> Qui devrait payer en priorité la transition écologique ? Répartissez 10 points.
+
+- **Option 1** : Les plus riches et les grandes entreprises — ECO +0,5
+- **Option 2** : Tout le monde, par une taxe carbone redistribuée — ENV +0,4 ; ECO -0,2
+- **Option 3** : L'État, par l'emprunt — ECO +0,3
+- **Option 4** : Les pays qui polluent le plus (Chine, États-Unis…) — ETA -0,3
+- **Option 5** : Les consommateurs, selon ce qu'ils achètent — ECO -0,4
+- **Option 6** : Personne : il faut ralentir la transition — ENV -0,6
+- **Thème** : climat
+- **Auteurs** : Gabriel Zucman ; Bjørn Lomborg
+- **Explication** : Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches. Beaucoup d'économistes du climat défendent une taxe carbone redistribuée ; d'autres jugent qu'il faut d'abord faire payer les plus gros émetteurs.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Religion, laïcité et école
+
+#### B12 — Place des religions
+
+**Contexte** : À propos de la place des religions dans la société, que pensez-vous de ces affirmations ?
+
+- **Thème** : religion · **Auteurs** : Chantal Delsol ; Voltaire ; Jürgen Habermas
+- **Explication** (mode Apprendre) : Pour Chantal Delsol, l'héritage chrétien structure la culture et la morale françaises. La tradition voltairienne voit dans l'influence religieuse une menace pour l'émancipation ; Habermas estime que les croyants peuvent contribuer au débat public si leurs arguments restent compréhensibles par tous.
+
+##### B12a — Affirmation · Religion (REL)
 
 > La France devrait davantage assumer ses racines chrétiennes dans la vie publique.
 
-- **Chargements** (accord) : REL +0,8 ; ETA -0,3
-- **Thème** : religion · **bloc** : religion
-- **Auteurs** : Patrick Buisson ; Chantal Delsol ; Jean Baubérot et Henri Peña-Ruiz
-- **Explication** : Pour Chantal Delsol ou Patrick Buisson, l'héritage chrétien structure la culture, la morale et le paysage français, et l'assumer renforce la cohésion. Les défenseurs de la laïcité (Baubérot, Peña-Ruiz) répondent que la République est neutre, qu'elle doit traiter également croyants de toutes confessions et non-croyants.
+- **Chargements** (accord) : REL +0,8
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B12b — Affirmation · Religion (REL) · inversé
 
-#### Q032 — Likert · Religion (REL) · inversé
-
-> Les convictions religieuses doivent rester strictement dans la sphère privée.
-
-- **Chargements** (accord) : REL -0,8
-- **Facette** : REL.laicite (+0,5)
-- **Thème** : laicite · **bloc** : religion
-- **Auteurs** : Ferdinand Buisson et Aristide Briand ; Jürgen Habermas
-- **Explication** : Une lecture stricte de la laïcité veut que la religion reste une affaire personnelle, pour protéger la liberté de conscience et la paix civile. Habermas, avec d'autres, estime au contraire que les croyants peuvent contribuer au débat public si leurs arguments sont traduisibles pour tous, et que la loi de 1905 garantit le libre exercice public des cultes.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q034 — Likert · Religion (REL) · inversé
-
-> L'influence des religions sur la société est aujourd'hui plus nuisible que bénéfique.
+> Les religions font aujourd'hui plus de mal que de bien à la société.
 
 - **Chargements** (accord) : REL -0,9
-- **Thème** : religion · **bloc** : religion
-- **Auteurs** : Karl Marx et Friedrich Engels ; Voltaire ; Émile Durkheim
-- **Explication** : La critique des Lumières et de Marx voit dans les religions des sources d'intolérance, de conservatisme et de domination. Durkheim et bien des sociologues soulignent au contraire leur rôle de cohésion, de solidarité et de sens, notamment dans les associations caritatives et la vie locale.
+
+##### B12c — Affirmation · Religion (REL)
+
+> Les croyants devraient peser davantage dans les débats de société, comme la fin de vie ou la bioéthique.
+
+- **Chargements** (accord) : REL +0,6
+
+##### B12d — Affirmation · Religion (REL) · inversé
+
+> La foi est une affaire strictement privée, qui n'a pas sa place dans la vie publique.
+
+- **Chargements** (accord) : REL -0,7 ; REL.laicite +0,5
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q035 — Likert · Religion (REL)
+#### B13 — Laïcité : une sortie scolaire
 
-> Une société sans repères religieux perd une partie de sa morale commune.
+**Contexte** : Une mère portant le voile souhaite accompagner une sortie scolaire. Que pensez-vous de ces positions ?
 
-- **Chargements** (accord) : REL +0,8 ; CUL -0,3
-- **Thème** : religion · **bloc** : religion
-- **Auteurs** : Alasdair MacIntyre ; Marcel Gauchet ; Friedrich Nietzsche
-- **Explication** : MacIntyre et les penseurs traditionalistes estiment que la morale commune s'est appauvrie en se coupant de ses sources religieuses. Marcel Gauchet décrit au contraire une « sortie de la religion » qui n'empêche pas une morale démocratique autonome ; Nietzsche voyait dans la mort de Dieu l'occasion d'inventer de nouvelles valeurs.
+- **Thème** : laicite · **Auteurs** : Jean Baubérot et Henri Peña-Ruiz ; Élisabeth Badinter ; Olivier Roy et Gilles Kepel
+- **Explication** (mode Apprendre) : Jean Baubérot défend une laïcité libérale, qui oblige l'État et non les citoyens ; Henri Peña-Ruiz et Élisabeth Badinter une laïcité plus exigeante envers les signes religieux. Gilles Kepel et Olivier Roy débattent de la nature de l'islamisme ; les opposants à l'interdiction du voile y voient une atteinte à la liberté de conscience visant une seule religion.
+
+##### B13a — Affirmation · Altérité (ALT)
+
+> Elle doit pouvoir le faire : la laïcité s'impose aux enseignants, pas aux parents.
+
+- **Chargements** (accord) : ALT +0,6 ; REL.laicite -0,6
+
+##### B13b — Affirmation · Altérité (ALT) · inversé
+
+> Elle ne devrait pas : l'école et ses activités doivent rester à l'abri de tout signe religieux.
+
+- **Chargements** (accord) : ALT -0,3 ; REL.laicite +0,7
+
+##### B13c — Affirmation · Altérité (ALT) · inversé
+
+> Le port du voile islamique devrait être interdit dans tout l'espace public.
+
+- **Chargements** (accord) : ALT -0,8 ; REL.laicite +0,5
+- **Mesures du fichier 01** : Interdiction du voile islamique dans l'espace public, sanctionnée par une amende, soumise à référendum (annonce J.-P. Tanguy 30/08/2026, précision J. Bardella 31/08/2026) (Marine Le Pen, §3.1)
+
+##### B13d — Affirmation · Altérité (ALT) · inversé
+
+> Le vrai sujet n'est pas le voile mais l'islamisme, qui progresse dans certains quartiers.
+
+- **Chargements** (accord) : ALT -0,5 ; SEC -0,3
+- **Mesures du fichier 01** : interdiction des Frères musulmans, du voile à l'université, contrôle des écoles hors contrat (David Lisnard, §3.11)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q037 — Likert · Religion (REL)
+#### B14 — Critique des religions
 
-> Les crèches de Noël ont leur place dans les mairies, comme éléments de la tradition culturelle française.
+**Contexte** : Un journal publie des caricatures d'une figure religieuse. Que pensez-vous de ces positions ?
 
-- **Chargements** (accord) : REL +0,7 ; ETA -0,2
-- **Facette** : REL.laicite (-0,5)
-- **Thème** : laicite · **bloc** : religion
-- **Auteurs** : Jean Baubérot et Henri Peña-Ruiz ; Chantal Delsol
-- **Explication** : Pour leurs défenseurs, les crèches relèvent d'un patrimoine culturel partagé plus que d'un acte de foi. Pour les tenants d'une laïcité stricte, un bâtiment public doit rester neutre ; le Conseil d'État admet ces crèches seulement lorsqu'elles ont un caractère culturel ou festif, sans prosélytisme.
+- **Thème** : laicite · **Auteurs** : Voltaire ; Charles Taylor
+- **Explication** (mode Apprendre) : Dans la tradition voltairienne, le droit de critiquer les croyances, jusqu'au blasphème, est une conquête ; le droit français ne punit pas le blasphème mais sanctionne les injures visant des personnes. Charles Taylor plaide pour une politique de la reconnaissance attentive aux minorités, ce qui peut passer par des accommodements comme les jours fériés.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q038 — Likert · Religion (REL) · inversé
+##### B14a — Affirmation · Religion (REL) · inversé
 
 > La critique des religions, y compris par la caricature, doit rester entièrement libre.
 
-- **Chargements** (accord) : REL -0,6 ; CUL +0,4 ; GOV +0,2
-- **Facette** : REL.laicite (+0,3)
-- **Thème** : laicite · **bloc** : religion
-- **Auteurs** : Voltaire ; Charles Taylor
-- **Même logique que** : Q039 — coexistence : le droit français distingue la critique des croyances, libre, et les propos visant des croyants en tant que personnes (injure, provocation à la haine), qui sont sanctionnés ; on peut défendre l'une et vouloir mieux réprimer les autres.
-- **Explication** : Dans la tradition voltairienne, la liberté de critiquer les croyances, jusqu'au blasphème, est une conquête essentielle ; le droit français ne punit pas le blasphème. Charles Taylor et d'autres rappellent que certaines caricatures peuvent blesser des minorités déjà stigmatisées et que la liberté d'expression s'exerce avec une responsabilité.
+- **Chargements** (accord) : REL -0,6 ; CUL +0,4 ; REL.laicite +0,3
+
+##### B14b — Affirmation · Religion (REL)
+
+> Mieux vaut éviter de publier des caricatures qui blessent inutilement les croyants.
+
+- **Chargements** (accord) : REL +0,5 ; CUL -0,2
+
+##### B14c — Affirmation · Religion (REL)
+
+> La loi devrait sanctionner les propos qui offensent une religion.
+
+- **Chargements** (accord) : REL +0,7 ; GOV -0,3
+
+##### B14d — Affirmation · Altérité (ALT)
+
+> Les grandes fêtes de chaque religion présente en France devraient pouvoir être des jours fériés.
+
+- **Chargements** (accord) : ALT +0,5 ; REL.laicite -0,5
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q039 — Likert · Religion (REL)
+#### B15 — École et transmission
 
-> Le droit devrait mieux protéger les croyants contre les propos qui offensent leur religion.
+**Contexte** : À propos de l'école et de la transmission des convictions, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : REL +0,6 ; CUL -0,3 ; GOV -0,2
-- **Thème** : religion · **bloc** : religion
-- **Auteurs** : Charles Taylor ; Voltaire
-- **Explication** : Pour ses partisans, protéger les convictions intimes des croyants relève du respect et de la paix civile, dans une société pluraliste. Ses opposants y voient le retour d'un délit de blasphème, contraire à la liberté d'expression et à l'héritage des Lumières.
+- **Thème** : ecole · **Auteurs** : Ferdinand Buisson et Aristide Briand ; Emmanuel Mounier et Jacques Maritain ; Alasdair MacIntyre
+- **Explication** (mode Apprendre) : Les fondateurs de l'école laïque (Buisson) veulent former des esprits autonomes ; le personnalisme chrétien (Mounier, Maritain) et MacIntyre estiment que la morale se transmet dans des traditions vivantes. Le chèque éducation, défendu par Milton Friedman, oppose liberté de choix des familles et mixité sociale.
+
+##### B15a — Affirmation · Religion (REL) · inversé
+
+> L'État devrait cesser de financer les écoles privées confessionnelles.
+
+- **Chargements** (accord) : REL -0,6 ; ECO +0,2
+
+##### B15b — Affirmation · Religion (REL)
+
+> Il est bon que des parents transmettent une foi à leurs enfants plutôt que les laisser choisir seuls.
+
+- **Chargements** (accord) : REL +0,8
+
+##### B15c — Affirmation · Religion (REL)
+
+> Sans repères religieux, une société perd une partie de sa morale commune.
+
+- **Chargements** (accord) : REL +0,8 ; CUL -0,3
+
+##### B15d — Affirmation · Économie (ECO) · inversé
+
+> Les parents devraient choisir librement l'école de leurs enfants, publique ou privée, grâce à un chèque éducation.
+
+- **Chargements** (accord) : ECO -0,6 ; REL +0,2
+- **Mesures du fichier 01** : chèque éducation et libre choix de l'établissement (David Lisnard, §3.11)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D04 — Dilemme · Religion (REL) · inversé
+#### C07 — Question à choix · Religion (REL)
 
-> En matière de convictions, que faut-il privilégier pour les enfants ?
+> Quelle conception de la laïcité est la plus proche de la vôtre ?
 
-- **A** : Leur transmettre une foi et des traditions religieuses. — REL +0,8
-- **B** : Les laisser choisir seuls leurs convictions à l'âge adulte. — REL -0,8 ; IDE -0,3
-- **Thème** : religion · **bloc** : religion
-- **Auteurs** : Emmanuel Mounier et Jacques Maritain ; Condorcet
-- **Explication** : Pour le personnalisme chrétien (Mounier, Maritain), la transmission d'une foi est une richesse qui forme la personne. Condorcet et la tradition de l'école laïque veulent former des esprits capables de juger par eux-mêmes, sans convictions imposées.
+- **Option 1** : L'État est neutre, et les citoyens sont libres d'exprimer leur religion, y compris en public. — ALT +0,2 ; REL.laicite -0,6
+- **Option 2** : La neutralité doit aussi s'appliquer dans l'école et les services publics, pour les usagers. — REL.laicite +0,6
+- **Option 3** : Il faut réduire l'influence des religions dans la société. — REL -0,8 ; REL.laicite +0,5
+- **Option 4** : L'État devrait reconnaître les religions et accepter des accommodements (horaires, menus, fêtes). — ALT +0,4 ; REL +0,2 ; REL.laicite -0,7
+- **Option 5** : La laïcité doit d'abord protéger l'identité chrétienne de la France face à l'islam. — REL +0,6 ; ALT -0,6 ; REL.laicite +0,3
+- **Option 6** : La loi devrait davantage s'inspirer des valeurs religieuses. — REL +0,9
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : laicite
+- **Auteurs** : Jean Baubérot et Henri Peña-Ruiz ; Patrick Buisson ; Jürgen Habermas
+- **Explication** : Jean Baubérot décrit plusieurs « laïcités » : libérale, de combat, de reconnaissance, et aussi une « laïcité identitaire » mobilisée contre l'islam par une partie de la droite (Patrick Buisson). Habermas imagine une société post-séculière où les croyants participent au débat public.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### État (ETA)
+#### A07 — Répartition · État (ETA)
 
-#### Q041 — Likert · État (ETA)
+> Qu'est-ce que l'école devrait transmettre en priorité ? Répartissez 10 points.
+
+- **Option 1** : Les savoirs fondamentaux (lire, écrire, compter) — CUL -0,2
+- **Option 2** : L'esprit critique et la citoyenneté — CUL +0,3
+- **Option 3** : L'histoire et la culture nationales — ETA -0,4
+- **Option 4** : L'égalité des chances entre milieux sociaux — ECO +0,4
+- **Option 5** : Des métiers et l'apprentissage — ECO -0,2
+- **Option 6** : L'écologie et le respect du vivant — ENV +0,4
+- **Option 7** : La discipline et le respect de l'autorité — SEC -0,3 ; CUL -0,3
+- **Thème** : ecole
+- **Auteurs** : Condorcet ; Pierre Bourdieu ; Alain Finkielkraut
+- **Explication** : Condorcet voulait une instruction qui émancipe, et Pierre Bourdieu montre que l'école reproduit les inégalités. Alain Finkielkraut défend la transmission des savoirs contre le relativisme.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Nation, monde et mémoire
+
+#### B16 — Commerce international
+
+**Contexte** : Face à la concurrence internationale, quelle politique commerciale vous semble souhaitable ?
+
+- **Thème** : mondialisation · **Auteurs** : David Ricardo ; Friedrich List ; Joseph Stiglitz et Dani Rodrik
+- **Explication** (mode Apprendre) : David Ricardo a montré que l'échange profite à tous les partenaires ; Friedrich List que les pays aujourd'hui riches se sont d'abord protégés. Dani Rodrik souligne qu'une mondialisation poussée entre en tension avec la démocratie ; l'altermondialisme et l'écologie politique veulent des échanges moins nombreux et mieux régulés, à l'échelle nationale ou européenne.
+
+##### B16a — Affirmation · État (ETA)
+
+> Le libre-échange enrichit tous les pays : il faut continuer à ouvrir les marchés.
+
+- **Chargements** (accord) : ETA +0,6 ; ECO -0,5
+
+##### B16b — Affirmation · État (ETA) · inversé
+
+> La France devrait protéger ses industries par ses propres droits de douane.
+
+- **Chargements** (accord) : ETA -0,8 ; ECO +0,2
+- **Mesures du fichier 01** : Protectionnisme écologique et social (François Ruffin, §3.9)
+
+##### B16c — Affirmation · Union européenne (UE)
+
+> C'est à l'échelle européenne qu'il faut protéger l'industrie, avec des taxes aux frontières de l'Union.
+
+- **Chargements** (accord) : UE +0,6
+
+##### B16d — Affirmation · Économie (ECO)
+
+> Le commerce devrait obéir à des règles sociales et écologiques strictes, quitte à échanger beaucoup moins.
+
+- **Chargements** (accord) : ECO +0,4 ; ENV +0,3
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B17 — La nation et le monde
+
+**Contexte** : À propos de votre rapport à la nation et au reste du monde, que pensez-vous de ces affirmations ?
+
+- **Thème** : identite · **Auteurs** : Emmanuel Kant ; Pierre Manent ; Léon Trotsky
+- **Explication** (mode Apprendre) : Le cosmopolitisme, de Kant à Martha Nussbaum, fait de l'humanité la première communauté morale ; l'internationalisme ouvrier place la solidarité de classe au-dessus des frontières. Pierre Manent voit dans la nation le cadre indispensable de la démocratie ; le mot « mondialisme », employé par les souverainistes, désigne pour eux un projet d'effacement des nations.
+
+##### B17a — Affirmation · État (ETA)
 
 > Je me sens citoyen·ne du monde avant d'être citoyen·ne de mon pays.
 
 - **Chargements** (accord) : ETA +1
-- **Thème** : identite · **bloc** : international
-- **Auteurs** : Emmanuel Kant ; Martha Nussbaum ; Pierre Manent
-- **Explication** : Le cosmopolitisme, de Kant à Nussbaum, fait de l'humanité la première communauté d'appartenance morale. Pierre Manent et les penseurs de la nation répondent que la démocratie et la solidarité concrètes n'existent que dans des communautés politiques délimitées.
+
+##### B17b — Affirmation · État (ETA) · inversé
+
+> Les intérêts des Français doivent passer avant ceux des autres peuples.
+
+- **Chargements** (accord) : ETA -0,9 ; ALT -0,3
+- **Mesures du fichier 01** : Référendum sur l'immigration et la « priorité nationale » (inscription constitutionnelle) (Marine Le Pen, §3.1)
+
+##### B17c — Affirmation · État (ETA)
+
+> Un ouvrier français a plus en commun avec un ouvrier étranger qu'avec un patron français.
+
+- **Chargements** (accord) : ETA +0,6 ; ECO +0,5
+
+##### B17d — Affirmation · État (ETA) · inversé
+
+> Le « mondialisme » des élites menace la souveraineté des peuples.
+
+- **Chargements** (accord) : ETA -0,7
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q042 — Likert · État (ETA) · inversé
+#### B18 — Souveraineté et coopération
 
-> La France devrait produire elle-même l'essentiel de ce dont elle a besoin, même si c'est plus cher.
+**Contexte** : Lors de la dernière crise sanitaire, certains médicaments ont manqué. Que pensez-vous de ces orientations ?
 
-- **Chargements** (accord) : ETA -0,7 ; ECO +0,3
-- **Thème** : mondialisation · **bloc** : international
-- **Auteurs** : Friedrich List ; David Ricardo
-- **Mesures du fichier 01** : Protectionnisme écologique et social (François Ruffin, §3.9) ; souveraineté alimentaire dans la PAC (François Ruffin, §3.9)
-- **Explication** : Friedrich List et les partisans de la souveraineté économique jugent qu'une nation doit protéger ses industries pour rester indépendante et préserver ses emplois, comme l'ont montré les pénuries de la crise sanitaire. Dans la lignée de Ricardo, les libre-échangistes répondent que la spécialisation enrichit tous les pays et que le protectionnisme renchérit la vie des ménages.
+- **Thème** : mondialisation · **Auteurs** : Robert Keohane et Joseph Nye ; Charles de Gaulle ; Amartya Sen
+- **Explication** (mode Apprendre) : Keohane et Nye montrent que des problèmes globaux appellent des institutions communes ; la tradition gaulliste privilégie la coopération entre nations souveraines. Amartya Sen rappelle que le développement des autres pays est aussi une condition de la sécurité commune ; la relocalisation des biens essentiels a gagné des partisans à gauche comme à droite.
+
+##### B18a — Affirmation · État (ETA) · inversé
+
+> La France doit produire elle-même ses médicaments et biens essentiels, même s'ils coûtent plus cher.
+
+- **Chargements** (accord) : ETA -0,6 ; ECO +0,3
+
+##### B18b — Affirmation · État (ETA)
+
+> Face aux pandémies et au climat, il faut des institutions internationales dotées de vrais pouvoirs.
+
+- **Chargements** (accord) : ETA +0,8 ; GMO.multilateralisme -0,5
+
+##### B18c — Affirmation · État (ETA)
+
+> L'aide au développement des pays pauvres devrait être fortement augmentée.
+
+- **Chargements** (accord) : ETA +0,7 ; ALT +0,2
+- **Mesures du fichier 01** : APD −10 % (Bruno Retailleau, §3.5)
+
+##### B18d — Affirmation · État (ETA) · inversé
+
+> La France devrait coopérer avec d'autres nations souveraines plutôt que dépendre d'institutions supranationales.
+
+- **Chargements** (accord) : ETA -0,5 ; UE -0,3
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q043 — Likert · État (ETA) · inversé
+#### B19 — Histoire nationale
 
-> Pour garantir son indépendance énergétique, la France devrait miser d'abord sur le nucléaire plutôt que sur l'éolien et le solaire.
+**Contexte** : À propos de l'histoire de France et de sa transmission, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : ETA -0,4
-- **Facette** : ENV.nucleaire (+0,8)
-- **Thème** : energie-nucleaire · **bloc** : ecologie
-- **Auteurs** : Jean-Marc Jancovici ; Charles de Gaulle ; Serge Latouche
-- **Mesures du fichier 01** : relance nucléaire (série d'EPR) (Marine Le Pen, §3.1) ; prolongation du parc, six EPR2, relance des réacteurs à neutrons rapides (Bruno Retailleau, §3.5) ; mix 100 % public et décarboné, construction d'EPR (jusqu'à 20 évoqués) (Fabien Roussel, §3.10) ; Nucléaire (6+ EPR, SMR) (David Lisnard, §3.11) ; Sortie planifiée du nucléaire (fin des programmes EPR2 et SMR, arrêt progressif du parc), 44 % d'EnR dans l'électricité en 2030 (Marine Tondelier, §3.8) ; sortie planifiée du nucléaire vers 100 % renouvelables (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Cet item ne mesure pas l'intensité de votre engagement écologique, mais le choix des moyens et le lien avec la souveraineté. Jean-Marc Jancovici défend le nucléaire comme énergie décarbonée pilotable, dans une tradition d'indépendance énergétique héritée du gaullisme. Les écologistes antinucléaires mettent en avant les déchets, le risque d'accident, le coût et les délais des nouveaux réacteurs, et préfèrent renouvelables et sobriété.
+- **Thème** : memoire-coloniale · **Auteurs** : Aimé Césaire ; Ernest Renan ; Alain Finkielkraut
+- **Explication** (mode Apprendre) : Aimé Césaire et les études postcoloniales soulignent les violences coloniales et leurs héritages ; Alain Finkielkraut craint une « repentance » qui délégitime la transmission. Ernest Renan rappelait qu'une nation repose sur des souvenirs partagés, mais aussi sur ce qu'elle choisit d'oublier.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q044 — Likert · État (ETA)
+##### B19a — Affirmation · Altérité (ALT)
 
 > La France devrait reconnaître plus clairement les torts de la colonisation.
 
-- **Chargements** (accord) : ETA +0,5 ; ALT +0,4
-- **Thème** : memoire-coloniale · **bloc** : international
-- **Auteurs** : Aimé Césaire ; Ernest Renan ; Alain Finkielkraut
+- **Chargements** (accord) : ALT +0,5 ; ETA +0,4
 - **Mesures du fichier 01** : « histoire commune de la colonisation et de la décolonisation » (Raphaël Glucksmann, §3.7)
-- **Explication** : Dans la lignée d'Aimé Césaire, beaucoup estiment qu'une reconnaissance lucide des violences coloniales est nécessaire à la réconciliation et à l'intégration des descendants de colonisés. D'autres, comme Alain Finkielkraut, craignent une « repentance » qui délégitime l'histoire nationale ; Renan rappelait déjà qu'une nation repose aussi sur ce qu'elle choisit d'oublier.
+
+##### B19b — Affirmation · État (ETA) · inversé
+
+> La France n'a pas à se repentir de son histoire : elle doit en être fière.
+
+- **Chargements** (accord) : ETA -0,6 ; ALT -0,4
+
+##### B19c — Affirmation · État (ETA) · inversé
+
+> L'école devrait d'abord transmettre un récit national qui rassemble.
+
+- **Chargements** (accord) : ETA -0,5 ; CUL -0,4
+
+##### B19d — Affirmation · Altérité (ALT)
+
+> Le racisme d'aujourd'hui est en partie un héritage de la colonisation.
+
+- **Chargements** (accord) : ALT +0,7
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q045 — Likert · État (ETA) · inversé
+## Mœurs, famille et identité
 
-> Les intérêts des Français doivent toujours passer avant ceux des autres peuples.
+#### B20 — Fin de vie et bioéthique
 
-- **Chargements** (accord) : ETA -0,9 ; ALT -0,3
-- **Thème** : immigration · **bloc** : international
-- **Auteurs** : Maurice Barrès ; Martha Nussbaum
-- **Mesures du fichier 01** : Référendum sur l'immigration et la « priorité nationale » (inscription constitutionnelle) (Marine Le Pen, §3.1)
-- **Explication** : Pour les défenseurs de la priorité nationale, un gouvernement est mandaté par ses citoyens et leur doit d'abord protection, comme une famille privilégie les siens. Les cosmopolites (Nussbaum) répondent que la dignité humaine ne s'arrête pas aux frontières et qu'un intérêt national bien compris passe souvent par la coopération.
+**Contexte** : À propos de la fin de vie et de la procréation, que pensez-vous de ces positions ?
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+- **Thème** : fin-de-vie · **Auteurs** : John Stuart Mill ; Hans Jonas ; Catharine MacKinnon et Andrea Dworkin
+- **Explication** (mode Apprendre) : John Stuart Mill fonde la liberté de disposer de sa vie tant qu'on ne nuit pas à autrui. Les opposants à l'aide à mourir, croyants ou non, craignent des pressions sur les plus vulnérables. L'opposition à la GPA réunit conservateurs et féministes abolitionnistes (MacKinnon, Dworkin) : elle ne se range pas sur un seul pôle.
 
-#### Q046 — Likert · État (ETA)
-
-> Les grands défis mondiaux (climat, pandémies, fiscalité des multinationales) exigent des institutions internationales dotées de vrais pouvoirs.
-
-- **Chargements** (accord) : ETA +0,8 ; UE +0,2
-- **Facette** : GMO.multilateralisme (-0,6)
-- **Thème** : mondialisation · **bloc** : international
-- **Auteurs** : Robert Keohane et Joseph Nye ; Jürgen Habermas ; Pierre Manent
-- **Explication** : Keohane, Nye et Habermas soutiennent que des problèmes globaux appellent des règles et des institutions communes, faute de quoi chaque État est tenté de faire cavalier seul. Les souverainistes (Manent) répondent que ces institutions échappent au contrôle démocratique des peuples et que la coopération entre nations souveraines suffit.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q048 — Likert · État (ETA)
-
-> Un travailleur français a plus en commun avec un travailleur étranger qu'avec un patron français.
-
-- **Chargements** (accord) : ETA +0,7 ; ECO +0,4
-- **Thème** : mondialisation · **bloc** : international
-- **Auteurs** : Karl Marx et Friedrich Engels ; Léon Trotsky ; Christopher Lasch
-- **Explication** : C'est le cœur de l'internationalisme ouvrier (« Prolétaires de tous les pays, unissez-vous ! ») : la condition sociale unit davantage que la nationalité. Christopher Lasch ou les souverainistes sociaux répondent que la nation reste le cadre concret des solidarités et des protections conquises par les travailleurs.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### D05 — Dilemme · État (ETA) · inversé
-
-> En matière d'échanges internationaux, quelle orientation préférez-vous ?
-
-- **A** : Ouvrir les échanges, qui enrichissent tous les pays à long terme. — ETA +0,8 ; ECO -0,3
-- **B** : Protéger d'abord les emplois et les industries du pays. — ETA -0,8 ; ECO +0,2
-- **Thème** : mondialisation · **bloc** : international
-- **Auteurs** : David Ricardo ; Friedrich List ; Joseph Stiglitz et Dani Rodrik
-- **Mesures du fichier 01** : Protectionnisme écologique et social (François Ruffin, §3.9)
-- **Explication** : Ricardo a montré que l'échange profite aux deux partenaires, même inégaux. List et les protectionnistes répondent que les nations aujourd'hui riches se sont d'abord protégées ; Rodrik souligne qu'une mondialisation poussée entre en tension avec la souveraineté démocratique.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-### Culture / mœurs (CUL)
-
-#### Q051 — Likert · Culture / mœurs (CUL)
-
-> La gestation pour autrui devrait être autorisée en France.
-
-- **Chargements** (accord) : CUL +0,8
-- **Thème** : gpa-pma · **bloc** : societe
-- **Auteurs** : John Stuart Mill ; Catharine MacKinnon et Andrea Dworkin ; Roger Scruton
-- **Mesures du fichier 01** : refus de la GPA (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Les partisans d'une GPA encadrée invoquent la liberté des personnes, le désir d'enfant des couples infertiles ou homosexuels et la possibilité d'une gestation altruiste. Ses opposants, conservateurs comme féministes abolitionnistes, y voient une marchandisation du corps des femmes et de l'enfant ; une grande partie de la gauche française la refuse aussi.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q052 — Likert · Culture / mœurs (CUL) · inversé
-
-> L'autorité des parents et des enseignants s'est trop affaiblie.
-
-- **Chargements** (accord) : CUL -0,6 ; SEC -0,4
-- **Thème** : ecole · **bloc** : societe
-- **Auteurs** : Alain Finkielkraut ; Hannah Arendt ; Michel Foucault
-- **Explication** : Hannah Arendt et Alain Finkielkraut voient dans la crise de l'autorité une crise de la transmission : sans elle, l'école ne peut plus introduire les enfants dans un monde commun. Michel Foucault et la pensée critique invitent à interroger les disciplines et les rapports de pouvoir que l'autorité peut masquer.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q053 — Likert · Culture / mœurs (CUL)
+##### B20a — Affirmation · Culture / mœurs (CUL)
 
 > Une personne atteinte d'une maladie incurable devrait pouvoir obtenir une aide active à mourir.
 
 - **Chargements** (accord) : CUL +0,8 ; REL -0,3
-- **Thème** : fin-de-vie · **bloc** : societe
-- **Auteurs** : John Stuart Mill ; Hans Jonas ; Doctrine sociale de l'Église
 - **Mesures du fichier 01** : droit de mourir dans la dignité constitutionnalisé (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Les partisans d'une aide à mourir invoquent la liberté de disposer de sa vie et le refus de souffrances inutiles. Ses opposants, croyants ou non, craignent des pressions sur les personnes vulnérables, un changement de sens du soin et préfèrent développer les soins palliatifs.
+
+##### B20b — Affirmation · Culture / mœurs (CUL) · inversé
+
+> Il faut d'abord développer les soins palliatifs : l'aide à mourir ouvre une pente risquée.
+
+- **Chargements** (accord) : CUL -0,6 ; REL +0,3
+
+##### B20c — Affirmation · Culture / mœurs (CUL)
+
+> La gestation pour autrui devrait être autorisée et encadrée en France.
+
+- **Chargements** (accord) : CUL +0,8
+
+##### B20d — Affirmation · Culture / mœurs (CUL) · inversé
+
+> La gestation pour autrui est une marchandisation du corps des femmes qui doit rester interdite.
+
+- **Chargements** (accord) : CUL -0,4
+- **Mesures du fichier 01** : refus de la GPA (Jean-Luc Mélenchon, §3.2)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q054 — Likert · Culture / mœurs (CUL)
+#### B21 — Famille et genre
 
-> La consommation de cannabis par les adultes devrait être légalisée et encadrée par l'État.
+**Contexte** : À propos de la famille et des rapports entre les sexes, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : CUL +0,8 ; SEC +0,3
-- **Thème** : cannabis · **bloc** : societe
-- **Auteurs** : John Stuart Mill ; Edmund Burke
-- **Mesures du fichier 01** : légalisation du cannabis sous monopole d'État (Jean-Luc Mélenchon, §3.2) ; « tolérance zéro » envers les consommateurs (Édouard Philippe, §3.3)
-- **Explication** : Les partisans de la légalisation invoquent la liberté individuelle, l'échec de la prohibition, la réduction des risques et l'affaiblissement des trafics. Ses opposants redoutent une banalisation, des effets sur la santé des jeunes et estiment que la loi doit aussi signaler ce que la société réprouve.
+- **Thème** : gpa-pma · **Auteurs** : Simone de Beauvoir ; Roger Scruton ; Judith Butler
+- **Explication** (mode Apprendre) : Simone de Beauvoir et Judith Butler voient dans les rôles de genre des constructions sociales ; les féminismes parlent de « patriarcat » pour désigner une domination systémique. Roger Scruton et la pensée conservatrice défendent la famille comme institution héritée. Le mot « wokisme », employé par les critiques de certains courants antiracistes et féministes, est récusé par ceux qu'il désigne.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q055 — Likert · Culture / mœurs (CUL) · inversé
+##### B21a — Affirmation · Culture / mœurs (CUL) · inversé
 
 > Il est préférable pour un enfant d'être élevé par un père et une mère.
 
 - **Chargements** (accord) : CUL -0,9 ; REL +0,2
-- **Thème** : gpa-pma · **bloc** : societe
-- **Auteurs** : Roger Scruton ; Judith Butler
 - **Mesures du fichier 01** : PMA accessible aux personnes trans (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Les conservateurs (Scruton) défendent l'altérité des sexes dans la filiation comme repère pour l'enfant et fondement de la famille. Les travaux sur l'homoparentalité, et des penseuses comme Judith Butler, soulignent que le bien-être de l'enfant dépend surtout de la qualité des liens, quel que soit le sexe des parents.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q058 — Likert · Culture / mœurs (CUL) · inversé
-
-> La société est allée trop loin dans la remise en cause des traditions.
-
-- **Chargements** (accord) : CUL -0,9
-- **Thème** : famille · **bloc** : societe
-- **Auteurs** : Edmund Burke ; Herbert Marcuse
-- **Explication** : Pour Burke et la tradition conservatrice, les institutions héritées contiennent une sagesse accumulée qu'on ne remplace pas sans risque. Marcuse et la pensée libertaire y voient au contraire des normes souvent oppressives, dont la contestation a permis des émancipations.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q059 — Likert · Culture / mœurs (CUL)
+##### B21b — Affirmation · Culture / mœurs (CUL)
 
 > Le changement de sexe à l'état civil devrait être possible sur simple déclaration, sans passer par un juge.
 
 - **Chargements** (accord) : CUL +0,8
-- **Thème** : genre · **bloc** : societe
-- **Auteurs** : Judith Butler ; Alain Finkielkraut
 - **Mesures du fichier 01** : changement de sexe à l'état civil déjudiciarisé (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Ses partisans estiment que chacun doit pouvoir faire reconnaître son identité de genre sans démarche humiliante, comme dans plusieurs pays européens. D'autres jugent que la mention du sexe engage des droits et des espaces non mixtes, et qu'un contrôle par le juge protège la cohérence de l'état civil.
+
+##### B21c — Affirmation · Culture / mœurs (CUL)
+
+> Notre société reste organisée par une domination masculine, le patriarcat, qu'il faut combattre.
+
+- **Chargements** (accord) : CUL +0,6 ; ALT +0,2
+
+##### B21d — Affirmation · Culture / mœurs (CUL) · inversé
+
+> Le « wokisme » menace la liberté d'expression et la transmission des savoirs à l'école.
+
+- **Chargements** (accord) : CUL -0,7
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D06 — Dilemme · Culture / mœurs (CUL) · inversé
+#### B22 — Mœurs et liberté
 
-> Quelle attitude face aux mœurs vous semble la plus juste ?
+**Contexte** : À propos de la liberté individuelle et des normes collectives, que pensez-vous de ces affirmations ?
 
-- **A** : Laisser chacun inventer librement sa façon de vivre, de s'aimer et de fonder une famille. — CUL +0,8
-- **B** : Préserver les repères transmis par les générations précédentes. — CUL -0,8
-- **Thème** : famille · **bloc** : societe
-- **Auteurs** : Michael Oakeshott ; Simone de Beauvoir ; Jonathan Haidt
-- **Explication** : Pour Oakeshott, être conservateur, c'est préférer le familier à l'inconnu et se méfier des ruptures. Beauvoir et la pensée libertaire y voient des normes héritées qui enferment ; Haidt montre que chacun de ces camps mobilise des intuitions morales légitimes.
+- **Thème** : cannabis · **Auteurs** : John Stuart Mill ; Edmund Burke ; Hannah Arendt
+- **Explication** (mode Apprendre) : Le principe de non-nuisance de Mill fonde le libéralisme des mœurs ; Burke et la tradition conservatrice valorisent la sagesse des institutions héritées. Hannah Arendt voit dans la crise de l'autorité une crise de la transmission ; les partisans de la légalisation du cannabis invoquent l'échec de la prohibition, ses opposants la santé des jeunes.
+
+##### B22a — Affirmation · Culture / mœurs (CUL)
+
+> La consommation de cannabis par les adultes devrait être légalisée et encadrée par l'État.
+
+- **Chargements** (accord) : CUL +0,8 ; SEC +0,3
+- **Mesures du fichier 01** : légalisation du cannabis sous monopole d'État (Jean-Luc Mélenchon, §3.2) ; « tolérance zéro » envers les consommateurs (Édouard Philippe, §3.3)
+
+##### B22b — Affirmation · Culture / mœurs (CUL) · inversé
+
+> La société est allée trop loin dans la remise en cause des traditions.
+
+- **Chargements** (accord) : CUL -0,9
+
+##### B22c — Affirmation · Culture / mœurs (CUL) · inversé
+
+> L'autorité des parents et des enseignants s'est trop affaiblie.
+
+- **Chargements** (accord) : CUL -0,6 ; SEC -0,4
+
+##### B22d — Affirmation · Culture / mœurs (CUL)
+
+> Tant qu'on ne nuit à personne, chacun doit pouvoir vivre comme il l'entend, même si cela choque.
+
+- **Chargements** (accord) : CUL +0,7 ; IDE -0,3
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Altérité (ALT)
+#### B23 — Appartenances
 
-#### Q061 — Likert · Altérité (ALT)
+**Contexte** : À propos de ce qui fait votre identité, que pensez-vous de ces affirmations ?
 
-> Les discriminations liées à l'origine restent un problème important en France.
+- **Thème** : identite · **Auteurs** : Charles Taylor ; Benjamin Constant ; Dominique Schnapper
+- **Explication** (mode Apprendre) : Les communautariens (Taylor, MacIntyre) jugent que l'identité se forme dans des traditions qui précèdent l'individu ; les libéraux (Constant, Mill) valorisent la liberté de se choisir. L'universalisme républicain (Schnapper) veut une citoyenneté qui transcende les appartenances ; les défenseurs des langues régionales y voient une uniformité imposée.
 
-- **Chargements** (accord) : ALT +1
-- **Thème** : discriminations · **bloc** : immigration
-- **Auteurs** : Colette Guillaumin ; Racisme symbolique et moderne ; Stéphane Beaud et Gérard Noiriel
-- **Explication** : Les études par testing montrent des écarts persistants d'accès à l'emploi et au logement selon l'origine supposée ; la psychologie sociale observe que le déni de ces discriminations est un marqueur d'attitudes plus fermées. D'autres, y compris à gauche (Beaud, Noiriel), estiment que l'accent mis sur l'origine peut masquer le poids de la classe sociale.
+##### B23a — Affirmation · Identité (IDE)
+
+> Mes appartenances (famille, religion, région, communauté) définissent davantage qui je suis que mes choix personnels.
+
+- **Chargements** (accord) : IDE +1
+
+##### B23b — Affirmation · Identité (IDE) · inversé
+
+> Chacun devrait pouvoir se définir librement, indépendamment de son origine ou de sa famille.
+
+- **Chargements** (accord) : IDE -0,8 ; CUL +0,3
+
+##### B23c — Affirmation · Identité (IDE) · inversé
+
+> La loi ne devrait reconnaître que des individus, jamais des communautés.
+
+- **Chargements** (accord) : IDE -0,8 ; ALT -0,2
+
+##### B23d — Affirmation · Identité (IDE)
+
+> Les langues et cultures régionales devraient bénéficier de droits propres (enseignement, statut officiel).
+
+- **Chargements** (accord) : IDE +0,7
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q062 — Likert · Altérité (ALT) · inversé
+#### B24 — Une famille en difficulté
 
-> Les aides sociales devraient être réservées aux Français.
+**Contexte** : Une famille de votre quartier traverse de graves difficultés. À qui revient-il d'abord de l'aider ?
+
+- **Thème** : solidarite · **Auteurs** : Doctrine sociale de l'Église ; William Beveridge ; Robert Nozick
+- **Explication** (mode Apprendre) : La doctrine sociale de l'Église et Tocqueville valorisent les corps intermédiaires (principe de subsidiarité) ; Beveridge veut une solidarité nationale obligatoire, garantie par des droits. Robert Nozick fait de la responsabilité individuelle et des engagements volontaires la base d'une société juste ; d'autres réservent la solidarité à ceux qui partagent une même appartenance.
+
+##### B24a — Affirmation · Identité (IDE)
+
+> D'abord à la famille, aux voisins, aux associations ou aux paroisses.
+
+- **Chargements** (accord) : IDE +0,7 ; ECO -0,3
+
+##### B24b — Affirmation · Identité (IDE) · inversé
+
+> À l'État, qui doit garantir des droits égaux pour tous sans dépendre de la charité.
+
+- **Chargements** (accord) : IDE -0,6 ; ECO +0,5
+
+##### B24c — Affirmation · Identité (IDE) · inversé
+
+> Chacun est d'abord responsable de sa propre situation.
+
+- **Chargements** (accord) : IDE -0,7 ; ECO -0,4
+
+##### B24d — Affirmation · Identité (IDE)
+
+> La solidarité doit d'abord s'exercer entre membres d'une même communauté (nation, culture ou religion).
+
+- **Chargements** (accord) : IDE +0,7 ; ALT -0,3
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C13 — Question à choix · Culture / mœurs (CUL)
+
+> Quel modèle familial l'État devrait-il soutenir en priorité ?
+
+- **Option 1** : La famille traditionnelle : un père et une mère mariés, avec leurs enfants. — CUL -0,9 ; REL +0,3
+- **Option 2** : La natalité des familles françaises avant tout. — CUL -0,4 ; ALT -0,5
+- **Option 3** : Les familles modestes d'abord, quel que soit leur modèle. — ECO +0,6
+- **Option 4** : Toutes les formes de famille, à égalité. — CUL +0,8
+- **Option 5** : Aucun : l'État n'a pas à privilégier un modèle de vie. — IDE -0,6 ; CUL +0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : famille
+- **Auteurs** : Roger Scruton ; Simone de Beauvoir ; Christine Delphy
+- **Explication** : Les conservateurs défendent la famille comme institution transmise, quand les féminismes (Beauvoir, Delphy) critiquent la division des rôles qu'elle organise. Le natalisme national relie famille et identité ; les libéraux refusent que l'État privilégie un modèle.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C15 — Question à choix · Identité (IDE)
+
+> En cas de désaccord entre la règle commune et les pratiques d'une minorité (religieuse, culturelle, régionale), l'État devrait…
+
+- **Option 1** : … imposer la même règle à tous, sans exception. — IDE -0,7 ; TER -0,3
+- **Option 2** : … négocier des accommodements raisonnables. — IDE +0,5 ; ALT +0,4
+- **Option 3** : … laisser chaque communauté s'organiser selon ses propres règles. — IDE +0,9
+- **Option 4** : … protéger d'abord la culture majoritaire du pays. — IDE +0,4 ; ALT -0,7
+- **Option 5** : … laisser chaque individu choisir, sans règle collective. — IDE -0,8 ; CUL +0,4
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : identite
+- **Auteurs** : Charles Taylor ; Will Kymlicka et Bhikhu Parekh ; Dominique Schnapper
+- **Explication** : Charles Taylor et le Québec ont popularisé les « accommodements raisonnables », et Will Kymlicka défend des droits collectifs pour les minorités. L'universalisme républicain (Schnapper) fait primer la règle commune ; d'autres privilégient la culture majoritaire ou la liberté individuelle pure.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Immigration et altérité
+
+#### B25 — Immigration
+
+**Contexte** : À propos de l'immigration en France, que pensez-vous de ces affirmations ?
+
+- **Thème** : immigration · **Auteurs** : Hervé Le Bras et François Héran ; David Goodhart ; Ernest Renan
+- **Explication** (mode Apprendre) : La deuxième affirmation a une dimension factuelle. L'expression « grand remplacement », forgée par Renaud Camus, désigne la thèse d'une substitution organisée de la population ; les démographes (Hervé Le Bras, François Héran) la réfutent, en rappelant que l'immigration transforme la population sans la remplacer. David Goodhart décrit l'inquiétude culturelle des « Somewheres » ; les partisans de l'immigration invoquent le vieillissement et les métiers en tension.
+
+##### B25a — Affirmation · Altérité (ALT) · inversé
+
+> L'immigration des dernières décennies a trop transformé la France.
+
+- **Chargements** (accord) : ALT -0,8 ; CUL -0,2
+
+##### B25b — Affirmation · Altérité (ALT) · inversé · dimension factuelle
+
+> L'expression « grand remplacement » décrit une réalité démographique en cours en France.
+
+- **Chargements** (accord) : ALT -1
+
+##### B25c — Affirmation · Altérité (ALT)
+
+> L'immigration est une chance économique et démographique pour la France.
+
+- **Chargements** (accord) : ALT +0,8
+
+##### B25d — Affirmation · Altérité (ALT) · inversé
+
+> Il faut choisir les immigrés selon les besoins de l'économie, par des quotas, sans considération d'origine.
+
+- **Chargements** (accord) : ALT -0,3 ; ECO -0,2
+- **Mesures du fichier 01** : quotas d'immigration économique (Édouard Philippe, §3.3) ; quotas par secteur votés au Parlement (Gabriel Attal, §3.4)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B26 — Droits des étrangers
+
+**Contexte** : À propos des droits des étrangers et de la nationalité, que pensez-vous de ces mesures ?
+
+- **Thème** : nationalite · **Auteurs** : Dominique Schnapper ; Will Kymlicka et Bhikhu Parekh ; Hervé Le Bras et François Héran
+- **Explication** (mode Apprendre) : La « préférence nationale » veut réserver des protections financées par la collectivité aux nationaux ; ses opposants invoquent l'égalité devant la loi et les cotisations versées par les étrangers en situation régulière. Le droit du sol traduit une conception élective de la nation ; sa suppression voudrait que la nationalité résulte d'un choix et d'une adhésion.
+
+##### B26a — Affirmation · Altérité (ALT) · inversé
+
+> Les aides sociales devraient être réservées aux Français (« préférence nationale »).
 
 - **Chargements** (accord) : ALT -0,8 ; ETA -0,5 ; ECO +0,2
-- **Thème** : immigration · **bloc** : immigration
-- **Auteurs** : David Goodhart ; Hervé Le Bras et François Héran
 - **Mesures du fichier 01** : Réserver les aides sociales aux Français et conditionner les prestations de solidarité à 5 ans de travail en France (Marine Le Pen, §3.1) ; suppression du regroupement familial, du droit du sol, des aides non contributives pour les extra-Européens (Éric Zemmour, §3.6) ; sortie de Schengen, suppression de l'AME, du droit du sol (référendum) et des aides non contributives pour les étrangers (Nicolas Dupont-Aignan, §3.12)
-- **Même logique que** : Q064 — coexistence : on peut distinguer le droit au séjour de celui aux prestations : régulariser ceux qui travaillent déjà ici tout en réservant certaines aides non contributives aux nationaux.
-- **Explication** : Pour ses partisans, la « préférence nationale » protège un modèle social financé par la collectivité nationale et limite l'attrait de l'immigration. Ses opposants rappellent que les étrangers en situation régulière cotisent et paient des impôts, et que cette mesure se heurte au principe constitutionnel d'égalité.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q063 — Likert · Altérité (ALT) · inversé
-
-> Un enfant né en France de parents étrangers ne devrait plus pouvoir devenir français automatiquement.
-
-- **Chargements** (accord) : ALT -0,8 ; ETA -0,2
-- **Thème** : nationalite · **bloc** : immigration
-- **Auteurs** : Ernest Renan ; Dominique Schnapper
-- **Mesures du fichier 01** : Suppression du droit du sol (Marine Le Pen, §3.1) ; remise en cause du droit du sol automatique (David Lisnard, §3.11) ; suppression du regroupement familial, du droit du sol, des aides non contributives pour les extra-Européens (Éric Zemmour, §3.6) ; droit du sol intégral (proposition de loi constitutionnelle 2025) (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Les partisans de la fin du droit du sol veulent que la nationalité résulte d'un choix et d'une adhésion, non du hasard du lieu de naissance. Leurs contradicteurs rappellent que le droit du sol, ancien en France, traduit une conception élective de la nation (Renan) et favorise l'intégration des enfants qui grandissent ici.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q064 — Likert · Altérité (ALT)
+##### B26b — Affirmation · Altérité (ALT)
 
 > Les étrangers sans titre de séjour qui travaillent en France depuis plusieurs années devraient être régularisés.
 
 - **Chargements** (accord) : ALT +0,8
-- **Thème** : immigration · **bloc** : immigration
-- **Auteurs** : Hervé Le Bras et François Héran ; Kenan Malik
 - **Mesures du fichier 01** : régularisation des travailleurs, étudiants et parents d'enfants scolarisés (Jean-Luc Mélenchon, §3.2) ; reconduites « plus ciblées », maintien de l'accueil humanitaire, régularisation (« faire nation par le faire ensemble ») (François Ruffin, §3.9)
-- **Explication** : Les partisans de la régularisation invoquent la contribution économique de ces travailleurs, souvent dans des métiers en tension, et la dignité de personnes installées durablement. Ses opposants craignent un « appel d'air » qui encouragerait l'immigration irrégulière et jugent qu'elle récompense le non-respect de la loi.
+
+##### B26c — Affirmation · Altérité (ALT) · inversé
+
+> Un enfant né en France de parents étrangers ne devrait plus devenir français automatiquement.
+
+- **Chargements** (accord) : ALT -0,8
+- **Mesures du fichier 01** : Suppression du droit du sol (Marine Le Pen, §3.1) ; remise en cause du droit du sol automatique (David Lisnard, §3.11) ; suppression du regroupement familial, du droit du sol, des aides non contributives pour les extra-Européens (Éric Zemmour, §3.6)
+
+##### B26d — Affirmation · Altérité (ALT)
+
+> Les étrangers installés durablement devraient pouvoir voter aux élections municipales.
+
+- **Chargements** (accord) : ALT +0,7 ; ETA +0,2
+- **Mesures du fichier 01** : droit de vote des étrangers aux élections locales (programme 2022) (Jean-Luc Mélenchon, §3.2)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q065 — Likert · Altérité (ALT) · inversé
+#### B27 — Racisme et discriminations
 
-> Le port du voile islamique devrait être interdit aux mineures de moins de 15 ans.
+**Contexte** : À propos du racisme et des discriminations en France, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : ALT -0,5 ; CUL -0,3
-- **Facette** : REL.laicite (+0,6)
-- **Thème** : laicite · **bloc** : religion
-- **Auteurs** : Jean Baubérot et Henri Peña-Ruiz ; Élisabeth Badinter ; Sara Farris
-- **Mesures du fichier 01** : interdiction du voile pour les moins de 15 ans et délit de contrainte au port du voile (Gabriel Attal, §3.4)
-- **Explication** : Ses partisans (dans la lignée d'Élisabeth Badinter) veulent protéger des enfants contre une pression religieuse ou familiale et défendre l'égalité entre filles et garçons. Ses opposants y voient une atteinte à la liberté religieuse et à l'autorité parentale qui vise une seule religion ; Sara Farris parle de « fémonationalisme » quand les droits des femmes servent à cibler des minorités.
+- **Thème** : discriminations · **Auteurs** : Colette Guillaumin ; Racisme symbolique et moderne ; Stéphane Beaud et Gérard Noiriel
+- **Explication** (mode Apprendre) : Les enquêtes par testing montrent des écarts persistants d'accès à l'emploi et au logement selon l'origine supposée. La notion de « racisme systémique » (Colette Guillaumin, théorie critique de la race) insiste sur les mécanismes institutionnels ; Beaud et Noiriel mettent en garde, depuis la gauche, contre l'oubli de la classe sociale. La « remigration » est une proposition issue des courants identitaires, reprise dans le débat électoral.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B27a — Affirmation · Altérité (ALT)
 
-#### Q066 — Likert · Altérité (ALT)
+> Les discriminations liées à l'origine restent un problème important en France.
 
-> Une femme majeure devrait pouvoir porter le voile islamique dans la rue.
+- **Chargements** (accord) : ALT +1
 
-- **Chargements** (accord) : ALT +0,7 ; CUL +0,2
-- **Facette** : REL.laicite (-0,6)
-- **Thème** : laicite · **bloc** : religion
-- **Auteurs** : Jean Baubérot et Henri Peña-Ruiz ; Élisabeth Badinter
-- **Mesures du fichier 01** : Interdiction du voile islamique dans l'espace public, sanctionnée par une amende, soumise à référendum (annonce J.-P. Tanguy 30/08/2026, précision J. Bardella 31/08/2026) (Marine Le Pen, §3.1) ; désaccord explicite avec l'interdiction générale du RN (« une femme majeure qui décide librement de porter le voile a le droit de le faire ») (Gabriel Attal, §3.4)
-- **Explication** : La laïcité de 1905 s'impose à l'État, non aux citoyens dans l'espace public : pour Jean Baubérot et la plupart des juristes, une interdiction générale serait contraire à la liberté de conscience. Ses partisans y voient un signe d'infériorisation des femmes ou d'emprise islamiste que la République devrait refuser.
+##### B27b — Affirmation · Altérité (ALT)
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+> Le racisme en France est systémique : il imprègne les institutions, pas seulement des individus.
 
-#### Q069 — Likert · Altérité (ALT) · inversé
+- **Chargements** (accord) : ALT +0,8
 
-> L'aide médicale d'État, qui soigne les étrangers en situation irrégulière, devrait être supprimée ou fortement réduite.
+##### B27c — Affirmation · Altérité (ALT) · inversé
 
-- **Chargements** (accord) : ALT -0,7 ; ECO -0,3
-- **Thème** : immigration · **bloc** : immigration
-- **Auteurs** : Hervé Le Bras et François Héran ; David Goodhart
-- **Mesures du fichier 01** : AME supprimée « dans sa forme actuelle » (Marine Le Pen, §3.1) ; baisse du nombre de bénéficiaires de l'AME et du panier de soins (Bruno Retailleau, §3.5) ; sortie de Schengen, suppression de l'AME, du droit du sol (référendum) et des aides non contributives pour les étrangers (Nicolas Dupont-Aignan, §3.12) ; garantie de l'AME (Marine Tondelier, §3.8)
-- **Explication** : Les partisans d'une réduction de l'AME invoquent son coût, un risque d'attractivité et l'équité envers les assurés qui cotisent. Les soignants et ses défenseurs rappellent qu'elle protège aussi la santé publique (maladies infectieuses) et que renoncer aux soins précoces coûte ensuite plus cher aux urgences.
+> On parle trop de racisme : la France est l'un des pays les moins racistes du monde.
+
+- **Chargements** (accord) : ALT -0,7
+
+##### B27d — Affirmation · Altérité (ALT) · inversé
+
+> Il faudrait une politique de « remigration » organisant le retour d'une partie des immigrés dans leur pays d'origine.
+
+- **Chargements** (accord) : ALT -1
+- **Mesures du fichier 01** : « remigration » et « immigration négative » (départs > arrivées) (Éric Zemmour, §3.6) ; ministère de la Remigration (Éric Zemmour, §3.6)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D07 — Dilemme · Altérité (ALT)
+#### B28 — Contrôles de police dans un quartier
 
-> En matière d'immigration, quelle orientation préférez-vous ?
+**Contexte** : Dans un quartier populaire, les policiers contrôlent souvent les mêmes jeunes. Que pensez-vous de ces affirmations ?
 
-- **A** : Réduire fortement l'immigration pour mieux intégrer les personnes déjà présentes. — ALT -0,8
-- **B** : Maintenir ou accroître l'immigration, dont le pays a besoin économiquement et démographiquement. — ALT +0,8 ; ECO -0,1
-- **Thème** : immigration · **bloc** : immigration
-- **Auteurs** : Hervé Le Bras et François Héran ; David Goodhart
-- **Mesures du fichier 01** : « remigration » et « immigration négative » (départs > arrivées) (Éric Zemmour, §3.6) ; Immigration légale divisée par huit (David Lisnard, §3.11) ; immigration de travail privilégiée (Gabriel Attal, §3.4)
-- **Explication** : Les partisans d'une forte réduction jugent que les capacités d'intégration (logement, école, emploi) sont saturées et que la cohésion culturelle en dépend (Goodhart). François Héran rappelle que la France a une immigration moyenne en Europe, que le vieillissement crée des besoins et que les flux obéissent à des facteurs que les États maîtrisent mal.
+- **Thème** : police-libertes · **Auteurs** : Michel Foucault ; Norbert Elias ; Pierre-André Taguieff
+- **Explication** (mode Apprendre) : Des études et le Défenseur des droits documentent une probabilité de contrôle plus forte selon l'apparence ; les syndicats de police y voient le reflet de la géographie de la délinquance. Le mot « ensauvagement », employé par les partisans de la fermeté, et le mot « islamophobie », employé par une partie de la gauche et contesté par d'autres (Taguieff) au motif qu'il confondrait critique d'une religion et racisme, sont des marqueurs forts du débat.
+
+##### B28a — Affirmation · Altérité (ALT)
+
+> Les contrôles au faciès existent : il faut remettre un récépissé à chaque personne contrôlée.
+
+- **Chargements** (accord) : ALT +0,6 ; SEC +0,4
+
+##### B28b — Affirmation · Altérité (ALT) · inversé
+
+> Les policiers contrôlent là où la délinquance est la plus forte : ce n'est pas du racisme.
+
+- **Chargements** (accord) : ALT -0,5 ; SEC -0,4
+
+##### B28c — Affirmation · Ordre et libertés (SEC) · inversé
+
+> L'« ensauvagement » de certains quartiers justifie une présence policière massive et permanente.
+
+- **Chargements** (accord) : SEC -0,7 ; ALT -0,3
+
+##### B28d — Affirmation · Altérité (ALT)
+
+> L'« islamophobie » est aujourd'hui une forme de racisme répandue en France.
+
+- **Chargements** (accord) : ALT +0,7
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Union européenne (UE)
+#### C03 — Question à choix · Altérité (ALT)
 
-#### Q071 — Likert · Union européenne (UE)
+> Quelle politique migratoire vous semble la plus souhaitable ?
 
-> Davantage de décisions importantes devraient être prises au niveau européen.
-
-- **Chargements** (accord) : UE +1
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Altiero Spinelli ; Jacques Delors ; Pierre Manent
-- **Mesures du fichier 01** : « saut fédéral », suppression du veto, élargissement (dont Ukraine), emprunt commun de 500 Md€, fonds européen de défense (Raphaël Glucksmann, §3.7) ; convention constituante pour refondre les traités, traité environnemental européen, Europe fédérale (Marine Tondelier, §3.8)
-- **Même logique que** : Q073 — coexistence : certains souhaitent une Europe plus intégrée sur d'autres bases tout en jugeant l'Union actuelle irréformable, raisonnement qui mène à envisager d'en sortir pour la refonder.
-- **Explication** : Les fédéralistes (Spinelli, Delors) jugent que les États européens, isolés, pèsent peu face aux États-Unis ou à la Chine, et qu'une souveraineté partagée est plus efficace. Les souverainistes (Manent) répondent que l'échelon européen éloigne les décisions des citoyens et qu'il n'existe pas de « peuple européen » pour les légitimer.
+- **Option 1** : Liberté de circulation et d'installation, sans frontières fermées. — ALT +1 ; ETA +0,5
+- **Option 2** : Un accueil large, avec des régularisations et des voies légales d'immigration. — ALT +0,8
+- **Option 3** : Le niveau actuel, avec une politique d'intégration renforcée. — ALT +0,2
+- **Option 4** : Une immigration choisie selon les besoins de l'économie. — ALT -0,2 ; ECO -0,3
+- **Option 5** : Une forte réduction de l'immigration, y compris familiale. — ALT -0,7
+- **Option 6** : L'arrêt de l'immigration et le départ organisé d'une partie des immigrés (« remigration »). — ALT -1 ; ETA -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : immigration
+- **Auteurs** : Hervé Le Bras et François Héran ; David Goodhart ; Will Kymlicka et Bhikhu Parekh
+- **Explication** : Les options vont du « no border » défendu par une partie de l'extrême gauche à la « remigration » des courants identitaires, en passant par l'immigration choisie et la réduction forte. François Héran plaide pour une politique fondée sur les données ; David Goodhart pour la prise en compte de l'attachement culturel.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q072 — Likert · Union européenne (UE) · inversé
+#### C10 — Question à choix · Altérité (ALT)
+
+> Qu'est-ce qui fait avant tout qu'une personne est française ?
+
+- **Option 1** : Adhérer aux valeurs de la République et parler la langue française. — IDE -0,4 ; ALT +0,2
+- **Option 2** : Être né et avoir grandi en France. — ALT +0,5
+- **Option 3** : Avoir des parents ou des ancêtres français. — ALT -0,8 ; IDE +0,5
+- **Option 4** : Partager une culture, une histoire et une religion héritées. — IDE +0,6 ; ALT -0,5 ; REL +0,3
+- **Option 5** : Avoir la nationalité, rien de plus : c'est un statut juridique. — IDE -0,6 ; ETA +0,3
+- **Option 6** : Se sentir français : c'est un choix personnel. — IDE -0,6 ; ALT +0,4
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : nationalite
+- **Auteurs** : Ernest Renan ; Maurice Barrès ; Dominique Schnapper
+- **Explication** : Deux conceptions de la nation s'opposent classiquement : la nation élective de Renan, « plébiscite de tous les jours », et la nation de « la terre et des morts » de Barrès. Dominique Schnapper décrit une communauté de citoyens ; d'autres réduisent la nationalité à un statut juridique ou à un sentiment.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Europe et relations internationales
+
+#### B29 — L'Union européenne telle qu'elle est
+
+**Contexte** : Pensez à l'Union européenne telle qu'elle fonctionne aujourd'hui, avec ses dirigeants et ses politiques actuelles.
+
+- **Thème** : ue · **Auteurs** : Jacques Delors ; Giandomenico Majone et Wolfgang Streeck ; Philippe Séguin
+- **Explication** (mode Apprendre) : Ce bloc porte sur l'Union actuelle, le suivant sur l'Europe que vous souhaiteriez : on peut soutenir l'idée européenne tout en rejetant la politique menée aujourd'hui. Wolfgang Streeck juge l'Union structurellement libérale ; Jacques Delors voulait une Europe sociale ; Philippe Séguin voyait dans les traités une dépossession de la souveraineté démocratique.
+
+##### B29a — Affirmation · Union européenne (UE)
+
+> La politique économique menée actuellement par l'Union européenne me convient globalement.
+
+- **Chargements** (accord) : UE +0,6 ; ECO -0,3
+
+##### B29b — Affirmation · Économie (ECO)
+
+> L'Union actuelle est trop libérale, mais il faut la transformer de l'intérieur plutôt que la quitter.
+
+- **Chargements** (accord) : UE +0,3 ; ECO +0,5
+
+##### B29c — Affirmation · Union européenne (UE) · inversé
+
+> L'Union européenne est irréformable : la France devrait en sortir.
+
+- **Chargements** (accord) : UE -1
+- **Mesures du fichier 01** : « sortie organisée » de l'UE (arrêt de la contribution nette ~15 Md€, frontières nationales, primauté du droit français) vers une « Europe des nations » (Nicolas Dupont-Aignan, §3.12) ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) ; Frexit comme mesure « non négociable » (Florian Philippot, §3.14)
+
+##### B29d — Affirmation · Union européenne (UE) · inversé
 
 > Le droit français devrait primer sur le droit européen, même contre les traités.
 
 - **Chargements** (accord) : UE -0,8 ; ETA -0,4
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Philippe Séguin ; Jürgen Habermas
-- **Mesures du fichier 01** : primauté constitutionnelle du droit national sur le droit européen (Marine Le Pen, §3.1) ; « sortie organisée » de l'UE (arrêt de la contribution nette ~15 Md€, frontières nationales, primauté du droit français) vers une « Europe des nations » (Nicolas Dupont-Aignan, §3.12)
-- **Explication** : Pour Philippe Séguin et les souverainistes, la souveraineté nationale est la source de la légitimité démocratique et ne peut être subordonnée à des juges européens. Les pro-européens rappellent que la primauté du droit européen est la condition d'un marché et de règles communs, et qu'une primauté nationale reviendrait de fait à sortir de l'Union.
+- **Mesures du fichier 01** : primauté constitutionnelle du droit national sur le droit européen (Marine Le Pen, §3.1)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q073 — Likert · Union européenne (UE) · inversé
+#### B30 — L'Europe que vous souhaiteriez (affiché après B29)
 
-> La France devrait sortir de l'Union européenne.
+**Contexte** : Imaginez maintenant une Union européenne dont les orientations politiques vous conviendraient.
 
-- **Chargements** (accord) : UE -1 ; ETA -0,3
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Philippe Séguin ; Emmanuel Todd ; Jean Monnet et Robert Schuman
-- **Mesures du fichier 01** : « sortie organisée » de l'UE (arrêt de la contribution nette ~15 Md€, frontières nationales, primauté du droit français) vers une « Europe des nations » (Nicolas Dupont-Aignan, §3.12) ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) ; Frexit comme mesure « non négociable » (Florian Philippot, §3.14) ; pas de Frexit (Marine Le Pen, §3.1)
-- **Explication** : Les partisans du Frexit estiment que l'Union prive la France de sa souveraineté monétaire, budgétaire et juridique, et qu'une sortie organisée permettrait de retrouver une liberté de choix démocratique. Ses opposants invoquent l'exemple du Brexit, le poids du marché unique, la paix européenne et la capacité collective à peser dans le monde.
+- **Thème** : ue · **Auteurs** : Altiero Spinelli ; Charles de Gaulle ; Jürgen Habermas
+- **Explication** (mode Apprendre) : Altiero Spinelli et Jürgen Habermas défendent une démocratie européenne post-nationale ; De Gaulle une « Europe des nations » qui coopèrent sans abandon de souveraineté. L'écart entre vos réponses aux deux blocs indique si votre position tient à l'Europe elle-même ou à la politique qu'elle mène aujourd'hui.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B30a — Affirmation · Union européenne (UE)
 
-#### Q074 — Likert · Union européenne (UE)
+> Dans ce cas, je souhaiterais une Europe fédérale, avec un gouvernement et un budget communs.
 
-> L'Union européenne devrait emprunter en commun pour financer de grands investissements, comme la défense ou la transition écologique.
+- **Chargements** (accord) : UE +0,9
+- **Mesures du fichier 01** : « saut fédéral », suppression du veto, élargissement (dont Ukraine), emprunt commun de 500 Md€, fonds européen de défense (Raphaël Glucksmann, §3.7) ; convention constituante pour refondre les traités, traité environnemental européen, Europe fédérale (Marine Tondelier, §3.8)
 
-- **Chargements** (accord) : UE +0,8 ; ECO +0,2
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Jacques Delors ; Giandomenico Majone et Wolfgang Streeck
+##### B30b — Affirmation · Union européenne (UE) · inversé
+
+> Même dans ce cas, je préférerais une Europe des nations où chaque pays garde le dernier mot.
+
+- **Chargements** (accord) : UE -0,7
+- **Mesures du fichier 01** : refus du fédéralisme et des élargissements (Marine Le Pen, §3.1)
+
+##### B30c — Affirmation · Union européenne (UE)
+
+> L'Europe devrait se doter d'une défense commune, y compris d'une dissuasion nucléaire partagée.
+
+- **Chargements** (accord) : UE +0,6 ; GMO -0,4
+- **Thème** : dissuasion
+- **Mesures du fichier 01** : extension de la dissuasion nucléaire française aux partenaires de l'UE (décision d'emploi française) (Raphaël Glucksmann, §3.7) ; Opposé à l'extension européenne de la dissuasion et à une armée européenne fédérale (Fabien Roussel, §3.10)
+
+##### B30d — Affirmation · Union européenne (UE)
+
+> L'Union devrait emprunter en commun pour financer la transition écologique et l'industrie.
+
+- **Chargements** (accord) : UE +0,7 ; ECO +0,2
 - **Mesures du fichier 01** : « saut fédéral », suppression du veto, élargissement (dont Ukraine), emprunt commun de 500 Md€, fonds européen de défense (Raphaël Glucksmann, §3.7)
-- **Explication** : Le plan de relance de 2020 a ouvert la voie : ses partisans y voient un moyen d'investir massivement à taux faibles et de mutualiser les efforts. Ses opposants craignent une dette sans contrôle démocratique clair, un transfert entre pays et une étape vers un fédéralisme non consenti.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q075 — Likert · Union européenne (UE)
+#### B31 — Guerre en Ukraine
 
-> Les décisions européennes devraient se prendre à la majorité, sans droit de veto pour un seul pays.
+**Contexte** : À propos de la guerre en Ukraine, que pensez-vous de ces positions ?
 
-- **Chargements** (accord) : UE +0,8
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Altiero Spinelli ; Charles de Gaulle
-- **Mesures du fichier 01** : « saut fédéral », suppression du veto, élargissement (dont Ukraine), emprunt commun de 500 Md€, fonds européen de défense (Raphaël Glucksmann, §3.7)
-- **Explication** : Pour les fédéralistes, l'unanimité paralyse l'Union et permet à un seul gouvernement de bloquer les autres. Dans la tradition gaulliste du « compromis de Luxembourg », le veto protège les intérêts vitaux de chaque nation, y compris ceux de la France.
+- **Thème** : otan-ukraine · **Auteurs** : Robert Kagan ; Hans Morgenthau, Kenneth Waltz et John Mearsheimer ; Michael Walzer
+- **Explication** (mode Apprendre) : Pour Robert Kagan et les partisans d'un soutien accru, laisser une agression réussir menacerait toute l'Europe. Les réalistes (Mearsheimer) craignent l'escalade avec une puissance nucléaire et plaident pour un compromis ; Michael Walzer pose la question d'une paix juste, qui ne récompense pas l'agresseur.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B31a — Affirmation · Gouvernance mondiale (GMO) · inversé
 
-#### Q076 — Likert · Union européenne (UE) · inversé
+> La France devrait augmenter fortement son aide militaire à l'Ukraine.
 
-> Les règles budgétaires européennes (3 % de déficit, 60 % de dette) devraient être abandonnées.
+- **Chargements** (accord) : GMO -0,8 ; GMO.intervention -0,6
+- **Mesures du fichier 01** : aide militaire à l'Ukraine « drastiquement » augmentée, soutien à la Moldavie et à l'Arménie (Raphaël Glucksmann, §3.7) ; fermeté face à la Russie, soutien à l'Ukraine, OTAN non remise en cause (Gabriel Attal, §3.4)
 
-- **Chargements** (accord) : UE -0,5 ; ECO +0,4
-- **Thème** : dette · **bloc** : international
-- **Auteurs** : Frédéric Lordon ; Walter Eucken et Wilhelm Röpke ; Stephanie Kelton
-- **Mesures du fichier 01** : fin des règles des 3 % et 60 % (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Leurs critiques, souvent à gauche (Lordon), jugent ces règles arbitraires et responsables de politiques d'austérité qui brident l'investissement public. Dans la tradition ordolibérale (Eucken, Röpke), elles garantissent la stabilité de la monnaie commune et évitent qu'un pays fasse porter ses dettes aux autres.
+##### B31b — Affirmation · Gouvernance mondiale (GMO)
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+> La paix passe par une négociation, même si elle implique des concessions territoriales.
 
-#### D08 — Dilemme · Union européenne (UE) · inversé
+- **Chargements** (accord) : GMO +0,7 ; GMO.intervention +0,5
+- **Mesures du fichier 01** : gaullisme diplomatique, priorité à la négociation en Ukraine, distance critique envers l'OTAN, renforcement de l'ONU et de la CPI (Dominique de Villepin, §3.14)
 
-> Quelle Europe souhaitez-vous ?
+##### B31c — Affirmation · Gouvernance mondiale (GMO) · inversé
 
-- **A** : Une Europe fédérale, avec un gouvernement et un budget communs. — UE +1
-- **B** : Une Europe des nations, où chaque pays garde le dernier mot. — UE -0,8 ; ETA -0,2
-- **Thème** : ue · **bloc** : international
-- **Auteurs** : Altiero Spinelli ; Charles de Gaulle
-- **Mesures du fichier 01** : refus du fédéralisme et des élargissements (Marine Le Pen, §3.1) ; convention constituante pour refondre les traités, traité environnemental européen, Europe fédérale (Marine Tondelier, §3.8)
-- **Explication** : Le Manifeste de Ventotene (Spinelli) voit dans la fédération européenne le remède aux guerres entre nations. De Gaulle défendait une « Europe des nations » coopérant sans abandon de souveraineté, conception reprise par de nombreux souverainistes de droite comme de gauche.
+> La France devrait être prête à envoyer des troupes pour garantir un accord de paix.
+
+- **Chargements** (accord) : GMO -0,7 ; UE +0,2
+
+##### B31d — Affirmation · Gouvernance mondiale (GMO)
+
+> Cette guerre ne concerne pas la France : elle devrait rester neutre.
+
+- **Chargements** (accord) : GMO +0,8
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### A04 — Allocation · Union européenne (UE)
+#### B32 — Alliances et interventions
+
+**Contexte** : À propos de la place de la France dans le monde, que pensez-vous de ces affirmations ?
+
+- **Thème** : otan-ukraine · **Auteurs** : Droit d'ingérence et responsabilité de protéger ; Hubert Védrine ; Immanuel Wallerstein et Noam Chomsky
+- **Explication** (mode Apprendre) : La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs. Le mot « impérialisme », hérité de Lénine, désigne pour ceux qui l'emploient une politique de domination d'une puissance sur d'autres pays ; ses critiques lui reprochent d'ignorer les appels à l'aide des populations menacées.
+
+##### B32a — Affirmation · Gouvernance mondiale (GMO)
+
+> La France devrait quitter l'OTAN.
+
+- **Chargements** (accord) : GMO +0,6 ; GMO.multilateralisme +0,8
+- **Mesures du fichier 01** : sortie de l'OTAN « par étapes » (réaffirmée sur LCI le 08/05/2026), d'abord du commandement intégré (Jean-Luc Mélenchon, §3.2) ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) ; Sortie du commandement intégré de l'OTAN (position constante depuis 2017, reportée tant que dure la guerre en Ukraine en 2022) (Marine Le Pen, §3.1)
+
+##### B32b — Affirmation · Gouvernance mondiale (GMO) · inversé
+
+> La France doit être prête à intervenir militairement pour empêcher des crimes de masse à l'étranger.
+
+- **Chargements** (accord) : GMO -0,9 ; GMO.intervention -0,8
+
+##### B32c — Affirmation · Gouvernance mondiale (GMO)
+
+> La France devrait être non alignée, à égale distance des États-Unis, de la Chine et de la Russie.
+
+- **Chargements** (accord) : GMO +0,6 ; GMO.multilateralisme +0,6
+- **Mesures du fichier 01** : non-alignement (Jean-Luc Mélenchon, §3.2)
+
+##### B32d — Affirmation · Gouvernance mondiale (GMO)
+
+> Les interventions militaires occidentales relèvent souvent d'un impérialisme déguisé.
+
+- **Chargements** (accord) : GMO +0,7 ; ECO +0,2
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C05 — Question à choix · Union européenne (UE)
+
+> Quel avenir souhaitez-vous pour la France dans l'Union européenne ?
+
+- **Option 1** : Une fédération européenne, avec un gouvernement commun. — UE +1
+- **Option 2** : Une Union maintenue mais réorientée vers le social et l'écologie. — UE +0,4 ; ECO +0,4
+- **Option 3** : L'Union telle qu'elle est, avec des réformes ponctuelles. — UE +0,4 ; ECO -0,2
+- **Option 4** : Une Europe des nations, où l'Union rend des compétences aux États. — UE -0,6
+- **Option 5** : Rester dans l'Union mais désobéir aux traités qui bloquent nos choix. — UE -0,5 ; ECO +0,3
+- **Option 6** : Sortir de l'Union européenne (Frexit). — UE -1 ; ETA -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : ue
+- **Auteurs** : Altiero Spinelli ; Frédéric Lordon ; Philippe Séguin
+- **Explication** : Du fédéralisme de Spinelli au Frexit, en passant par la « désobéissance » aux traités défendue par une partie de la gauche (Lordon) et l'Europe des nations de tradition gaulliste (Séguin). Vous pouvez choisir en pensant à l'Union réelle, pas seulement à l'idéal.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C06 — Question à choix · Gouvernance mondiale (GMO)
+
+> Si un pays voisin de l'Union européenne était envahi demain, la France devrait d'abord…
+
+- **Option 1** : … envoyer des troupes aux côtés de ses alliés. — GMO -0,9 ; GMO.intervention -0,8
+- **Option 2** : … livrer des armes et sanctionner l'agresseur, sans combattre elle-même. — GMO -0,5 ; GMO.intervention -0,3
+- **Option 3** : … n'agir que dans le cadre d'une décision de l'ONU. — GMO -0,2 ; GMO.multilateralisme -0,7
+- **Option 4** : … pousser à une négociation rapide, même au prix de concessions. — GMO +0,6 ; GMO.intervention +0,5
+- **Option 5** : … rester strictement neutre. — GMO +0,9 ; ETA -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : defense
+- **Auteurs** : Michael Walzer ; Robert Keohane et Joseph Nye ; Hubert Védrine
+- **Explication** : La théorie de la guerre juste (Walzer) encadre le recours à la force, et le multilatéralisme (Keohane, Nye) le subordonne aux institutions internationales. Le réalisme et le pacifisme privilégient la négociation ou la neutralité.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### A03 — Répartition · Gouvernance mondiale (GMO)
+
+> Répartissez 10 points entre ces priorités de politique étrangère.
+
+- **Option 1** : Soutenir l'Ukraine et les alliés européens — GMO -0,5 ; UE +0,2
+- **Option 2** : Construire une défense européenne — UE +0,4 ; GMO -0,2
+- **Option 3** : Aide au développement et coopération — ETA +0,4
+- **Option 4** : Diplomatie et non-alignement — GMO +0,5
+- **Option 5** : Protection des frontières nationales — ALT -0,3 ; ETA -0,3
+- **Thème** : defense
+- **Auteurs** : Raymond Aron ; Hubert Védrine
+- **Explication** : Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États. Ces priorités traduisent des conceptions différentes de l'intérêt national.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### A04 — Répartition · Union européenne (UE)
 
 > Répartissez 10 points entre les domaines où l'Union européenne devrait agir davantage, ou pas du tout.
 
@@ -811,390 +1485,464 @@ Ce document est destiné à un panel de relecture pluraliste (sensibilités poli
 - **Option 4** : Protection sociale et salaires minimums — UE +0,3 ; ECO +0,3
 - **Option 5** : Contrôle des frontières extérieures — UE +0,2 ; ALT -0,3
 - **Option 6** : Protection de l'industrie face à la concurrence mondiale — UE +0,2 ; ETA -0,2
-- **Thème** : ue · **bloc** : priorites
+- **Thème** : ue
 - **Auteurs** : Jacques Delors ; Giandomenico Majone et Wolfgang Streeck
-- **Explication** : Jacques Delors voulait une Europe qui protège autant qu'elle ouvre, y compris socialement. Wolfgang Streeck juge au contraire que l'Union s'est construite pour soustraire l'économie aux choix démocratiques nationaux, d'où le souhait de certains de lui retirer des compétences.
+- **Explication** : Jacques Delors voulait une Europe qui protège autant qu'elle ouvre. Wolfgang Streeck juge au contraire qu'elle soustrait l'économie aux choix démocratiques.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Gouvernance mondiale (GMO)
+## Démocratie, pouvoir et changement
 
-#### Q081 — Likert · Gouvernance mondiale (GMO) · inversé
+#### B33 — Si le gouvernement était du camp opposé
 
-> La France doit être prête à intervenir militairement pour empêcher des crimes de masse à l'étranger.
+**Contexte** : Imaginez que le prochain gouvernement soit issu du camp politique le plus éloigné du vôtre.
 
-- **Chargements** (accord) : GMO -1
-- **Facette** : GMO.intervention (-0,8)
-- **Thème** : defense · **bloc** : international
-- **Auteurs** : Droit d'ingérence et responsabilité de protéger ; Michael Walzer ; Hubert Védrine
-- **Explication** : La « responsabilité de protéger » adoptée à l'ONU en 2005 veut que la souveraineté cède devant les génocides et crimes contre l'humanité. Ses critiques (Hubert Védrine) rappellent les suites chaotiques de certaines interventions, comme en Libye en 2011, et la sélectivité de ces engagements.
+- **Thème** : democratie · **Auteurs** : Montesquieu ; Juan Linz, Steven Levitsky et Daniel Ziblatt ; Jean-Jacques Rousseau
+- **Explication** (mode Apprendre) : Ce bloc et le suivant posent les mêmes questions dans deux contextes opposés. Il est humain de vouloir plus de contre-pouvoirs face à un adversaire ; Montesquieu, Levitsky et Ziblatt rappellent que des règles ne protègent que si elles s'appliquent à tous les camps. Rousseau fonde au contraire la légitimité sur la volonté générale du peuple souverain.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B33a — Affirmation · Gouvernance (GOV)
 
-#### Q082 — Likert · Gouvernance mondiale (GMO)
-
-> La France devrait quitter l'OTAN.
-
-- **Chargements** (accord) : GMO +0,6 ; ETA -0,4 ; UE -0,1
-- **Facette** : GMO.multilateralisme (+0,8)
-- **Thème** : otan-ukraine · **bloc** : international
-- **Auteurs** : Charles de Gaulle ; Robert Keohane et Joseph Nye ; Hans Morgenthau, Kenneth Waltz et John Mearsheimer
-- **Mesures du fichier 01** : sortie de l'OTAN « par étapes » (réaffirmée sur LCI le 08/05/2026), d'abord du commandement intégré (Jean-Luc Mélenchon, §3.2) ; sortie de l'UE, de l'euro et de l'OTAN (François Asselineau, §3.14) ; Sortie du commandement intégré de l'OTAN (position constante depuis 2017, reportée tant que dure la guerre en Ukraine en 2022) (Marine Le Pen, §3.1)
-- **Explication** : Les partisans d'une sortie, dans l'esprit de De Gaulle en 1966, veulent une France indépendante des choix stratégiques américains et capable de parler à tous. Leurs contradicteurs rappellent que l'Alliance garantit la sécurité collective de l'Europe, surtout depuis l'invasion de l'Ukraine, et que l'isolement affaiblirait la France.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q083 — Likert · Gouvernance mondiale (GMO) · inversé
-
-> La France devrait augmenter fortement son aide militaire à l'Ukraine.
-
-- **Chargements** (accord) : GMO -0,8
-- **Facette** : GMO.intervention (-0,6)
-- **Thème** : otan-ukraine · **bloc** : international
-- **Auteurs** : Robert Kagan ; Hans Morgenthau, Kenneth Waltz et John Mearsheimer
-- **Mesures du fichier 01** : aide militaire à l'Ukraine « drastiquement » augmentée, soutien à la Moldavie et à l'Arménie (Raphaël Glucksmann, §3.7) ; fermeté face à la Russie, soutien à l'Ukraine, OTAN non remise en cause (Gabriel Attal, §3.4)
-- **Explication** : Pour ses partisans, aider l'Ukraine à se défendre protège le droit international et la sécurité européenne face à une agression. Les réalistes comme Mearsheimer, et les partisans d'une solution négociée, craignent une escalade avec une puissance nucléaire et une guerre sans issue militaire.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q084 — Likert · Gouvernance mondiale (GMO)
-
-> La paix en Ukraine passe par une négociation, même si elle implique des concessions territoriales.
-
-- **Chargements** (accord) : GMO +0,7
-- **Facette** : GMO.intervention (+0,5)
-- **Thème** : otan-ukraine · **bloc** : international
-- **Auteurs** : Henry Kissinger ; Michael Walzer
-- **Mesures du fichier 01** : gaullisme diplomatique, priorité à la négociation en Ukraine, distance critique envers l'OTAN, renforcement de l'ONU et de la CPI (Dominique de Villepin, §3.14)
-- **Explication** : La tradition réaliste (Kissinger) juge qu'une paix imparfaite vaut mieux qu'une guerre longue et que l'équilibre des puissances impose des compromis. Les partisans d'une paix juste (Walzer) estiment que récompenser une agression par des gains territoriaux encouragerait d'autres conquêtes.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q085 — Likert · Gouvernance mondiale (GMO) · inversé
-
-> La dissuasion nucléaire française devrait aussi protéger nos partenaires européens.
-
-- **Chargements** (accord) : GMO -0,6 ; UE +0,4
-- **Facette** : GMO.multilateralisme (-0,6)
-- **Thème** : dissuasion · **bloc** : international
-- **Auteurs** : Raymond Aron ; Charles de Gaulle
-- **Mesures du fichier 01** : extension de la dissuasion nucléaire française aux partenaires de l'UE (décision d'emploi française) (Raphaël Glucksmann, §3.7) ; Opposé à l'extension européenne de la dissuasion et à une armée européenne fédérale (Fabien Roussel, §3.10)
-- **Explication** : Ses partisans estiment qu'une garantie nucléaire européenne renforcerait la crédibilité de l'Europe face à la Russie, surtout si l'engagement américain faiblit. Ses opposants, dans une tradition gaulliste, jugent que la dissuasion ne se partage pas : elle protège les intérêts vitaux de la nation et perdrait en crédibilité si elle couvrait d'autres pays.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q087 — Likert · Gouvernance mondiale (GMO)
-
-> La France devrait être non alignée, à égale distance des États-Unis, de la Chine et de la Russie.
-
-- **Chargements** (accord) : GMO +0,6 ; ETA -0,3
-- **Facette** : GMO.multilateralisme (+0,7)
-- **Thème** : otan-ukraine · **bloc** : international
-- **Auteurs** : Hubert Védrine ; Robert Kagan
-- **Mesures du fichier 01** : non-alignement (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Le non-alignement, défendu par une partie de la gauche et des gaullistes, vise à préserver l'indépendance de la France et sa capacité de médiation. Ses critiques (Kagan) jugent qu'il met sur le même plan démocraties alliées et régimes autoritaires, et affaiblit la solidarité occidentale.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### D09 — Dilemme · Gouvernance mondiale (GMO) · inversé
-
-> Dans le monde actuel, quelle orientation de politique étrangère préférez-vous ?
-
-- **A** : Privilégier la diplomatie et la non-ingérence, même face à des régimes hostiles. — GMO +0,8
-- **B** : Défendre activement la démocratie et les droits humains, y compris par la force si nécessaire. — GMO -0,8
-- **Facette** : GMO.intervention (-0,6)
-- **Thème** : defense · **bloc** : international
-- **Auteurs** : Hubert Védrine ; Droit d'ingérence et responsabilité de protéger
-- **Explication** : Hubert Védrine et les réalistes se méfient d'un interventionnisme moralisateur aux effets souvent contraires. Les partisans du droit d'ingérence (Kouchner, Bettati) jugent que l'inaction face aux massacres est aussi un choix, dont le Rwanda et la Syrie ont montré le prix.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### A03 — Allocation · Gouvernance mondiale (GMO)
-
-> Répartissez 10 points entre ces priorités de politique étrangère.
-
-- **Option 1** : Soutenir l'Ukraine et les alliés européens — GMO -0,5 ; UE +0,2
-- **Option 2** : Construire une défense européenne — UE +0,4 ; GMO -0,2
-- **Option 3** : Aide au développement et coopération — ETA +0,4
-- **Option 4** : Diplomatie et non-alignement — GMO +0,5
-- **Option 5** : Protection des frontières nationales — ALT -0,3 ; ETA -0,3
-- **Thème** : priorites · **bloc** : priorites
-- **Auteurs** : Raymond Aron ; Hubert Védrine ; Amartya Sen
-- **Mesures du fichier 01** : aide militaire à l'Ukraine « drastiquement » augmentée, soutien à la Moldavie et à l'Arménie (Raphaël Glucksmann, §3.7) ; APD −10 % (Bruno Retailleau, §3.5)
-- **Explication** : Raymond Aron distinguait la puissance, la sécurité et la gloire comme objectifs des États ; le choix entre alliances, défense commune, coopération ou non-alignement traduit des conceptions différentes de l'intérêt national. Amartya Sen rappelle que le développement des autres pays est aussi une condition de la sécurité commune.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-### Gouvernance (GOV)
-
-#### Q091 — Likert · Gouvernance (GOV) · inversé
-
-> Un dirigeant fort qui n'aurait pas à se soucier du Parlement ni des élections serait une bonne chose.
-
-- **Chargements** (accord) : GOV -1
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Carl Schmitt ; Hannah Arendt ; Juan Linz, Steven Levitsky et Daniel Ziblatt
-- **Même logique que** : Q098 — coexistence : certains distinguent les temps ordinaires, où les contre-pouvoirs sont précieux, des crises, où ils attendent une autorité plus directe ; c'est le débat sur l'état d'exception ouvert par Carl Schmitt.
-- **Explication** : Cet item reprend une question classique des enquêtes sur les valeurs : une part croissante des Européens se dit tentée par un pouvoir fort, jugé plus efficace face aux crises. Arendt, Linz, Levitsky et Ziblatt rappellent que c'est ainsi que les démocraties s'érodent : sans élections ni Parlement, rien ne permet de corriger ou de remplacer un dirigeant.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q092 — Likert · Gouvernance (GOV)
-
-> Le Conseil constitutionnel doit pouvoir censurer une loi, même voulue par une majorité de Français.
-
-- **Chargements** (accord) : GOV +0,8 ; INS -0,2
-- **Thème** : referendum-conseil-constitutionnel · **bloc** : institutions
-- **Auteurs** : Montesquieu ; Ronald Dworkin ; Jean-Jacques Rousseau
-- **Mesures du fichier 01** : l'entourage évoque le référendum comme moyen d'« enjamber » le Conseil constitutionnel (Marine Le Pen, §3.1)
-- **Explication** : Pour Montesquieu et Dworkin, des droits fondamentaux doivent être protégés même contre la majorité, et un juge constitutionnel est la garantie de l'État de droit. Dans la tradition de Rousseau, d'autres jugent que la volonté générale du peuple souverain ne saurait être contredite par neuf juges non élus.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q093 — Likert · Gouvernance (GOV) · inversé
-
-> Un référendum devrait pouvoir modifier la Constitution même si le Conseil constitutionnel s'y oppose.
-
-- **Chargements** (accord) : GOV -0,7 ; INS +0,3
-- **Thème** : referendum-conseil-constitutionnel · **bloc** : institutions
-- **Auteurs** : Jean-Jacques Rousseau ; Juan Linz, Steven Levitsky et Daniel Ziblatt
-- **Mesures du fichier 01** : l'entourage évoque le référendum comme moyen d'« enjamber » le Conseil constitutionnel (Marine Le Pen, §3.1) ; référendum sur l'immigration (Bruno Retailleau, §3.5)
-- **Explication** : Ses partisans estiment que le peuple, souverain, doit avoir le dernier mot sur sa Constitution. Ses critiques y voient un moyen de contourner le contrôle des droits fondamentaux, une technique que Levitsky et Ziblatt décrivent dans l'érosion de plusieurs démocraties.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q094 — Likert · Gouvernance (GOV)
-
-> Les juges doivent pouvoir poursuivre et condamner les responsables politiques comme n'importe quel citoyen, même en période électorale.
+> Les juges devraient pouvoir censurer ses lois contraires à la Constitution.
 
 - **Chargements** (accord) : GOV +0,7
-- **Thème** : justice · **bloc** : institutions
-- **Auteurs** : Montesquieu ; Carl Schmitt
-- **Explication** : Pour les défenseurs de l'État de droit, l'égalité devant la loi ne souffre pas d'exception et l'indépendance des juges protège contre la corruption. D'autres craignent un « gouvernement des juges » qui interférerait avec le choix des électeurs, surtout quand une décision rend un candidat inéligible.
+
+##### B33b — Affirmation · Gouvernance (GOV)
+
+> La presse et l'opposition devraient pouvoir le critiquer en toute liberté.
+
+- **Chargements** (accord) : GOV +0,7
+
+##### B33c — Affirmation · Gouvernance (GOV) · inversé
+
+> S'il a été élu, il doit pouvoir appliquer son programme sans que juges ou experts l'en empêchent.
+
+- **Chargements** (accord) : GOV -0,7
+
+##### B33d — Affirmation · Mode de changement (CHG)
+
+> Des blocages, des grèves massives ou la désobéissance civile seraient légitimes pour lui résister.
+
+- **Chargements** (accord) : CHG +0,6
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q095 — Likert · Gouvernance (GOV) · inversé
+#### B34 — Si le gouvernement était de votre camp (affiché après B33)
 
-> Le gouvernement devrait pouvoir donner des instructions aux procureurs dans des affaires individuelles.
+**Contexte** : Imaginez maintenant que le prochain gouvernement soit issu de votre camp politique.
 
-- **Chargements** (accord) : GOV -0,6 ; SEC -0,3
-- **Thème** : justice · **bloc** : institutions
-- **Auteurs** : Montesquieu ; Thomas Hobbes
-- **Mesures du fichier 01** : instructions individuelles du garde des Sceaux au parquet (Édouard Philippe, §3.3) ; interdiction des instructions individuelles au parquet (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Ses partisans estiment qu'un gouvernement élu doit pouvoir conduire la politique pénale et en répondre devant les électeurs. Ses opposants, dans la lignée de Montesquieu, y voient un risque d'ingérence politique dans la justice, notamment dans les affaires qui concernent le pouvoir.
+- **Thème** : democratie · **Auteurs** : Robert Dahl ; Carl Schmitt ; Hannah Arendt
+- **Explication** (mode Apprendre) : Robert Dahl fait des contre-pouvoirs une condition de la démocratie ; Carl Schmitt définit le souverain comme celui qui décide de l'exception. Hannah Arendt rappelle qu'un pouvoir sans limites détruit l'espace public qui permettait de le contester. L'écart entre vos réponses aux deux blocs mesure si votre attachement aux contre-pouvoirs dépend du camp au pouvoir.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B34a — Affirmation · Gouvernance (GOV) · même énoncé que B33a
 
-#### Q097 — Likert · Gouvernance (GOV) · inversé
+> Les juges devraient pouvoir censurer ses lois contraires à la Constitution.
 
-> Dans une crise grave, il est acceptable de suspendre certaines libertés publiques sans contrôle du juge.
+- **Chargements** (accord) : GOV +0,7
+
+##### B34b — Affirmation · Gouvernance (GOV) · inversé
+
+> Il devrait pouvoir gouverner par ordonnances ou par référendum pour aller vite, même contre l'avis du Conseil constitutionnel.
+
+- **Chargements** (accord) : GOV -0,8
+- **Mesures du fichier 01** : l'entourage évoque le référendum comme moyen d'« enjamber » le Conseil constitutionnel (Marine Le Pen, §3.1) ; dissolution de l'Assemblée dès l'élection et trois référendums : dose de capitalisation dans les retraites, règle d'or budgétaire, habilitation à légiférer par ordonnances (santé, éducation, justice) (Lille, mars 2026) (Édouard Philippe, §3.3)
+
+##### B34c — Affirmation · Gouvernance (GOV) · inversé
+
+> En cas de crise grave, il devrait pouvoir suspendre certaines libertés publiques sans contrôle du juge.
 
 - **Chargements** (accord) : GOV -0,8 ; SEC -0,3
-- **Thème** : police-libertes · **bloc** : institutions
-- **Auteurs** : Carl Schmitt ; Hannah Arendt
-- **Mesures du fichier 01** : fin de l'état d'urgence permanent (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Carl Schmitt définit le souverain comme celui qui décide de l'exception : face au terrorisme ou à une pandémie, l'efficacité exigerait des pouvoirs rapides. Les défenseurs des libertés rappellent que l'exception tend à devenir permanente et que le contrôle du juge est précisément ce qui la distingue de l'arbitraire.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B34d — Affirmation · Gouvernance (GOV)
 
-#### Q098 — Likert · Gouvernance (GOV)
-
-> Les contre-pouvoirs (juges, presse, opposition, associations) sont indispensables, même quand ils ralentissent l'action du gouvernement.
+> Les contre-pouvoirs (juges, presse, associations) sont indispensables, même quand ils freinent mon camp.
 
 - **Chargements** (accord) : GOV +0,8 ; POP +0,3
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Robert Dahl ; Claude Lefort ; Ernesto Laclau et Chantal Mouffe
-- **Explication** : Robert Dahl et Claude Lefort font des contre-pouvoirs et du pluralisme le cœur de la démocratie : nul ne peut prétendre incarner seul le peuple. Les théoriciens de la démocratie radicale (Laclau, Mouffe) jugent que ces instances sont souvent capturées par des élites et entravent la volonté populaire.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D10 — Dilemme · Gouvernance (GOV)
+#### B35 — Le peuple et les élites
 
-> Quel type de pouvoir préférez-vous ?
+**Contexte** : À propos du pouvoir et de la représentation, que pensez-vous de ces affirmations ?
 
-- **A** : Un pouvoir capable de décider vite, quitte à contourner certaines règles. — GOV -0,8
-- **B** : Un pouvoir encadré par des règles strictes, quitte à décider plus lentement. — GOV +0,8
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Machiavel ; Montesquieu
-- **Explication** : Machiavel rappelait que le prince doit savoir agir vite et s'affranchir des règles quand la situation l'exige. Montesquieu répond que « le pouvoir arrête le pouvoir » : la lenteur des procédures est le prix de la liberté.
+- **Thème** : populisme · **Auteurs** : Cas Mudde et Jan-Werner Müller ; Ernesto Laclau et Chantal Mouffe ; Christopher Lasch
+- **Explication** (mode Apprendre) : Ces énoncés reprennent les échelles de populisme de Cas Mudde et d'Agnes Akkerman. Laclau et Mouffe veulent construire un « peuple » contre l'« oligarchie » ; Christopher Lasch décrit la sécession des élites. Jan-Werner Müller objecte que parler au nom du peuple tout entier nie la légitimité des désaccords.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B35a — Affirmation · Populisme (POP) · inversé
 
-### Ordre et libertés (SEC)
+> Les responsables politiques sont déconnectés des préoccupations des gens ordinaires.
 
-#### Q101 — Likert · Ordre et libertés (SEC)
+- **Chargements** (accord) : POP -0,7
 
-> La reconnaissance faciale automatisée dans l'espace public devrait être interdite.
+##### B35b — Affirmation · Populisme (POP) · inversé
 
-- **Chargements** (accord) : SEC +0,8 ; GOV +0,2
-- **Thème** : ia-numerique · **bloc** : securite
-- **Auteurs** : Shoshana Zuboff et Evgeny Morozov ; Michel Foucault ; Thomas Hobbes
-- **Mesures du fichier 01** : interdiction de la reconnaissance faciale (Jean-Luc Mélenchon, §3.2) ; reconnaissance faciale (Bruno Retailleau, §3.5) ; « état d'urgence narco » limité dans le temps et l'espace (reconnaissance faciale ciblée) (Édouard Philippe, §3.3)
-- **Explication** : Pour ses défenseurs, l'intelligence artificielle appliquée à la vidéoprotection aiderait à retrouver des suspects et à prévenir des attentats. Ses opposants (Zuboff, Foucault) y voient une surveillance de masse qui menace la vie privée, les libertés de manifester et risque des erreurs discriminantes.
+> Le peuple, et non les responsables politiques, devrait prendre les décisions les plus importantes.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+- **Chargements** (accord) : POP -0,7
 
-#### Q102 — Likert · Ordre et libertés (SEC)
+##### B35c — Affirmation · Populisme (POP)
 
-> Les forces de l'ordre ne devraient plus utiliser de lanceurs de balles de défense lors des manifestations.
+> En démocratie, il est important de faire des compromis entre des points de vue différents.
 
-- **Chargements** (accord) : SEC +0,8 ; GOV +0,2
-- **Thème** : police-libertes · **bloc** : securite
-- **Auteurs** : Michel Foucault ; Norbert Elias
-- **Mesures du fichier 01** : interdiction du LBD, des grenades de désencerclement, du taser, du plaquage ventral (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Les partisans de l'interdiction rappellent les blessures graves (éborgnements) causées par ces armes lors de manifestations. Les forces de l'ordre et leurs soutiens estiment qu'elles permettent de tenir à distance des émeutiers violents et évitent des affrontements plus dangereux au corps à corps.
+- **Chargements** (accord) : POP +0,8
+
+##### B35d — Affirmation · Populisme (POP) · inversé
+
+> Une oligarchie de grandes fortunes et de dirigeants confisque le pouvoir au peuple.
+
+- **Chargements** (accord) : POP -0,6 ; ECO +0,4
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q103 — Likert · Ordre et libertés (SEC) · inversé
+#### B36 — Adversaires et information
 
-> Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers.
+**Contexte** : À propos du débat démocratique et de l'information, que pensez-vous de ces affirmations ?
 
-- **Chargements** (accord) : SEC -0,8 ; GOV -0,3
-- **Thème** : narcotrafic · **bloc** : securite
-- **Auteurs** : Thomas Hobbes ; Michel Foucault
-- **Mesures du fichier 01** : « état d'urgence anti-trafics » avec bouclage des quartiers 24 h/24, blindés de gendarmerie et coupure des télécommunications, via réforme constitutionnelle (Bruno Retailleau, §3.5) ; « état d'urgence narco » limité dans le temps et l'espace (reconnaissance faciale ciblée) (Édouard Philippe, §3.3)
-- **Explication** : Face à des réseaux armés et à des homicides en hausse, ses partisans jugent que des moyens exceptionnels et ciblés sont nécessaires pour reprendre le contrôle de territoires. Ses opposants craignent une atteinte aux libertés des habitants, une stigmatisation des quartiers et des résultats limités si l'on ne s'attaque pas à la demande et au blanchiment.
+- **Thème** : populisme · **Auteurs** : Jonathan Haidt ; Immanuel Wallerstein et Noam Chomsky ; Claude Lefort
+- **Explication** (mode Apprendre) : Jonathan Haidt montre que les convictions reposent sur des intuitions morales différentes, toutes compréhensibles. Noam Chomsky analyse la « fabrication du consentement » par les médias ; la défense d'une « démocratie militante » qui interdit certains partis divise même les libéraux. Claude Lefort rappelle qu'en démocratie, nul ne peut prétendre incarner seul le peuple.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B36a — Affirmation · Populisme (POP)
 
-#### D11 — Dilemme · Ordre et libertés (SEC)
+> Ceux qui ne partagent pas mes opinions politiques ont souvent de bonnes raisons de penser ce qu'ils pensent.
 
-> En matière de justice pénale, quel risque vous paraît le plus acceptable ?
+- **Chargements** (accord) : POP +0,8
 
-- **A** : Mieux vaut punir plus sévèrement, quitte à se tromper parfois. — SEC -1 ; GOV -0,3
-- **B** : Mieux vaut risquer de laisser un coupable libre que condamner un innocent. — SEC +1 ; GOV +0,3
-- **Thème** : justice · **bloc** : securite
-- **Auteurs** : Thomas Hobbes ; Michel Foucault
-- **Explication** : La tradition sécuritaire, dans la lignée de Hobbes, fait de la protection des personnes la première mission de l'État. La tradition garantiste, héritière de Beccaria et relue par Foucault, juge que l'erreur judiciaire et l'arbitraire sont les pires injustices.
+##### B36b — Affirmation · Populisme (POP) · inversé
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+> Certains partis devraient être interdits parce qu'ils menacent la démocratie.
 
-#### D12 — Dilemme · Ordre et libertés (SEC) · inversé
+- **Chargements** (accord) : POP -0,5 ; GOV -0,2
 
-> Pour sanctionner la récidive, que préférez-vous ?
+##### B36c — Affirmation · Populisme (POP) · inversé
 
-- **A** : Laisser le juge adapter chaque peine à la personne et à la situation. — SEC +0,8
-- **B** : Imposer des peines minimales automatiques aux récidivistes. — SEC -0,8
-- **Thème** : justice · **bloc** : securite
-- **Auteurs** : Norbert Elias ; Bob Altemeyer
-- **Mesures du fichier 01** : peines planchers, fin des remises automatiques (Marine Le Pen, §3.1) ; peines planchers (Bruno Retailleau, §3.5) ; peines planchers ciblées (Édouard Philippe, §3.3) ; peines planchers généralisées, perpétuité réelle, « défense excusable », déchéance de nationalité, expulsion des squatteurs en 72 h (Éric Zemmour, §3.6)
-- **Explication** : Les peines planchers visent la dissuasion et la prévisibilité de la sanction, que leurs partisans jugent affaiblies par des peines trop rarement exécutées. Leurs opposants rappellent que l'individualisation des peines est un principe constitutionnel et que l'efficacité des peines automatiques contre la récidive n'est pas démontrée.
+> Les grands médias défendent les intérêts des puissants plutôt que ceux du public.
+
+- **Chargements** (accord) : POP -0,6
+
+##### B36d — Affirmation · Populisme (POP)
+
+> Les scientifiques et les experts devraient peser davantage dans les décisions publiques.
+
+- **Chargements** (accord) : POP +0,5
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Institutions (INS)
+#### B39 — Institutions
 
-#### Q111 — Likert · Institutions (INS)
+**Contexte** : À propos des institutions de la République, que pensez-vous de ces réformes ?
 
-> Les citoyens devraient pouvoir déclencher un référendum par pétition.
+- **Thème** : referendum-conseil-constitutionnel · **Auteurs** : Charles de Gaulle ; Jean-Jacques Rousseau ; Cornelius Castoriadis
+- **Explication** (mode Apprendre) : De Gaulle a voulu un exécutif fort pour mettre fin à l'instabilité de la IVe République. Rousseau et Castoriadis défendent une souveraineté exercée directement par les citoyens ; la proportionnelle représente mieux la diversité des opinions mais oblige aux coalitions.
+
+##### B39a — Affirmation · Institutions (INS)
+
+> Les citoyens devraient pouvoir déclencher un référendum par pétition (référendum d'initiative citoyenne).
 
 - **Chargements** (accord) : INS +0,8 ; POP -0,3
-- **Thème** : referendum-conseil-constitutionnel · **bloc** : institutions
-- **Auteurs** : Jean-Jacques Rousseau ; Bernard Manin et Yves Sintomer ; Joseph Schumpeter
 - **Mesures du fichier 01** : RIC (y compris révocatoire) (Jean-Luc Mélenchon, §3.2) ; RIC (Nicolas Dupont-Aignan, §3.12) ; RIC, proportionnelle (Marine Le Pen, §3.1) ; démocratie directe / référendum d'initiative citoyenne (Clara Egger, §3.14)
-- **Explication** : Le référendum d'initiative citoyenne, revendication des gilets jaunes, redonnerait aux citoyens un pouvoir direct, dans l'esprit de Rousseau et comme en Suisse. Ses critiques, dans une lecture schumpétérienne, craignent des votes émotionnels, la simplification de questions complexes et la mise en cause de droits des minorités.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q112 — Likert · Institutions (INS)
+##### B39b — Affirmation · Institutions (INS)
 
 > Les députés devraient être élus à la proportionnelle.
 
-- **Chargements** (accord) : INS +0,7 ; POP +0,2
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Bernard Manin et Yves Sintomer ; Charles de Gaulle
+- **Chargements** (accord) : INS +0,7
 - **Mesures du fichier 01** : proportionnelle (Jean-Luc Mélenchon, §3.2) ; RIC, proportionnelle (Marine Le Pen, §3.1)
-- **Explication** : La proportionnelle représente plus fidèlement la diversité des opinions et oblige aux coalitions. Ses opposants, dans l'esprit de la Ve République, craignent l'instabilité gouvernementale de la IVe République et un pouvoir accru des partis dans la composition des listes.
+
+##### B39c — Affirmation · Institutions (INS) · inversé
+
+> Le président de la République doit garder un rôle central : c'est la force de la Ve République.
+
+- **Chargements** (accord) : INS -0,8 ; CHG -0,3
+
+##### B39d — Affirmation · Institutions (INS)
+
+> Il faut une VIe République, rédigée par une Assemblée constituante élue.
+
+- **Chargements** (accord) : INS +0,7
+- **Mesures du fichier 01** : VIe République par Assemblée constituante (Jean-Luc Mélenchon, §3.2)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q113 — Likert · Institutions (INS) · inversé
+#### B40 — Qui décide ?
 
-> Le président de la République devrait garder un rôle central dans les institutions.
+**Contexte** : Pour les grandes décisions publiques, que pensez-vous de ces méthodes ?
 
-- **Chargements** (accord) : INS -0,8
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Charles de Gaulle ; Cornelius Castoriadis
-- **Mesures du fichier 01** : VIe République par Assemblée constituante (Jean-Luc Mélenchon, §3.2) ; régime parlementaire (Jean-Luc Mélenchon, §3.2)
-- **Explication** : Pour les défenseurs de la Ve République, un président élu au suffrage universel donne cap, stabilité et capacité de décision en temps de crise. Les partisans d'une VIe République ou d'un régime parlementaire y voient une concentration excessive du pouvoir qui affaiblit le Parlement et les citoyens.
+- **Thème** : democratie · **Auteurs** : Bernard Manin et Yves Sintomer ; Joseph Schumpeter ; Pierre Rosanvallon
+- **Explication** (mode Apprendre) : Bernard Manin et Yves Sintomer rappellent que le tirage au sort était la procédure démocratique par excellence à Athènes. Joseph Schumpeter défend une démocratie de compétition entre élites responsables devant les électeurs ; Pierre Rosanvallon analyse les formes de contrôle citoyen entre les élections.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B40a — Affirmation · Institutions (INS)
 
-#### Q114 — Likert · Institutions (INS) · inversé
+> Des citoyens tirés au sort devraient participer aux grandes décisions, comme dans les conventions citoyennes.
+
+- **Chargements** (accord) : INS +0,8
+
+##### B40b — Affirmation · Institutions (INS) · inversé
+
+> Les grandes décisions doivent rester aux élus, qui en répondent devant les électeurs.
+
+- **Chargements** (accord) : INS -0,8 ; CHG -0,3
+
+##### B40c — Affirmation · Institutions (INS) · inversé
 
 > Pour réformer vite, le gouvernement devrait pouvoir légiférer davantage par ordonnances.
 
 - **Chargements** (accord) : INS -0,7 ; GOV -0,3
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Joseph Schumpeter ; Pierre Rosanvallon
 - **Mesures du fichier 01** : dissolution de l'Assemblée dès l'élection et trois référendums : dose de capitalisation dans les retraites, règle d'or budgétaire, habilitation à légiférer par ordonnances (santé, éducation, justice) (Lille, mars 2026) (Édouard Philippe, §3.3)
-- **Explication** : Les ordonnances permettent d'adopter rapidement des réformes techniques ou urgentes, le Parlement gardant le pouvoir de les habiliter puis de les ratifier. Leurs critiques (Rosanvallon) jugent qu'elles court-circuitent le débat parlementaire et renforcent un exécutif déjà dominant.
+
+##### B40d — Affirmation · Institutions (INS)
+
+> Le vote devrait être obligatoire et le vote blanc reconnu comme un suffrage exprimé.
+
+- **Chargements** (accord) : INS +0,4
+- **Mesures du fichier 01** : vote obligatoire et reconnaissance du vote blanc (Jean-Luc Mélenchon, §3.2)
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D13 — Dilemme · Institutions (INS) · inversé
+#### B42 — Comment changer la société ?
 
-> Pour prendre les grandes décisions publiques, quelle méthode préférez-vous ?
+**Contexte** : Pour faire avancer une cause à laquelle on tient, quelles méthodes vous semblent légitimes ?
 
-- **A** : Associer des citoyens tirés au sort, comme dans les conventions citoyennes. — INS +0,8
-- **B** : Les réserver aux élus, qui en rendent compte aux électeurs. — INS -0,8
-- **Thème** : democratie · **bloc** : institutions
-- **Auteurs** : Bernard Manin et Yves Sintomer ; Joseph Schumpeter
-- **Explication** : Bernard Manin et Yves Sintomer rappellent que le tirage au sort était, à Athènes, la procédure démocratique par excellence, et qu'il fait entrer des profils absents des assemblées élues. Schumpeter et les défenseurs de la représentation soulignent que seuls les élus sont responsables devant les électeurs et peuvent être sanctionnés.
+- **Thème** : changement · **Auteurs** : Eduard Bernstein ; Rosa Luxemburg ; Andreas Malm et Kohei Saito
+- **Explication** (mode Apprendre) : Eduard Bernstein a fondé la social-démocratie sur la réforme graduelle ; Rosa Luxemburg lui répondait que seule une rupture transformerait la société. La désobéissance civile, de Thoreau à Martin Luther King, accepte la sanction pour faire reconnaître une injustice ; Andreas Malm légitime le sabotage d'infrastructures fossiles, ce que d'autres écologistes refusent.
+
+##### B42a — Affirmation · Mode de changement (CHG) · inversé
+
+> Seules les élections et les réformes votées au Parlement sont des voies légitimes de changement.
+
+- **Chargements** (accord) : CHG -0,8 ; GOV +0,3
+
+##### B42b — Affirmation · Mode de changement (CHG)
+
+> Une révolution, y compris hors du cadre légal, peut être nécessaire pour renverser un ordre injuste.
+
+- **Chargements** (accord) : CHG +0,9
+
+##### B42c — Affirmation · Mode de changement (CHG)
+
+> La désobéissance civile non violente (blocages, occupations) est légitime pour des causes comme le climat.
+
+- **Chargements** (accord) : CHG +0,6
+
+##### B42d — Affirmation · Mode de changement (CHG)
+
+> Le sabotage d'installations polluantes peut être légitime face à l'urgence climatique.
+
+- **Chargements** (accord) : CHG +0,8
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Territoires (TER)
+#### B44 — Changer de régime ?
 
-#### Q121 — Likert · Territoires (TER)
+**Contexte** : Certains pensent que le pays a besoin d'un changement profond. Que pensez-vous de ces positions ?
+
+- **Thème** : changement · **Auteurs** : Edmund Burke ; Hannah Arendt ; Cornelius Castoriadis
+- **Explication** (mode Apprendre) : Burke et Oakeshott défendent la réforme prudente. L'appel à un chef qui incarne la nation au-dessus des partis et des classes est au cœur des doctrines fascistes et, plus largement, national-autoritaires, dont Hannah Arendt a analysé les ressorts. La démocratie des conseils et des mandats révocables, défendue par Castoriadis, se réclame de la Commune de Paris.
+
+##### B44a — Affirmation · Gouvernance (GOV) · inversé
+
+> Seul un pouvoir autoritaire pourrait redresser le pays, comme à certaines périodes de l'histoire.
+
+- **Chargements** (accord) : GOV -0,9
+
+##### B44b — Affirmation · Mode de changement (CHG) · inversé
+
+> Il faut changer les choses progressivement, en préservant ce qui fonctionne.
+
+- **Chargements** (accord) : CHG -0,8 ; CUL -0,2
+
+##### B44c — Affirmation · Gouvernance (GOV) · inversé
+
+> La nation a besoin d'un chef qui l'incarne, au-dessus des partis et des intérêts de classe.
+
+- **Chargements** (accord) : GOV -0,8
+
+##### B44d — Affirmation · Mode de changement (CHG)
+
+> Le peuple devrait gouverner directement par des assemblées locales et des délégués révocables.
+
+- **Chargements** (accord) : CHG +0,6 ; INS +0,4
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C01 — Question à choix · Gouvernance (GOV)
+
+> Quel régime politique vous semble le plus souhaitable ?
+
+- **Option 1** : Une démocratie représentative avec des contre-pouvoirs forts (juges, presse, Parlement). — GOV +0,8
+- **Option 2** : Une démocratie plus directe, où les citoyens votent régulièrement les lois par référendum. — INS +0,7 ; GOV +0,2 ; POP -0,2
+- **Option 3** : Une démocratie des conseils : assemblées de travailleurs et d'habitants, délégués révocables. — INS +0,6 ; CHG +0,5 ; ECO +0,4
+- **Option 4** : Une société sans État : une fédération de communes libres et autogérées. — TER +0,8 ; CHG +0,5
+- **Option 5** : Un pouvoir fort et stable, dirigé par un chef qui incarne la nation. — GOV -0,9 ; ETA -0,4
+- **Option 6** : Un gouvernement d'experts compétents, moins dépendant des élections. — GOV -0,4 ; POP +0,4 ; INS -0,4
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : democratie
+- **Auteurs** : Robert Dahl ; Cornelius Castoriadis ; Mikhaïl Bakounine
+- **Explication** : Cette question ouvre l'éventail au-delà de l'opposition entre démocratie libérale et autoritarisme : démocratie directe (Rousseau), démocratie des conseils (Castoriadis, la Commune), anarchisme (Bakounine, Bookchin), pouvoir national-autoritaire (doctrines fascistes et bonapartistes), technocratie. Chacune a ses défenseurs et ses critiques.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C12 — Question à choix · Populisme (POP)
+
+> Qui détient réellement le pouvoir en France aujourd'hui ?
+
+- **Option 1** : Les électeurs, par leurs votes. — POP +0,7
+- **Option 2** : Les élus et le gouvernement, sous le contrôle des juges et de la presse. — POP +0,5 ; GOV +0,2
+- **Option 3** : Une oligarchie financière et médiatique. — POP -0,7 ; ECO +0,4
+- **Option 4** : La bourgeoisie, en tant que classe dominante. — ECO +0,7 ; POP -0,3
+- **Option 5** : Bruxelles et les institutions européennes. — UE -0,6 ; POP -0,4
+- **Option 6** : Les juges, les médias et une élite « bien-pensante » coupée du peuple. — POP -0,6 ; GOV -0,3 ; CUL -0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : populisme
+- **Auteurs** : Robert Dahl ; Pierre Bourdieu ; Cas Mudde et Jan-Werner Müller
+- **Explication** : Robert Dahl décrit une polyarchie où le pouvoir est dispersé ; Pierre Bourdieu et la tradition marxiste décrivent une domination de classe. Les mots « oligarchie » et « bourgeoisie » désignent, chez ceux qui les emploient, une minorité fortunée qui concentrerait le pouvoir économique et politique ; leurs contradicteurs y voient une simplification qui ignore la diversité des élites et le poids du vote. Les populismes de droite et de gauche désignent des élites différentes (financières, européennes, judiciaires ou médiatiques).
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C14 — Question à choix · Mode de changement (CHG)
+
+> Si vos idées devaient l'emporter, ce serait plutôt…
+
+- **Option 1** : … par des réformes progressives votées au Parlement. — CHG -0,9
+- **Option 2** : … par un changement lent des mentalités, avant la politique. — CHG -0,5
+- **Option 3** : … par une victoire électorale et un programme radical appliqué vite. — CHG +0,3 ; GOV -0,2
+- **Option 4** : … par des mobilisations massives : grèves, manifestations, occupations. — CHG +0,5 ; ECO +0,2
+- **Option 5** : … par une révolution. — CHG +1
+- **Option 6** : … par un pouvoir fort qui imposerait les réformes nécessaires. — GOV -0,8 ; CHG +0,3
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : changement
+- **Auteurs** : Eduard Bernstein ; Antonio Gramsci ; Lénine
+- **Explication** : Bernstein défend la réforme, Gramsci la conquête préalable de l'hégémonie culturelle, Lénine la révolution conduite par un parti d'avant-garde. Le syndicalisme révolutionnaire mise sur la grève générale, les courants autoritaires sur un pouvoir fort.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Sécurité et justice
+
+#### B37 — Un cambriolage de trop
+
+**Contexte** : Un multirécidiviste commet un nouveau cambriolage. Que pensez-vous de ces réponses ?
+
+- **Thème** : justice · **Auteurs** : Thomas Hobbes ; Michel Foucault ; Patricia Hill Collins, bell hooks et Angela Davis
+- **Explication** (mode Apprendre) : La tradition sécuritaire, depuis Hobbes, fait de la protection des personnes la première mission de l'État. Michel Foucault et Angela Davis, figure de l'abolitionnisme carcéral, critiquent la prison comme institution ; entre les deux, l'individualisation des peines est un principe constitutionnel que les peines planchers limitent.
+
+##### B37a — Affirmation · Ordre et libertés (SEC) · inversé
+
+> Il faut des peines minimales automatiques pour les récidivistes.
+
+- **Chargements** (accord) : SEC -0,8
+- **Mesures du fichier 01** : peines planchers, fin des remises automatiques (Marine Le Pen, §3.1) ; peines planchers (Bruno Retailleau, §3.5) ; peines planchers ciblées (Édouard Philippe, §3.3)
+
+##### B37b — Affirmation · Ordre et libertés (SEC)
+
+> Le juge doit pouvoir adapter chaque peine à la personne et à la situation.
+
+- **Chargements** (accord) : SEC +0,8
+
+##### B37c — Affirmation · Ordre et libertés (SEC)
+
+> La prison fabrique de la récidive : il faut développer d'autres sanctions.
+
+- **Chargements** (accord) : SEC +0,7
+
+##### B37d — Affirmation · Ordre et libertés (SEC) · inversé
+
+> Il faut construire beaucoup plus de places de prison pour que toutes les peines soient exécutées.
+
+- **Chargements** (accord) : SEC -0,7
+- **Mesures du fichier 01** : 85 000 places de prison d'ici 2028 (Marine Le Pen, §3.1) ; 40 000 places, uniforme des détenus, prisons sous tutelle de l'Intérieur (Nicolas Dupont-Aignan, §3.12)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### B38 — Police, libertés et technologies
+
+**Contexte** : À propos des moyens de la sécurité publique, que pensez-vous de ces mesures ?
+
+- **Thème** : ia-numerique · **Auteurs** : Shoshana Zuboff et Evgeny Morozov ; Thomas Hobbes ; Norbert Elias
+- **Explication** (mode Apprendre) : Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent. L'expression « violences policières » désigne, pour ceux qui l'emploient, des abus récurrents liés à l'organisation même de la police ; les syndicats de policiers la contestent et parlent de fautes individuelles, sanctionnées comme telles.
+
+##### B38a — Affirmation · Ordre et libertés (SEC)
+
+> La reconnaissance faciale automatisée dans l'espace public devrait être interdite.
+
+- **Chargements** (accord) : SEC +0,8 ; GOV +0,2
+- **Mesures du fichier 01** : interdiction de la reconnaissance faciale (Jean-Luc Mélenchon, §3.2) ; reconnaissance faciale (Bruno Retailleau, §3.5)
+
+##### B38b — Affirmation · Ordre et libertés (SEC) · inversé
+
+> Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers.
+
+- **Chargements** (accord) : SEC -0,8 ; GOV -0,3
+- **Thème** : narcotrafic
+- **Mesures du fichier 01** : « état d'urgence anti-trafics » avec bouclage des quartiers 24 h/24, blindés de gendarmerie et coupure des télécommunications, via réforme constitutionnelle (Bruno Retailleau, §3.5) ; « état d'urgence narco » limité dans le temps et l'espace (reconnaissance faciale ciblée) (Édouard Philippe, §3.3)
+
+##### B38c — Affirmation · Ordre et libertés (SEC)
+
+> Les violences policières sont un problème structurel qui exige une autorité de contrôle indépendante.
+
+- **Chargements** (accord) : SEC +0,7
+- **Mesures du fichier 01** : remplacement de l'IGPN par une autorité indépendante (Jean-Luc Mélenchon, §3.2)
+
+##### B38d — Affirmation · Ordre et libertés (SEC) · inversé
+
+> Les forces de l'ordre devraient bénéficier d'une présomption de légitime défense.
+
+- **Chargements** (accord) : SEC -0,8
+- **Mesures du fichier 01** : présomption de légitime défense pour les forces de l'ordre (Marine Le Pen, §3.1)
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+#### C08 — Question à choix · Ordre et libertés (SEC)
+
+> Face à la délinquance, quelle devrait être la priorité ?
+
+- **Option 1** : Des sanctions plus sévères et plus de places de prison. — SEC -0,9
+- **Option 2** : L'expulsion des délinquants étrangers et le contrôle des frontières. — SEC -0,6 ; ALT -0,6
+- **Option 3** : Plus de police de proximité et de prévention dans les quartiers. — SEC +0,1 ; ECO +0,2
+- **Option 4** : S'attaquer aux causes sociales : pauvreté, école, emploi. — SEC +0,6 ; ECO +0,4
+- **Option 5** : Légaliser certaines drogues pour assécher les trafics. — SEC +0,6 ; CUL +0,5
+- **Option 6** : Sortir progressivement de la prison au profit de la réparation et de la médiation. — SEC +1
+- **Option ajoutée** : Aucune de ces réponses / je ne sais pas — exclue du calcul
+- **Thème** : justice
+- **Auteurs** : Thomas Hobbes ; Michel Foucault ; Patricia Hill Collins, bell hooks et Angela Davis
+- **Explication** : Les réponses vont de la fermeté pénale à l'abolitionnisme carcéral (Angela Davis), en passant par la prévention, l'approche sociale et la légalisation. Chacune repose sur un diagnostic différent des causes de la délinquance.
+
+**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+
+## Territoires
+
+#### B41 — Territoires
+
+**Contexte** : À propos de l'organisation du territoire, que pensez-vous de ces orientations ?
+
+- **Thème** : decentralisation · **Auteurs** : Alexis de Tocqueville ; Jean-Pierre Chevènement ; Murray Bookchin
+- **Explication** (mode Apprendre) : La tradition girondine, de Tocqueville à Rocard, défend la décision au plus près des habitants ; Murray Bookchin pousse cette logique jusqu'à des communes fédérées. La tradition jacobine (Chevènement) voit dans l'État central le garant de l'égalité entre territoires.
+
+##### B41a — Affirmation · Territoires (TER)
 
 > Les régions devraient pouvoir adapter certaines lois nationales à leur territoire.
 
 - **Chargements** (accord) : TER +0,8
-- **Thème** : decentralisation · **bloc** : territoires
-- **Auteurs** : Alexis de Tocqueville ; Jean-Pierre Chevènement
 - **Mesures du fichier 01** : décentralisation massive (David Lisnard, §3.11)
-- **Explication** : Les girondins, dans la lignée de Tocqueville, jugent que les décisions prises au plus près des habitants sont plus adaptées et plus démocratiques, comme en Allemagne ou en Espagne. Les jacobins (Chevènement) craignent la rupture de l'égalité devant la loi et la fragmentation de la République.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B41b — Affirmation · Territoires (TER) · inversé
 
-#### Q122 — Likert · Territoires (TER) · inversé
-
-> Les règles et les services publics devraient être les mêmes partout en France, décidés par l'État.
+> Les règles et les services publics doivent être les mêmes partout en France, décidés par l'État.
 
 - **Chargements** (accord) : TER -0,8 ; ECO +0,2
-- **Thème** : services-publics · **bloc** : territoires
-- **Auteurs** : Jean-Pierre Chevènement ; Michel Rocard
-- **Explication** : Pour la tradition jacobine, l'État central est le garant de l'égalité entre citoyens, quel que soit leur lieu de vie. La « deuxième gauche » de Michel Rocard et les décentralisateurs répondent que l'uniformité ignore la diversité des territoires et étouffe l'initiative locale.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
+##### B41c — Affirmation · Territoires (TER)
 
-#### Q123 — Likert · Territoires (TER)
+> Les communes devraient pouvoir s'administrer largement elles-mêmes et se fédérer librement entre elles.
 
-> Les maires devraient disposer de beaucoup plus de pouvoirs et de moyens, quitte à accroître les différences entre communes.
+- **Chargements** (accord) : TER +0,8
 
-- **Chargements** (accord) : TER +0,7 ; ECO -0,2
-- **Thème** : decentralisation · **bloc** : territoires
-- **Auteurs** : Murray Bookchin ; Pierre-Joseph Proudhon ; Julia Cagé et Thomas Piketty
-- **Mesures du fichier 01** : pouvoir de sanction pénale des maires (Édouard Philippe, §3.3) ; décentralisation massive (David Lisnard, §3.11)
-- **Explication** : Le municipalisme (Bookchin) et le fédéralisme proudhonien font de la commune le lieu naturel de la démocratie ; les maires sont aussi les élus en qui les Français ont le plus confiance. Cagé et Piketty montrent que les inégalités de ressources entre territoires pèsent sur le vote et appellent une péréquation nationale.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q124 — Likert · Territoires (TER) · inversé
+##### B41d — Affirmation · Territoires (TER) · inversé
 
 > La décentralisation a surtout créé des inégalités entre territoires.
 
 - **Chargements** (accord) : TER -0,7
-- **Thème** : decentralisation · **bloc** : territoires
-- **Auteurs** : Christophe Guilluy ; Michel Rocard
-- **Explication** : Certains lient la décentralisation au sentiment d'abandon des territoires périphériques et à des écarts de moyens entre collectivités riches et pauvres. D'autres rappellent qu'elle a rapproché les décisions des citoyens et que les inégalités territoriales tiennent davantage à l'économie qu'aux institutions.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### A05 — Allocation · Territoires (TER)
+#### A05 — Répartition · Territoires (TER)
 
 > Pour les politiques du quotidien (écoles, transports, logement), répartissez 10 points selon le niveau qui devrait décider.
 
@@ -1203,67 +1951,60 @@ Ce document est destiné à un panel de relecture pluraliste (sensibilités poli
 - **Option 3** : La région — TER +0,4
 - **Option 4** : L'État — TER -0,6
 - **Option 5** : L'Union européenne — UE +0,4 ; TER -0,2
-- **Thème** : decentralisation · **bloc** : priorites
+- **Thème** : decentralisation
 - **Auteurs** : Alexis de Tocqueville ; Jean-Jacques Rousseau
-- **Explication** : Tocqueville voyait dans la commune « l'école primaire de la liberté ». La tradition jacobine, héritière de Rousseau et de la Révolution, fait de l'État le garant de l'égalité et de l'intérêt général face aux intérêts locaux.
+- **Explication** : Tocqueville voyait dans la commune « l'école primaire de la liberté ». La tradition jacobine fait de l'État le garant de l'égalité entre les territoires.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-### Populisme (POP)
+#### A06 — Répartition · Ordre et libertés (SEC)
 
-#### Q131 — Likert · Populisme (POP) · inversé
+> Votre commune dispose d'un budget supplémentaire. Répartissez 10 points entre ces usages.
 
-> Les responsables politiques sont déconnectés des préoccupations des gens ordinaires.
-
-- **Chargements** (accord) : POP -0,7
-- **Thème** : populisme · **bloc** : institutions
-- **Auteurs** : Cas Mudde et Jan-Werner Müller ; Christopher Lasch
-- **Explication** : Cet énoncé, issu des échelles de populisme, traduit une défiance très répandue ; Christopher Lasch parlait de « sécession des élites ». Les politistes (Mudde) notent qu'elle peut exprimer une critique légitime de la représentation comme nourrir une vision qui oppose un peuple uni à des élites corrompues.
-
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q132 — Likert · Populisme (POP) · inversé
-
-> Le peuple, et non les responsables politiques, devrait prendre les décisions politiques les plus importantes.
-
-- **Chargements** (accord) : POP -0,7 ; INS +0,3
-- **Thème** : populisme · **bloc** : institutions
-- **Auteurs** : Ernesto Laclau et Chantal Mouffe ; Cas Mudde et Jan-Werner Müller
-- **Explication** : Pour les tenants d'une démocratie radicale (Laclau, Mouffe), le peuple doit reprendre le pouvoir confisqué par les élites. Jan-Werner Müller objecte que cette vision suppose un peuple homogène à la volonté unique, alors que les citoyens sont divers et que la représentation organise leurs désaccords.
+- **Option 1** : Police municipale et vidéoprotection — SEC -0,5
+- **Option 2** : Écoles, crèches et cantines — ECO +0,3
+- **Option 3** : Transports en commun et pistes cyclables — ENV +0,5
+- **Option 4** : Associations et centres sociaux — ECO +0,3 ; IDE +0,2
+- **Option 5** : Baisse des impôts locaux — ECO -0,5
+- **Option 6** : Patrimoine, églises et fêtes traditionnelles — CUL -0,3 ; IDE +0,3
+- **Thème** : services-publics
+- **Auteurs** : Murray Bookchin ; Robert Putnam
+- **Explication** : À l'échelle locale, les arbitrages révèlent des priorités concrètes : sécurité, services, écologie, lien social ou patrimoine. Robert Putnam souligne le rôle du tissu associatif dans la confiance ; Murray Bookchin fait de la commune le lieu premier de la démocratie.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### Q133 — Likert · Populisme (POP)
+## Vos priorités
 
-> En démocratie, il est important de faire des compromis entre des points de vue différents.
+#### A01 — Répartition · Environnement (ENV)
 
-- **Chargements** (accord) : POP +0,8 ; GOV +0,2
-- **Thème** : populisme · **bloc** : institutions
-- **Auteurs** : Robert Dahl ; Ernesto Laclau et Chantal Mouffe
-- **Explication** : Pour la tradition pluraliste (Dahl), le compromis est la manière démocratique de faire coexister des intérêts légitimes et divergents. Chantal Mouffe objecte que la recherche permanente du consensus efface les vrais clivages et nourrit le ressentiment envers une politique jugée sans alternative.
+> Répartissez 10 points entre ces priorités pour le prochain quinquennat.
 
-**Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
-
-#### Q134 — Likert · Populisme (POP)
-
-> Ceux qui ne partagent pas mes opinions politiques ont souvent de bonnes raisons de penser ce qu'ils pensent.
-
-- **Chargements** (accord) : POP +0,8
-- **Thème** : populisme · **bloc** : institutions
-- **Auteurs** : Cas Mudde et Jan-Werner Müller ; Jonathan Haidt ; Carl Schmitt
-- **Explication** : Jonathan Haidt montre que les convictions politiques reposent sur des intuitions morales différentes, toutes compréhensibles, ce qui plaide pour la reconnaissance de l'adversaire. Pour Carl Schmitt au contraire, la politique repose sur la distinction ami-ennemi, et certains jugent qu'il est des désaccords où l'autre camp a simplement tort.
+- **Option 1** : Climat et biodiversité — ENV +0,5
+- **Option 2** : Pouvoir d'achat — ECO +0,3
+- **Option 3** : Sécurité — SEC -0,4
+- **Option 4** : Réduction de la dette — ECO -0,4
+- **Option 5** : Maîtrise de l'immigration — ALT -0,4
+- **Option 6** : Santé et hôpital — ECO +0,2
+- **Thème** : priorites
+- **Auteurs** : Ronald Inglehart
+- **Explication** : Cette répartition mesure l'importance que vous accordez aux enjeux : elle pondère la comparaison avec les candidat·es. Ronald Inglehart distingue priorités « matérialistes » (sécurité, revenu) et « postmatérialistes » (environnement, expression de soi).
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
-#### D14 — Dilemme · Populisme (POP) · inversé
+#### A09 — Répartition · Économie (ECO)
 
-> Laquelle de ces deux descriptions de la politique vous semble la plus juste ?
+> Quels combats vous semblent les plus importants aujourd'hui ? Répartissez 10 points.
 
-- **A** : La politique oppose des groupes aux intérêts et aux valeurs différents, tous légitimes. — POP +0,9
-- **B** : La politique oppose d'abord un peuple honnête à des élites qui défendent leurs intérêts. — POP -0,9
-- **Thème** : populisme · **bloc** : institutions
-- **Auteurs** : Cas Mudde et Jan-Werner Müller ; Ernesto Laclau et Chantal Mouffe
-- **Explication** : Cette opposition résume la définition du populisme par Cas Mudde : un peuple pur face à une élite corrompue. Laclau et Mouffe y voient la forme même de la politique démocratique, qui construit un « nous » contre un « eux » ; les pluralistes y voient une négation de la diversité des citoyens.
+- **Option 1** : Contre les inégalités sociales — ECO +0,5
+- **Option 2** : Contre le racisme et les discriminations — ALT +0,5
+- **Option 3** : Pour l'égalité entre les femmes et les hommes — CUL +0,3
+- **Option 4** : Pour la défense de l'identité et des traditions — CUL -0,4 ; ALT -0,3
+- **Option 5** : Contre l'insécurité — SEC -0,5
+- **Option 6** : Pour le climat — ENV +0,5
+- **Option 7** : Pour la liberté d'expression — GOV +0,3
+- **Thème** : priorites
+- **Auteurs** : Nancy Fraser ; Ronald Inglehart
+- **Explication** : Nancy Fraser distingue les luttes pour la redistribution et les luttes pour la reconnaissance. Cette répartition indique lesquelles comptent le plus pour vous.
 
 **Relecture** : ☐ formulation neutre (steelman) ☐ une seule idée ☐ chargements justes ☐ explication équilibrée — remarques :
 
