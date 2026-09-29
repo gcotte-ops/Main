@@ -22,7 +22,7 @@ export function DivergingBars({ rows }: { rows: AxisReading[] }) {
           <g key={r.axis.id}>
             <text x={L - 8} y={mid - 5} textAnchor="end" className="chart-label">{r.axis.poleMinus}</text>
             <text x={L - 8} y={mid + 9} textAnchor="end" className="chart-tick">{r.axis.label}</text>
-            <text x={W - Rm + 8} y={mid - 5} className="chart-label">{r.axis.polePlus}</text>
+            <PoleLabel x={W - Rm + 8} y={mid - 5} text={r.axis.polePlus} />
             <line x1={L} x2={W - Rm} y1={mid} y2={mid} className="grid" />
             {s !== null && (
               <>
@@ -44,5 +44,17 @@ export function DivergingBars({ rows }: { rows: AxisReading[] }) {
         <text key={v} x={x(v)} y={H - 6} textAnchor="middle" className="chart-tick">{v > 0 ? `+${v}` : v}</text>
       ))}
     </svg>
+  );
+}
+
+/** Libellé de pôle, coupé avant la parenthèse s'il est trop long pour la marge. */
+function PoleLabel({ x, y, text }: { x: number; y: number; text: string }) {
+  const k = text.indexOf(' (');
+  if (text.length <= 34 || k < 0) return <text x={x} y={y} className="chart-label">{text}</text>;
+  return (
+    <text x={x} y={y - 4} className="chart-label">
+      <tspan x={x}>{text.slice(0, k)}</tspan>
+      <tspan x={x} dy="1.1em" className="chart-tick">{text.slice(k + 1)}</tspan>
+    </text>
   );
 }
