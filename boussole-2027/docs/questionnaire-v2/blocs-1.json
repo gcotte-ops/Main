@@ -1,0 +1,1153 @@
+[
+  {
+    "id": "B01",
+    "titre": "Retraites",
+    "theme": "retraites",
+    "contexte": "Le système de retraite doit à nouveau être réformé. Que pensez-vous de chacune de ces pistes ?",
+    "affirmations": [
+      {
+        "id": "B01a",
+        "texte": "Revenir à un départ à 62 ans, voire 60 ans, financé par des cotisations patronales plus élevées.",
+        "poids": {
+          "ECO": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-02",
+          "marine-le-pen-12",
+          "marine-tondelier-09",
+          "fabien-roussel-03"
+        ]
+      },
+      {
+        "id": "B01b",
+        "texte": "Relever progressivement l'âge de départ pour tenir compte de l'allongement de la durée de vie.",
+        "poids": {
+          "ECO": -0.7
+        },
+        "mesures": [
+          "edouard-philippe-09",
+          "bruno-retailleau-02",
+          "david-lisnard-04"
+        ]
+      },
+      {
+        "id": "B01c",
+        "texte": "Introduire une part de retraite par capitalisation, c'est-à-dire une épargne individuelle placée sur les marchés.",
+        "poids": {
+          "ECO": -0.8
+        },
+        "mesures": [
+          "edouard-philippe-08",
+          "bruno-retailleau-03",
+          "gabriel-attal-09"
+        ]
+      },
+      {
+        "id": "B01d",
+        "texte": "Laisser chacun choisir librement son âge de départ, avec une pension ajustée en conséquence.",
+        "poids": {
+          "ECO": -0.4,
+          "CUL": 0.2
+        },
+        "mesures": [
+          "gabriel-attal-09"
+        ]
+      }
+    ],
+    "auteurs": [
+      "friot",
+      "friedman",
+      "esping-andersen"
+    ],
+    "explication": "Les défenseurs d'un retour à 62 ou 60 ans invoquent la pénibilité et une espérance de vie en bonne santé très inégale selon les métiers ; Bernard Friot voit dans la pension un « salaire continué ». Les partisans d'un report ou de la capitalisation soulignent le vieillissement démographique et le poids des retraites dans les dépenses publiques ; la liberté de choix séduit les libéraux mais pénalise ceux qui ne peuvent pas travailler plus longtemps."
+  },
+  {
+    "id": "B02",
+    "titre": "Patrimoine et héritage",
+    "theme": "fiscalite-patrimoine",
+    "contexte": "Faut-il taxer davantage les patrimoines et les héritages ?",
+    "affirmations": [
+      {
+        "id": "B02a",
+        "texte": "Un impôt minimal de 2 % par an sur les fortunes de plus de 100 millions d'euros serait juste.",
+        "poids": {
+          "ECO": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-10",
+          "ps-socle-04",
+          "raphael-glucksmann-05",
+          "marine-tondelier-06"
+        ]
+      },
+      {
+        "id": "B02b",
+        "texte": "Les héritages devraient être plafonnés : au-delà d'un certain montant, tout devrait revenir à la collectivité.",
+        "poids": {
+          "ECO": 1
+        },
+        "mesures": [
+          "jean-luc-melenchon-13"
+        ]
+      },
+      {
+        "id": "B02c",
+        "texte": "Transmettre son patrimoine à ses enfants est un droit que l'impôt ne devrait presque pas toucher.",
+        "poids": {
+          "ECO": -0.8,
+          "IDE": 0.3
+        },
+        "mesures": [
+          "david-lisnard-09",
+          "bruno-retailleau-12"
+        ]
+      },
+      {
+        "id": "B02d",
+        "texte": "Trop taxer le capital fait fuir les investisseurs et finit par pénaliser l'emploi.",
+        "poids": {
+          "ECO": -0.8
+        },
+        "mesures": [
+          "edouard-philippe-05"
+        ]
+      }
+    ],
+    "auteurs": [
+      "zucman",
+      "piketty",
+      "laffer"
+    ],
+    "explication": "Gabriel Zucman et Thomas Piketty montrent que les très grandes fortunes paient proportionnellement peu d'impôt et que l'héritage est la première source d'inégalités non choisies. Leurs contradicteurs invoquent le risque d'exil fiscal, la difficulté d'évaluer les entreprises non cotées et l'argument d'Arthur Laffer : trop d'impôt tue l'impôt. La transmission familiale est aussi défendue comme un lien entre générations."
+  },
+  {
+    "id": "B03",
+    "titre": "Une usine qui délocalise",
+    "theme": "emploi",
+    "contexte": "Une usine rentable de votre région annonce sa fermeture pour produire à l'étranger. Que pensez-vous de ces réponses ?",
+    "affirmations": [
+      {
+        "id": "B03a",
+        "texte": "L'État devrait pouvoir interdire les licenciements dans une entreprise qui fait des bénéfices.",
+        "poids": {
+          "ECO": 0.9
+        },
+        "mesures": [
+          "jean-luc-melenchon-06",
+          "francois-ruffin-04",
+          "fabien-roussel-05"
+        ]
+      },
+      {
+        "id": "B03b",
+        "texte": "Les salariés devraient pouvoir reprendre l'usine en coopérative, avec l'aide de fonds publics.",
+        "poids": {
+          "ECO": 0.6
+        }
+      },
+      {
+        "id": "B03c",
+        "texte": "Mieux vaut aider les salariés à se reconvertir que chercher à retenir l'entreprise.",
+        "poids": {
+          "ECO": -0.5
+        }
+      },
+      {
+        "id": "B03d",
+        "texte": "C'est la liberté de l'entreprise : l'État n'a pas à s'en mêler.",
+        "poids": {
+          "ECO": -0.9
+        }
+      }
+    ],
+    "auteurs": [
+      "polanyi",
+      "proudhon",
+      "hayek"
+    ],
+    "explication": "Pour Karl Polanyi, une société se protège quand le marché menace ses équilibres ; la reprise en coopérative prolonge la tradition mutuelliste de Proudhon. Pour Friedrich Hayek, l'État qui fige les emplois empêche l'économie de se réallouer vers des activités plus productives, et la liberté d'entreprendre est une liberté fondamentale."
+  },
+  {
+    "id": "B04",
+    "titre": "Comprendre la société française",
+    "theme": "lecture-sociale",
+    "contexte": "Pour comprendre les grands conflits de la société française, quelle lecture vous paraît juste ?",
+    "affirmations": [
+      {
+        "id": "B04a",
+        "texte": "La lutte des classes entre travailleurs et possédants reste la clé de lecture principale.",
+        "poids": {
+          "ECO": 0.8,
+          "CHG": 0.3
+        }
+      },
+      {
+        "id": "B04b",
+        "texte": "Le clivage principal oppose désormais les grandes métropoles gagnantes et la France périphérique.",
+        "poids": {
+          "POP": -0.4
+        }
+      },
+      {
+        "id": "B04c",
+        "texte": "Chacun peut réussir par son travail : raisonner en classes sociales divise inutilement.",
+        "poids": {
+          "ECO": -0.7,
+          "IDE": -0.3
+        }
+      },
+      {
+        "id": "B04d",
+        "texte": "Le clivage essentiel oppose ceux qui défendent l'identité nationale et ceux qui la dissolvent.",
+        "poids": {
+          "ALT": -0.6,
+          "ETA": -0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "marx-engels",
+      "guilluy",
+      "boudon"
+    ],
+    "explication": "Marx fait de la lutte des classes le moteur de l'histoire ; Christophe Guilluy décrit une fracture territoriale entre métropoles et « France périphérique », contestée méthodologiquement. Raymond Boudon explique les parcours par des choix individuels plutôt que par des classes ; d'autres, à droite, placent la question identitaire au centre du conflit politique."
+  },
+  {
+    "id": "B05",
+    "titre": "Dette publique",
+    "theme": "dette",
+    "contexte": "La dette publique française atteint un niveau historiquement élevé. Que faudrait-il faire ?",
+    "affirmations": [
+      {
+        "id": "B05a",
+        "texte": "Inscrire dans la Constitution une règle d'or qui interdise les déficits.",
+        "poids": {
+          "ECO": -0.7,
+          "INS": -0.2
+        },
+        "mesures": [
+          "edouard-philippe-02",
+          "gabriel-attal-02",
+          "bruno-retailleau-07"
+        ]
+      },
+      {
+        "id": "B05b",
+        "texte": "La réduire d'abord en baissant fortement les dépenses publiques et le nombre de fonctionnaires.",
+        "poids": {
+          "ECO": -0.9
+        },
+        "mesures": [
+          "bruno-retailleau-08",
+          "gabriel-attal-03",
+          "david-lisnard-01"
+        ]
+      },
+      {
+        "id": "B05c",
+        "texte": "La réduire surtout en taxant davantage les plus riches et les grandes entreprises.",
+        "poids": {
+          "ECO": 0.8
+        }
+      },
+      {
+        "id": "B05d",
+        "texte": "La dette n'est pas un problème urgent : l'investissement public utile doit primer.",
+        "poids": {
+          "ECO": 0.6
+        },
+        "mesures": [
+          "jean-luc-melenchon-16"
+        ]
+      }
+    ],
+    "auteurs": [
+      "buchanan",
+      "keynes",
+      "kelton"
+    ],
+    "explication": "James Buchanan défend des règles constitutionnelles pour empêcher les gouvernements de reporter les coûts sur les générations futures. Keynes, et plus radicalement Stephanie Kelton, jugent qu'une dépense utile soutient l'activité et que la dette d'un État n'est pas celle d'un ménage ; le débat porte aussi sur la répartition de l'effort entre dépenses et impôts."
+  },
+  {
+    "id": "B06",
+    "titre": "Une maternité menacée",
+    "theme": "services-publics",
+    "contexte": "La maternité de votre bassin de vie doit fermer faute de médecins. Que pensez-vous de ces réponses ?",
+    "affirmations": [
+      {
+        "id": "B06a",
+        "texte": "L'État doit la maintenir ouverte, quel qu'en soit le coût.",
+        "poids": {
+          "ECO": 0.6,
+          "TER": -0.3
+        }
+      },
+      {
+        "id": "B06b",
+        "texte": "Il faut obliger les jeunes médecins à s'installer quelques années dans les territoires qui en manquent.",
+        "poids": {
+          "ECO": 0.5
+        },
+        "mesures": [
+          "ps-socle-07"
+        ]
+      },
+      {
+        "id": "B06c",
+        "texte": "Mieux vaut regrouper les moyens dans de grands hôpitaux plus sûrs, avec de meilleurs transports.",
+        "poids": {
+          "ECO": -0.3,
+          "TER": -0.3
+        }
+      },
+      {
+        "id": "B06d",
+        "texte": "Les élus locaux et les habitants devraient décider eux-mêmes de l'organisation des soins sur leur territoire.",
+        "poids": {
+          "TER": 0.7
+        },
+        "mesures": [
+          "david-lisnard-03"
+        ]
+      }
+    ],
+    "auteurs": [
+      "beveridge",
+      "tocqueville",
+      "scott"
+    ],
+    "explication": "La tradition de Beveridge veut un service public de santé égal pour tous, garanti par l'État. D'autres privilégient l'efficacité et la sécurité des soins par la concentration des moyens ; Tocqueville et James C. Scott défendent la décision au plus près des habitants, contre des plans uniformes décidés de loin."
+  },
+  {
+    "id": "B07",
+    "titre": "Salaires et pouvoir d'achat",
+    "theme": "pouvoir-achat",
+    "contexte": "Pour améliorer le pouvoir d'achat, que pensez-vous de ces mesures ?",
+    "affirmations": [
+      {
+        "id": "B07a",
+        "texte": "Porter rapidement le SMIC à 1 600 € net par mois.",
+        "poids": {
+          "ECO": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-01",
+          "francois-ruffin-02"
+        ]
+      },
+      {
+        "id": "B07b",
+        "texte": "Plutôt qu'augmenter le SMIC, baisser les cotisations pour que le salaire net augmente.",
+        "poids": {
+          "ECO": -0.6
+        },
+        "mesures": [
+          "david-lisnard-07",
+          "raphael-glucksmann-06",
+          "francois-hollande-02"
+        ]
+      },
+      {
+        "id": "B07c",
+        "texte": "Bloquer les prix de l'énergie et des produits de première nécessité.",
+        "poids": {
+          "ECO": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-03"
+        ]
+      },
+      {
+        "id": "B07d",
+        "texte": "Notre modèle social encourage l'assistanat : les aides devraient être conditionnées à une activité.",
+        "poids": {
+          "ECO": -0.8
+        },
+        "mesures": [
+          "david-lisnard-05",
+          "gabriel-attal-07"
+        ]
+      }
+    ],
+    "auteurs": [
+      "keynes",
+      "friedman",
+      "castel"
+    ],
+    "explication": "Pour les keynésiens, la hausse des bas salaires soutient la demande ; pour Milton Friedman, les prix administrés créent pénuries et effets pervers, et la baisse des charges favorise l'emploi. Le terme « assistanat », employé par ceux qui veulent conditionner les aides, est récusé par ceux qui, comme Robert Castel, voient dans la protection sociale un droit acquis par le travail."
+  },
+  {
+    "id": "B08",
+    "titre": "Climat",
+    "theme": "climat",
+    "contexte": "À propos du changement climatique, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B08a",
+        "texte": "Le réchauffement climatique actuel est principalement dû aux activités humaines.",
+        "poids": {
+          "ENV": 1
+        },
+        "factuel": true
+      },
+      {
+        "id": "B08b",
+        "texte": "Le réchauffement est réel, mais ses conséquences sont exagérées par les médias et les militants.",
+        "poids": {
+          "ENV": -0.7
+        }
+      },
+      {
+        "id": "B08c",
+        "texte": "L'innovation technologique suffira à régler la crise climatique sans changer nos modes de vie.",
+        "poids": {
+          "ENV": -0.5
+        }
+      },
+      {
+        "id": "B08d",
+        "texte": "Il faudra réduire notre consommation et renoncer à une partie de notre confort.",
+        "poids": {
+          "ENV": 0.8,
+          "ECO": 0.2
+        }
+      }
+    ],
+    "auteurs": [
+      "oreskes-conway",
+      "lomborg",
+      "latouche"
+    ],
+    "explication": "La première affirmation a une dimension factuelle : le GIEC conclut que l'influence humaine est la cause principale du réchauffement observé. Bjørn Lomborg accepte ce constat mais juge les coûts surestimés ; les écomodernistes misent sur l'innovation ; Serge Latouche et les décroissants estiment qu'aucune technique ne dispense de consommer moins."
+  },
+  {
+    "id": "B09",
+    "titre": "Énergie",
+    "theme": "energie-nucleaire",
+    "contexte": "Pour l'énergie de demain, que pensez-vous de ces choix ?",
+    "affirmations": [
+      {
+        "id": "B09a",
+        "texte": "La France devrait construire de nombreux nouveaux réacteurs nucléaires.",
+        "poids": {
+          "ENV.nucleaire": 0.8
+        },
+        "mesures": [
+          "marine-le-pen-33",
+          "bruno-retailleau-29",
+          "fabien-roussel-10",
+          "david-lisnard-14"
+        ]
+      },
+      {
+        "id": "B09b",
+        "texte": "La France devrait sortir progressivement du nucléaire et miser sur les énergies renouvelables.",
+        "poids": {
+          "ENV.nucleaire": -0.8,
+          "ENV": 0.2
+        },
+        "mesures": [
+          "marine-tondelier-03",
+          "jean-luc-melenchon-52"
+        ]
+      },
+      {
+        "id": "B09c",
+        "texte": "Les éoliennes défigurent les paysages : il faut un moratoire sur leur installation.",
+        "poids": {
+          "ENV": -0.5,
+          "CUL": -0.2
+        },
+        "mesures": [
+          "marine-le-pen-34"
+        ]
+      },
+      {
+        "id": "B09d",
+        "texte": "La priorité est la sobriété : consommer moins d'énergie, quelle qu'en soit la source.",
+        "poids": {
+          "ENV": 0.8
+        }
+      }
+    ],
+    "auteurs": [
+      "jancovici",
+      "illich",
+      "ecologies-conservatrices"
+    ],
+    "explication": "Jean-Marc Jancovici défend nucléaire et sobriété pour décarboner ; une grande partie de l'écologie politique, dans la lignée d'Illich, rejette une technique centralisée et risquée. L'opposition aux éoliennes mêle défense des paysages, portée par des écologies conservatrices, et scepticisme sur leur efficacité."
+  },
+  {
+    "id": "B10",
+    "titre": "Une zone à faibles émissions",
+    "theme": "mobilite",
+    "contexte": "Votre ville instaure une zone à faibles émissions qui interdit les véhicules anciens. Qu'en pensez-vous ?",
+    "affirmations": [
+      {
+        "id": "B10a",
+        "texte": "C'est une mesure nécessaire pour protéger la santé des habitants.",
+        "poids": {
+          "ENV": 0.7
+        }
+      },
+      {
+        "id": "B10b",
+        "texte": "C'est de l'« écologie punitive » qui frappe d'abord les ménages modestes.",
+        "poids": {
+          "ENV": -0.6
+        },
+        "mesures": [
+          "marine-le-pen-35"
+        ]
+      },
+      {
+        "id": "B10c",
+        "texte": "Elle n'est acceptable qu'avec des aides massives pour changer de véhicule et des transports gratuits.",
+        "poids": {
+          "ECO": 0.5
+        }
+      },
+      {
+        "id": "B10d",
+        "texte": "Ce sont les plus riches et les grandes entreprises qui polluent le plus : c'est à eux de payer d'abord.",
+        "poids": {
+          "ECO": 0.6,
+          "ENV": 0.2
+        }
+      }
+    ],
+    "auteurs": [
+      "guilluy",
+      "gorz",
+      "malm-saito"
+    ],
+    "explication": "La pollution de l'air cause de nombreux décès prématurés, d'où ces zones. L'expression « écologie punitive », employée par leurs opposants, traduit le sentiment d'injustice des ménages périphériques dépendants de la voiture, documenté par Christophe Guilluy. André Gorz et Andreas Malm lient au contraire la question écologique à la question sociale : les plus riches émettent le plus."
+  },
+  {
+    "id": "B11",
+    "titre": "Agriculture et terres",
+    "theme": "agriculture",
+    "contexte": "Des agriculteurs manifestent contre les normes environnementales. Que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B11a",
+        "texte": "Leurs revendications sont justes : les normes environnementales sont devenues excessives.",
+        "poids": {
+          "ENV": -0.7
+        }
+      },
+      {
+        "id": "B11b",
+        "texte": "Il faut garder les normes, et taxer les importations qui ne les respectent pas.",
+        "poids": {
+          "ETA": -0.5,
+          "ENV": 0.2
+        },
+        "mesures": [
+          "francois-ruffin-09"
+        ]
+      },
+      {
+        "id": "B11c",
+        "texte": "Il faut sortir des pesticides comme le glyphosate, en accompagnant les agriculteurs, même si cela coûte cher.",
+        "poids": {
+          "ENV": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-53"
+        ]
+      },
+      {
+        "id": "B11d",
+        "texte": "Les communes qui manquent de logements devraient pouvoir construire sur des terres agricoles.",
+        "poids": {
+          "ENV": -0.5
+        },
+        "mesures": [
+          "marine-le-pen-20",
+          "bruno-retailleau-17"
+        ]
+      }
+    ],
+    "auteurs": [
+      "carson",
+      "list",
+      "hardin-ostrom"
+    ],
+    "explication": "Depuis Rachel Carson, les défenseurs des normes rappellent leurs effets sur la santé et la biodiversité ; leurs critiques dénoncent une concurrence déloyale et un empilement de règles. Le protectionnisme agricole renoue avec Friedrich List ; la limitation de l'artificialisation des sols oppose préservation des terres et besoins de logement des communes."
+  },
+  {
+    "id": "B12",
+    "titre": "Place des religions",
+    "theme": "religion",
+    "contexte": "À propos de la place des religions dans la société, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B12a",
+        "texte": "La France devrait davantage assumer ses racines chrétiennes dans la vie publique.",
+        "poids": {
+          "REL": 0.8
+        }
+      },
+      {
+        "id": "B12b",
+        "texte": "Les religions font aujourd'hui plus de mal que de bien à la société.",
+        "poids": {
+          "REL": -0.9
+        }
+      },
+      {
+        "id": "B12c",
+        "texte": "Les croyants devraient peser davantage dans les débats de société, comme la fin de vie ou la bioéthique.",
+        "poids": {
+          "REL": 0.6
+        }
+      },
+      {
+        "id": "B12d",
+        "texte": "La foi est une affaire strictement privée, qui n'a pas sa place dans la vie publique.",
+        "poids": {
+          "REL": -0.7,
+          "REL.laicite": 0.5
+        }
+      }
+    ],
+    "auteurs": [
+      "delsol",
+      "voltaire",
+      "habermas"
+    ],
+    "explication": "Pour Chantal Delsol, l'héritage chrétien structure la culture et la morale françaises. La tradition voltairienne voit dans l'influence religieuse une menace pour l'émancipation ; Habermas estime que les croyants peuvent contribuer au débat public si leurs arguments restent compréhensibles par tous."
+  },
+  {
+    "id": "B13",
+    "titre": "Laïcité : une sortie scolaire",
+    "theme": "laicite",
+    "contexte": "Une mère portant le voile souhaite accompagner une sortie scolaire. Que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B13a",
+        "texte": "Elle doit pouvoir le faire : la laïcité s'impose aux enseignants, pas aux parents.",
+        "poids": {
+          "ALT": 0.6,
+          "REL.laicite": -0.6
+        }
+      },
+      {
+        "id": "B13b",
+        "texte": "Elle ne devrait pas : l'école et ses activités doivent rester à l'abri de tout signe religieux.",
+        "poids": {
+          "REL.laicite": 0.7,
+          "ALT": -0.3
+        }
+      },
+      {
+        "id": "B13c",
+        "texte": "Le port du voile islamique devrait être interdit dans tout l'espace public.",
+        "poids": {
+          "ALT": -0.8,
+          "REL.laicite": 0.5
+        },
+        "mesures": [
+          "marine-le-pen-10"
+        ]
+      },
+      {
+        "id": "B13d",
+        "texte": "Le vrai sujet n'est pas le voile mais l'islamisme, qui progresse dans certains quartiers.",
+        "poids": {
+          "ALT": -0.5,
+          "SEC": -0.3
+        },
+        "mesures": [
+          "david-lisnard-11"
+        ]
+      }
+    ],
+    "auteurs": [
+      "bauberot-pena-ruiz",
+      "badinter",
+      "roy-kepel"
+    ],
+    "explication": "Jean Baubérot défend une laïcité libérale, qui oblige l'État et non les citoyens ; Henri Peña-Ruiz et Élisabeth Badinter une laïcité plus exigeante envers les signes religieux. Gilles Kepel et Olivier Roy débattent de la nature de l'islamisme ; les opposants à l'interdiction du voile y voient une atteinte à la liberté de conscience visant une seule religion."
+  },
+  {
+    "id": "B14",
+    "titre": "Critique des religions",
+    "theme": "laicite",
+    "contexte": "Un journal publie des caricatures d'une figure religieuse. Que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B14a",
+        "texte": "La critique des religions, y compris par la caricature, doit rester entièrement libre.",
+        "poids": {
+          "REL": -0.6,
+          "CUL": 0.4,
+          "REL.laicite": 0.3
+        }
+      },
+      {
+        "id": "B14b",
+        "texte": "Mieux vaut éviter de publier des caricatures qui blessent inutilement les croyants.",
+        "poids": {
+          "REL": 0.5,
+          "CUL": -0.2
+        }
+      },
+      {
+        "id": "B14c",
+        "texte": "La loi devrait sanctionner les propos qui offensent une religion.",
+        "poids": {
+          "REL": 0.7,
+          "GOV": -0.3
+        }
+      },
+      {
+        "id": "B14d",
+        "texte": "Les grandes fêtes de chaque religion présente en France devraient pouvoir être des jours fériés.",
+        "poids": {
+          "ALT": 0.5,
+          "REL.laicite": -0.5
+        }
+      }
+    ],
+    "auteurs": [
+      "voltaire",
+      "taylor"
+    ],
+    "explication": "Dans la tradition voltairienne, le droit de critiquer les croyances, jusqu'au blasphème, est une conquête ; le droit français ne punit pas le blasphème mais sanctionne les injures visant des personnes. Charles Taylor plaide pour une politique de la reconnaissance attentive aux minorités, ce qui peut passer par des accommodements comme les jours fériés."
+  },
+  {
+    "id": "B15",
+    "titre": "École et transmission",
+    "theme": "ecole",
+    "contexte": "À propos de l'école et de la transmission des convictions, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B15a",
+        "texte": "L'État devrait cesser de financer les écoles privées confessionnelles.",
+        "poids": {
+          "REL": -0.6,
+          "ECO": 0.2
+        }
+      },
+      {
+        "id": "B15b",
+        "texte": "Il est bon que des parents transmettent une foi à leurs enfants plutôt que les laisser choisir seuls.",
+        "poids": {
+          "REL": 0.8
+        }
+      },
+      {
+        "id": "B15c",
+        "texte": "Sans repères religieux, une société perd une partie de sa morale commune.",
+        "poids": {
+          "REL": 0.8,
+          "CUL": -0.3
+        }
+      },
+      {
+        "id": "B15d",
+        "texte": "Les parents devraient choisir librement l'école de leurs enfants, publique ou privée, grâce à un chèque éducation.",
+        "poids": {
+          "ECO": -0.6,
+          "REL": 0.2
+        },
+        "mesures": [
+          "david-lisnard-08"
+        ]
+      }
+    ],
+    "auteurs": [
+      "buisson-briand",
+      "mounier-maritain",
+      "macintyre"
+    ],
+    "explication": "Les fondateurs de l'école laïque (Buisson) veulent former des esprits autonomes ; le personnalisme chrétien (Mounier, Maritain) et MacIntyre estiment que la morale se transmet dans des traditions vivantes. Le chèque éducation, défendu par Milton Friedman, oppose liberté de choix des familles et mixité sociale."
+  },
+  {
+    "id": "B16",
+    "titre": "Commerce international",
+    "theme": "mondialisation",
+    "contexte": "Face à la concurrence internationale, quelle politique commerciale vous semble souhaitable ?",
+    "affirmations": [
+      {
+        "id": "B16a",
+        "texte": "Le libre-échange enrichit tous les pays : il faut continuer à ouvrir les marchés.",
+        "poids": {
+          "ETA": 0.6,
+          "ECO": -0.5
+        }
+      },
+      {
+        "id": "B16b",
+        "texte": "La France devrait protéger ses industries par ses propres droits de douane.",
+        "poids": {
+          "ETA": -0.8,
+          "ECO": 0.2
+        },
+        "mesures": [
+          "francois-ruffin-08"
+        ]
+      },
+      {
+        "id": "B16c",
+        "texte": "C'est à l'échelle européenne qu'il faut protéger l'industrie, avec des taxes aux frontières de l'Union.",
+        "poids": {
+          "UE": 0.6
+        }
+      },
+      {
+        "id": "B16d",
+        "texte": "Le commerce devrait obéir à des règles sociales et écologiques strictes, quitte à échanger beaucoup moins.",
+        "poids": {
+          "ECO": 0.4,
+          "ENV": 0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "ricardo",
+      "list",
+      "stiglitz-rodrik"
+    ],
+    "explication": "David Ricardo a montré que l'échange profite à tous les partenaires ; Friedrich List que les pays aujourd'hui riches se sont d'abord protégés. Dani Rodrik souligne qu'une mondialisation poussée entre en tension avec la démocratie ; l'altermondialisme et l'écologie politique veulent des échanges moins nombreux et mieux régulés, à l'échelle nationale ou européenne."
+  },
+  {
+    "id": "B17",
+    "titre": "La nation et le monde",
+    "theme": "identite",
+    "contexte": "À propos de votre rapport à la nation et au reste du monde, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B17a",
+        "texte": "Je me sens citoyen·ne du monde avant d'être citoyen·ne de mon pays.",
+        "poids": {
+          "ETA": 1
+        }
+      },
+      {
+        "id": "B17b",
+        "texte": "Les intérêts des Français doivent passer avant ceux des autres peuples.",
+        "poids": {
+          "ETA": -0.9,
+          "ALT": -0.3
+        },
+        "mesures": [
+          "marine-le-pen-01"
+        ]
+      },
+      {
+        "id": "B17c",
+        "texte": "Un ouvrier français a plus en commun avec un ouvrier étranger qu'avec un patron français.",
+        "poids": {
+          "ETA": 0.6,
+          "ECO": 0.5
+        }
+      },
+      {
+        "id": "B17d",
+        "texte": "Le « mondialisme » des élites menace la souveraineté des peuples.",
+        "poids": {
+          "ETA": -0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "kant",
+      "manent",
+      "trotsky"
+    ],
+    "explication": "Le cosmopolitisme, de Kant à Martha Nussbaum, fait de l'humanité la première communauté morale ; l'internationalisme ouvrier place la solidarité de classe au-dessus des frontières. Pierre Manent voit dans la nation le cadre indispensable de la démocratie ; le mot « mondialisme », employé par les souverainistes, désigne pour eux un projet d'effacement des nations."
+  },
+  {
+    "id": "B18",
+    "titre": "Souveraineté et coopération",
+    "theme": "mondialisation",
+    "contexte": "Lors de la dernière crise sanitaire, certains médicaments ont manqué. Que pensez-vous de ces orientations ?",
+    "affirmations": [
+      {
+        "id": "B18a",
+        "texte": "La France doit produire elle-même ses médicaments et biens essentiels, même s'ils coûtent plus cher.",
+        "poids": {
+          "ETA": -0.6,
+          "ECO": 0.3
+        }
+      },
+      {
+        "id": "B18b",
+        "texte": "Face aux pandémies et au climat, il faut des institutions internationales dotées de vrais pouvoirs.",
+        "poids": {
+          "ETA": 0.8,
+          "GMO.multilateralisme": -0.5
+        }
+      },
+      {
+        "id": "B18c",
+        "texte": "L'aide au développement des pays pauvres devrait être fortement augmentée.",
+        "poids": {
+          "ETA": 0.7,
+          "ALT": 0.2
+        },
+        "mesures": [
+          "bruno-retailleau-09"
+        ]
+      },
+      {
+        "id": "B18d",
+        "texte": "La France devrait coopérer avec d'autres nations souveraines plutôt que dépendre d'institutions supranationales.",
+        "poids": {
+          "ETA": -0.5,
+          "UE": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "keohane-nye",
+      "de-gaulle",
+      "sen"
+    ],
+    "explication": "Keohane et Nye montrent que des problèmes globaux appellent des institutions communes ; la tradition gaulliste privilégie la coopération entre nations souveraines. Amartya Sen rappelle que le développement des autres pays est aussi une condition de la sécurité commune ; la relocalisation des biens essentiels a gagné des partisans à gauche comme à droite."
+  },
+  {
+    "id": "B19",
+    "titre": "Histoire nationale",
+    "theme": "memoire-coloniale",
+    "contexte": "À propos de l'histoire de France et de sa transmission, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B19a",
+        "texte": "La France devrait reconnaître plus clairement les torts de la colonisation.",
+        "poids": {
+          "ALT": 0.5,
+          "ETA": 0.4
+        },
+        "mesures": [
+          "raphael-glucksmann-12"
+        ]
+      },
+      {
+        "id": "B19b",
+        "texte": "La France n'a pas à se repentir de son histoire : elle doit en être fière.",
+        "poids": {
+          "ETA": -0.6,
+          "ALT": -0.4
+        }
+      },
+      {
+        "id": "B19c",
+        "texte": "L'école devrait d'abord transmettre un récit national qui rassemble.",
+        "poids": {
+          "ETA": -0.5,
+          "CUL": -0.4
+        }
+      },
+      {
+        "id": "B19d",
+        "texte": "Le racisme d'aujourd'hui est en partie un héritage de la colonisation.",
+        "poids": {
+          "ALT": 0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "cesaire",
+      "renan",
+      "finkielkraut"
+    ],
+    "explication": "Aimé Césaire et les études postcoloniales soulignent les violences coloniales et leurs héritages ; Alain Finkielkraut craint une « repentance » qui délégitime la transmission. Ernest Renan rappelait qu'une nation repose sur des souvenirs partagés, mais aussi sur ce qu'elle choisit d'oublier."
+  },
+  {
+    "id": "B20",
+    "titre": "Fin de vie et bioéthique",
+    "theme": "fin-de-vie",
+    "contexte": "À propos de la fin de vie et de la procréation, que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B20a",
+        "texte": "Une personne atteinte d'une maladie incurable devrait pouvoir obtenir une aide active à mourir.",
+        "poids": {
+          "CUL": 0.8,
+          "REL": -0.3
+        },
+        "mesures": [
+          "jean-luc-melenchon-24"
+        ]
+      },
+      {
+        "id": "B20b",
+        "texte": "Il faut d'abord développer les soins palliatifs : l'aide à mourir ouvre une pente risquée.",
+        "poids": {
+          "CUL": -0.6,
+          "REL": 0.3
+        }
+      },
+      {
+        "id": "B20c",
+        "texte": "La gestation pour autrui devrait être autorisée et encadrée en France.",
+        "poids": {
+          "CUL": 0.8
+        }
+      },
+      {
+        "id": "B20d",
+        "texte": "La gestation pour autrui est une marchandisation du corps des femmes qui doit rester interdite.",
+        "poids": {
+          "CUL": -0.4
+        },
+        "mesures": [
+          "jean-luc-melenchon-27"
+        ]
+      }
+    ],
+    "auteurs": [
+      "mill",
+      "jonas",
+      "mackinnon-dworkin"
+    ],
+    "explication": "John Stuart Mill fonde la liberté de disposer de sa vie tant qu'on ne nuit pas à autrui. Les opposants à l'aide à mourir, croyants ou non, craignent des pressions sur les plus vulnérables. L'opposition à la GPA réunit conservateurs et féministes abolitionnistes (MacKinnon, Dworkin) : elle ne se range pas sur un seul pôle."
+  },
+  {
+    "id": "B21",
+    "titre": "Famille et genre",
+    "theme": "gpa-pma",
+    "contexte": "À propos de la famille et des rapports entre les sexes, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B21a",
+        "texte": "Il est préférable pour un enfant d'être élevé par un père et une mère.",
+        "poids": {
+          "CUL": -0.9,
+          "REL": 0.2
+        },
+        "mesures": [
+          "jean-luc-melenchon-28"
+        ]
+      },
+      {
+        "id": "B21b",
+        "texte": "Le changement de sexe à l'état civil devrait être possible sur simple déclaration, sans passer par un juge.",
+        "poids": {
+          "CUL": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-25"
+        ]
+      },
+      {
+        "id": "B21c",
+        "texte": "Notre société reste organisée par une domination masculine, le patriarcat, qu'il faut combattre.",
+        "poids": {
+          "CUL": 0.6,
+          "ALT": 0.2
+        }
+      },
+      {
+        "id": "B21d",
+        "texte": "Le « wokisme » menace la liberté d'expression et la transmission des savoirs à l'école.",
+        "poids": {
+          "CUL": -0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "beauvoir",
+      "scruton",
+      "butler"
+    ],
+    "explication": "Simone de Beauvoir et Judith Butler voient dans les rôles de genre des constructions sociales ; les féminismes parlent de « patriarcat » pour désigner une domination systémique. Roger Scruton et la pensée conservatrice défendent la famille comme institution héritée. Le mot « wokisme », employé par les critiques de certains courants antiracistes et féministes, est récusé par ceux qu'il désigne."
+  },
+  {
+    "id": "B22",
+    "titre": "Mœurs et liberté",
+    "theme": "cannabis",
+    "contexte": "À propos de la liberté individuelle et des normes collectives, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B22a",
+        "texte": "La consommation de cannabis par les adultes devrait être légalisée et encadrée par l'État.",
+        "poids": {
+          "CUL": 0.8,
+          "SEC": 0.3
+        },
+        "mesures": [
+          "jean-luc-melenchon-26",
+          "edouard-philippe-25"
+        ]
+      },
+      {
+        "id": "B22b",
+        "texte": "La société est allée trop loin dans la remise en cause des traditions.",
+        "poids": {
+          "CUL": -0.9
+        }
+      },
+      {
+        "id": "B22c",
+        "texte": "L'autorité des parents et des enseignants s'est trop affaiblie.",
+        "poids": {
+          "CUL": -0.6,
+          "SEC": -0.4
+        }
+      },
+      {
+        "id": "B22d",
+        "texte": "Tant qu'on ne nuit à personne, chacun doit pouvoir vivre comme il l'entend, même si cela choque.",
+        "poids": {
+          "CUL": 0.7,
+          "IDE": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "mill",
+      "burke",
+      "arendt"
+    ],
+    "explication": "Le principe de non-nuisance de Mill fonde le libéralisme des mœurs ; Burke et la tradition conservatrice valorisent la sagesse des institutions héritées. Hannah Arendt voit dans la crise de l'autorité une crise de la transmission ; les partisans de la légalisation du cannabis invoquent l'échec de la prohibition, ses opposants la santé des jeunes."
+  },
+  {
+    "id": "B23",
+    "titre": "Appartenances",
+    "theme": "identite",
+    "contexte": "À propos de ce qui fait votre identité, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B23a",
+        "texte": "Mes appartenances (famille, religion, région, communauté) définissent davantage qui je suis que mes choix personnels.",
+        "poids": {
+          "IDE": 1
+        }
+      },
+      {
+        "id": "B23b",
+        "texte": "Chacun devrait pouvoir se définir librement, indépendamment de son origine ou de sa famille.",
+        "poids": {
+          "IDE": -0.8,
+          "CUL": 0.3
+        }
+      },
+      {
+        "id": "B23c",
+        "texte": "La loi ne devrait reconnaître que des individus, jamais des communautés.",
+        "poids": {
+          "IDE": -0.8,
+          "ALT": -0.2
+        }
+      },
+      {
+        "id": "B23d",
+        "texte": "Les langues et cultures régionales devraient bénéficier de droits propres (enseignement, statut officiel).",
+        "poids": {
+          "IDE": 0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "taylor",
+      "constant",
+      "schnapper"
+    ],
+    "explication": "Les communautariens (Taylor, MacIntyre) jugent que l'identité se forme dans des traditions qui précèdent l'individu ; les libéraux (Constant, Mill) valorisent la liberté de se choisir. L'universalisme républicain (Schnapper) veut une citoyenneté qui transcende les appartenances ; les défenseurs des langues régionales y voient une uniformité imposée."
+  }
+]

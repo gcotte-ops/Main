@@ -29,7 +29,8 @@ const words = (s: string) => s.replace(/[«»"()]/g, ' ').split(/\s+/).filter((w
 /** Constructions négatives : « ne/n' » (ne… pas/plus/jamais/ni/que compte pour une), « sans », « non », « aucun » isolé. */
 export function negationCount(s: string): number {
   const t = ` ${s.toLowerCase()} `;
-  const ne = (t.match(/[\s(](ne|n')(?=[\s\p{L}])/gu) ?? []).length;
+  // « ne » suivi d'un espace, ou « n' » élidé (« neutre », « nette »… ne comptent pas).
+  const ne = (t.match(/[\s(](ne(?=\s)|n'(?=\p{L}))/gu) ?? []).length;
   const sans = (t.match(/\ssans\s/g) ?? []).length;
   const non = (t.match(/\snon\s/g) ?? []).length;
   const aucun = ne ? 0 : (t.match(/\saucun(e)?\s/g) ?? []).length;

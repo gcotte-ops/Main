@@ -1,0 +1,1042 @@
+[
+  {
+    "id": "B24",
+    "titre": "Une famille en difficulté",
+    "theme": "solidarite",
+    "contexte": "Une famille de votre quartier traverse de graves difficultés. À qui revient-il d'abord de l'aider ?",
+    "affirmations": [
+      {
+        "id": "B24a",
+        "texte": "D'abord à la famille, aux voisins, aux associations ou aux paroisses.",
+        "poids": {
+          "IDE": 0.7,
+          "ECO": -0.3
+        }
+      },
+      {
+        "id": "B24b",
+        "texte": "À l'État, qui doit garantir des droits égaux pour tous sans dépendre de la charité.",
+        "poids": {
+          "IDE": -0.6,
+          "ECO": 0.5
+        }
+      },
+      {
+        "id": "B24c",
+        "texte": "Chacun est d'abord responsable de sa propre situation.",
+        "poids": {
+          "IDE": -0.7,
+          "ECO": -0.4
+        }
+      },
+      {
+        "id": "B24d",
+        "texte": "La solidarité doit d'abord s'exercer entre membres d'une même communauté (nation, culture ou religion).",
+        "poids": {
+          "IDE": 0.7,
+          "ALT": -0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "doctrine-sociale-eglise",
+      "beveridge",
+      "nozick"
+    ],
+    "explication": "La doctrine sociale de l'Église et Tocqueville valorisent les corps intermédiaires (principe de subsidiarité) ; Beveridge veut une solidarité nationale obligatoire, garantie par des droits. Robert Nozick fait de la responsabilité individuelle et des engagements volontaires la base d'une société juste ; d'autres réservent la solidarité à ceux qui partagent une même appartenance."
+  },
+  {
+    "id": "B25",
+    "titre": "Immigration",
+    "theme": "immigration",
+    "contexte": "À propos de l'immigration en France, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B25a",
+        "texte": "L'immigration des dernières décennies a trop transformé la France.",
+        "poids": {
+          "ALT": -0.8,
+          "CUL": -0.2
+        }
+      },
+      {
+        "id": "B25b",
+        "texte": "L'expression « grand remplacement » décrit une réalité démographique en cours en France.",
+        "poids": {
+          "ALT": -1
+        },
+        "factuel": true
+      },
+      {
+        "id": "B25c",
+        "texte": "L'immigration est une chance économique et démographique pour la France.",
+        "poids": {
+          "ALT": 0.8
+        }
+      },
+      {
+        "id": "B25d",
+        "texte": "Il faut choisir les immigrés selon les besoins de l'économie, par des quotas, sans considération d'origine.",
+        "poids": {
+          "ALT": -0.3,
+          "ECO": -0.2
+        },
+        "mesures": [
+          "edouard-philippe-13",
+          "gabriel-attal-12"
+        ]
+      }
+    ],
+    "auteurs": [
+      "le-bras-heran",
+      "goodhart",
+      "renan"
+    ],
+    "explication": "La deuxième affirmation a une dimension factuelle. L'expression « grand remplacement », forgée par Renaud Camus, désigne la thèse d'une substitution organisée de la population ; les démographes (Hervé Le Bras, François Héran) la réfutent, en rappelant que l'immigration transforme la population sans la remplacer. David Goodhart décrit l'inquiétude culturelle des « Somewheres » ; les partisans de l'immigration invoquent le vieillissement et les métiers en tension."
+  },
+  {
+    "id": "B26",
+    "titre": "Droits des étrangers",
+    "theme": "nationalite",
+    "contexte": "À propos des droits des étrangers et de la nationalité, que pensez-vous de ces mesures ?",
+    "affirmations": [
+      {
+        "id": "B26a",
+        "texte": "Les aides sociales devraient être réservées aux Français (« préférence nationale »).",
+        "poids": {
+          "ALT": -0.8,
+          "ETA": -0.5,
+          "ECO": 0.2
+        },
+        "mesures": [
+          "marine-le-pen-02",
+          "eric-zemmour-04",
+          "nicolas-dupont-aignan-06"
+        ]
+      },
+      {
+        "id": "B26b",
+        "texte": "Les étrangers sans titre de séjour qui travaillent en France depuis plusieurs années devraient être régularisés.",
+        "poids": {
+          "ALT": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-36",
+          "francois-ruffin-11"
+        ]
+      },
+      {
+        "id": "B26c",
+        "texte": "Un enfant né en France de parents étrangers ne devrait plus devenir français automatiquement.",
+        "poids": {
+          "ALT": -0.8
+        },
+        "mesures": [
+          "marine-le-pen-03",
+          "david-lisnard-13",
+          "eric-zemmour-04"
+        ]
+      },
+      {
+        "id": "B26d",
+        "texte": "Les étrangers installés durablement devraient pouvoir voter aux élections municipales.",
+        "poids": {
+          "ALT": 0.7,
+          "ETA": 0.2
+        },
+        "mesures": [
+          "jean-luc-melenchon-40"
+        ]
+      }
+    ],
+    "auteurs": [
+      "schnapper",
+      "kymlicka-parekh",
+      "le-bras-heran"
+    ],
+    "explication": "La « préférence nationale » veut réserver des protections financées par la collectivité aux nationaux ; ses opposants invoquent l'égalité devant la loi et les cotisations versées par les étrangers en situation régulière. Le droit du sol traduit une conception élective de la nation ; sa suppression voudrait que la nationalité résulte d'un choix et d'une adhésion."
+  },
+  {
+    "id": "B27",
+    "titre": "Racisme et discriminations",
+    "theme": "discriminations",
+    "contexte": "À propos du racisme et des discriminations en France, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B27a",
+        "texte": "Les discriminations liées à l'origine restent un problème important en France.",
+        "poids": {
+          "ALT": 1
+        }
+      },
+      {
+        "id": "B27b",
+        "texte": "Le racisme en France est systémique : il imprègne les institutions, pas seulement des individus.",
+        "poids": {
+          "ALT": 0.8
+        }
+      },
+      {
+        "id": "B27c",
+        "texte": "On parle trop de racisme : la France est l'un des pays les moins racistes du monde.",
+        "poids": {
+          "ALT": -0.7
+        }
+      },
+      {
+        "id": "B27d",
+        "texte": "Il faudrait une politique de « remigration » organisant le retour d'une partie des immigrés dans leur pays d'origine.",
+        "poids": {
+          "ALT": -1
+        },
+        "mesures": [
+          "eric-zemmour-01",
+          "eric-zemmour-02"
+        ]
+      }
+    ],
+    "auteurs": [
+      "guillaumin",
+      "racisme-symbolique",
+      "beaud-noiriel"
+    ],
+    "explication": "Les enquêtes par testing montrent des écarts persistants d'accès à l'emploi et au logement selon l'origine supposée. La notion de « racisme systémique » (Colette Guillaumin, théorie critique de la race) insiste sur les mécanismes institutionnels ; Beaud et Noiriel mettent en garde, depuis la gauche, contre l'oubli de la classe sociale. La « remigration » est une proposition issue des courants identitaires, reprise dans le débat électoral."
+  },
+  {
+    "id": "B28",
+    "titre": "Contrôles de police dans un quartier",
+    "theme": "police-libertes",
+    "contexte": "Dans un quartier populaire, les policiers contrôlent souvent les mêmes jeunes. Que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B28a",
+        "texte": "Les contrôles au faciès existent : il faut remettre un récépissé à chaque personne contrôlée.",
+        "poids": {
+          "ALT": 0.6,
+          "SEC": 0.4
+        }
+      },
+      {
+        "id": "B28b",
+        "texte": "Les policiers contrôlent là où la délinquance est la plus forte : ce n'est pas du racisme.",
+        "poids": {
+          "ALT": -0.5,
+          "SEC": -0.4
+        }
+      },
+      {
+        "id": "B28c",
+        "texte": "L'« ensauvagement » de certains quartiers justifie une présence policière massive et permanente.",
+        "poids": {
+          "SEC": -0.7,
+          "ALT": -0.3
+        }
+      },
+      {
+        "id": "B28d",
+        "texte": "L'« islamophobie » est aujourd'hui une forme de racisme répandue en France.",
+        "poids": {
+          "ALT": 0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "foucault",
+      "elias",
+      "taguieff"
+    ],
+    "explication": "Des études et le Défenseur des droits documentent une probabilité de contrôle plus forte selon l'apparence ; les syndicats de police y voient le reflet de la géographie de la délinquance. Le mot « ensauvagement », employé par les partisans de la fermeté, et le mot « islamophobie », employé par une partie de la gauche et contesté par d'autres (Taguieff) au motif qu'il confondrait critique d'une religion et racisme, sont des marqueurs forts du débat."
+  },
+  {
+    "id": "B29",
+    "titre": "L'Union européenne telle qu'elle est",
+    "theme": "ue",
+    "contexte": "Pensez à l'Union européenne telle qu'elle fonctionne aujourd'hui, avec ses dirigeants et ses politiques actuelles.",
+    "affirmations": [
+      {
+        "id": "B29a",
+        "texte": "La politique économique menée actuellement par l'Union européenne me convient globalement.",
+        "poids": {
+          "UE": 0.6,
+          "ECO": -0.3
+        }
+      },
+      {
+        "id": "B29b",
+        "texte": "L'Union actuelle est trop libérale, mais il faut la transformer de l'intérieur plutôt que la quitter.",
+        "poids": {
+          "UE": 0.3,
+          "ECO": 0.5
+        }
+      },
+      {
+        "id": "B29c",
+        "texte": "L'Union européenne est irréformable : la France devrait en sortir.",
+        "poids": {
+          "UE": -1
+        },
+        "mesures": [
+          "nicolas-dupont-aignan-01",
+          "francois-asselineau-01",
+          "florian-philippot-01"
+        ]
+      },
+      {
+        "id": "B29d",
+        "texte": "Le droit français devrait primer sur le droit européen, même contre les traités.",
+        "poids": {
+          "UE": -0.8,
+          "ETA": -0.4
+        },
+        "mesures": [
+          "marine-le-pen-27"
+        ]
+      }
+    ],
+    "auteurs": [
+      "delors",
+      "majone-streeck",
+      "seguin"
+    ],
+    "explication": "Ce bloc porte sur l'Union actuelle, le suivant sur l'Europe que vous souhaiteriez : on peut soutenir l'idée européenne tout en rejetant la politique menée aujourd'hui. Wolfgang Streeck juge l'Union structurellement libérale ; Jacques Delors voulait une Europe sociale ; Philippe Séguin voyait dans les traités une dépossession de la souveraineté démocratique."
+  },
+  {
+    "id": "B30",
+    "titre": "L'Europe que vous souhaiteriez",
+    "theme": "ue",
+    "contexte": "Imaginez maintenant une Union européenne dont les orientations politiques vous conviendraient.",
+    "affirmations": [
+      {
+        "id": "B30a",
+        "texte": "Dans ce cas, je souhaiterais une Europe fédérale, avec un gouvernement et un budget communs.",
+        "poids": {
+          "UE": 0.9
+        },
+        "mesures": [
+          "raphael-glucksmann-01",
+          "marine-tondelier-16"
+        ]
+      },
+      {
+        "id": "B30b",
+        "texte": "Même dans ce cas, je préférerais une Europe des nations où chaque pays garde le dernier mot.",
+        "poids": {
+          "UE": -0.7
+        },
+        "mesures": [
+          "marine-le-pen-30"
+        ]
+      },
+      {
+        "id": "B30c",
+        "texte": "L'Europe devrait se doter d'une défense commune, y compris d'une dissuasion nucléaire partagée.",
+        "poids": {
+          "UE": 0.6,
+          "GMO": -0.4
+        },
+        "mesures": [
+          "raphael-glucksmann-02",
+          "fabien-roussel-14"
+        ]
+      },
+      {
+        "id": "B30d",
+        "texte": "L'Union devrait emprunter en commun pour financer la transition écologique et l'industrie.",
+        "poids": {
+          "UE": 0.7,
+          "ECO": 0.2
+        },
+        "mesures": [
+          "raphael-glucksmann-01"
+        ]
+      }
+    ],
+    "auteurs": [
+      "spinelli",
+      "de-gaulle",
+      "habermas"
+    ],
+    "explication": "Altiero Spinelli et Jürgen Habermas défendent une démocratie européenne post-nationale ; De Gaulle une « Europe des nations » qui coopèrent sans abandon de souveraineté. L'écart entre vos réponses aux deux blocs indique si votre position tient à l'Europe elle-même ou à la politique qu'elle mène aujourd'hui."
+  },
+  {
+    "id": "B31",
+    "titre": "Guerre en Ukraine",
+    "theme": "otan-ukraine",
+    "contexte": "À propos de la guerre en Ukraine, que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B31a",
+        "texte": "La France devrait augmenter fortement son aide militaire à l'Ukraine.",
+        "poids": {
+          "GMO": -0.8,
+          "GMO.intervention": -0.6
+        },
+        "mesures": [
+          "raphael-glucksmann-03",
+          "gabriel-attal-22"
+        ]
+      },
+      {
+        "id": "B31b",
+        "texte": "La paix passe par une négociation, même si elle implique des concessions territoriales.",
+        "poids": {
+          "GMO": 0.7,
+          "GMO.intervention": 0.5
+        },
+        "mesures": [
+          "dominique-de-villepin-07"
+        ]
+      },
+      {
+        "id": "B31c",
+        "texte": "La France devrait être prête à envoyer des troupes pour garantir un accord de paix.",
+        "poids": {
+          "GMO": -0.7,
+          "UE": 0.2
+        }
+      },
+      {
+        "id": "B31d",
+        "texte": "Cette guerre ne concerne pas la France : elle devrait rester neutre.",
+        "poids": {
+          "GMO": 0.8
+        }
+      }
+    ],
+    "auteurs": [
+      "kagan",
+      "realistes-morgenthau-waltz-mearsheimer",
+      "walzer"
+    ],
+    "explication": "Pour Robert Kagan et les partisans d'un soutien accru, laisser une agression réussir menacerait toute l'Europe. Les réalistes (Mearsheimer) craignent l'escalade avec une puissance nucléaire et plaident pour un compromis ; Michael Walzer pose la question d'une paix juste, qui ne récompense pas l'agresseur."
+  },
+  {
+    "id": "B32",
+    "titre": "Alliances et interventions",
+    "theme": "otan-ukraine",
+    "contexte": "À propos de la place de la France dans le monde, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B32a",
+        "texte": "La France devrait quitter l'OTAN.",
+        "poids": {
+          "GMO": 0.6,
+          "GMO.multilateralisme": 0.8
+        },
+        "mesures": [
+          "jean-luc-melenchon-49",
+          "francois-asselineau-01",
+          "marine-le-pen-32"
+        ]
+      },
+      {
+        "id": "B32b",
+        "texte": "La France doit être prête à intervenir militairement pour empêcher des crimes de masse à l'étranger.",
+        "poids": {
+          "GMO": -0.9,
+          "GMO.intervention": -0.8
+        }
+      },
+      {
+        "id": "B32c",
+        "texte": "La France devrait être non alignée, à égale distance des États-Unis, de la Chine et de la Russie.",
+        "poids": {
+          "GMO": 0.6,
+          "GMO.multilateralisme": 0.6
+        },
+        "mesures": [
+          "jean-luc-melenchon-50"
+        ]
+      },
+      {
+        "id": "B32d",
+        "texte": "Les interventions militaires occidentales relèvent souvent d'un impérialisme déguisé.",
+        "poids": {
+          "GMO": 0.7,
+          "ECO": 0.2
+        }
+      }
+    ],
+    "auteurs": [
+      "droit-ingerence-r2p",
+      "vedrine",
+      "wallerstein-chomsky"
+    ],
+    "explication": "La « responsabilité de protéger » veut que la souveraineté cède devant les crimes de masse ; Hubert Védrine se méfie d'un interventionnisme moralisateur. Noam Chomsky et la gauche anti-impérialiste voient dans beaucoup d'interventions la défense d'intérêts de puissance ; la tradition gaulliste défend une France indépendante des blocs."
+  },
+  {
+    "id": "B33",
+    "titre": "Si le gouvernement était du camp opposé",
+    "theme": "democratie",
+    "contexte": "Imaginez que le prochain gouvernement soit issu du camp politique le plus éloigné du vôtre.",
+    "affirmations": [
+      {
+        "id": "B33a",
+        "texte": "Les juges devraient pouvoir censurer ses lois contraires à la Constitution.",
+        "poids": {
+          "GOV": 0.7
+        }
+      },
+      {
+        "id": "B33b",
+        "texte": "La presse et l'opposition devraient pouvoir le critiquer en toute liberté.",
+        "poids": {
+          "GOV": 0.7
+        }
+      },
+      {
+        "id": "B33c",
+        "texte": "S'il a été élu, il doit pouvoir appliquer son programme sans que juges ou experts l'en empêchent.",
+        "poids": {
+          "GOV": -0.7
+        }
+      },
+      {
+        "id": "B33d",
+        "texte": "Des blocages, des grèves massives ou la désobéissance civile seraient légitimes pour lui résister.",
+        "poids": {
+          "CHG": 0.6
+        }
+      }
+    ],
+    "auteurs": [
+      "montesquieu",
+      "linz-levitsky-ziblatt",
+      "rousseau"
+    ],
+    "explication": "Ce bloc et le suivant posent les mêmes questions dans deux contextes opposés. Il est humain de vouloir plus de contre-pouvoirs face à un adversaire ; Montesquieu, Levitsky et Ziblatt rappellent que des règles ne protègent que si elles s'appliquent à tous les camps. Rousseau fonde au contraire la légitimité sur la volonté générale du peuple souverain."
+  },
+  {
+    "id": "B34",
+    "titre": "Si le gouvernement était de votre camp",
+    "theme": "democratie",
+    "contexte": "Imaginez maintenant que le prochain gouvernement soit issu de votre camp politique.",
+    "affirmations": [
+      {
+        "id": "B34a",
+        "texte": "Les juges devraient pouvoir censurer ses lois contraires à la Constitution.",
+        "poids": {
+          "GOV": 0.7
+        },
+        "paire": "B33a"
+      },
+      {
+        "id": "B34b",
+        "texte": "Il devrait pouvoir gouverner par ordonnances ou par référendum pour aller vite, même contre l'avis du Conseil constitutionnel.",
+        "poids": {
+          "GOV": -0.8
+        },
+        "mesures": [
+          "marine-le-pen-11",
+          "edouard-philippe-01"
+        ]
+      },
+      {
+        "id": "B34c",
+        "texte": "En cas de crise grave, il devrait pouvoir suspendre certaines libertés publiques sans contrôle du juge.",
+        "poids": {
+          "GOV": -0.8,
+          "SEC": -0.3
+        }
+      },
+      {
+        "id": "B34d",
+        "texte": "Les contre-pouvoirs (juges, presse, associations) sont indispensables, même quand ils freinent mon camp.",
+        "poids": {
+          "GOV": 0.8,
+          "POP": 0.3
+        }
+      }
+    ],
+    "auteurs": [
+      "dahl",
+      "schmitt",
+      "arendt"
+    ],
+    "explication": "Robert Dahl fait des contre-pouvoirs une condition de la démocratie ; Carl Schmitt définit le souverain comme celui qui décide de l'exception. Hannah Arendt rappelle qu'un pouvoir sans limites détruit l'espace public qui permettait de le contester. L'écart entre vos réponses aux deux blocs mesure si votre attachement aux contre-pouvoirs dépend du camp au pouvoir."
+  },
+  {
+    "id": "B35",
+    "titre": "Le peuple et les élites",
+    "theme": "populisme",
+    "contexte": "À propos du pouvoir et de la représentation, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B35a",
+        "texte": "Les responsables politiques sont déconnectés des préoccupations des gens ordinaires.",
+        "poids": {
+          "POP": -0.7
+        }
+      },
+      {
+        "id": "B35b",
+        "texte": "Le peuple, et non les responsables politiques, devrait prendre les décisions les plus importantes.",
+        "poids": {
+          "POP": -0.7
+        }
+      },
+      {
+        "id": "B35c",
+        "texte": "En démocratie, il est important de faire des compromis entre des points de vue différents.",
+        "poids": {
+          "POP": 0.8
+        }
+      },
+      {
+        "id": "B35d",
+        "texte": "Une oligarchie de grandes fortunes et de dirigeants confisque le pouvoir au peuple.",
+        "poids": {
+          "POP": -0.6,
+          "ECO": 0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "mudde-muller",
+      "laclau-mouffe",
+      "lasch"
+    ],
+    "explication": "Ces énoncés reprennent les échelles de populisme de Cas Mudde et d'Agnes Akkerman. Laclau et Mouffe veulent construire un « peuple » contre l'« oligarchie » ; Christopher Lasch décrit la sécession des élites. Jan-Werner Müller objecte que parler au nom du peuple tout entier nie la légitimité des désaccords."
+  },
+  {
+    "id": "B36",
+    "titre": "Adversaires et information",
+    "theme": "populisme",
+    "contexte": "À propos du débat démocratique et de l'information, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B36a",
+        "texte": "Ceux qui ne partagent pas mes opinions politiques ont souvent de bonnes raisons de penser ce qu'ils pensent.",
+        "poids": {
+          "POP": 0.8
+        }
+      },
+      {
+        "id": "B36b",
+        "texte": "Certains partis devraient être interdits parce qu'ils menacent la démocratie.",
+        "poids": {
+          "POP": -0.5,
+          "GOV": -0.2
+        }
+      },
+      {
+        "id": "B36c",
+        "texte": "Les grands médias défendent les intérêts des puissants plutôt que ceux du public.",
+        "poids": {
+          "POP": -0.6
+        }
+      },
+      {
+        "id": "B36d",
+        "texte": "Les scientifiques et les experts devraient peser davantage dans les décisions publiques.",
+        "poids": {
+          "POP": 0.5
+        }
+      }
+    ],
+    "auteurs": [
+      "haidt",
+      "wallerstein-chomsky",
+      "lefort"
+    ],
+    "explication": "Jonathan Haidt montre que les convictions reposent sur des intuitions morales différentes, toutes compréhensibles. Noam Chomsky analyse la « fabrication du consentement » par les médias ; la défense d'une « démocratie militante » qui interdit certains partis divise même les libéraux. Claude Lefort rappelle qu'en démocratie, nul ne peut prétendre incarner seul le peuple."
+  },
+  {
+    "id": "B37",
+    "titre": "Un cambriolage de trop",
+    "theme": "justice",
+    "contexte": "Un multirécidiviste commet un nouveau cambriolage. Que pensez-vous de ces réponses ?",
+    "affirmations": [
+      {
+        "id": "B37a",
+        "texte": "Il faut des peines minimales automatiques pour les récidivistes.",
+        "poids": {
+          "SEC": -0.8
+        },
+        "mesures": [
+          "marine-le-pen-26",
+          "bruno-retailleau-25",
+          "edouard-philippe-18"
+        ]
+      },
+      {
+        "id": "B37b",
+        "texte": "Le juge doit pouvoir adapter chaque peine à la personne et à la situation.",
+        "poids": {
+          "SEC": 0.8
+        }
+      },
+      {
+        "id": "B37c",
+        "texte": "La prison fabrique de la récidive : il faut développer d'autres sanctions.",
+        "poids": {
+          "SEC": 0.7
+        }
+      },
+      {
+        "id": "B37d",
+        "texte": "Il faut construire beaucoup plus de places de prison pour que toutes les peines soient exécutées.",
+        "poids": {
+          "SEC": -0.7
+        },
+        "mesures": [
+          "marine-le-pen-22",
+          "nicolas-dupont-aignan-08"
+        ]
+      }
+    ],
+    "auteurs": [
+      "hobbes",
+      "foucault",
+      "hill-collins-hooks-davis"
+    ],
+    "explication": "La tradition sécuritaire, depuis Hobbes, fait de la protection des personnes la première mission de l'État. Michel Foucault et Angela Davis, figure de l'abolitionnisme carcéral, critiquent la prison comme institution ; entre les deux, l'individualisation des peines est un principe constitutionnel que les peines planchers limitent."
+  },
+  {
+    "id": "B38",
+    "titre": "Police, libertés et technologies",
+    "theme": "ia-numerique",
+    "contexte": "À propos des moyens de la sécurité publique, que pensez-vous de ces mesures ?",
+    "affirmations": [
+      {
+        "id": "B38a",
+        "texte": "La reconnaissance faciale automatisée dans l'espace public devrait être interdite.",
+        "poids": {
+          "SEC": 0.8,
+          "GOV": 0.2
+        },
+        "mesures": [
+          "jean-luc-melenchon-33",
+          "bruno-retailleau-27"
+        ]
+      },
+      {
+        "id": "B38b",
+        "texte": "Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers.",
+        "poids": {
+          "SEC": -0.8,
+          "GOV": -0.3
+        },
+        "mesures": [
+          "bruno-retailleau-28",
+          "edouard-philippe-23"
+        ]
+      },
+      {
+        "id": "B38c",
+        "texte": "Les violences policières sont un problème structurel qui exige une autorité de contrôle indépendante.",
+        "poids": {
+          "SEC": 0.7
+        },
+        "mesures": [
+          "jean-luc-melenchon-31"
+        ]
+      },
+      {
+        "id": "B38d",
+        "texte": "Les forces de l'ordre devraient bénéficier d'une présomption de légitime défense.",
+        "poids": {
+          "SEC": -0.8
+        },
+        "mesures": [
+          "marine-le-pen-23"
+        ]
+      }
+    ],
+    "auteurs": [
+      "zuboff-morozov",
+      "hobbes",
+      "elias"
+    ],
+    "explication": "Shoshana Zuboff met en garde contre une surveillance numérique généralisée ; les partisans de la reconnaissance faciale y voient un outil contre le terrorisme et la criminalité. Norbert Elias décrit le monopole étatique de la violence comme une pacification ; la question est de savoir qui contrôle ceux qui l'exercent."
+  },
+  {
+    "id": "B39",
+    "titre": "Institutions",
+    "theme": "referendum-conseil-constitutionnel",
+    "contexte": "À propos des institutions de la République, que pensez-vous de ces réformes ?",
+    "affirmations": [
+      {
+        "id": "B39a",
+        "texte": "Les citoyens devraient pouvoir déclencher un référendum par pétition (référendum d'initiative citoyenne).",
+        "poids": {
+          "INS": 0.8,
+          "POP": -0.3
+        },
+        "mesures": [
+          "jean-luc-melenchon-44",
+          "nicolas-dupont-aignan-05",
+          "marine-le-pen-36",
+          "clara-egger-01"
+        ]
+      },
+      {
+        "id": "B39b",
+        "texte": "Les députés devraient être élus à la proportionnelle.",
+        "poids": {
+          "INS": 0.7
+        },
+        "mesures": [
+          "jean-luc-melenchon-43",
+          "marine-le-pen-36"
+        ]
+      },
+      {
+        "id": "B39c",
+        "texte": "Le président de la République doit garder un rôle central : c'est la force de la Ve République.",
+        "poids": {
+          "INS": -0.8,
+          "CHG": -0.3
+        }
+      },
+      {
+        "id": "B39d",
+        "texte": "Il faut une VIe République, rédigée par une Assemblée constituante élue.",
+        "poids": {
+          "INS": 0.7
+        },
+        "mesures": [
+          "jean-luc-melenchon-41"
+        ]
+      }
+    ],
+    "auteurs": [
+      "de-gaulle",
+      "rousseau",
+      "castoriadis"
+    ],
+    "explication": "De Gaulle a voulu un exécutif fort pour mettre fin à l'instabilité de la IVe République. Rousseau et Castoriadis défendent une souveraineté exercée directement par les citoyens ; la proportionnelle représente mieux la diversité des opinions mais oblige aux coalitions."
+  },
+  {
+    "id": "B40",
+    "titre": "Qui décide ?",
+    "theme": "democratie",
+    "contexte": "Pour les grandes décisions publiques, que pensez-vous de ces méthodes ?",
+    "affirmations": [
+      {
+        "id": "B40a",
+        "texte": "Des citoyens tirés au sort devraient participer aux grandes décisions, comme dans les conventions citoyennes.",
+        "poids": {
+          "INS": 0.8
+        }
+      },
+      {
+        "id": "B40b",
+        "texte": "Les grandes décisions doivent rester aux élus, qui en répondent devant les électeurs.",
+        "poids": {
+          "INS": -0.8,
+          "CHG": -0.3
+        }
+      },
+      {
+        "id": "B40c",
+        "texte": "Pour réformer vite, le gouvernement devrait pouvoir légiférer davantage par ordonnances.",
+        "poids": {
+          "INS": -0.7,
+          "GOV": -0.3
+        },
+        "mesures": [
+          "edouard-philippe-01"
+        ]
+      },
+      {
+        "id": "B40d",
+        "texte": "Le vote devrait être obligatoire et le vote blanc reconnu comme un suffrage exprimé.",
+        "poids": {
+          "INS": 0.4
+        },
+        "mesures": [
+          "jean-luc-melenchon-46"
+        ]
+      }
+    ],
+    "auteurs": [
+      "manin-sintomer",
+      "schumpeter",
+      "rosanvallon"
+    ],
+    "explication": "Bernard Manin et Yves Sintomer rappellent que le tirage au sort était la procédure démocratique par excellence à Athènes. Joseph Schumpeter défend une démocratie de compétition entre élites responsables devant les électeurs ; Pierre Rosanvallon analyse les formes de contrôle citoyen entre les élections."
+  },
+  {
+    "id": "B41",
+    "titre": "Territoires",
+    "theme": "decentralisation",
+    "contexte": "À propos de l'organisation du territoire, que pensez-vous de ces orientations ?",
+    "affirmations": [
+      {
+        "id": "B41a",
+        "texte": "Les régions devraient pouvoir adapter certaines lois nationales à leur territoire.",
+        "poids": {
+          "TER": 0.8
+        },
+        "mesures": [
+          "david-lisnard-03"
+        ]
+      },
+      {
+        "id": "B41b",
+        "texte": "Les règles et les services publics doivent être les mêmes partout en France, décidés par l'État.",
+        "poids": {
+          "TER": -0.8,
+          "ECO": 0.2
+        }
+      },
+      {
+        "id": "B41c",
+        "texte": "Les communes devraient pouvoir s'administrer largement elles-mêmes et se fédérer librement entre elles.",
+        "poids": {
+          "TER": 0.8
+        }
+      },
+      {
+        "id": "B41d",
+        "texte": "La décentralisation a surtout créé des inégalités entre territoires.",
+        "poids": {
+          "TER": -0.7
+        }
+      }
+    ],
+    "auteurs": [
+      "tocqueville",
+      "chevenement",
+      "bookchin"
+    ],
+    "explication": "La tradition girondine, de Tocqueville à Rocard, défend la décision au plus près des habitants ; Murray Bookchin pousse cette logique jusqu'à des communes fédérées. La tradition jacobine (Chevènement) voit dans l'État central le garant de l'égalité entre territoires."
+  },
+  {
+    "id": "B42",
+    "titre": "Comment changer la société ?",
+    "theme": "changement",
+    "contexte": "Pour faire avancer une cause à laquelle on tient, quelles méthodes vous semblent légitimes ?",
+    "affirmations": [
+      {
+        "id": "B42a",
+        "texte": "Seules les élections et les réformes votées au Parlement sont des voies légitimes de changement.",
+        "poids": {
+          "CHG": -0.8,
+          "GOV": 0.3
+        }
+      },
+      {
+        "id": "B42b",
+        "texte": "Une révolution, y compris hors du cadre légal, peut être nécessaire pour renverser un ordre injuste.",
+        "poids": {
+          "CHG": 0.9
+        }
+      },
+      {
+        "id": "B42c",
+        "texte": "La désobéissance civile non violente (blocages, occupations) est légitime pour des causes comme le climat.",
+        "poids": {
+          "CHG": 0.6
+        }
+      },
+      {
+        "id": "B42d",
+        "texte": "Le sabotage d'installations polluantes peut être légitime face à l'urgence climatique.",
+        "poids": {
+          "CHG": 0.8
+        }
+      }
+    ],
+    "auteurs": [
+      "bernstein",
+      "luxemburg",
+      "malm-saito"
+    ],
+    "explication": "Eduard Bernstein a fondé la social-démocratie sur la réforme graduelle ; Rosa Luxemburg lui répondait que seule une rupture transformerait la société. La désobéissance civile, de Thoreau à Martin Luther King, accepte la sanction pour faire reconnaître une injustice ; Andreas Malm légitime le sabotage d'infrastructures fossiles, ce que d'autres écologistes refusent."
+  },
+  {
+    "id": "B43",
+    "titre": "Le capitalisme",
+    "theme": "systeme-economique",
+    "contexte": "À propos du capitalisme, que pensez-vous de ces affirmations ?",
+    "affirmations": [
+      {
+        "id": "B43a",
+        "texte": "Le capitalisme doit être aboli et remplacé par la propriété collective des moyens de production.",
+        "poids": {
+          "ECO": 0.9,
+          "CHG": 0.4
+        },
+        "mesures": [
+          "nathalie-arthaud-01"
+        ]
+      },
+      {
+        "id": "B43b",
+        "texte": "Le capitalisme peut être transformé par des lois sociales et écologiques ambitieuses.",
+        "poids": {
+          "CHG": -0.6,
+          "ECO": 0.2
+        }
+      },
+      {
+        "id": "B43c",
+        "texte": "L'économie de marché est le meilleur système connu : il faut surtout la laisser fonctionner.",
+        "poids": {
+          "ECO": -0.9,
+          "CHG": -0.3
+        }
+      },
+      {
+        "id": "B43d",
+        "texte": "L'État lui-même est le problème : il faudrait le remplacer par des communautés libres et autogérées.",
+        "poids": {
+          "TER": 0.6,
+          "CHG": 0.5
+        }
+      }
+    ],
+    "auteurs": [
+      "marx-engels",
+      "bernstein",
+      "bakounine"
+    ],
+    "explication": "Marx et Engels veulent le dépassement du capitalisme par l'appropriation collective ; la social-démocratie (Bernstein, Blum) veut le réformer ; les libéraux (Hayek, Friedman) y voient le système le plus efficace et le plus compatible avec la liberté. Bakounine et les anarchistes récusent l'État comme le capital, au profit de communautés fédérées."
+  },
+  {
+    "id": "B44",
+    "titre": "Changer de régime ?",
+    "theme": "changement",
+    "contexte": "Certains pensent que le pays a besoin d'un changement profond. Que pensez-vous de ces positions ?",
+    "affirmations": [
+      {
+        "id": "B44a",
+        "texte": "Seul un pouvoir autoritaire pourrait redresser le pays, comme à certaines périodes de l'histoire.",
+        "poids": {
+          "GOV": -0.9
+        }
+      },
+      {
+        "id": "B44b",
+        "texte": "Il faut changer les choses progressivement, en préservant ce qui fonctionne.",
+        "poids": {
+          "CHG": -0.8,
+          "CUL": -0.2
+        }
+      },
+      {
+        "id": "B44c",
+        "texte": "La nation a besoin d'un chef qui l'incarne, au-dessus des partis et des intérêts de classe.",
+        "poids": {
+          "GOV": -0.8
+        }
+      },
+      {
+        "id": "B44d",
+        "texte": "Le peuple devrait gouverner directement par des assemblées locales et des délégués révocables.",
+        "poids": {
+          "CHG": 0.6,
+          "INS": 0.4
+        }
+      }
+    ],
+    "auteurs": [
+      "burke",
+      "arendt",
+      "castoriadis"
+    ],
+    "explication": "Burke et Oakeshott défendent la réforme prudente. L'appel à un chef qui incarne la nation au-dessus des partis et des classes est au cœur des doctrines fascistes et, plus largement, national-autoritaires, dont Hannah Arendt a analysé les ressorts. La démocratie des conseils et des mandats révocables, défendue par Castoriadis, se réclame de la Commune de Paris."
+  }
+]

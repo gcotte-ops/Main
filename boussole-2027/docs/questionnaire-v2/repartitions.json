@@ -1,0 +1,143 @@
+[
+  {
+    "id": "A01", "theme": "priorites",
+    "question": "Répartissez 10 points entre ces priorités pour le prochain quinquennat.",
+    "options": [
+      { "texte": "Climat et biodiversité", "poids": { "ENV": 0.5 } },
+      { "texte": "Pouvoir d'achat", "poids": { "ECO": 0.3 } },
+      { "texte": "Sécurité", "poids": { "SEC": -0.4 } },
+      { "texte": "Réduction de la dette", "poids": { "ECO": -0.4 } },
+      { "texte": "Maîtrise de l'immigration", "poids": { "ALT": -0.4 } },
+      { "texte": "Santé et hôpital", "poids": { "ECO": 0.2 } }
+    ],
+    "auteurs": ["inglehart"],
+    "explication": "Cette répartition mesure l'importance que vous accordez aux enjeux : elle pondère la comparaison avec les candidat·es. Ronald Inglehart distingue priorités « matérialistes » (sécurité, revenu) et « postmatérialistes » (environnement, expression de soi)."
+  },
+  {
+    "id": "A02", "theme": "dette",
+    "question": "Si l'État disposait de 10 milliards d'euros de plus chaque année, comment les répartiriez-vous ?",
+    "options": [
+      { "texte": "Baisser les impôts et les cotisations", "poids": { "ECO": -0.5 } },
+      { "texte": "Réduire la dette publique", "poids": { "ECO": -0.4 } },
+      { "texte": "Renforcer les services publics (école, hôpital)", "poids": { "ECO": 0.5 } },
+      { "texte": "Augmenter les aides sociales et les minima", "poids": { "ECO": 0.5 } },
+      { "texte": "Investir dans la transition écologique", "poids": { "ENV": 0.4 } },
+      { "texte": "Renforcer la défense", "poids": { "GMO": -0.3 } }
+    ],
+    "auteurs": ["buchanan", "keynes"],
+    "explication": "Pour Buchanan, la dette reporte sur les générations futures le coût des dépenses présentes ; pour Keynes, la dépense publique utile soutient l'activité."
+  },
+  {
+    "id": "A03", "theme": "defense",
+    "question": "Répartissez 10 points entre ces priorités de politique étrangère.",
+    "options": [
+      { "texte": "Soutenir l'Ukraine et les alliés européens", "poids": { "GMO": -0.5, "UE": 0.2 } },
+      { "texte": "Construire une défense européenne", "poids": { "UE": 0.4, "GMO": -0.2 } },
+      { "texte": "Aide au développement et coopération", "poids": { "ETA": 0.4 } },
+      { "texte": "Diplomatie et non-alignement", "poids": { "GMO": 0.5 } },
+      { "texte": "Protection des frontières nationales", "poids": { "ALT": -0.3, "ETA": -0.3 } }
+    ],
+    "auteurs": ["aron", "vedrine"],
+    "explication": "Raymond Aron distinguait puissance, sécurité et prestige comme objectifs des États ; ces priorités traduisent des conceptions différentes de l'intérêt national."
+  },
+  {
+    "id": "A04", "theme": "ue",
+    "question": "Répartissez 10 points entre les domaines où l'Union européenne devrait agir davantage, ou pas du tout.",
+    "options": [
+      { "texte": "Aucun : rendre des compétences aux États", "poids": { "UE": -0.6 } },
+      { "texte": "Défense commune", "poids": { "UE": 0.5 } },
+      { "texte": "Climat et énergie", "poids": { "UE": 0.3, "ENV": 0.3 } },
+      { "texte": "Protection sociale et salaires minimums", "poids": { "UE": 0.3, "ECO": 0.3 } },
+      { "texte": "Contrôle des frontières extérieures", "poids": { "UE": 0.2, "ALT": -0.3 } },
+      { "texte": "Protection de l'industrie face à la concurrence mondiale", "poids": { "UE": 0.2, "ETA": -0.2 } }
+    ],
+    "auteurs": ["delors", "majone-streeck"],
+    "explication": "Jacques Delors voulait une Europe qui protège autant qu'elle ouvre ; Wolfgang Streeck juge qu'elle soustrait l'économie aux choix démocratiques."
+  },
+  {
+    "id": "A05", "theme": "decentralisation",
+    "question": "Pour les politiques du quotidien (écoles, transports, logement), répartissez 10 points selon le niveau qui devrait décider.",
+    "options": [
+      { "texte": "La commune ou l'intercommunalité", "poids": { "TER": 0.5 } },
+      { "texte": "Le département", "poids": { "TER": 0.2 } },
+      { "texte": "La région", "poids": { "TER": 0.4 } },
+      { "texte": "L'État", "poids": { "TER": -0.6 } },
+      { "texte": "L'Union européenne", "poids": { "UE": 0.4, "TER": -0.2 } }
+    ],
+    "auteurs": ["tocqueville", "rousseau"],
+    "explication": "Tocqueville voyait dans la commune « l'école primaire de la liberté » ; la tradition jacobine fait de l'État le garant de l'égalité."
+  },
+  {
+    "id": "A06", "theme": "services-publics",
+    "question": "Votre commune dispose d'un budget supplémentaire. Répartissez 10 points entre ces usages.",
+    "options": [
+      { "texte": "Police municipale et vidéoprotection", "poids": { "SEC": -0.5 } },
+      { "texte": "Écoles, crèches et cantines", "poids": { "ECO": 0.3 } },
+      { "texte": "Transports en commun et pistes cyclables", "poids": { "ENV": 0.5 } },
+      { "texte": "Associations et centres sociaux", "poids": { "ECO": 0.3, "IDE": 0.2 } },
+      { "texte": "Baisse des impôts locaux", "poids": { "ECO": -0.5 } },
+      { "texte": "Patrimoine, églises et fêtes traditionnelles", "poids": { "CUL": -0.3, "IDE": 0.3 } }
+    ],
+    "auteurs": ["bookchin", "putnam"],
+    "explication": "À l'échelle locale, les arbitrages révèlent des priorités concrètes : sécurité, services, écologie, lien social ou patrimoine. Robert Putnam souligne le rôle du tissu associatif dans la confiance ; Murray Bookchin fait de la commune le lieu premier de la démocratie."
+  },
+  {
+    "id": "A07", "theme": "ecole",
+    "question": "Qu'est-ce que l'école devrait transmettre en priorité ? Répartissez 10 points.",
+    "options": [
+      { "texte": "Les savoirs fondamentaux (lire, écrire, compter)", "poids": { "CUL": -0.2 } },
+      { "texte": "L'esprit critique et la citoyenneté", "poids": { "CUL": 0.3 } },
+      { "texte": "L'histoire et la culture nationales", "poids": { "ETA": -0.4 } },
+      { "texte": "L'égalité des chances entre milieux sociaux", "poids": { "ECO": 0.4 } },
+      { "texte": "Des métiers et l'apprentissage", "poids": { "ECO": -0.2 } },
+      { "texte": "L'écologie et le respect du vivant", "poids": { "ENV": 0.4 } },
+      { "texte": "La discipline et le respect de l'autorité", "poids": { "SEC": -0.3, "CUL": -0.3 } }
+    ],
+    "auteurs": ["condorcet", "bourdieu", "finkielkraut"],
+    "explication": "Condorcet voulait une instruction qui émancipe ; Bourdieu montre que l'école reproduit les inégalités ; Finkielkraut défend la transmission contre le relativisme."
+  },
+  {
+    "id": "A08", "theme": "climat",
+    "question": "Qui devrait payer en priorité la transition écologique ? Répartissez 10 points.",
+    "options": [
+      { "texte": "Les plus riches et les grandes entreprises", "poids": { "ECO": 0.5 } },
+      { "texte": "Tout le monde, par une taxe carbone redistribuée", "poids": { "ENV": 0.4, "ECO": -0.2 } },
+      { "texte": "L'État, par l'emprunt", "poids": { "ECO": 0.3 } },
+      { "texte": "Les pays qui polluent le plus (Chine, États-Unis…)", "poids": { "ETA": -0.3 } },
+      { "texte": "Les consommateurs, selon ce qu'ils achètent", "poids": { "ECO": -0.4 } },
+      { "texte": "Personne : il faut ralentir la transition", "poids": { "ENV": -0.6 } }
+    ],
+    "auteurs": ["zucman", "lomborg"],
+    "explication": "Le partage de l'effort écologique est au cœur des tensions sociales, du mouvement des gilets jaunes aux débats sur la taxation des plus riches."
+  },
+  {
+    "id": "A09", "theme": "priorites",
+    "question": "Quels combats vous semblent les plus importants aujourd'hui ? Répartissez 10 points.",
+    "options": [
+      { "texte": "Contre les inégalités sociales", "poids": { "ECO": 0.5 } },
+      { "texte": "Contre le racisme et les discriminations", "poids": { "ALT": 0.5 } },
+      { "texte": "Pour l'égalité entre les femmes et les hommes", "poids": { "CUL": 0.3 } },
+      { "texte": "Pour la défense de l'identité et des traditions", "poids": { "CUL": -0.4, "ALT": -0.3 } },
+      { "texte": "Contre l'insécurité", "poids": { "SEC": -0.5 } },
+      { "texte": "Pour le climat", "poids": { "ENV": 0.5 } },
+      { "texte": "Pour la liberté d'expression", "poids": { "GOV": 0.3 } }
+    ],
+    "auteurs": ["fraser", "inglehart"],
+    "explication": "Nancy Fraser distingue les luttes pour la redistribution et pour la reconnaissance ; cette répartition indique lesquelles comptent le plus pour vous."
+  },
+  {
+    "id": "A10", "theme": "dette",
+    "question": "L'État doit économiser 10 milliards d'euros. Où prendriez-vous l'argent ? Répartissez 10 points.",
+    "options": [
+      { "texte": "Défense", "poids": { "GMO": 0.4 } },
+      { "texte": "Aides aux entreprises", "poids": { "ECO": 0.5 } },
+      { "texte": "Prestations sociales", "poids": { "ECO": -0.5 } },
+      { "texte": "Fonctionnement de l'État et nombre de fonctionnaires", "poids": { "ECO": -0.5 } },
+      { "texte": "Contribution à l'Union européenne et aide au développement", "poids": { "UE": -0.4, "ETA": -0.4 } },
+      { "texte": "Aide médicale et aides aux étrangers", "poids": { "ALT": -0.6 } },
+      { "texte": "Subventions aux énergies renouvelables", "poids": { "ENV": -0.5 } }
+    ],
+    "auteurs": ["buchanan", "mazzucato"],
+    "explication": "Choisir où économiser révèle les dépenses que l'on juge les moins légitimes. Mariana Mazzucato souligne le rôle de l'investissement public dans l'innovation ; les partisans de la baisse des dépenses visent d'abord le fonctionnement de l'État ou les transferts."
+  }
+]
