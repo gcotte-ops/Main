@@ -1,4 +1,7 @@
-import type { Answers, AxisId, Question } from '../domain/schemas';
+import type { Answers, Archetype, AxisId, Candidate, Question } from '../domain/schemas';
+import { PRIMARY_AXES } from '../domain/schemas';
+import { rankArchetypes, rankCandidates } from './matching';
+import type { Scores } from './scoring';
 import { gaussian, mulberry32 } from './rng';
 import { quickScores } from './scoring';
 
@@ -79,4 +82,48 @@ export function simulateNeutrality(questions: Question[], n = 10_000, seed = 42)
   const meanByAxis = Object.fromEntries([...sums].map(([d, { s, k }]) => [d, Math.round((s / k) * 100) / 100]));
   const allAgree = quickScores(questions, allAgreeAnswers(questions)) as Partial<Record<string, number>>;
   return { n, meanByAxis, allAgree };
+}
+
+/* --------------------------------------------------------------- Personas */
+
+
+export interface PersonaResult { id: string; name: string; top3Rate: number; top1Rate: number; runs: number }
+
+const toScores = (q: Partial<Record<string, number | null>>): Scores =>
+  Object.fromEntries(Object.entries(q).map(([k, v]) => [k, { score: v ?? null, ci: null, nItems: 1, nEff: 1, established: true }])) as Scores;
+
+export const codedAxes = (c: Candidate) => PRIMARY_AXES.filter((a) => c.positions[a]?.value !== null && c.positions[a]?.value !== undefined);
+
+/** Pour chaque candidat·e avec ≥ minAxes axes codés : part des simulations où il figure dans le top 3. */
+export function simulateCandidatePersonas(questions: Question[], candidates: Candidate[], runs = 200, seed = 7, minAxes = 7, sigma = 0.6): PersonaResult[] {
+  const rng = mulberry32(seed);
+  return candidates.filter((c) => codedAxes(c).length >= minAxes).map((c) => {
+    const target = Object.fromEntries(codedAxes(c).map((a) => [a, c.positions[a]!.value!])) as Target;
+    let top3 = 0, top1 = 0;
+    for (let i = 0; i < runs; i++) {
+      const sc = toScores(quickScores(questions, personaAnswers(questions, target, rng, sigma)));
+      const user = Object.fromEntries(PRIMARY_AXES.flatMap((a) => (sc[a]?.score != null ? [[a, sc[a]!.score!]] : []))) as Target;
+      const ranked = rankCandidates(user, candidates).ranked.map((m) => m.candidate.id);
+      const k = ranked.indexOf(c.id);
+      if (k >= 0 && k < 3) top3++;
+      if (k === 0) top1++;
+    }
+    return { id: c.id, name: c.name, top3Rate: top3 / runs, top1Rate: top1 / runs, runs };
+  });
+}
+
+export function simulateArchetypePersonas(questions: Question[], archetypes: Archetype[], runs = 200, seed = 11, sigma = 0.6): PersonaResult[] {
+  const rng = mulberry32(seed);
+  return archetypes.map((a) => {
+    let top3 = 0, top1 = 0;
+    for (let i = 0; i < runs; i++) {
+      const sc = quickScores(questions, personaAnswers(questions, a.centroid, rng, sigma));
+      const user = Object.fromEntries(Object.entries(sc).filter(([k, v]) => !k.includes('.') && v != null)) as Target;
+      const ranked = rankArchetypes(user, archetypes).map((m) => m.archetype.id);
+      const k = ranked.indexOf(a.id);
+      if (k < 3) top3++;
+      if (k === 0) top1++;
+    }
+    return { id: a.id, name: a.name, top3Rate: top3 / runs, top1Rate: top1 / runs, runs };
+  });
 }
