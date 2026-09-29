@@ -119,6 +119,8 @@ export const ThinkerSchema = z.object({
   axes: z.array(AxisIdSchema),
   members: z.array(z.string()).optional(),
   aliases: z.array(z.string()).optional(),
+  /** Mentions complémentaires (renvois « voir §N » du fichier 02). */
+  notes: z.array(z.object({ section: z.string(), text: z.string() })).optional(),
   /** Doctrines réfutées ou auteurs condamnés pour provocation à la haine : jamais proposés comme « proches ». */
   restricted: z.boolean().optional(),
 });

@@ -1,1 +1,3121 @@
-[]
+[
+  {
+    "id": "machiavel",
+    "name": "Machiavel",
+    "dates": "1469–1527",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Le Prince*, *Discours sur Tite-Live*. Sépare la politique de la morale chrétienne : l'art de conquérir et conserver le pouvoir obéit à ses propres règles (virtù, fortuna). Mais aussi républicain : la liberté naît du conflit entre les « grands » et le peuple.",
+    "axes": [
+      "GOV",
+      "GMO"
+    ]
+  },
+  {
+    "id": "hobbes",
+    "name": "Thomas Hobbes",
+    "dates": "1588–1679",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Léviathan*. À l'état de nature, « guerre de tous contre tous » ; les individus confient leur sécurité à un souverain absolu. Fondateur du contractualisme et de la théorie moderne de l'État ; référence implicite de toute pensée sécuritaire.",
+    "axes": [
+      "GOV",
+      "SEC"
+    ]
+  },
+  {
+    "id": "locke",
+    "name": "John Locke",
+    "dates": "1632–1704",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Traités du gouvernement civil*. Droits naturels (vie, liberté, propriété), gouvernement limité par le consentement, droit de résistance à la tyrannie. Matrice du libéralisme politique et de la tolérance religieuse (*Lettre sur la tolérance*).",
+    "axes": [
+      "GOV",
+      "ECO",
+      "REL"
+    ]
+  },
+  {
+    "id": "montesquieu",
+    "name": "Montesquieu",
+    "dates": "1689–1755",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*De l'esprit des lois*. « Le pouvoir arrête le pouvoir » : séparation des pouvoirs, modération, influence des climats et des mœurs sur les lois. Inspire les constitutions libérales et la critique du despotisme.",
+    "axes": [
+      "GOV",
+      "INS"
+    ]
+  },
+  {
+    "id": "voltaire",
+    "name": "Voltaire",
+    "dates": "1694–1778",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Traité sur la tolérance*, affaire Calas. Combat le fanatisme et l'Église (« Écrasez l'infâme »), défend la liberté d'expression et le déisme. Figure tutélaire de l'anticléricalisme français, mais monarchiste éclairé plutôt que démocrate.",
+    "axes": [
+      "REL",
+      "CUL"
+    ]
+  },
+  {
+    "id": "rousseau",
+    "name": "Jean-Jacques Rousseau",
+    "dates": "1712–1778",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Du contrat social*, *Discours sur l'inégalité*. La propriété est à l'origine de l'inégalité ; la souveraineté du peuple s'exprime par la « volonté générale », inaliénable. Inspire à la fois la démocratie directe, le républicanisme jacobin et, selon ses critiques (Talmon), une tentation totalitaire.",
+    "axes": [
+      "GOV",
+      "INS",
+      "ECO"
+    ]
+  },
+  {
+    "id": "kant",
+    "name": "Emmanuel Kant",
+    "dates": "1724–1804",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Qu'est-ce que les Lumières ?*, *Projet de paix perpétuelle*. Autonomie de la raison (« Ose savoir »), dignité inconditionnelle de la personne, fédération d'États républicains pour la paix. Fondement du cosmopolitisme et de l'ordre international libéral.",
+    "axes": [
+      "ETA",
+      "GMO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "condorcet",
+    "name": "Condorcet",
+    "dates": "1743–1794",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Esquisse d'un tableau historique des progrès de l'esprit humain*. Foi dans le progrès, instruction publique laïque et gratuite, égalité des sexes, abolition de l'esclavage, mathématique du vote. Précurseur de l'école républicaine.",
+    "axes": [
+      "REL",
+      "GEN",
+      "ALT"
+    ]
+  },
+  {
+    "id": "olympe-de-gouges",
+    "name": "Olympe de Gouges",
+    "dates": "1748–1793",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Déclaration des droits de la femme et de la citoyenne* (1791). Réclame l'égalité civile et politique des femmes, dénonce l'esclavage ; guillotinée sous la Terreur.",
+    "axes": [
+      "GEN",
+      "ALT"
+    ]
+  },
+  {
+    "id": "wollstonecraft",
+    "name": "Mary Wollstonecraft",
+    "dates": "1759–1797",
+    "current": "Philosophie politique classique et Lumières",
+    "section": "§1",
+    "summary": "*Défense des droits de la femme*. L'infériorité supposée des femmes résulte de leur éducation ; plaide pour une instruction égale. Pionnière du féminisme libéral.",
+    "axes": [
+      "GEN"
+    ]
+  },
+  {
+    "id": "smith",
+    "name": "Adam Smith",
+    "dates": "1723–1790",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*La Richesse des nations*, *Théorie des sentiments moraux*. Division du travail, marché comme mécanisme de coordination (« main invisible »), critique du mercantilisme et des monopoles. Moins dogmatique que sa postérité : attentif à la sympathie morale et à la condition ouvrière.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "ricardo",
+    "name": "David Ricardo",
+    "dates": "1772–1823",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*Principes de l'économie politique*. Avantages comparatifs : le libre-échange profite à tous les partenaires. Pilier théorique de la mondialisation commerciale, contesté par les protectionnistes.",
+    "axes": [
+      "ECO",
+      "ETA"
+    ]
+  },
+  {
+    "id": "constant",
+    "name": "Benjamin Constant",
+    "dates": "1767–1830",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*De la liberté des Anciens comparée à celle des Modernes*. La liberté moderne est la jouissance paisible de l'indépendance privée, garantie par le gouvernement représentatif. Référence du libéralisme politique français.",
+    "axes": [
+      "GOV",
+      "IDE"
+    ]
+  },
+  {
+    "id": "tocqueville",
+    "name": "Alexis de Tocqueville",
+    "dates": "1805–1859",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*De la démocratie en Amérique*. La passion de l'égalité menace la liberté (« tyrannie de la majorité », « despotisme doux ») ; contrepoids par les associations et le local. Lu à droite comme à gauche.",
+    "axes": [
+      "GOV",
+      "TER",
+      "IDE"
+    ]
+  },
+  {
+    "id": "mill",
+    "name": "John Stuart Mill",
+    "dates": "1806–1873",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*De la liberté*, *L'Asservissement des femmes*. Principe de non-nuisance : l'État ne peut contraindre l'individu que pour empêcher qu'il nuise à autrui. Défend la liberté d'expression, le suffrage des femmes, évolue vers un socialisme coopératif.",
+    "axes": [
+      "CUL",
+      "IDE",
+      "GEN"
+    ]
+  },
+  {
+    "id": "bastiat",
+    "name": "Frédéric Bastiat",
+    "dates": "1801–1850",
+    "current": "Libéralisme classique",
+    "section": "§2",
+    "summary": "*Ce qu'on voit et ce qu'on ne voit pas*. Libre-échangiste radical, dénonce la « spoliation légale » et l'État comme « grande fiction à travers laquelle tout le monde s'efforce de vivre aux dépens de tout le monde ». Icône des libéraux français contemporains.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "bourgeois",
+    "name": "Léon Bourgeois",
+    "dates": "1851–1925",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Solidarité*. Le « solidarisme » : chacun naît débiteur de la société, d'où une « dette sociale » justifiant impôt progressif et assurances sociales. Doctrine du radicalisme et fondement philosophique de l'État-providence républicain.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "hobhouse-green",
+    "name": "Leonard T. Hobhouse et T. H. Green",
+    "dates": "1864–1929 ; 1836–1882",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Liberalism* (1911). La liberté réelle suppose des conditions matérielles : le libéralisme doit intégrer l'intervention publique (éducation, santé, protection du travail). Le « New Liberalism » britannique.",
+    "axes": [
+      "ECO"
+    ],
+    "members": [
+      "Leonard T. Hobhouse",
+      "T. H. Green"
+    ]
+  },
+  {
+    "id": "beveridge",
+    "name": "William Beveridge",
+    "dates": "1879–1963",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Rapport Beveridge* (1942). Combattre les « cinq géants » (besoin, maladie, ignorance, taudis, oisiveté) par une Sécurité sociale universelle. Inspire le modèle britannique et, en partie, la Sécurité sociale française de 1945.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "rawls",
+    "name": "John Rawls",
+    "dates": "1921–2002",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Théorie de la justice*. Sous le « voile d'ignorance », on choisirait : libertés de base égales, égalité des chances, et inégalités acceptables seulement si elles profitent aux plus défavorisés (principe de différence). Pilier du libéralisme égalitaire.",
+    "axes": [
+      "ECO",
+      "IDE",
+      "GOV"
+    ]
+  },
+  {
+    "id": "dworkin",
+    "name": "Ronald Dworkin",
+    "dates": "1931–2013",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Prendre les droits au sérieux*. Égale considération et respect ; égalité des ressources compensant les handicaps non choisis mais pas les choix. Les droits sont des « atouts » contre la majorité.",
+    "axes": [
+      "GOV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "sen",
+    "name": "Amartya Sen",
+    "dates": "1933–",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Un nouveau modèle économique*, *L'Idée de justice*. Approche par les « capabilités » : juger une société sur les libertés réelles de faire et d'être, pas sur le seul revenu. A inspiré l'IDH.",
+    "axes": [
+      "ECO",
+      "GMO"
+    ]
+  },
+  {
+    "id": "nussbaum",
+    "name": "Martha Nussbaum",
+    "dates": "1947–",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*Capabilités*. Liste de capabilités centrales à garantir à tous (santé, intégrité, affiliation…) ; défense des humanités et d'un cosmopolitisme ancré dans les émotions.",
+    "axes": [
+      "ECO",
+      "GEN",
+      "ETA"
+    ]
+  },
+  {
+    "id": "popper",
+    "name": "Karl Popper",
+    "dates": "1902–1994",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*La Société ouverte et ses ennemis*. Critique de l'historicisme (Platon, Hegel, Marx), défense de la réforme graduelle et du pluralisme ; la démocratie se définit par la possibilité de renvoyer les gouvernants sans violence.",
+    "axes": [
+      "GOV",
+      "CHG"
+    ]
+  },
+  {
+    "id": "aron",
+    "name": "Raymond Aron",
+    "dates": "1905–1983",
+    "current": "Libéralisme social et égalitaire",
+    "section": "§3",
+    "summary": "*L'Opium des intellectuels*, *Paix et guerre entre les nations*. Libéral anti-totalitaire, réaliste en relations internationales, critique du marxisme dominant chez les intellectuels français.",
+    "axes": [
+      "GOV",
+      "GMO"
+    ]
+  },
+  {
+    "id": "lippmann",
+    "name": "Walter Lippmann",
+    "dates": "1889–1974 ; Paris, 1938",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "Acte de naissance du « néolibéralisme » : refonder un libéralisme qui ne soit pas « laissez-faire », avec un État garant du cadre concurrentiel.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "eucken-ropke",
+    "name": "Walter Eucken et Wilhelm Röpke",
+    "dates": "1891–1950 ; 1899–1966",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "École de Fribourg, ordolibéralisme. L'État fixe un « ordre » juridique strict (concurrence, stabilité monétaire, règles budgétaires) sans intervenir dans les processus. Matrice de l'« économie sociale de marché » allemande et des règles européennes.",
+    "axes": [
+      "ECO",
+      "UE"
+    ],
+    "members": [
+      "Walter Eucken",
+      "Wilhelm Röpke"
+    ]
+  },
+  {
+    "id": "mises",
+    "name": "Ludwig von Mises",
+    "dates": "1881–1973",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*L'Action humaine*, *Le Socialisme*. École autrichienne : le calcul économique est impossible sans prix de marché, donc le socialisme échoue ; l'interventionnisme mène à l'engrenage.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "hayek",
+    "name": "Friedrich Hayek",
+    "dates": "1899–1992",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*La Route de la servitude*, *La Constitution de la liberté*. Le savoir est dispersé ; seul le marché le coordonne (« ordre spontané ») ; la planification mène au totalitarisme ; la « justice sociale » est un mirage. Cofondateur de la Société du Mont-Pèlerin.",
+    "axes": [
+      "ECO",
+      "GOV"
+    ]
+  },
+  {
+    "id": "friedman",
+    "name": "Milton Friedman",
+    "dates": "1912–2006",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*Capitalisme et liberté*. Monétarisme, taux de change flexibles, bons scolaires, impôt négatif ; la responsabilité sociale de l'entreprise est de faire du profit. Inspire Thatcher, Reagan et les « Chicago boys » chiliens.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "buchanan",
+    "name": "James Buchanan",
+    "dates": "1919–2013",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*The Calculus of Consent*. Théorie des choix publics : hommes politiques et fonctionnaires maximisent leur intérêt ; d'où des règles constitutionnelles (équilibre budgétaire) pour brider l'État. Source intellectuelle des « règles d'or ».",
+    "axes": [
+      "ECO",
+      "INS"
+    ]
+  },
+  {
+    "id": "becker",
+    "name": "Gary Becker",
+    "dates": "1930–2014",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "Extension du raisonnement économique à toute la vie sociale (capital humain, famille, crime, discrimination). Symbole de l'« impérialisme » de l'économie.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "nozick",
+    "name": "Robert Nozick",
+    "dates": "1938–2002",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*Anarchie, État et utopie*. Répond à Rawls : toute redistribution forcée viole les droits de propriété ; seul un « État minimal » est légitime.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "rothbard-hoppe",
+    "name": "Murray Rothbard et Hans-Hermann Hoppe",
+    "dates": "1926–1995 ; 1949–",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "Anarcho-capitalisme : même la sécurité et la justice doivent être privatisées. Hoppe y adjoint un conservatisme culturel et une critique de la démocratie (*Democracy: The God That Failed*).",
+    "axes": [
+      "ECO",
+      "GOV"
+    ],
+    "members": [
+      "Murray Rothbard",
+      "Hans-Hermann Hoppe"
+    ]
+  },
+  {
+    "id": "rand",
+    "name": "Ayn Rand",
+    "dates": "1905–1982",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "*La Grève*, *La Vertu d'égoïsme*. « Objectivisme » : l'égoïsme rationnel est une vertu, l'altruisme une servitude, le capitalisme de laisser-faire le seul système moral.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "critiques-neoliberalisme",
+    "name": "Critiques du néolibéralisme",
+    "dates": "n. c.",
+    "current": "Néolibéralisme, ordolibéralisme, libertarianisme",
+    "section": "§4",
+    "summary": "**Michel Foucault** (*Naissance de la biopolitique*, 1979) : le néolibéralisme gouverne en faisant de chacun un « entrepreneur de soi ». **Pierre Dardot et Christian Laval** (*La Nouvelle Raison du monde*) et **Wendy Brown** (*Défaire le dèmos*) : rationalité qui étend la concurrence à toutes les sphères et vide la démocratie.",
+    "axes": [
+      "ECO",
+      "GOV"
+    ],
+    "members": [
+      "Michel Foucault",
+      "Pierre Dardot",
+      "Christian Laval",
+      "Wendy Brown"
+    ]
+  },
+  {
+    "id": "saint-simon-fourier",
+    "name": "Henri de Saint-Simon et Charles Fourier",
+    "dates": "1760–1825 ; 1772–1837",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "« Socialismes utopiques » : société organisée par les producteurs et savants (Saint-Simon), communautés harmoniques, les « phalanstères » (Fourier). Inspirent coopératives et planification.",
+    "axes": [
+      "ECO"
+    ],
+    "members": [
+      "Henri de Saint-Simon",
+      "Charles Fourier"
+    ]
+  },
+  {
+    "id": "marx-engels",
+    "name": "Karl Marx et Friedrich Engels",
+    "dates": "1818–1883 ; 1820–1895",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Manifeste du parti communiste*, *Le Capital*. L'histoire est celle de la lutte des classes ; le capital extrait la plus-value du travail ; les crises mèneront au dépassement du capitalisme et à une société sans classes. Matrice de toute la gauche radicale et d'une grande partie des sciences sociales.",
+    "axes": [
+      "ECO",
+      "CHG",
+      "ETA",
+      "REL"
+    ],
+    "members": [
+      "Karl Marx",
+      "Friedrich Engels"
+    ],
+    "aliases": [
+      "Karl Marx (Religion, laïcité, sécularisation)"
+    ],
+    "notes": [
+      {
+        "section": "§16",
+        "text": "« La religion est le soupir de la créature opprimée… l'opium du peuple » : la critique de la religion est préalable à toute critique sociale."
+      }
+    ]
+  },
+  {
+    "id": "luxemburg",
+    "name": "Rosa Luxemburg",
+    "dates": "1871–1919",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Réforme sociale ou révolution ?* Révolutionnaire démocrate : critique le réformisme de Bernstein mais aussi l'autoritarisme bolchevique (« la liberté, c'est toujours la liberté de celui qui pense autrement »).",
+    "axes": [
+      "CHG",
+      "GOV"
+    ]
+  },
+  {
+    "id": "lenine",
+    "name": "Lénine",
+    "dates": "1870–1924",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Que faire ?*, *L'Impérialisme, stade suprême du capitalisme*, *L'État et la révolution*. Parti d'avant-garde, dictature du prolétariat, lecture de l'impérialisme comme expansion du capital financier. Fonde l'URSS.",
+    "axes": [
+      "CHG",
+      "GOV",
+      "GMO"
+    ]
+  },
+  {
+    "id": "trotsky",
+    "name": "Léon Trotsky",
+    "dates": "1879–1940",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*La Révolution permanente*, *La Révolution trahie*. La révolution doit être internationale et continue ; dénonce la bureaucratie stalinienne. Référence de LO, du NPA et de Révolution permanente.",
+    "axes": [
+      "CHG",
+      "ETA"
+    ]
+  },
+  {
+    "id": "gramsci",
+    "name": "Antonio Gramsci",
+    "dates": "1891–1937",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Cahiers de prison*. La domination repose sur l'« hégémonie » culturelle autant que sur la force ; conquérir la société civile (« guerre de position ») avant l'État. Théoricien revendiqué à gauche et, paradoxalement, par la Nouvelle Droite.",
+    "axes": [
+      "CUL",
+      "CHG"
+    ],
+    "aliases": [
+      "Antonio Gramsci (Bataille culturelle et métapolitique)"
+    ],
+    "notes": [
+      {
+        "section": "§10",
+        "text": "Point de départ de toutes les stratégies d'hégémonie culturelle."
+      }
+    ]
+  },
+  {
+    "id": "mao",
+    "name": "Mao Zedong",
+    "dates": "1893–1976",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "Révolution paysanne, « guerre populaire prolongée », Révolution culturelle. Référence du maoïsme occidental des années 1960-70 ; son bilan humain (famines, répressions) fait partie de l'examen critique du communisme.",
+    "axes": [
+      "CHG",
+      "GOV"
+    ]
+  },
+  {
+    "id": "friot",
+    "name": "Bernard Friot",
+    "dates": "1946–",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Puissances du salariat*. Le « salaire à vie » attaché à la personne et la cotisation sociale sont un « déjà-là communiste » à étendre, contre le crédit et la propriété lucrative.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "lordon",
+    "name": "Frédéric Lordon",
+    "dates": "1962–",
+    "current": "Socialismes, marxismes, communisme",
+    "section": "§5",
+    "summary": "*Capitalisme, désir et servitude*, *La Malfaçon*. Spinoziste marxiste : critique la finance et l'euro, défend une souveraineté populaire (non nationaliste) et un « communisme » du travail.",
+    "axes": [
+      "ECO",
+      "UE"
+    ]
+  },
+  {
+    "id": "bernstein",
+    "name": "Eduard Bernstein",
+    "dates": "1850–1932",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*Les Présupposés du socialisme*. « Révisionnisme » : le capitalisme ne s'effondre pas ; le socialisme adviendra par réformes démocratiques graduelles. Acte fondateur de la social-démocratie.",
+    "axes": [
+      "CHG",
+      "ECO"
+    ]
+  },
+  {
+    "id": "jaures",
+    "name": "Jean Jaurès",
+    "dates": "1859–1914",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*Histoire socialiste de la Révolution française*. Synthèse du socialisme et de la République : « la République jusqu'au bout », laïcité, internationalisme pacifiste, défense de Dreyfus. Référence commune de toute la gauche française.",
+    "axes": [
+      "ECO",
+      "ETA",
+      "REL"
+    ]
+  },
+  {
+    "id": "blum",
+    "name": "Léon Blum",
+    "dates": "1872–1950",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*À l'échelle humaine*. Distingue « exercice » et « conquête » du pouvoir ; Front populaire (congés payés, 40 h). Figure du socialisme démocratique contre le bolchevisme (congrès de Tours, 1920).",
+    "axes": [
+      "ECO",
+      "CHG"
+    ]
+  },
+  {
+    "id": "mendes-france",
+    "name": "Pierre Mendès France",
+    "dates": "1907–1982",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*La République moderne*. Rigueur, vérité due aux citoyens, planification démocratique, décolonisation négociée. Modèle d'une gauche gouvernementale exigeante.",
+    "axes": [
+      "ECO",
+      "GOV"
+    ]
+  },
+  {
+    "id": "rocard",
+    "name": "Michel Rocard",
+    "dates": "1930–2016",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "« Deuxième gauche » : autogestion, décentralisation, contrat plutôt que loi, RMI, CSG. Réformisme antijacobin.",
+    "axes": [
+      "TER",
+      "ECO"
+    ]
+  },
+  {
+    "id": "esping-andersen",
+    "name": "Gøsta Esping-Andersen",
+    "dates": "1947–",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*Les Trois Mondes de l'État-providence*. Typologie libérale (anglo-saxonne), conservatrice-corporatiste (continentale), sociale-démocrate (nordique) selon le degré de « démarchandisation ». Outil pour situer la France.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "giddens",
+    "name": "Anthony Giddens",
+    "dates": "1938–",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*La Troisième Voie*. Refonder la social-démocratie face à la mondialisation : investissement social, « flexisécurité », droits et devoirs. Inspire Blair et Schröder, critiqué comme converti au néolibéralisme.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "castel",
+    "name": "Robert Castel",
+    "dates": "1933–2013",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*Les Métamorphoses de la question sociale*. La « société salariale » a créé une propriété sociale protectrice ; sa crise produit « désaffiliation » et précarité.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "rosanvallon",
+    "name": "Pierre Rosanvallon",
+    "dates": "1948–",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*La Société des égaux*, *La Contre-démocratie*. Refonder l'égalité comme relation (singularité, réciprocité, communalité) ; la démocratie vit aussi de la surveillance et de l'empêchement citoyens.",
+    "axes": [
+      "ECO",
+      "GOV",
+      "INS"
+    ]
+  },
+  {
+    "id": "piketty",
+    "name": "Thomas Piketty",
+    "dates": "1971–",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*Le Capital au XXIe siècle*, *Capital et idéologie*. Quand r > g, le patrimoine se concentre ; il propose impôt progressif sur la fortune, héritage pour tous, « socialisme participatif ». Inspire les programmes de gauche (ISF, Zucman).",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "zucman",
+    "name": "Gabriel Zucman",
+    "dates": "1986–",
+    "current": "Social-démocratie et démocratie sociale",
+    "section": "§6",
+    "summary": "*La Richesse cachée des nations*. Mesure l'évasion fiscale ; propose un impôt plancher de 2 % sur les patrimoines supérieurs à 100 M€ (« taxe Zucman »), devenu enjeu central de la campagne.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "proudhon",
+    "name": "Pierre-Joseph Proudhon",
+    "dates": "1809–1865",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*Qu'est-ce que la propriété ?* (« la propriété, c'est le vol »), *Du principe fédératif*. Mutuellisme, fédéralisme, refus de l'État et du communisme autoritaire. Ambivalent : misogynie et antisémitisme dans ses carnets.",
+    "axes": [
+      "ECO",
+      "TER",
+      "GOV"
+    ]
+  },
+  {
+    "id": "bakounine",
+    "name": "Mikhaïl Bakounine",
+    "dates": "1814–1876",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*Dieu et l'État*. Anarchisme collectiviste et athée ; s'oppose à Marx sur la « dictature du prolétariat », prédisant qu'elle deviendrait une nouvelle tyrannie.",
+    "axes": [
+      "GOV",
+      "REL"
+    ]
+  },
+  {
+    "id": "kropotkine",
+    "name": "Pierre Kropotkine",
+    "dates": "1842–1921",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*L'Entraide*, *La Conquête du pain*. Contre le darwinisme social, l'entraide est un facteur d'évolution ; communisme libertaire fondé sur la libre association.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "reclus",
+    "name": "Élisée Reclus",
+    "dates": "1830–1905",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*L'Homme et la Terre*. Géographe anarchiste, précurseur de l'écologie sociale et du végétarisme militant.",
+    "axes": [
+      "ENV",
+      "GOV"
+    ]
+  },
+  {
+    "id": "goldman",
+    "name": "Emma Goldman",
+    "dates": "1869–1940",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*L'Anarchisme et autres essais*. Anarchisme féministe : liberté sexuelle, contraception, antimilitarisme ; critique précoce du régime soviétique.",
+    "axes": [
+      "GEN",
+      "CUL"
+    ]
+  },
+  {
+    "id": "bookchin",
+    "name": "Murray Bookchin",
+    "dates": "1921–2006",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*L'Écologie sociale*, *Le Municipalisme libertaire*. La domination de la nature découle de la domination entre humains ; démocratie directe des communes confédérées. Inspire le Rojava et le municipalisme.",
+    "axes": [
+      "ENV",
+      "TER",
+      "INS"
+    ]
+  },
+  {
+    "id": "scott",
+    "name": "James C. Scott",
+    "dates": "1936–2024",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*L'Œil de l'État*, *Homo domesticus*. Les grands plans étatiques « simplifient » et échouent ; éloge des savoirs locaux et des sociétés qui fuient l'État.",
+    "axes": [
+      "TER",
+      "GOV"
+    ]
+  },
+  {
+    "id": "graeber",
+    "name": "David Graeber",
+    "dates": "1961–2020",
+    "current": "Anarchismes",
+    "section": "§7",
+    "summary": "*Dette : 5000 ans d'histoire*, *Bullshit Jobs*. Anthropologue anarchiste, figure d'Occupy Wall Street ; déconstruit la morale de la dette et la prolifération des emplois inutiles.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "burke",
+    "name": "Edmund Burke",
+    "dates": "1729–1797",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*Réflexions sur la Révolution de France*. La société est un contrat entre morts, vivants et à naître ; préférer la réforme prudente et les institutions héritées aux abstractions rationalistes. Père du conservatisme libéral.",
+    "axes": [
+      "CUL",
+      "CHG"
+    ]
+  },
+  {
+    "id": "maistre-bonald",
+    "name": "Joseph de Maistre et Louis de Bonald",
+    "dates": "1753–1821 ; 1754–1840",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "Contre-révolution : la Révolution est un châtiment providentiel ; l'ordre repose sur l'autorité, la religion et la famille, non sur le contrat.",
+    "axes": [
+      "REL",
+      "GOV",
+      "CUL"
+    ],
+    "members": [
+      "Joseph de Maistre",
+      "Louis de Bonald"
+    ]
+  },
+  {
+    "id": "oakeshott",
+    "name": "Michael Oakeshott",
+    "dates": "1901–1990",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*Du conservatisme*. Être conservateur, c'est « préférer le familier à l'inconnu » ; critique du « rationalisme en politique » et de la politique comme projet.",
+    "axes": [
+      "CUL",
+      "CHG"
+    ]
+  },
+  {
+    "id": "strauss",
+    "name": "Leo Strauss",
+    "dates": "1899–1973",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*Droit naturel et histoire*. Critique du relativisme et de l'historicisme modernes, retour aux Anciens ; ses disciples ont influencé le néoconservatisme américain.",
+    "axes": [
+      "CUL",
+      "GMO"
+    ]
+  },
+  {
+    "id": "schmitt",
+    "name": "Carl Schmitt",
+    "dates": "1888–1985",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*La Notion de politique*, *Théologie politique*. Le politique repose sur la distinction ami/ennemi ; « est souverain celui qui décide de la situation d'exception ». Juriste rallié au nazisme ; lu aujourd'hui par l'extrême droite et une partie de la gauche radicale.",
+    "axes": [
+      "GOV",
+      "SEC"
+    ]
+  },
+  {
+    "id": "scruton",
+    "name": "Roger Scruton",
+    "dates": "1944–2020",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*How to Be a Conservative*. Conservatisme de l'« oikophilie » (amour du foyer), de la beauté et des institutions ; critique de la « culture de la répudiation » de l'Occident.",
+    "axes": [
+      "CUL",
+      "ETA"
+    ]
+  },
+  {
+    "id": "lasch",
+    "name": "Christopher Lasch",
+    "dates": "1932–1994",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*La Culture du narcissisme*, *La Révolte des élites*. Les élites mobiles ont fait sécession ; défense de la famille, des communautés et du populisme contre le progressisme.",
+    "axes": [
+      "CUL",
+      "POP",
+      "IDE"
+    ]
+  },
+  {
+    "id": "macintyre",
+    "name": "Alasdair MacIntyre",
+    "dates": "1929–2025",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*Après la vertu*. Le libéralisme moderne a détruit le langage moral ; retour à l'éthique des vertus (Aristote, Thomas d'Aquin) dans des communautés de tradition.",
+    "axes": [
+      "IDE",
+      "REL"
+    ]
+  },
+  {
+    "id": "deneen",
+    "name": "Patrick Deneen",
+    "dates": "1964–",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*Pourquoi le libéralisme a échoué*. « Postlibéralisme » : le libéralisme, en émancipant l'individu, a détruit les liens et produit oligarchie et solitude. Influent dans la droite américaine actuelle.",
+    "axes": [
+      "IDE",
+      "CUL",
+      "GOV"
+    ]
+  },
+  {
+    "id": "delsol",
+    "name": "Chantal Delsol",
+    "dates": "1947–",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*La Fin de la chrétienté*, *Le Crépuscule de l'universel*. Philosophe libérale-conservatrice : défense de l'enracinement et critique de l'universalisme abstrait, sans rejet de la démocratie.",
+    "axes": [
+      "CUL",
+      "REL",
+      "IDE"
+    ]
+  },
+  {
+    "id": "michea",
+    "name": "Jean-Claude Michéa",
+    "dates": "1950–",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "*L'Empire du moindre mal*. Libéralisme économique (droite) et libéralisme culturel (gauche) forment une seule logique ; défense de la « common decency » orwellienne et du socialisme populaire.",
+    "axes": [
+      "ECO",
+      "CUL",
+      "POP"
+    ]
+  },
+  {
+    "id": "guenon-evola",
+    "name": "René Guénon et Julius Evola",
+    "dates": "1886–1951 ; 1898–1974",
+    "current": "Conservatismes, contre-révolution, traditionalisme",
+    "section": "§8",
+    "summary": "« Traditionalisme intégral » : le monde moderne est une décadence par rapport à une Tradition primordiale. Evola, théoricien d'une « révolte contre le monde moderne », a nourri le fascisme italien et l'extrême droite radicale.",
+    "axes": [
+      "REL",
+      "CUL",
+      "GOV"
+    ],
+    "members": [
+      "René Guénon",
+      "Julius Evola"
+    ]
+  },
+  {
+    "id": "renan",
+    "name": "Ernest Renan",
+    "dates": "1823–1892",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Qu'est-ce qu'une nation ?* (1882). La nation est « un plébiscite de tous les jours » : un héritage de souvenirs et un consentement à vivre ensemble, plutôt que race ou langue. Référence de la conception élective française.",
+    "axes": [
+      "ETA",
+      "ALT"
+    ]
+  },
+  {
+    "id": "barres",
+    "name": "Maurice Barrès",
+    "dates": "1862–1923",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Les Déracinés*. Nationalisme de « la terre et des morts » : l'individu est déterminé par son enracinement ; antidreyfusard.",
+    "axes": [
+      "ETA",
+      "IDE",
+      "ALT"
+    ]
+  },
+  {
+    "id": "maurras",
+    "name": "Charles Maurras",
+    "dates": "1868–1952",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Enquête sur la monarchie*. « Nationalisme intégral », Action française : monarchie, catholicisme d’ordre (lui-même agnostique), antisémitisme d'État, dénonciation des « quatre États confédérés ». Condamné à la Libération pour intelligence avec l'ennemi.",
+    "axes": [
+      "ETA",
+      "REL",
+      "ALT",
+      "GOV"
+    ]
+  },
+  {
+    "id": "peguy",
+    "name": "Charles Péguy",
+    "dates": "1873–1914",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Notre jeunesse*. Dreyfusard, socialiste puis catholique : défense d'une « mystique » républicaine contre la « politique » ; patriotisme charnel. Revendiqué de la gauche à la droite.",
+    "axes": [
+      "ETA",
+      "REL"
+    ]
+  },
+  {
+    "id": "de-gaulle",
+    "name": "Charles de Gaulle",
+    "dates": "1890–1970",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Mémoires de guerre*. Indépendance nationale, « Europe des nations », sortie du commandement intégré de l'OTAN (1966), exécutif fort (Ve République), participation. Héritage disputé par presque tous les candidats.",
+    "axes": [
+      "ETA",
+      "UE",
+      "GMO",
+      "INS"
+    ]
+  },
+  {
+    "id": "chevenement",
+    "name": "Jean-Pierre Chevènement",
+    "dates": "1939–",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "Républicanisme de gauche : souveraineté, laïcité, école, État stratège ; opposition à Maastricht et à la guerre du Golfe.",
+    "axes": [
+      "ETA",
+      "UE",
+      "REL"
+    ]
+  },
+  {
+    "id": "seguin",
+    "name": "Philippe Séguin",
+    "dates": "1943–2010",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "Discours contre le traité de Maastricht (1992) : la monnaie unique dépossède la nation de sa souveraineté démocratique. Gaullisme social.",
+    "axes": [
+      "UE",
+      "ETA"
+    ]
+  },
+  {
+    "id": "debray",
+    "name": "Régis Debray",
+    "dates": "1940–",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*Éloge des frontières*. La frontière protège et permet l'échange ; critique du « sans-frontiérisme » et de l'« américanisation » ; républicain plutôt que démocrate « à l'américaine ».",
+    "axes": [
+      "ETA",
+      "CUL"
+    ]
+  },
+  {
+    "id": "manent",
+    "name": "Pierre Manent",
+    "dates": "1949–",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*La Raison des nations*. La nation est la forme politique qui a permis la démocratie ; l'Europe post-nationale est une impasse.",
+    "axes": [
+      "ETA",
+      "UE"
+    ]
+  },
+  {
+    "id": "anderson-gellner",
+    "name": "Benedict Anderson et Ernest Gellner",
+    "dates": "1936–2015 ; 1925–1995",
+    "current": "Nationalisme, républicanisme, souverainisme",
+    "section": "§9",
+    "summary": "*L'Imaginaire national* ; *Nations et nationalisme*. La nation est une « communauté imaginée », produit moderne de l'imprimerie, de l'industrialisation et de l'école. Grille pour déconstruire (ou comprendre) le nationalisme.",
+    "axes": [
+      "ETA",
+      "IDE"
+    ],
+    "members": [
+      "Benedict Anderson",
+      "Ernest Gellner"
+    ]
+  },
+  {
+    "id": "benoist",
+    "name": "Alain de Benoist",
+    "dates": "1943–",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "*Vu de droite* (1977), GRECE. « Gramscisme de droite » : gagner les idées avant les urnes ; paganisme, « ethno-différentialisme » (droit des peuples à rester eux-mêmes), antilibéralisme, anti-américanisme. Matrice de la « Nouvelle Droite ».",
+    "axes": [
+      "CUL",
+      "ALT",
+      "ETA"
+    ]
+  },
+  {
+    "id": "faye",
+    "name": "Guillaume Faye",
+    "dates": "1949–2019",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "*L'Archéofuturisme*, *La Colonisation de l'Europe*. Rompt avec le GRECE vers un identitarisme racialiste et anti-immigration ; influence la mouvance identitaire. Condamné pour provocation à la haine raciale.",
+    "axes": [
+      "ALT",
+      "ETA"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "laclau-mouffe",
+    "name": "Ernesto Laclau et Chantal Mouffe",
+    "dates": "1935–2014 ; 1943–",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "*Hégémonie et stratégie socialiste*, *Pour un populisme de gauche*. Construire un « peuple » en articulant des demandes hétérogènes contre une « oligarchie » ; politique agonistique. Inspirent Podemos et LFI.",
+    "axes": [
+      "POP",
+      "CUL",
+      "GOV"
+    ],
+    "members": [
+      "Ernesto Laclau",
+      "Chantal Mouffe"
+    ]
+  },
+  {
+    "id": "buisson",
+    "name": "Patrick Buisson",
+    "dates": "1949–2023",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "*La Cause du peuple*. Stratège de la « droitisation » : réconcilier électorat populaire et droite autour de l'identité, de la nation et du catholicisme culturel.",
+    "axes": [
+      "CUL",
+      "ETA",
+      "REL"
+    ]
+  },
+  {
+    "id": "breitbart-rufo",
+    "name": "Andrew Breitbart et Christopher Rufo",
+    "dates": "1969–2012 ; 1984–",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "« La politique est en aval de la culture » ; offensive contre la « wokeness », la théorie critique de la race et la DEI dans les universités et administrations américaines.",
+    "axes": [
+      "CUL",
+      "ALT"
+    ],
+    "members": [
+      "Andrew Breitbart",
+      "Christopher Rufo"
+    ]
+  },
+  {
+    "id": "marcuse",
+    "name": "Herbert Marcuse",
+    "dates": "1898–1979",
+    "current": "Bataille culturelle et métapolitique",
+    "section": "§10",
+    "summary": "*L'Homme unidimensionnel*, *Tolérance répressive*. La société industrielle intègre la contestation ; appui sur les marges (étudiants, minorités). Référence de la Nouvelle Gauche et cible de la droite (« marxisme culturel »).",
+    "axes": [
+      "CUL",
+      "CHG"
+    ]
+  },
+  {
+    "id": "gobineau",
+    "name": "Arthur de Gobineau",
+    "dates": "1816–1882",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*Essai sur l'inégalité des races humaines* (1853-55). Hiérarchie des « races » et thèse de la décadence par le « mélange » ; récupéré par le pangermanisme puis le nazisme.",
+    "axes": [
+      "ALT"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "vacher-de-lapouge",
+    "name": "Georges Vacher de Lapouge",
+    "dates": "1854–1936",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*L'Aryen, son rôle social*. « Anthroposociologie » et eugénisme racialiste ; mesures crâniennes comme prétendu fondement de la hiérarchie sociale.",
+    "axes": [
+      "ALT"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "chamberlain",
+    "name": "Houston Stewart Chamberlain",
+    "dates": "1855–1927",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*La Genèse du XIXe siècle*. Mythe aryen et antisémitisme racial ; influence directe sur l'idéologie nazie (Rosenberg, Hitler).",
+    "axes": [
+      "ALT"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "grant",
+    "name": "Madison Grant",
+    "dates": "1865–1937",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*The Passing of the Great Race* (1916). Nordicisme, peur du « suicide racial » ; inspire les lois restrictives américaines de 1924 et est cité par les nazis.",
+    "axes": [
+      "ALT",
+      "ETA"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "carrel",
+    "name": "Alexis Carrel",
+    "dates": "1873–1944",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*L'Homme, cet inconnu* (1935). Prix Nobel de médecine promoteur d'un eugénisme autoritaire ; dirige sous Vichy la Fondation pour l'étude des problèmes humains.",
+    "axes": [
+      "ALT",
+      "GOV"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "camus",
+    "name": "Renaud Camus",
+    "dates": "1946–",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*Le Grand Remplacement* (2011). Thèse complotiste d'une substitution organisée des populations européennes par des immigrés extra-européens ; condamné pour provocation à la haine ; invoquée par plusieurs auteurs d'attentats (Christchurch, Buffalo). Démographes et historiens la réfutent (Hervé Le Bras, François Héran).",
+    "axes": [
+      "ALT",
+      "ETA"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "refutations-racisme-scientifique",
+    "name": "Réfutations",
+    "dates": "n. c.",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "**Déclarations de l'UNESCO sur la race** (1950-51) ; **Claude Lévi-Strauss**, *Race et histoire* (1952) : la diversité des cultures n'autorise aucune hiérarchie ; **Richard Lewontin** (1972) : ~85 % de la variation génétique humaine se trouve à l'intérieur des populations ; **Stephen Jay Gould**, *La Mal-mesure de l'homme* ; **Albert Jacquard**, *Éloge de la différence*.",
+    "axes": [
+      "ALT"
+    ],
+    "members": [
+      "Déclarations de l'UNESCO sur la race",
+      "Claude Lévi-Strauss",
+      "Richard Lewontin",
+      "Stephen Jay Gould",
+      "Albert Jacquard"
+    ]
+  },
+  {
+    "id": "guillaumin",
+    "name": "Colette Guillaumin",
+    "dates": "1934–2017",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*L'Idéologie raciste* (1972). La « race » n'est pas une donnée naturelle mais le produit d'un rapport social de domination qui naturalise les groupes.",
+    "axes": [
+      "ALT"
+    ]
+  },
+  {
+    "id": "taguieff",
+    "name": "Pierre-André Taguieff",
+    "dates": "1946–",
+    "current": "Théories racistes (à connaître pour les reconnaître) et leurs réfutations",
+    "section": "§11",
+    "summary": "*La Force du préjugé* (1988). Identifie le « néoracisme différentialiste » qui ne hiérarchise plus mais absolutise les différences culturelles ; critique aussi certains antiracismes.",
+    "axes": [
+      "ALT",
+      "CUL"
+    ]
+  },
+  {
+    "id": "du-bois",
+    "name": "W. E. B. Du Bois",
+    "dates": "1868–1963",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Les Âmes du peuple noir*. « Le problème du XXe siècle est celui de la ligne de couleur » ; concept de « double conscience » des Afro-Américains.",
+    "axes": [
+      "ALT"
+    ]
+  },
+  {
+    "id": "cesaire",
+    "name": "Aimé Césaire",
+    "dates": "1913–2008",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Discours sur le colonialisme* (1950). La colonisation « déciviliserait » le colonisateur ; le nazisme a appliqué à l'Europe des procédés réservés aux colonisés. Co-fondateur de la Négritude.",
+    "axes": [
+      "ALT",
+      "MEM"
+    ]
+  },
+  {
+    "id": "fanon",
+    "name": "Frantz Fanon",
+    "dates": "1925–1961",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Peau noire, masques blancs*, *Les Damnés de la terre*. Psychiatrie de l'aliénation coloniale et légitimation de la lutte de libération, y compris violente. Référence des décolonialismes.",
+    "axes": [
+      "ALT",
+      "MEM",
+      "CHG"
+    ]
+  },
+  {
+    "id": "memmi",
+    "name": "Albert Memmi",
+    "dates": "1920–2020",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Portrait du colonisé*, *Le Racisme*. Analyse la relation coloniale ; définit le racisme comme valorisation de différences au profit de l'accusateur. Critique ensuite de dérives des indépendances.",
+    "axes": [
+      "ALT"
+    ]
+  },
+  {
+    "id": "said",
+    "name": "Edward Said",
+    "dates": "1935–2003",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*L'Orientalisme* (1978). L'Occident a construit un « Orient » imaginaire servant sa domination. Texte fondateur des études postcoloniales.",
+    "axes": [
+      "ALT",
+      "GMO"
+    ]
+  },
+  {
+    "id": "hall-spivak-bhabha",
+    "name": "Stuart Hall, Gayatri Spivak et Homi Bhabha",
+    "dates": "1932–2014 ; 1942– ; 1949–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "Études culturelles et postcoloniales : identités hybrides, « le subalterne peut-il parler ? », critique de l'eurocentrisme des savoirs.",
+    "axes": [
+      "ALT",
+      "CUL"
+    ],
+    "members": [
+      "Stuart Hall",
+      "Gayatri Spivak",
+      "Homi Bhabha"
+    ]
+  },
+  {
+    "id": "quijano-mignolo",
+    "name": "Aníbal Quijano et Walter Mignolo",
+    "dates": "1928–2018 ; 1941–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "« Colonialité du pouvoir » : la race comme principe organisateur du capitalisme mondial depuis 1492 ; appel à la « désobéissance épistémique ». Base du courant décolonial.",
+    "axes": [
+      "ALT",
+      "ECO"
+    ],
+    "members": [
+      "Aníbal Quijano",
+      "Walter Mignolo"
+    ]
+  },
+  {
+    "id": "glissant",
+    "name": "Édouard Glissant",
+    "dates": "1928–2011",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Poétique de la Relation*. « Créolisation » : mise en contact des cultures produisant de l'imprévisible, contre l'identité-racine unique. Concept repris par Jean-Luc Mélenchon.",
+    "axes": [
+      "ALT",
+      "IDE"
+    ]
+  },
+  {
+    "id": "mbembe-verges",
+    "name": "Achille Mbembe et Françoise Vergès",
+    "dates": "1957– ; 1952–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Critique de la raison nègre* ; *Un féminisme décolonial*. Critique de la persistance des logiques coloniales dans la mondialisation, l'État et le féminisme « blanc ».",
+    "axes": [
+      "ALT",
+      "GEN"
+    ],
+    "members": [
+      "Achille Mbembe",
+      "Françoise Vergès"
+    ]
+  },
+  {
+    "id": "bouteldja",
+    "name": "Houria Bouteldja",
+    "dates": "1973–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Les Blancs, les Juifs et nous* (2016). Porte-parole du Parti des Indigènes de la République : antiracisme « politique » fondé sur la race sociale. Très contestée, y compris à gauche, pour des propos jugés racialistes, antisémites et homophobes.",
+    "axes": [
+      "ALT",
+      "IDE"
+    ]
+  },
+  {
+    "id": "crenshaw",
+    "name": "Kimberlé Crenshaw",
+    "dates": "1959–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "Article « Demarginalizing the Intersection… » (1989). **Intersectionnalité** : les discriminations (race, genre, classe…) ne s'additionnent pas mais se combinent en expériences spécifiques. Outil central de la gauche contemporaine.",
+    "axes": [
+      "ALT",
+      "GEN",
+      "IDE"
+    ]
+  },
+  {
+    "id": "hill-collins-hooks-davis",
+    "name": "Patricia Hill Collins, bell hooks et Angela Davis",
+    "dates": "1948– ; 1952–2021 ; 1944–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "Féminisme noir : « matrice de domination », critique croisée du racisme, du sexisme et du capitalisme ; abolitionnisme carcéral (Davis).",
+    "axes": [
+      "ALT",
+      "GEN",
+      "SEC"
+    ],
+    "members": [
+      "Patricia Hill Collins",
+      "bell hooks",
+      "Angela Davis"
+    ]
+  },
+  {
+    "id": "derrick-bell",
+    "name": "Derrick Bell",
+    "dates": "1930–2011",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "Le racisme est structurel et inscrit dans le droit ; les progrès des droits civiques n'adviennent qu'en « convergence d'intérêts » avec les Blancs.",
+    "axes": [
+      "ALT",
+      "GOV"
+    ]
+  },
+  {
+    "id": "kendi",
+    "name": "Ibram X. Kendi",
+    "dates": "1982–",
+    "current": "Antiracisme, postcolonialisme, décolonialisme, intersectionnalité",
+    "section": "§12",
+    "summary": "*Comment devenir antiraciste*. Il n'y a pas de position « non raciste » : toute politique réduit ou reproduit les inégalités raciales ; défense de mesures correctrices.",
+    "axes": [
+      "ALT"
+    ]
+  },
+  {
+    "id": "schnapper",
+    "name": "Dominique Schnapper",
+    "dates": "1934–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*La Communauté des citoyens*. La nation démocratique intègre en transcendant les appartenances particulières dans la citoyenneté.",
+    "axes": [
+      "IDE",
+      "ALT",
+      "ETA"
+    ]
+  },
+  {
+    "id": "finkielkraut",
+    "name": "Alain Finkielkraut",
+    "dates": "1949–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*La Défaite de la pensée*. Critique du relativisme culturel, défense de la transmission, de l'école et de l'identité nationale.",
+    "axes": [
+      "CUL",
+      "IDE"
+    ]
+  },
+  {
+    "id": "badinter",
+    "name": "Élisabeth Badinter",
+    "dates": "1944–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*Fausse route*. Féminisme universaliste et laïque, critique du « victimisme » et des accommodements religieux.",
+    "axes": [
+      "GEN",
+      "REL"
+    ]
+  },
+  {
+    "id": "bouvet",
+    "name": "Laurent Bouvet",
+    "dates": "1968–2021",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*L'Insécurité culturelle*. Les classes populaires vivent une insécurité identitaire que la gauche a délaissée ; cofondateur du Printemps républicain.",
+    "axes": [
+      "IDE",
+      "CUL"
+    ]
+  },
+  {
+    "id": "beaud-noiriel",
+    "name": "Stéphane Beaud et Gérard Noiriel",
+    "dates": "1954– ; 1950–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*Race et sciences sociales* (2021). Mettent en garde, depuis la gauche, contre le « tout-racial » qui éclipse la classe sociale.",
+    "axes": [
+      "ALT",
+      "ECO"
+    ],
+    "members": [
+      "Stéphane Beaud",
+      "Gérard Noiriel"
+    ]
+  },
+  {
+    "id": "lilla",
+    "name": "Mark Lilla",
+    "dates": "1956–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*La Gauche identitaire*. La politique des identités a fragmenté la gauche et nourri la réaction ; plaide pour une citoyenneté commune.",
+    "axes": [
+      "IDE",
+      "CUL"
+    ]
+  },
+  {
+    "id": "mounk-neiman",
+    "name": "Yascha Mounk et Susan Neiman",
+    "dates": "1982– ; 1955–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*Le Piège de l'identité* ; *La gauche n'est pas woke*. Défendent l'universalisme des Lumières contre la « synthèse identitaire » tout en luttant contre les discriminations.",
+    "axes": [
+      "IDE",
+      "ALT"
+    ],
+    "members": [
+      "Yascha Mounk",
+      "Susan Neiman"
+    ]
+  },
+  {
+    "id": "malik",
+    "name": "Kenan Malik",
+    "dates": "1960–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*Multiculturalism and its Discontents*. Antiraciste de gauche critique du multiculturalisme qui enferme les individus dans leurs « communautés ».",
+    "axes": [
+      "IDE",
+      "ALT"
+    ]
+  },
+  {
+    "id": "fukuyama",
+    "name": "Francis Fukuyama",
+    "dates": "1952–",
+    "current": "Universalisme républicain et critiques des politiques identitaires",
+    "section": "§13",
+    "summary": "*Identité*. Le besoin de reconnaissance (thymos) explique populismes et politiques identitaires ; proposer une identité nationale civique inclusive.",
+    "axes": [
+      "IDE",
+      "ETA",
+      "GMO",
+      "GOV"
+    ],
+    "aliases": [
+      "Francis Fukuyama (Relations internationales et ordre mondial)"
+    ],
+    "notes": [
+      {
+        "section": "§18",
+        "text": "*La Fin de l'histoire* (1992) : la démocratie libérale de marché comme horizon indépassable ; thèse aujourd'hui nuancée par son auteur."
+      }
+    ]
+  },
+  {
+    "id": "beauvoir",
+    "name": "Simone de Beauvoir",
+    "dates": "1908–1986",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*Le Deuxième Sexe* (1949). « On ne naît pas femme, on le devient » : la féminité est une construction sociale qui fait de la femme « l'Autre ».",
+    "axes": [
+      "GEN",
+      "CUL"
+    ]
+  },
+  {
+    "id": "friedan",
+    "name": "Betty Friedan",
+    "dates": "1921–2006",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*La Femme mystifiée*. Dénonce l'enfermement domestique des Américaines ; lance la deuxième vague libérale (NOW).",
+    "axes": [
+      "GEN"
+    ]
+  },
+  {
+    "id": "delphy",
+    "name": "Christine Delphy",
+    "dates": "1941–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*L'Ennemi principal*. Féminisme matérialiste : le patriarcat est un système d'exploitation économique du travail domestique.",
+    "axes": [
+      "GEN",
+      "ECO"
+    ]
+  },
+  {
+    "id": "federici",
+    "name": "Silvia Federici",
+    "dates": "1942–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*Caliban et la sorcière*. Le capitalisme s'est bâti sur l'appropriation du corps et du travail reproductif des femmes.",
+    "axes": [
+      "GEN",
+      "ECO"
+    ]
+  },
+  {
+    "id": "butler",
+    "name": "Judith Butler",
+    "dates": "1956–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*Trouble dans le genre*. Le genre est « performatif » ; critique de la binarité ; référence des études queer, cible des critiques de la « théorie du genre ».",
+    "axes": [
+      "GEN",
+      "CUL"
+    ]
+  },
+  {
+    "id": "mackinnon-dworkin",
+    "name": "Catharine MacKinnon et Andrea Dworkin",
+    "dates": "1946– ; 1946–2005",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "Féminisme radical : sexualité comme lieu de domination ; pornographie et prostitution comme violences (abolitionnisme).",
+    "axes": [
+      "GEN",
+      "CUL"
+    ],
+    "members": [
+      "Catharine MacKinnon",
+      "Andrea Dworkin"
+    ]
+  },
+  {
+    "id": "fraser",
+    "name": "Nancy Fraser",
+    "dates": "1947–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*Qu'est-ce que la justice sociale ?* La justice exige redistribution **et** reconnaissance ; critique du « néolibéralisme progressiste ».",
+    "axes": [
+      "GEN",
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "farris",
+    "name": "Sara Farris",
+    "dates": "1977–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*In the Name of Women's Rights*. Concept de « fémonationalisme » : instrumentalisation des droits des femmes au service de discours anti-immigration.",
+    "axes": [
+      "GEN",
+      "ALT"
+    ]
+  },
+  {
+    "id": "chollet",
+    "name": "Mona Chollet",
+    "dates": "1973–",
+    "current": "Féminismes",
+    "section": "§14",
+    "summary": "*Sorcières*. Essayisme féministe grand public : célibat, âge, maternité choisie.",
+    "axes": [
+      "GEN",
+      "CUL"
+    ]
+  },
+  {
+    "id": "carson",
+    "name": "Rachel Carson",
+    "dates": "1907–1964",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Printemps silencieux* (1962). Révèle les ravages des pesticides (DDT) ; acte de naissance de l'écologisme moderne.",
+    "axes": [
+      "ENV"
+    ]
+  },
+  {
+    "id": "hardin-ostrom",
+    "name": "Garrett Hardin et Elinor Ostrom",
+    "dates": "1915–2003 ; 1933–2012",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "« Tragédie des communs » (1968) : sans propriété ou État, les ressources partagées sont surexploitées. Ostrom (Nobel 2009) montre que des communautés gèrent durablement des communs par des règles propres.",
+    "axes": [
+      "ENV",
+      "ECO",
+      "TER"
+    ],
+    "members": [
+      "Garrett Hardin",
+      "Elinor Ostrom"
+    ]
+  },
+  {
+    "id": "meadows",
+    "name": "Donella et Dennis Meadows",
+    "dates": "n. c.",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Les Limites à la croissance* (Club de Rome, 1972). Une croissance exponentielle dans un monde fini mène à l'effondrement.",
+    "axes": [
+      "ENV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "jonas",
+    "name": "Hans Jonas",
+    "dates": "1903–1993",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Le Principe responsabilité*. Éthique pour la civilisation technologique : agir de façon compatible avec la permanence d'une vie humaine authentique ; « heuristique de la peur ». Fonde le principe de précaution.",
+    "axes": [
+      "ENV",
+      "TEC"
+    ]
+  },
+  {
+    "id": "gorz",
+    "name": "André Gorz",
+    "dates": "1923–2007",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Écologie et politique*. Écologie anticapitaliste : réduction du temps de travail, autonomie, décroissance de la production marchande.",
+    "axes": [
+      "ENV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "illich",
+    "name": "Ivan Illich",
+    "dates": "1926–2002",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*La Convivialité*. Au-delà d'un seuil, les institutions (école, médecine, transport) deviennent contre-productives ; éloge des outils conviviaux.",
+    "axes": [
+      "ENV",
+      "TEC"
+    ]
+  },
+  {
+    "id": "naess",
+    "name": "Arne Næss",
+    "dates": "1912–2009",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "« Écologie profonde » : valeur intrinsèque de toute vie, critique de l'anthropocentrisme.",
+    "axes": [
+      "ENV"
+    ]
+  },
+  {
+    "id": "latouche",
+    "name": "Serge Latouche",
+    "dates": "1940–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Le Pari de la décroissance*. Sortir de l'imaginaire de la croissance : relocalisation, sobriété, « décolonisation de l'imaginaire ».",
+    "axes": [
+      "ENV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "latour-descola",
+    "name": "Bruno Latour et Philippe Descola",
+    "dates": "1947–2022 ; 1949–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Où atterrir ?* ; *Par-delà nature et culture*. Dépasser la séparation nature/société ; nouvelle géopolitique du « terrestre ».",
+    "axes": [
+      "ENV"
+    ],
+    "members": [
+      "Bruno Latour",
+      "Philippe Descola"
+    ]
+  },
+  {
+    "id": "raworth-jackson",
+    "name": "Kate Raworth et Tim Jackson",
+    "dates": "1970– ; 1957–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*La Théorie du donut* ; *Prospérité sans croissance*. Économie entre plancher social et plafond écologique ; prospérité découplée du PIB.",
+    "axes": [
+      "ENV",
+      "ECO"
+    ],
+    "members": [
+      "Kate Raworth",
+      "Tim Jackson"
+    ]
+  },
+  {
+    "id": "malm-saito",
+    "name": "Andreas Malm et Kohei Saito",
+    "dates": "1977– ; 1987–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Comment saboter un pipeline* ; *Moins !* « Capitalocène » : le capitalisme fossile est responsable de la crise ; Malm légitime le sabotage, Saito prône un « communisme de décroissance ».",
+    "axes": [
+      "ENV",
+      "ECO",
+      "CHG"
+    ],
+    "members": [
+      "Andreas Malm",
+      "Kohei Saito"
+    ]
+  },
+  {
+    "id": "jancovici",
+    "name": "Jean-Marc Jancovici",
+    "dates": "1962–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*Le Monde sans fin* (avec Blain). Ingénieur : la décarbonation impose sobriété **et** nucléaire ; fondateur du Shift Project ; critique à la fois des décroissants antinucléaires et des « techno-solutionnistes ».",
+    "axes": [
+      "ENV",
+      "TEC"
+    ]
+  },
+  {
+    "id": "ecomodernisme",
+    "name": "Écomodernisme",
+    "dates": "n. c.",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "**Michael Shellenberger**, **Ted Nordhaus** (*Manifeste écomoderniste*, 2015) : découpler l'humanité de la nature par l'innovation, le nucléaire et l'intensification agricole.",
+    "axes": [
+      "ENV",
+      "TEC"
+    ],
+    "members": [
+      "Michael Shellenberger",
+      "Ted Nordhaus"
+    ]
+  },
+  {
+    "id": "lomborg",
+    "name": "Bjørn Lomborg",
+    "dates": "1965–",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "*L'Écologiste sceptique*. Reconnaît le réchauffement mais juge ses coûts surestimés et prône l'adaptation et la R&D plutôt que la réduction rapide des émissions. À distinguer du déni.",
+    "axes": [
+      "ENV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "oreskes-conway",
+    "name": "Le déni climatique et sa sociologie",
+    "dates": "n. c.",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "**Naomi Oreskes et Erik Conway** (*Les Marchands de doute*) montrent comment des industriels et think tanks ont fabriqué le doute (tabac, pluies acides, climat). Le pôle « dénialiste » de l'axe ENV correspond à la contestation du consensus du **GIEC** sur l'origine humaine du réchauffement.",
+    "axes": [
+      "ENV"
+    ],
+    "members": [
+      "Naomi Oreskes",
+      "Erik Conway"
+    ]
+  },
+  {
+    "id": "ecologies-conservatrices",
+    "name": "Écologies conservatrices",
+    "dates": "n. c.",
+    "current": "Écologie politique, climatoscepticisme, écomodernisme",
+    "section": "§15",
+    "summary": "**Pape François**, *Laudato si'* (2015) : « écologie intégrale » liant crise environnementale et sociale ; courant de l'écologie « enracinée » (localisme, anti-éolien paysager). À l'extrême, **Pentti Linkola** a défendu une écologie autoritaire et antihumaniste : illustration des liens possibles entre ENV et GOV.",
+    "axes": [
+      "ENV",
+      "REL",
+      "GOV"
+    ],
+    "members": [
+      "Pape François",
+      "Pentti Linkola"
+    ]
+  },
+  {
+    "id": "durkheim",
+    "name": "Émile Durkheim",
+    "dates": "1858–1917",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*Les Formes élémentaires de la vie religieuse*. La religion est la société se représentant et se sacralisant elle-même ; elle produit la cohésion.",
+    "axes": [
+      "REL",
+      "IDE"
+    ]
+  },
+  {
+    "id": "weber",
+    "name": "Max Weber",
+    "dates": "1864–1920",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*L'Éthique protestante et l'esprit du capitalisme*. Affinités entre ascétisme protestant et rationalité capitaliste ; « désenchantement du monde ».",
+    "axes": [
+      "REL",
+      "ECO"
+    ]
+  },
+  {
+    "id": "nietzsche",
+    "name": "Friedrich Nietzsche",
+    "dates": "1844–1900",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*Le Gai Savoir*, *Généalogie de la morale*. « Dieu est mort » ; la morale chrétienne est une morale d'esclaves. Lu par anarchistes, existentialistes et extrême droite.",
+    "axes": [
+      "REL",
+      "CUL"
+    ]
+  },
+  {
+    "id": "buisson-briand",
+    "name": "Ferdinand Buisson et Aristide Briand",
+    "dates": "1841–1932 ; 1862–1932",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "Architectes de l'école laïque et de la **loi de 1905** : liberté de conscience, libre exercice des cultes, séparation et neutralité de l'État.",
+    "axes": [
+      "REL"
+    ],
+    "members": [
+      "Ferdinand Buisson",
+      "Aristide Briand"
+    ]
+  },
+  {
+    "id": "gauchet",
+    "name": "Marcel Gauchet",
+    "dates": "1946–",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*Le Désenchantement du monde*. Le christianisme est « la religion de la sortie de la religion » ; la démocratie moderne naît de ce retrait.",
+    "axes": [
+      "REL",
+      "GOV"
+    ]
+  },
+  {
+    "id": "taylor",
+    "name": "Charles Taylor",
+    "dates": "1931–",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*L'Âge séculier*. La sécularisation n'est pas la disparition de la foi mais le passage à un monde où croire est une option parmi d'autres.",
+    "axes": [
+      "REL",
+      "IDE",
+      "ALT"
+    ],
+    "aliases": [
+      "Charles Taylor (Communautarisme, multiculturalisme, individualisme)"
+    ],
+    "notes": [
+      {
+        "section": "§22",
+        "text": "*Multiculturalisme. Différence et démocratie* (« politique de la reconnaissance »). Le déni de reconnaissance d'une identité est une forme d'oppression ; défense d'un libéralisme accommodant (Québec)."
+      }
+    ]
+  },
+  {
+    "id": "bauberot-pena-ruiz",
+    "name": "Jean Baubérot et Henri Peña-Ruiz",
+    "dates": "1941– ; 1947–",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "Deux lectures de la laïcité : Baubérot décrit plusieurs « laïcités » et défend une laïcité libérale de 1905 ; Peña-Ruiz une laïcité d'émancipation plus exigeante envers les signes religieux. Débat clé de l'axe REL.",
+    "axes": [
+      "REL",
+      "CUL"
+    ],
+    "members": [
+      "Jean Baubérot",
+      "Henri Peña-Ruiz"
+    ]
+  },
+  {
+    "id": "doctrine-sociale-eglise",
+    "name": "Doctrine sociale de l'Église",
+    "dates": "n. c.",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "**Léon XIII**, *Rerum novarum* (1891) : ni libéralisme ni socialisme, juste salaire, corps intermédiaires, subsidiarité. Inspire démocratie chrétienne et syndicalisme chrétien.",
+    "axes": [
+      "REL",
+      "ECO"
+    ],
+    "members": [
+      "Léon XIII"
+    ]
+  },
+  {
+    "id": "mounier-maritain",
+    "name": "Emmanuel Mounier et Jacques Maritain",
+    "dates": "1905–1950 ; 1882–1973",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "Personnalisme et « humanisme intégral » : la personne, ni individu isolé ni rouage collectif ; fondement de la démocratie chrétienne.",
+    "axes": [
+      "REL",
+      "IDE"
+    ],
+    "members": [
+      "Emmanuel Mounier",
+      "Jacques Maritain"
+    ]
+  },
+  {
+    "id": "roy-kepel",
+    "name": "Olivier Roy et Gilles Kepel",
+    "dates": "1949– ; 1955–",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "Deux lectures du djihadisme : « islamisation de la radicalité » (Roy) contre « radicalisation de l'islam » et djihadisme d'atmosphère (Kepel). Débat structurant pour les politiques de laïcité et de sécurité.",
+    "axes": [
+      "REL",
+      "SEC"
+    ],
+    "members": [
+      "Olivier Roy",
+      "Gilles Kepel"
+    ]
+  },
+  {
+    "id": "qutb",
+    "name": "Sayyid Qutb",
+    "dates": "1906–1966",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "*Jalons sur la route*. Idéologue des Frères musulmans égyptiens : souveraineté de Dieu contre la « jahiliyya » moderne ; source de l'islamisme radical. À connaître pour comprendre ce que visent les politiques anti-islamistes.",
+    "axes": [
+      "REL",
+      "GOV"
+    ],
+    "restricted": true
+  },
+  {
+    "id": "habermas",
+    "name": "Jürgen Habermas",
+    "dates": "1929–",
+    "current": "Religion, laïcité, sécularisation",
+    "section": "§16",
+    "summary": "« Société post-séculière » : les citoyens croyants peuvent contribuer au débat public si leurs raisons sont traduisibles en langage séculier.",
+    "axes": [
+      "REL",
+      "GOV",
+      "UE",
+      "ETA"
+    ],
+    "aliases": [
+      "Jürgen Habermas (Europe : fédéralisme et souverainisme)"
+    ],
+    "notes": [
+      {
+        "section": "§19",
+        "text": "« Patriotisme constitutionnel » et démocratie européenne post-nationale."
+      }
+    ]
+  },
+  {
+    "id": "arendt",
+    "name": "Hannah Arendt",
+    "dates": "1906–1975",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*Les Origines du totalitarisme*, *Eichmann à Jérusalem*. Le totalitarisme détruit l'espace public par la terreur et l'idéologie ; « banalité du mal ».",
+    "axes": [
+      "GOV"
+    ]
+  },
+  {
+    "id": "schumpeter",
+    "name": "Joseph Schumpeter",
+    "dates": "1883–1950",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*Capitalisme, socialisme et démocratie*. Démocratie « minimaliste » : compétition entre élites pour les suffrages ; « destruction créatrice ».",
+    "axes": [
+      "GOV",
+      "ECO"
+    ]
+  },
+  {
+    "id": "dahl",
+    "name": "Robert Dahl",
+    "dates": "1915–2014",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*Polyarchy*. Critères de la démocratie réelle : élections libres, droit d'opposition, sources d'information alternatives, inclusivité. Base des indices de démocratie.",
+    "axes": [
+      "GOV"
+    ]
+  },
+  {
+    "id": "lefort",
+    "name": "Claude Lefort",
+    "dates": "1924–2010",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*L'Invention démocratique*. En démocratie, le lieu du pouvoir est « vide » : nul ne peut l'incarner ; le totalitarisme prétend l'occuper par le Peuple-Un.",
+    "axes": [
+      "GOV",
+      "POP"
+    ]
+  },
+  {
+    "id": "castoriadis",
+    "name": "Cornelius Castoriadis",
+    "dates": "1922–1997",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*L'Institution imaginaire de la société*. Autonomie : une société qui se donne consciemment ses propres lois ; démocratie directe, critique de la bureaucratie soviétique et capitaliste.",
+    "axes": [
+      "GOV",
+      "INS"
+    ]
+  },
+  {
+    "id": "ranciere",
+    "name": "Jacques Rancière",
+    "dates": "1940–",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*La Haine de la démocratie*. La démocratie est le pouvoir de « n'importe qui » ; elle dérange les élites qui la réduisent à la gestion.",
+    "axes": [
+      "GOV",
+      "POP"
+    ]
+  },
+  {
+    "id": "manin-sintomer",
+    "name": "Bernard Manin et Yves Sintomer",
+    "dates": "1951– ; 1962–",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*Principes du gouvernement représentatif* ; *Petite histoire du tirage au sort*. L'élection est aristocratique ; le tirage au sort, démocratique. Fondements des conventions citoyennes.",
+    "axes": [
+      "INS"
+    ],
+    "members": [
+      "Bernard Manin",
+      "Yves Sintomer"
+    ]
+  },
+  {
+    "id": "mudde-muller",
+    "name": "Cas Mudde et Jan-Werner Müller",
+    "dates": "1967– ; 1970–",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "Le populisme oppose un « peuple pur » à une « élite corrompue » ; il est intrinsèquement **antipluraliste** (Müller). Base des échelles de mesure du populisme.",
+    "axes": [
+      "POP",
+      "GOV"
+    ],
+    "members": [
+      "Cas Mudde",
+      "Jan-Werner Müller"
+    ]
+  },
+  {
+    "id": "linz-levitsky-ziblatt",
+    "name": "Juan Linz, Steven Levitsky et Daniel Ziblatt",
+    "dates": "1926–2013",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "Les démocraties meurent aujourd'hui moins par coups d'État que par érosion légale : capture des arbitres (juges, médias), marginalisation des opposants, contournement des normes. Grille pour l'axe GOV.",
+    "axes": [
+      "GOV"
+    ],
+    "members": [
+      "Juan Linz",
+      "Steven Levitsky",
+      "Daniel Ziblatt"
+    ]
+  },
+  {
+    "id": "douguine",
+    "name": "Alexandre Douguine",
+    "dates": "1962–",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*La Quatrième Théorie politique*. Eurasisme : empire continental, tradition, rejet du libéralisme occidental ; influent dans la Russie poutinienne et chez certains souverainistes européens.",
+    "axes": [
+      "GOV",
+      "GMO",
+      "ETA"
+    ]
+  },
+  {
+    "id": "yarvin",
+    "name": "Curtis Yarvin",
+    "dates": "1973–",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "« Néoréaction » : la démocratie est un échec, il faudrait un pouvoir de type « PDG » ; influent dans une partie de la tech et de la droite américaines.",
+    "axes": [
+      "GOV",
+      "TEC"
+    ]
+  },
+  {
+    "id": "orwell",
+    "name": "George Orwell",
+    "dates": "1903–1950",
+    "current": "Démocratie, autoritarisme, populisme",
+    "section": "§17",
+    "summary": "*1984*, *La Ferme des animaux*, *Hommage à la Catalogne*. Socialiste antitotalitaire ; « common decency » ; manipulation du langage par le pouvoir.",
+    "axes": [
+      "GOV",
+      "CUL"
+    ]
+  },
+  {
+    "id": "thucydide",
+    "name": "Thucydide",
+    "dates": "Ve s. av. J.-C.",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "*La Guerre du Péloponnèse*. « Les forts font ce qu'ils peuvent, les faibles subissent ce qu'ils doivent » ; peur et puissance comme causes de guerre. Texte fondateur du réalisme.",
+    "axes": [
+      "GMO"
+    ]
+  },
+  {
+    "id": "realistes-morgenthau-waltz-mearsheimer",
+    "name": "Hans Morgenthau, Kenneth Waltz et John Mearsheimer",
+    "dates": "1904–1980 ; 1924–2013 ; 1947–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "Réalisme et néoréalisme : anarchie internationale, équilibre des puissances, intérêt national. Mearsheimer impute en partie la guerre d'Ukraine à l'élargissement de l'OTAN, thèse très contestée.",
+    "axes": [
+      "GMO",
+      "ETA"
+    ],
+    "members": [
+      "Hans Morgenthau",
+      "Kenneth Waltz",
+      "John Mearsheimer"
+    ]
+  },
+  {
+    "id": "keohane-nye",
+    "name": "Robert Keohane et Joseph Nye",
+    "dates": "1941– ; 1937–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "Interdépendance et institutions : la coopération est possible ; « soft power ». Base du multilatéralisme libéral.",
+    "axes": [
+      "GMO",
+      "UE"
+    ],
+    "members": [
+      "Robert Keohane",
+      "Joseph Nye"
+    ]
+  },
+  {
+    "id": "wendt",
+    "name": "Alexander Wendt",
+    "dates": "1958–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "« L'anarchie est ce que les États en font » : constructivisme, les identités et normes façonnent les intérêts.",
+    "axes": [
+      "GMO"
+    ]
+  },
+  {
+    "id": "huntington",
+    "name": "Samuel Huntington",
+    "dates": "1927–2008",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "*Le Choc des civilisations*. Les conflits futurs opposeront des aires civilisationnelles, notamment l'Occident et l'islam. Très discuté et repris par la droite identitaire.",
+    "axes": [
+      "GMO",
+      "ALT",
+      "REL"
+    ]
+  },
+  {
+    "id": "kissinger",
+    "name": "Henry Kissinger",
+    "dates": "1923–2023",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "*Diplomatie*, *L'Ordre du monde*. Realpolitik, équilibre et légitimité ; défenseur de la détente et de l'ouverture à la Chine.",
+    "axes": [
+      "GMO"
+    ]
+  },
+  {
+    "id": "wallerstein-chomsky",
+    "name": "Immanuel Wallerstein et Noam Chomsky",
+    "dates": "1930–2019 ; 1928–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "Système-monde centre/périphérie ; critique radicale de l'impérialisme américain et des médias. Références de l'anti-impérialisme de gauche.",
+    "axes": [
+      "GMO",
+      "ECO"
+    ],
+    "members": [
+      "Immanuel Wallerstein",
+      "Noam Chomsky"
+    ]
+  },
+  {
+    "id": "walzer",
+    "name": "Michael Walzer",
+    "dates": "1935–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "*Guerres justes et injustes*. Cadre moral du recours à la force (jus ad bellum, jus in bello).",
+    "axes": [
+      "GMO",
+      "IDE",
+      "ECO"
+    ],
+    "aliases": [
+      "Michael Walzer (Communautarisme, multiculturalisme, individualisme)"
+    ],
+    "notes": [
+      {
+        "section": "§22",
+        "text": "*Sphères de justice*. Chaque bien social (argent, pouvoir, santé, honneur) a sa propre logique distributive : « égalité complexe »."
+      }
+    ]
+  },
+  {
+    "id": "droit-ingerence-r2p",
+    "name": "Droit d'ingérence et responsabilité de protéger",
+    "dates": "n. c.",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "**Mario Bettati** et **Bernard Kouchner** (années 1980), puis la **R2P** (ONU, 2005) : la souveraineté cède devant les crimes de masse. Critiques : Libye 2011, sélectivité.",
+    "axes": [
+      "GMO"
+    ],
+    "members": [
+      "Mario Bettati",
+      "Bernard Kouchner"
+    ]
+  },
+  {
+    "id": "kagan",
+    "name": "Robert Kagan",
+    "dates": "1958–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "*La Puissance et la Faiblesse*. Les Américains « viennent de Mars », les Européens « de Vénus » ; néoconservatisme et primat de la puissance.",
+    "axes": [
+      "GMO",
+      "UE"
+    ]
+  },
+  {
+    "id": "vedrine",
+    "name": "Hubert Védrine",
+    "dates": "1947–",
+    "current": "Relations internationales et ordre mondial",
+    "section": "§18",
+    "summary": "Réalisme « gaullo-mitterrandien » : critique de l'« occidentalisme » et de l'ingérence moralisatrice, défense d'une France puissance d'équilibre.",
+    "axes": [
+      "GMO",
+      "ETA"
+    ]
+  },
+  {
+    "id": "spinelli",
+    "name": "Altiero Spinelli",
+    "dates": "1907–1986",
+    "current": "Europe : fédéralisme et souverainisme",
+    "section": "§19",
+    "summary": "*Manifeste de Ventotene* (1941). Les États-nations sont la cause des guerres : il faut une fédération européenne démocratique.",
+    "axes": [
+      "UE"
+    ]
+  },
+  {
+    "id": "monnet-schuman",
+    "name": "Jean Monnet et Robert Schuman",
+    "dates": "1888–1979 ; 1886–1963",
+    "current": "Europe : fédéralisme et souverainisme",
+    "section": "§19",
+    "summary": "Déclaration du 9 mai 1950 : l'Europe se fera « par des réalisations concrètes créant d'abord une solidarité de fait ». Méthode fonctionnaliste communautaire.",
+    "axes": [
+      "UE"
+    ],
+    "members": [
+      "Jean Monnet",
+      "Robert Schuman"
+    ]
+  },
+  {
+    "id": "delors",
+    "name": "Jacques Delors",
+    "dates": "1925–2023",
+    "current": "Europe : fédéralisme et souverainisme",
+    "section": "§19",
+    "summary": "Marché unique, Union économique et monétaire, « Europe sociale » et dialogue social européen ; fédération d'États-nations.",
+    "axes": [
+      "UE",
+      "ECO"
+    ]
+  },
+  {
+    "id": "majone-streeck",
+    "name": "Giandomenico Majone et Wolfgang Streeck",
+    "dates": "1932–2022 ; 1946–",
+    "current": "Europe : fédéralisme et souverainisme",
+    "section": "§19",
+    "summary": "L'UE comme « État régulateur » légitime par l'expertise (Majone) ; Streeck (*Du temps acheté*) y voit l'instrument d'une dé-démocratisation au service du capitalisme financier.",
+    "axes": [
+      "UE",
+      "GOV",
+      "ECO"
+    ],
+    "members": [
+      "Giandomenico Majone",
+      "Wolfgang Streeck"
+    ]
+  },
+  {
+    "id": "todd",
+    "name": "Emmanuel Todd",
+    "dates": "1951–",
+    "current": "Europe : fédéralisme et souverainisme",
+    "section": "§19",
+    "summary": "Démographe : critique de l'euro et de l'« empire allemand », puis *La Défaite de l'Occident* (2024). Lu par les souverainistes de gauche et de droite.",
+    "axes": [
+      "UE",
+      "GMO"
+    ]
+  },
+  {
+    "id": "keynes",
+    "name": "John Maynard Keynes",
+    "dates": "1883–1946",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*Théorie générale* (1936). Le chômage massif vient d'une insuffisance de la demande ; l'État doit la soutenir (dépense publique, politique monétaire). Fonde les politiques contracycliques.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "polanyi",
+    "name": "Karl Polanyi",
+    "dates": "1886–1964",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*La Grande Transformation* (1944). Le marché autorégulateur « désencastré » de la société provoque un contre-mouvement protecteur — qui peut prendre la forme du fascisme.",
+    "axes": [
+      "ECO",
+      "POP"
+    ]
+  },
+  {
+    "id": "list",
+    "name": "Friedrich List",
+    "dates": "1789–1846",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*Système national d'économie politique*. Protectionnisme éducateur des industries naissantes ; le libre-échange convient aux nations déjà dominantes. Référence du protectionnisme (RN, Ruffin, Montebourg).",
+    "axes": [
+      "ECO",
+      "ETA"
+    ]
+  },
+  {
+    "id": "galbraith-minsky",
+    "name": "John Kenneth Galbraith et Hyman Minsky",
+    "dates": "1908–2006 ; 1919–1996",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "Pouvoir des grandes entreprises et « filière inversée » ; instabilité financière endogène (« moment Minsky »).",
+    "axes": [
+      "ECO"
+    ],
+    "members": [
+      "John Kenneth Galbraith",
+      "Hyman Minsky"
+    ]
+  },
+  {
+    "id": "hirschman",
+    "name": "Albert Hirschman",
+    "dates": "1915–2012",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*Exit, Voice and Loyalty* ; *Deux siècles de rhétorique réactionnaire* (effet pervers, inanité, mise en péril). Outil pour repérer les arguments rhétoriques de tous bords.",
+    "axes": [
+      "ECO",
+      "GOV"
+    ]
+  },
+  {
+    "id": "stiglitz-rodrik",
+    "name": "Joseph Stiglitz et Dani Rodrik",
+    "dates": "1943– ; 1957–",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "Critique de la mondialisation dérégulée ; « trilemme » de Rodrik : on ne peut avoir à la fois hypermondialisation, souveraineté nationale et démocratie.",
+    "axes": [
+      "ECO",
+      "ETA",
+      "UE"
+    ],
+    "members": [
+      "Joseph Stiglitz",
+      "Dani Rodrik"
+    ]
+  },
+  {
+    "id": "mazzucato",
+    "name": "Mariana Mazzucato",
+    "dates": "1968–",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*L'État entrepreneur*. Les grandes innovations (Internet, GPS) viennent de l'investissement public ; plaide pour des « missions » publiques.",
+    "axes": [
+      "ECO",
+      "TEC"
+    ]
+  },
+  {
+    "id": "kelton",
+    "name": "Stephanie Kelton",
+    "dates": "1969–",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "*Le Mythe du déficit*. Théorie monétaire moderne : un État émetteur de sa monnaie n'est contraint que par l'inflation. Controversée ; inapplicable telle quelle dans la zone euro.",
+    "axes": [
+      "ECO",
+      "UE"
+    ]
+  },
+  {
+    "id": "allais",
+    "name": "Maurice Allais",
+    "dates": "1911–2010",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "Nobel 1988, libéral mais protectionniste européen, critique de la mondialisation financière. Montre qu'ECO et ETA ne se recoupent pas.",
+    "axes": [
+      "ECO",
+      "ETA"
+    ]
+  },
+  {
+    "id": "aghion-tirole-duflo",
+    "name": "Philippe Aghion, Jean Tirole, Esther Duflo et Abhijit Banerjee",
+    "dates": "1956– ; 1953– ; 1972– ; 1961–",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "Économie de l'innovation « schumpétérienne » ; régulation des marchés et des plateformes ; évaluations randomisées des politiques contre la pauvreté. Économistes « mainstream » souvent sollicités par le centre.",
+    "axes": [
+      "ECO",
+      "TEC"
+    ],
+    "members": [
+      "Philippe Aghion",
+      "Jean Tirole",
+      "Esther Duflo",
+      "Abhijit Banerjee"
+    ]
+  },
+  {
+    "id": "laffer",
+    "name": "Arthur Laffer",
+    "dates": "1940–",
+    "current": "Économie : keynésianisme et hétérodoxies contemporaines",
+    "section": "§20",
+    "summary": "« Trop d'impôt tue l'impôt » : au-delà d'un certain taux, les recettes baissent. Argument central des politiques de baisse d'impôts ; seuil empirique très débattu.",
+    "axes": [
+      "ECO"
+    ]
+  },
+  {
+    "id": "bourdieu",
+    "name": "Pierre Bourdieu",
+    "dates": "1930–2002",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La Distinction*, *Les Héritiers*. Reproduction des inégalités par les capitaux économique, culturel et social ; l'école légitime la domination ; habitus. Référence de la sociologie critique.",
+    "axes": [
+      "ECO",
+      "CUL"
+    ]
+  },
+  {
+    "id": "boudon",
+    "name": "Raymond Boudon",
+    "dates": "1934–2013",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*L'Inégalité des chances*. Individualisme méthodologique : les inégalités scolaires résultent de choix rationnels contraints, non d'un système qui « reproduit ». Contrepoint libéral à Bourdieu.",
+    "axes": [
+      "ECO",
+      "IDE"
+    ]
+  },
+  {
+    "id": "elias",
+    "name": "Norbert Elias",
+    "dates": "1897–1990",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La Civilisation des mœurs*. Le « processus de civilisation » : monopole étatique de la violence et intériorisation de l'autocontrainte.",
+    "axes": [
+      "SEC",
+      "CUL"
+    ]
+  },
+  {
+    "id": "boltanski-chiapello",
+    "name": "Luc Boltanski et Ève Chiapello",
+    "dates": "n. c.",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*Le Nouvel Esprit du capitalisme* (1999). Le capitalisme a absorbé la « critique artiste » de Mai 68 (autonomie, créativité) en sacrifiant la « critique sociale ». Clé de lecture du lien CUL/ECO.",
+    "axes": [
+      "ECO",
+      "CUL"
+    ],
+    "members": [
+      "Luc Boltanski",
+      "Ève Chiapello"
+    ]
+  },
+  {
+    "id": "guilluy",
+    "name": "Christophe Guilluy",
+    "dates": "1964–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La France périphérique*. Fracture entre métropoles mondialisées et territoires périphériques où vivent les classes populaires reléguées. Très débattu méthodologiquement.",
+    "axes": [
+      "TER",
+      "POP"
+    ]
+  },
+  {
+    "id": "fourquet",
+    "name": "Jérôme Fourquet",
+    "dates": "1973–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*L'Archipel français*. Fragmentation de la société (déchristianisation, communautés, sécession des élites) en îlots.",
+    "axes": [
+      "IDE",
+      "REL"
+    ]
+  },
+  {
+    "id": "le-bras-heran",
+    "name": "Hervé Le Bras et François Héran",
+    "dates": "1943– ; 1953–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "Démographes : réfutent statistiquement le « grand remplacement » ; Héran (*Avec l'immigration*) plaide pour une politique fondée sur les données.",
+    "axes": [
+      "ALT",
+      "ETA"
+    ],
+    "members": [
+      "Hervé Le Bras",
+      "François Héran"
+    ]
+  },
+  {
+    "id": "eribon",
+    "name": "Didier Eribon",
+    "dates": "1953–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*Retour à Reims*. Autobiographie sociologique : le glissement du vote ouvrier communiste vers le FN tient à l'abandon des classes populaires par la gauche.",
+    "axes": [
+      "POP",
+      "ECO"
+    ]
+  },
+  {
+    "id": "cage-piketty",
+    "name": "Julia Cagé et Thomas Piketty",
+    "dates": "n. c.",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*Une histoire du conflit politique* (2023). Deux siècles de votes : le clivage de classe se double d'un clivage territorial (bourgs contre métropoles) qui explique le vote RN.",
+    "axes": [
+      "TER",
+      "ECO",
+      "POP"
+    ],
+    "members": [
+      "Julia Cagé",
+      "Thomas Piketty"
+    ]
+  },
+  {
+    "id": "beck-bauman",
+    "name": "Ulrich Beck et Zygmunt Bauman",
+    "dates": "1944–2015 ; 1925–2017",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La Société du risque* ; *La Vie liquide*. Modernité réflexive productrice de risques globaux ; liens sociaux et identités devenus « liquides ».",
+    "axes": [
+      "ENV",
+      "IDE"
+    ],
+    "members": [
+      "Ulrich Beck",
+      "Zygmunt Bauman"
+    ]
+  },
+  {
+    "id": "putnam",
+    "name": "Robert Putnam",
+    "dates": "1941–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*Bowling Alone*. Déclin du capital social et de l'engagement civique ; une étude (2007) suggère que la diversité réduit à court terme la confiance, résultat discuté et instrumentalisé.",
+    "axes": [
+      "IDE",
+      "ALT"
+    ]
+  },
+  {
+    "id": "goodhart",
+    "name": "David Goodhart",
+    "dates": "1956–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*The Road to Somewhere*. Clivage entre « Anywheres » mobiles et diplômés et « Somewheres » enracinés ; explique Brexit et populismes.",
+    "axes": [
+      "IDE",
+      "POP",
+      "ETA"
+    ]
+  },
+  {
+    "id": "sandel",
+    "name": "Michael Sandel",
+    "dates": "1953–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La Tyrannie du mérite*. La méritocratie humilie les perdants et alimente le ressentiment populiste ; réhabiliter la dignité du travail.",
+    "axes": [
+      "ECO",
+      "POP",
+      "IDE"
+    ]
+  },
+  {
+    "id": "honneth",
+    "name": "Axel Honneth",
+    "dates": "1949–",
+    "current": "Sociologie des fractures françaises",
+    "section": "§21",
+    "summary": "*La Lutte pour la reconnaissance*. Amour, droit et estime sociale comme conditions de l'intégrité ; le mépris est source des conflits sociaux.",
+    "axes": [
+      "IDE"
+    ]
+  },
+  {
+    "id": "etzioni",
+    "name": "Amitai Etzioni",
+    "dates": "1929–2023",
+    "current": "Communautarisme, multiculturalisme, individualisme",
+    "section": "§22",
+    "summary": "Fondateur du « communautarisme responsif » : équilibrer droits individuels et responsabilités envers la communauté.",
+    "axes": [
+      "IDE"
+    ]
+  },
+  {
+    "id": "kymlicka-parekh",
+    "name": "Will Kymlicka et Bhikhu Parekh",
+    "dates": "1962– ; 1935–",
+    "current": "Communautarisme, multiculturalisme, individualisme",
+    "section": "§22",
+    "summary": "*La Citoyenneté multiculturelle* ; *Rethinking Multiculturalism*. Droits collectifs pour les minorités nationales et immigrées compatibles avec le libéralisme. Contre-modèle de l'assimilation républicaine.",
+    "axes": [
+      "IDE",
+      "ALT"
+    ],
+    "members": [
+      "Will Kymlicka",
+      "Bhikhu Parekh"
+    ]
+  },
+  {
+    "id": "dumont",
+    "name": "Louis Dumont",
+    "dates": "1911–1998",
+    "current": "Communautarisme, multiculturalisme, individualisme",
+    "section": "§22",
+    "summary": "*Essais sur l'individualisme*. Opposition entre sociétés « holistes » (primat du tout, hiérarchie) et modernité « individualiste » (primat de l'individu, égalité). Fondement théorique de l'axe IDE.",
+    "axes": [
+      "IDE"
+    ]
+  },
+  {
+    "id": "lipovetsky",
+    "name": "Gilles Lipovetsky",
+    "dates": "1944–",
+    "current": "Communautarisme, multiculturalisme, individualisme",
+    "section": "§22",
+    "summary": "*L'Ère du vide*. Individualisme hédoniste « postmoderne » et personnalisation de la vie sociale.",
+    "axes": [
+      "IDE",
+      "CUL"
+    ]
+  },
+  {
+    "id": "reich",
+    "name": "Wilhelm Reich",
+    "dates": "1897–1957",
+    "current": "Pensée libertaire et critique culturelle",
+    "section": "§23",
+    "summary": "*La Révolution sexuelle*, *Psychologie de masse du fascisme*. La répression sexuelle produit la soumission autoritaire.",
+    "axes": [
+      "CUL",
+      "GOV"
+    ]
+  },
+  {
+    "id": "foucault",
+    "name": "Michel Foucault",
+    "dates": "1926–1984",
+    "current": "Pensée libertaire et critique culturelle",
+    "section": "§23",
+    "summary": "*Surveiller et punir*, *Histoire de la sexualité*. Le pouvoir est diffus : disciplines, normes, biopolitique ; archéologie des savoirs. Inspire critique carcérale, études de genre et néolibéralisme (§4).",
+    "axes": [
+      "CUL",
+      "SEC"
+    ]
+  },
+  {
+    "id": "deleuze-guattari",
+    "name": "Gilles Deleuze et Félix Guattari",
+    "dates": "n. c.",
+    "current": "Pensée libertaire et critique culturelle",
+    "section": "§23",
+    "summary": "*L'Anti-Œdipe*, *Mille Plateaux*. Philosophie du désir et des « lignes de fuite » contre les appareils d'État et la psychanalyse normalisatrice.",
+    "axes": [
+      "CUL",
+      "GOV"
+    ],
+    "members": [
+      "Gilles Deleuze",
+      "Félix Guattari"
+    ]
+  },
+  {
+    "id": "debord-vaneigem",
+    "name": "Guy Debord et Raoul Vaneigem",
+    "dates": "1931–1994 ; 1934–",
+    "current": "Pensée libertaire et critique culturelle",
+    "section": "§23",
+    "summary": "*La Société du spectacle* ; *Traité de savoir-vivre à l'usage des jeunes générations*. Situationnisme : la marchandise colonise la vie, réduite à la représentation. Esprit de Mai 68.",
+    "axes": [
+      "CUL",
+      "ECO"
+    ],
+    "members": [
+      "Guy Debord",
+      "Raoul Vaneigem"
+    ]
+  },
+  {
+    "id": "hocquenghem",
+    "name": "Guy Hocquenghem",
+    "dates": "1946–1988",
+    "current": "Pensée libertaire et critique culturelle",
+    "section": "§23",
+    "summary": "*Le Désir homosexuel*. Pionnier de la pensée homosexuelle révolutionnaire (FHAR).",
+    "axes": [
+      "CUL",
+      "GEN"
+    ]
+  },
+  {
+    "id": "adorno",
+    "name": "Theodor Adorno et al.",
+    "dates": "n. c.",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "*La Personnalité autoritaire* (1950). « Échelle F » : lien entre rigidité, soumission à l'autorité et préjugés. Méthodologiquement critiquée mais fondatrice.",
+    "axes": [
+      "GOV",
+      "ALT"
+    ]
+  },
+  {
+    "id": "altemeyer",
+    "name": "Bob Altemeyer",
+    "dates": "1940–",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "Échelle d'autoritarisme de droite (RWA) : soumission, agression autoritaire, conventionnalisme. Prédit fortement préjugés et soutien aux politiques sécuritaires.",
+    "axes": [
+      "GOV",
+      "SEC",
+      "ALT"
+    ]
+  },
+  {
+    "id": "sidanius-pratto",
+    "name": "Jim Sidanius et Felicia Pratto",
+    "dates": "n. c.",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "Théorie de la dominance sociale (SDO) : préférence pour la hiérarchie entre groupes. Deuxième grand prédicteur des préjugés, distinct de la RWA.",
+    "axes": [
+      "ALT",
+      "ECO"
+    ],
+    "members": [
+      "Jim Sidanius",
+      "Felicia Pratto"
+    ]
+  },
+  {
+    "id": "stenner",
+    "name": "Karen Stenner",
+    "dates": "1965–",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "*The Authoritarian Dynamic*. Prédisposition autoritaire activée par la perception d'une menace sur l'unité normative.",
+    "axes": [
+      "GOV",
+      "ALT"
+    ]
+  },
+  {
+    "id": "haidt",
+    "name": "Jonathan Haidt",
+    "dates": "1963–",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "*L'Esprit vertueux*. Théorie des fondements moraux (soin, équité, loyauté, autorité, sainteté, liberté) : la gauche s'appuie surtout sur les deux premiers, la droite sur l'ensemble. Précieux pour formuler des questions non biaisées.",
+    "axes": [
+      "CUL",
+      "IDE"
+    ]
+  },
+  {
+    "id": "inglehart",
+    "name": "Ronald Inglehart",
+    "dates": "1934–2021",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "*La Révolution silencieuse*. Passage de valeurs « matérialistes » à « postmatérialistes » (expression de soi, environnement) ; le « contrecoup culturel » (avec Pippa Norris) explique le populisme autoritaire.",
+    "axes": [
+      "CUL",
+      "ENV",
+      "POP"
+    ]
+  },
+  {
+    "id": "racisme-symbolique",
+    "name": "Racisme symbolique et moderne",
+    "dates": "n. c.",
+    "current": "Psychologie politique (utile pour la conception du quiz)",
+    "section": "§24",
+    "summary": "**David Sears, John McConahay** : le racisme contemporain s'exprime moins par la hiérarchie biologique que par le déni des discriminations et le ressentiment envers les politiques correctrices. Échelles utilisables (avec précaution) pour l'axe ALT.",
+    "axes": [
+      "ALT"
+    ],
+    "members": [
+      "David Sears, John McConahay"
+    ]
+  },
+  {
+    "id": "ellul-anders",
+    "name": "Jacques Ellul et Günther Anders",
+    "dates": "1912–1994 ; 1902–1992",
+    "current": "Technique, numérique et société",
+    "section": "§25",
+    "summary": "*La Technique ou l'enjeu du siècle* ; *L'Obsolescence de l'homme*. La technique devient autonome et dépasse la capacité humaine d'en mesurer les effets. Sources de la technocritique.",
+    "axes": [
+      "TEC",
+      "ENV"
+    ],
+    "members": [
+      "Jacques Ellul",
+      "Günther Anders"
+    ]
+  },
+  {
+    "id": "zuboff-morozov",
+    "name": "Shoshana Zuboff et Evgeny Morozov",
+    "dates": "1951– ; 1984–",
+    "current": "Technique, numérique et société",
+    "section": "§25",
+    "summary": "*L'Âge du capitalisme de surveillance* ; critique du « solutionnisme ». Les plateformes extraient et monétisent les comportements.",
+    "axes": [
+      "TEC",
+      "GOV",
+      "ECO"
+    ],
+    "members": [
+      "Shoshana Zuboff",
+      "Evgeny Morozov"
+    ]
+  },
+  {
+    "id": "accelerationnismes",
+    "name": "Nick Land, Nick Srnicek et Alex Williams",
+    "dates": "1962–",
+    "current": "Technique, numérique et société",
+    "section": "§25",
+    "summary": "Accélérationnismes : de droite (Land, capital comme force inhumaine à libérer) et de gauche (*Inventer l'avenir* : automatisation et revenu universel pour sortir du travail).",
+    "axes": [
+      "TEC",
+      "ECO"
+    ],
+    "members": [
+      "Nick Land",
+      "Nick Srnicek",
+      "Alex Williams"
+    ]
+  },
+  {
+    "id": "andreessen",
+    "name": "Marc Andreessen",
+    "dates": "n. c.",
+    "current": "Technique, numérique et société",
+    "section": "§25",
+    "summary": "*Techno-Optimist Manifesto* (2023) : la croissance technologique est la solution à tous les problèmes ; hostilité à la régulation et à la « décroissance ».",
+    "axes": [
+      "TEC",
+      "ECO"
+    ]
+  },
+  {
+    "id": "bostrom",
+    "name": "Nick Bostrom",
+    "dates": "1973–",
+    "current": "Technique, numérique et société",
+    "section": "§25",
+    "summary": "*Superintelligence*. Risques existentiels de l'IA ; fonde le courant de la « sûreté de l'IA » et des régulations préventives.",
+    "axes": [
+      "TEC",
+      "GMO"
+    ]
+  }
+]
