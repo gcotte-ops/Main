@@ -1,1 +1,843 @@
-[]
+[
+  {
+    "id": "Q001", "type": "likert", "primaryAxis": "ECO", "theme": "emploi", "block": "economie", "reversed": false,
+    "text": "L'État devrait garantir un emploi à toute personne qui en demande un.",
+    "loadings": { "ECO": 1 },
+    "literature": ["keynes", "kelton", "hayek"],
+    "explanation": "Pour ses partisans, un « État employeur en dernier ressort » supprime le chômage involontaire et redonne à chacun une place sociale, dans la lignée de Keynes et de la théorie monétaire moderne. Pour ses critiques, de tels emplois risquent d'être peu productifs, coûteux et de concurrencer le secteur privé ; mieux vaudrait lever les freins à l'embauche.",
+    "contradicts": ["Q002"],
+    "coexistence": "on peut vouloir une garantie d'emploi pour les personnes que le marché exclut tout en jugeant que, pour le reste de l'économie, l'initiative privée crée davantage de richesses."
+  },
+  {
+    "id": "Q002", "type": "likert", "primaryAxis": "ECO", "theme": "role-etat", "block": "economie", "reversed": true,
+    "text": "Les entreprises créent plus de richesses pour tous quand l'État intervient le moins possible.",
+    "loadings": { "ECO": -1 },
+    "literature": ["hayek", "friedman", "keynes"],
+    "explanation": "La tradition libérale (Hayek, Friedman) soutient que le marché coordonne mieux que l'État des informations dispersées et que les prélèvements découragent l'initiative. Les keynésiens et les socialistes répondent que le marché laissé à lui-même produit crises, chômage et inégalités, et que les infrastructures, l'éducation ou la recherche publiques sont des conditions de la prospérité privée."
+  },
+  {
+    "id": "Q003", "type": "likert", "primaryAxis": "ECO", "theme": "fiscalite-patrimoine", "block": "economie", "reversed": false,
+    "text": "Les patrimoines supérieurs à 100 millions d'euros devraient payer un impôt minimal de 2 % par an.",
+    "loadings": { "ECO": 0.9 },
+    "sourceMeasure": ["jean-luc-melenchon-10", "ps-socle-04", "raphael-glucksmann-05", "marine-tondelier-06"],
+    "literature": ["zucman", "piketty", "laffer"],
+    "explanation": "Proposée par Gabriel Zucman, cette taxe vise les très grandes fortunes qui, selon ses travaux, paient proportionnellement moins d'impôts que les classes moyennes. Ses opposants craignent l'exil fiscal, la difficulté d'évaluer des actifs non cotés et une ponction sur l'outil de travail des entreprises familiales ; l'argument de Laffer veut qu'un impôt trop lourd réduise sa propre base."
+  },
+  {
+    "id": "Q004", "type": "likert", "primaryAxis": "ECO", "theme": "retraites", "block": "economie", "reversed": false,
+    "text": "L'âge légal de départ à la retraite devrait revenir à 62 ans ou moins.",
+    "loadings": { "ECO": 0.7 },
+    "sourceMeasure": ["marine-le-pen-12", "jean-luc-melenchon-02", "marine-tondelier-09", "fabien-roussel-03"],
+    "literature": ["friot", "esping-andersen"],
+    "explanation": "Les partisans d'un retour à 62 ans (ou 60 ans) invoquent la pénibilité, l'espérance de vie en bonne santé inégale selon les métiers et la possibilité de financer les retraites par les cotisations ou d'autres recettes. Les opposants soulignent le vieillissement démographique, le déséquilibre du système par répartition et le poids des dépenses de retraite dans les finances publiques."
+  },
+  {
+    "id": "Q005", "type": "likert", "primaryAxis": "ECO", "theme": "retraites", "block": "economie", "reversed": true,
+    "text": "Une partie des retraites devrait être financée par capitalisation, c'est-à-dire par une épargne placée sur les marchés.",
+    "loadings": { "ECO": -0.8 },
+    "sourceMeasure": ["edouard-philippe-08", "bruno-retailleau-03", "david-lisnard-04", "gabriel-attal-09"],
+    "literature": ["friedman", "friot"],
+    "explanation": "Pour ses défenseurs, une dose de capitalisation diversifie le financement, profite du rendement des marchés et soulage les actifs face au vieillissement. Pour ses critiques, elle expose les pensions aux krachs financiers, avantage ceux qui peuvent épargner et affaiblit la solidarité entre générations qui fonde la répartition ; Bernard Friot y voit l'inverse du « salaire continué »."
+  },
+  {
+    "id": "Q006", "type": "likert", "primaryAxis": "ECO", "theme": "fiscalite-patrimoine", "block": "economie", "reversed": true,
+    "text": "Les droits de succession devraient être réduits, y compris sur les gros héritages.",
+    "loadings": { "ECO": -0.8 },
+    "sourceMeasure": ["david-lisnard-09", "bruno-retailleau-12", "edouard-philippe-06"],
+    "literature": ["nozick", "piketty"],
+    "explanation": "Les partisans d'une baisse jugent injuste de taxer à nouveau un patrimoine déjà imposé et défendent la liberté de transmettre à ses enfants, notamment une entreprise familiale. Leurs contradicteurs, comme Thomas Piketty, rappellent que l'héritage est la première source d'inégalités non choisies et que sa taxation finance l'égalité des chances."
+  },
+  {
+    "id": "Q013", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": false,
+    "text": "Mes appartenances (famille, religion, région, communauté) définissent davantage ce que je suis que mes choix personnels.",
+    "loadings": { "IDE": 1 },
+    "literature": ["taylor", "macintyre", "constant"],
+    "explanation": "Les penseurs communautariens (Taylor, MacIntyre) estiment que l'identité se forme dans des traditions et des liens qui précèdent l'individu et lui donnent sens. La tradition libérale (Constant, Mill) valorise au contraire la capacité de chacun à choisir sa vie, à s'affranchir de ses origines et à se redéfinir.",
+    "contradicts": ["Q016"],
+    "coexistence": "on peut constater le poids de ses appartenances tout en souhaitant que chacun reste libre de s'en affranchir, ce que Charles Taylor appelle un libéralisme de la reconnaissance."
+  },
+  {
+    "id": "Q014", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": true,
+    "text": "La loi ne devrait reconnaître que des individus, jamais des groupes.",
+    "loadings": { "IDE": -0.8, "ALT": -0.2 },
+    "literature": ["schnapper", "kymlicka-parekh"],
+    "explanation": "L'universalisme républicain (Schnapper) veut que la citoyenneté transcende les appartenances pour garantir l'égalité de tous devant la loi. Les théoriciens du multiculturalisme (Kymlicka, Parekh) répondent que des droits collectifs peuvent être nécessaires pour protéger des minorités culturelles ou linguistiques dans une société qui n'est jamais neutre."
+  },
+  {
+    "id": "Q015", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": false,
+    "text": "Une société juste repose d'abord sur des liens de solidarité entre ses membres, plus que sur des contrats entre individus.",
+    "loadings": { "IDE": 0.8, "ECO": 0.2 },
+    "literature": ["sandel", "etzioni", "nozick"],
+    "explanation": "Sandel et Etzioni défendent une société fondée sur des obligations mutuelles et un bien commun qui dépasse la somme des intérêts individuels. Les libertariens comme Nozick répondent que seuls des engagements librement consentis sont légitimes et qu'une solidarité imposée restreint la liberté."
+  },
+  {
+    "id": "Q016", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": true,
+    "text": "Chacun devrait pouvoir se définir librement, indépendamment de son origine, de sa religion ou de sa famille.",
+    "loadings": { "IDE": -0.8, "CUL": 0.3 },
+    "literature": ["mill", "macintyre"],
+    "explanation": "Pour John Stuart Mill, l'autonomie de la personne est la condition d'une vie accomplie et d'une société qui progresse. MacIntyre objecte qu'un individu détaché de toute tradition perd les repères qui rendent possibles le jugement moral et la vie bonne."
+  },
+  {
+    "id": "Q017", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": false,
+    "text": "Les minorités culturelles ou régionales devraient pouvoir obtenir des droits spécifiques, par exemple un enseignement dans leur langue.",
+    "loadings": { "IDE": 0.7, "ALT": 0.3, "TER": 0.3 },
+    "literature": ["kymlicka-parekh", "schnapper"],
+    "explanation": "Kymlicka voit dans ces droits un moyen d'assurer l'égalité réelle de minorités nationales ou régionales (langues régionales, peuples autochtones). La tradition républicaine française (Schnapper) craint qu'ils fragmentent la communauté des citoyens et créent des statuts différents selon l'appartenance."
+  },
+  {
+    "id": "Q018", "type": "likert", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": true,
+    "text": "Réussir sa vie dépend surtout des efforts personnels, bien plus que du milieu d'origine.",
+    "loadings": { "IDE": -0.6, "ECO": -0.4 },
+    "literature": ["boudon", "bourdieu", "sandel"],
+    "explanation": "Raymond Boudon explique les trajectoires par des choix individuels rationnels, et beaucoup défendent le mérite comme moteur de justice et d'effort. Bourdieu insiste sur la reproduction des inégalités par les capitaux hérités ; Sandel ajoute que croire au seul mérite peut humilier ceux qui échouent."
+  },
+  {
+    "id": "Q019", "type": "likert", "primaryAxis": "IDE", "theme": "services-publics", "block": "societe", "reversed": false,
+    "text": "Les associations, paroisses, syndicats et communautés locales devraient jouer un plus grand rôle que l'État dans la solidarité.",
+    "loadings": { "IDE": 0.6, "TER": 0.3, "ECO": -0.2 },
+    "literature": ["tocqueville", "doctrine-sociale-eglise", "beveridge"],
+    "explanation": "Tocqueville et la doctrine sociale de l'Église (principe de subsidiarité) valorisent les corps intermédiaires, plus proches des personnes et porteurs de liens. Les défenseurs de l'État-providence (Beveridge) répondent que seule une solidarité nationale et obligatoire garantit des droits égaux, sans dépendre de la générosité ou de l'appartenance."
+  },
+  {
+    "id": "Q021", "type": "likert", "primaryAxis": "ENV", "theme": "climat", "block": "ecologie", "reversed": false, "factual": true,
+    "text": "Le réchauffement climatique actuel est principalement dû aux activités humaines.",
+    "loadings": { "ENV": 1 },
+    "literature": ["oreskes-conway", "lomborg"],
+    "explanation": "Cet énoncé a une dimension factuelle : le GIEC conclut que l'influence humaine est la cause principale du réchauffement observé depuis le milieu du XXe siècle. Oreskes et Conway ont documenté la fabrication du doute sur ce point ; Bjørn Lomborg, qui accepte ce constat, conteste en revanche l'ampleur des coûts et les politiques choisies."
+  },
+  {
+    "id": "Q022", "type": "likert", "primaryAxis": "ENV", "theme": "climat", "block": "ecologie", "reversed": false,
+    "text": "Les pays riches doivent accepter de consommer moins pour préserver le climat.",
+    "loadings": { "ENV": 0.8, "ECO": 0.2 },
+    "literature": ["latouche", "raworth-jackson", "ecomodernisme"],
+    "explanation": "Les tenants de la sobriété et de la décroissance (Latouche, Jackson) jugent impossible de découpler durablement croissance et émissions. Les écomodernistes estiment au contraire que l'innovation, le nucléaire et l'efficacité permettent de décarboner sans réduire le niveau de vie, et que la sobriété imposée pèse sur les plus modestes."
+  },
+  {
+    "id": "Q023", "type": "likert", "primaryAxis": "ENV", "theme": "agriculture", "block": "ecologie", "reversed": true,
+    "text": "Les normes environnementales imposées aux agriculteurs et aux entreprises sont devenues excessives.",
+    "loadings": { "ENV": -0.8, "ECO": -0.2 },
+    "literature": ["lomborg", "carson"],
+    "explanation": "Pour beaucoup d'agriculteurs et d'entrepreneurs, l'accumulation des normes renchérit la production, crée une concurrence déloyale avec les pays moins exigeants et décourage l'activité. Dans la lignée de Rachel Carson, d'autres rappellent que ces normes protègent la santé, les sols et la biodiversité, dont dépend l'agriculture elle-même."
+  },
+  {
+    "id": "Q024", "type": "likert", "primaryAxis": "ENV", "theme": "mobilite", "block": "ecologie", "reversed": true,
+    "text": "Les zones à faibles émissions, qui restreignent la circulation des véhicules anciens en ville, devraient être supprimées.",
+    "loadings": { "ENV": -0.7 },
+    "sourceMeasure": ["marine-le-pen-35"],
+    "literature": ["guilluy", "jancovici"],
+    "explanation": "Les opposants aux ZFE y voient une mesure qui pénalise les ménages modestes et périphériques, contraints à la voiture et incapables de changer de véhicule, un thème documenté par Christophe Guilluy. Leurs défenseurs rappellent que la pollution de l'air cause des milliers de décès prématurés et que la décarbonation des transports est incontournable."
+  },
+  {
+    "id": "Q025", "type": "likert", "primaryAxis": "ENV", "theme": "logement-zan", "block": "ecologie", "reversed": true,
+    "text": "L'objectif de zéro artificialisation nette, qui limite la construction sur les terres naturelles, devrait être abandonné.",
+    "loadings": { "ENV": -0.7 },
+    "sourceMeasure": ["marine-le-pen-20", "bruno-retailleau-17"],
+    "literature": ["hardin-ostrom", "latour-descola"],
+    "explanation": "Les critiques du ZAN estiment qu'il bloque la construction de logements, renchérit le foncier et prive les communes rurales de développement. Ses partisans rappellent que l'artificialisation détruit sols, biodiversité et terres agricoles de manière quasi irréversible, et qu'il faut densifier plutôt qu'étaler."
+  },
+  {
+    "id": "Q026", "type": "likert", "primaryAxis": "ENV", "theme": "climat", "block": "ecologie", "reversed": false,
+    "text": "Le respect des limites planétaires (climat, biodiversité) devrait être inscrit dans la Constitution.",
+    "loadings": { "ENV": 0.8 },
+    "sourceMeasure": ["marine-tondelier-01", "dominique-de-villepin-02"],
+    "literature": ["jonas", "lomborg"],
+    "explanation": "Hans Jonas plaide pour une responsabilité envers les générations futures qui justifie de placer la préservation du vivant au sommet des normes. Les opposants craignent un « gouvernement des juges » écologique, un frein à l'activité et une rigidité qui empêcherait d'arbitrer entre objectifs légitimes."
+  },
+  {
+    "id": "Q031", "type": "likert", "primaryAxis": "REL", "theme": "religion", "block": "religion", "reversed": false,
+    "text": "La France devrait davantage assumer ses racines chrétiennes dans la vie publique.",
+    "loadings": { "REL": 0.8, "ETA": -0.3 },
+    "literature": ["buisson", "delsol", "bauberot-pena-ruiz"],
+    "explanation": "Pour Chantal Delsol ou Patrick Buisson, l'héritage chrétien structure la culture, la morale et le paysage français, et l'assumer renforce la cohésion. Les défenseurs de la laïcité (Baubérot, Peña-Ruiz) répondent que la République est neutre, qu'elle doit traiter également croyants de toutes confessions et non-croyants."
+  },
+  {
+    "id": "Q032", "type": "likert", "primaryAxis": "REL", "theme": "laicite", "block": "religion", "reversed": true,
+    "text": "Les convictions religieuses doivent rester strictement dans la sphère privée.",
+    "loadings": { "REL": -0.8 }, "facet": "REL.laicite", "facetLoading": 0.5,
+    "literature": ["buisson-briand", "habermas"],
+    "explanation": "Une lecture stricte de la laïcité veut que la religion reste une affaire personnelle, pour protéger la liberté de conscience et la paix civile. Habermas, avec d'autres, estime au contraire que les croyants peuvent contribuer au débat public si leurs arguments sont traduisibles pour tous, et que la loi de 1905 garantit le libre exercice public des cultes."
+  },
+  {
+    "id": "Q034", "type": "likert", "primaryAxis": "REL", "theme": "religion", "block": "religion", "reversed": true,
+    "text": "L'influence des religions sur la société est aujourd'hui plus nuisible que bénéfique.",
+    "loadings": { "REL": -0.9 },
+    "literature": ["marx-engels", "voltaire", "durkheim"],
+    "explanation": "La critique des Lumières et de Marx voit dans les religions des sources d'intolérance, de conservatisme et de domination. Durkheim et bien des sociologues soulignent au contraire leur rôle de cohésion, de solidarité et de sens, notamment dans les associations caritatives et la vie locale."
+  },
+  {
+    "id": "Q035", "type": "likert", "primaryAxis": "REL", "theme": "religion", "block": "religion", "reversed": false,
+    "text": "Une société sans repères religieux perd une partie de sa morale commune.",
+    "loadings": { "REL": 0.8, "CUL": -0.3 },
+    "literature": ["macintyre", "gauchet", "nietzsche"],
+    "explanation": "MacIntyre et les penseurs traditionalistes estiment que la morale commune s'est appauvrie en se coupant de ses sources religieuses. Marcel Gauchet décrit au contraire une « sortie de la religion » qui n'empêche pas une morale démocratique autonome ; Nietzsche voyait dans la mort de Dieu l'occasion d'inventer de nouvelles valeurs."
+  },
+  {
+    "id": "Q037", "type": "likert", "primaryAxis": "REL", "theme": "laicite", "block": "religion", "reversed": false,
+    "text": "Les crèches de Noël ont leur place dans les mairies, comme éléments de la tradition culturelle française.",
+    "loadings": { "REL": 0.7, "ETA": -0.2 }, "facet": "REL.laicite", "facetLoading": -0.5,
+    "literature": ["bauberot-pena-ruiz", "delsol"],
+    "explanation": "Pour leurs défenseurs, les crèches relèvent d'un patrimoine culturel partagé plus que d'un acte de foi. Pour les tenants d'une laïcité stricte, un bâtiment public doit rester neutre ; le Conseil d'État admet ces crèches seulement lorsqu'elles ont un caractère culturel ou festif, sans prosélytisme."
+  },
+  {
+    "id": "Q038", "type": "likert", "primaryAxis": "REL", "theme": "laicite", "block": "religion", "reversed": true,
+    "text": "La critique des religions, y compris par la caricature, doit rester entièrement libre.",
+    "loadings": { "REL": -0.6, "CUL": 0.4, "GOV": 0.2 }, "facet": "REL.laicite", "facetLoading": 0.3,
+    "literature": ["voltaire", "taylor"],
+    "explanation": "Dans la tradition voltairienne, la liberté de critiquer les croyances, jusqu'au blasphème, est une conquête essentielle ; le droit français ne punit pas le blasphème. Charles Taylor et d'autres rappellent que certaines caricatures peuvent blesser des minorités déjà stigmatisées et que la liberté d'expression s'exerce avec une responsabilité.",
+    "contradicts": ["Q039"],
+    "coexistence": "le droit français distingue la critique des croyances, libre, et les propos visant des croyants en tant que personnes (injure, provocation à la haine), qui sont sanctionnés ; on peut défendre l'une et vouloir mieux réprimer les autres."
+  },
+  {
+    "id": "Q039", "type": "likert", "primaryAxis": "REL", "theme": "religion", "block": "religion", "reversed": false,
+    "text": "Le droit devrait mieux protéger les croyants contre les propos qui offensent leur religion.",
+    "loadings": { "REL": 0.6, "CUL": -0.3, "GOV": -0.2 },
+    "literature": ["taylor", "voltaire"],
+    "explanation": "Pour ses partisans, protéger les convictions intimes des croyants relève du respect et de la paix civile, dans une société pluraliste. Ses opposants y voient le retour d'un délit de blasphème, contraire à la liberté d'expression et à l'héritage des Lumières."
+  },
+  {
+    "id": "Q041", "type": "likert", "primaryAxis": "ETA", "theme": "identite", "block": "international", "reversed": false,
+    "text": "Je me sens citoyen·ne du monde avant d'être citoyen·ne de mon pays.",
+    "loadings": { "ETA": 1 },
+    "literature": ["kant", "nussbaum", "manent"],
+    "explanation": "Le cosmopolitisme, de Kant à Nussbaum, fait de l'humanité la première communauté d'appartenance morale. Pierre Manent et les penseurs de la nation répondent que la démocratie et la solidarité concrètes n'existent que dans des communautés politiques délimitées."
+  },
+  {
+    "id": "Q042", "type": "likert", "primaryAxis": "ETA", "theme": "mondialisation", "block": "international", "reversed": true,
+    "text": "La France devrait produire elle-même l'essentiel de ce dont elle a besoin, même si c'est plus cher.",
+    "loadings": { "ETA": -0.7, "ECO": 0.3 },
+    "sourceMeasure": ["francois-ruffin-08", "francois-ruffin-09"],
+    "literature": ["list", "ricardo"],
+    "explanation": "Friedrich List et les partisans de la souveraineté économique jugent qu'une nation doit protéger ses industries pour rester indépendante et préserver ses emplois, comme l'ont montré les pénuries de la crise sanitaire. Dans la lignée de Ricardo, les libre-échangistes répondent que la spécialisation enrichit tous les pays et que le protectionnisme renchérit la vie des ménages."
+  },
+  {
+    "id": "Q043", "type": "likert", "primaryAxis": "ETA", "theme": "energie-nucleaire", "block": "ecologie", "reversed": true,
+    "text": "Pour garantir son indépendance énergétique, la France devrait miser d'abord sur le nucléaire plutôt que sur l'éolien et le solaire.",
+    "loadings": { "ETA": -0.4 }, "facet": "ENV.nucleaire", "facetLoading": 0.8,
+    "sourceMeasure": ["marine-le-pen-33", "bruno-retailleau-29", "fabien-roussel-10", "david-lisnard-14", "marine-tondelier-03", "jean-luc-melenchon-52"],
+    "literature": ["jancovici", "de-gaulle", "latouche"],
+    "explanation": "Cet item ne mesure pas l'intensité de votre engagement écologique, mais le choix des moyens et le lien avec la souveraineté. Jean-Marc Jancovici défend le nucléaire comme énergie décarbonée pilotable, dans une tradition d'indépendance énergétique héritée du gaullisme. Les écologistes antinucléaires mettent en avant les déchets, le risque d'accident, le coût et les délais des nouveaux réacteurs, et préfèrent renouvelables et sobriété."
+  },
+  {
+    "id": "Q044", "type": "likert", "primaryAxis": "ETA", "theme": "memoire-coloniale", "block": "international", "reversed": false,
+    "text": "La France devrait reconnaître plus clairement les torts de la colonisation.",
+    "loadings": { "ETA": 0.5, "ALT": 0.4 },
+    "sourceMeasure": ["raphael-glucksmann-12"],
+    "literature": ["cesaire", "renan", "finkielkraut"],
+    "explanation": "Dans la lignée d'Aimé Césaire, beaucoup estiment qu'une reconnaissance lucide des violences coloniales est nécessaire à la réconciliation et à l'intégration des descendants de colonisés. D'autres, comme Alain Finkielkraut, craignent une « repentance » qui délégitime l'histoire nationale ; Renan rappelait déjà qu'une nation repose aussi sur ce qu'elle choisit d'oublier."
+  },
+  {
+    "id": "Q045", "type": "likert", "primaryAxis": "ETA", "theme": "immigration", "block": "international", "reversed": true,
+    "text": "Les intérêts des Français doivent toujours passer avant ceux des autres peuples.",
+    "loadings": { "ETA": -0.9, "ALT": -0.3 },
+    "sourceMeasure": ["marine-le-pen-01"],
+    "literature": ["barres", "nussbaum"],
+    "explanation": "Pour les défenseurs de la priorité nationale, un gouvernement est mandaté par ses citoyens et leur doit d'abord protection, comme une famille privilégie les siens. Les cosmopolites (Nussbaum) répondent que la dignité humaine ne s'arrête pas aux frontières et qu'un intérêt national bien compris passe souvent par la coopération."
+  },
+  {
+    "id": "Q046", "type": "likert", "primaryAxis": "ETA", "theme": "mondialisation", "block": "international", "reversed": false,
+    "text": "Les grands défis mondiaux (climat, pandémies, fiscalité des multinationales) exigent des institutions internationales dotées de vrais pouvoirs.",
+    "loadings": { "ETA": 0.8, "UE": 0.2 }, "facet": "GMO.multilateralisme", "facetLoading": -0.6,
+    "literature": ["keohane-nye", "habermas", "manent"],
+    "explanation": "Keohane, Nye et Habermas soutiennent que des problèmes globaux appellent des règles et des institutions communes, faute de quoi chaque État est tenté de faire cavalier seul. Les souverainistes (Manent) répondent que ces institutions échappent au contrôle démocratique des peuples et que la coopération entre nations souveraines suffit."
+  },
+  {
+    "id": "Q048", "type": "likert", "primaryAxis": "ETA", "theme": "mondialisation", "block": "international", "reversed": false,
+    "text": "Un travailleur français a plus en commun avec un travailleur étranger qu'avec un patron français.",
+    "loadings": { "ETA": 0.7, "ECO": 0.4 },
+    "literature": ["marx-engels", "trotsky", "lasch"],
+    "explanation": "C'est le cœur de l'internationalisme ouvrier (« Prolétaires de tous les pays, unissez-vous ! ») : la condition sociale unit davantage que la nationalité. Christopher Lasch ou les souverainistes sociaux répondent que la nation reste le cadre concret des solidarités et des protections conquises par les travailleurs."
+  },
+  {
+    "id": "Q051", "type": "likert", "primaryAxis": "CUL", "theme": "gpa-pma", "block": "societe", "reversed": false,
+    "text": "La gestation pour autrui devrait être autorisée en France.",
+    "loadings": { "CUL": 0.8 },
+    "sourceMeasure": ["jean-luc-melenchon-27"],
+    "literature": ["mill", "mackinnon-dworkin", "scruton"],
+    "explanation": "Les partisans d'une GPA encadrée invoquent la liberté des personnes, le désir d'enfant des couples infertiles ou homosexuels et la possibilité d'une gestation altruiste. Ses opposants, conservateurs comme féministes abolitionnistes, y voient une marchandisation du corps des femmes et de l'enfant ; une grande partie de la gauche française la refuse aussi."
+  },
+  {
+    "id": "Q052", "type": "likert", "primaryAxis": "CUL", "theme": "ecole", "block": "societe", "reversed": true,
+    "text": "L'autorité des parents et des enseignants s'est trop affaiblie.",
+    "loadings": { "CUL": -0.6, "SEC": -0.4 },
+    "literature": ["finkielkraut", "arendt", "foucault"],
+    "explanation": "Hannah Arendt et Alain Finkielkraut voient dans la crise de l'autorité une crise de la transmission : sans elle, l'école ne peut plus introduire les enfants dans un monde commun. Michel Foucault et la pensée critique invitent à interroger les disciplines et les rapports de pouvoir que l'autorité peut masquer."
+  },
+  {
+    "id": "Q053", "type": "likert", "primaryAxis": "CUL", "theme": "fin-de-vie", "block": "societe", "reversed": false,
+    "text": "Une personne atteinte d'une maladie incurable devrait pouvoir obtenir une aide active à mourir.",
+    "loadings": { "CUL": 0.8, "REL": -0.3 },
+    "sourceMeasure": ["jean-luc-melenchon-24"],
+    "literature": ["mill", "jonas", "doctrine-sociale-eglise"],
+    "explanation": "Les partisans d'une aide à mourir invoquent la liberté de disposer de sa vie et le refus de souffrances inutiles. Ses opposants, croyants ou non, craignent des pressions sur les personnes vulnérables, un changement de sens du soin et préfèrent développer les soins palliatifs."
+  },
+  {
+    "id": "Q054", "type": "likert", "primaryAxis": "CUL", "theme": "cannabis", "block": "societe", "reversed": false,
+    "text": "La consommation de cannabis par les adultes devrait être légalisée et encadrée par l'État.",
+    "loadings": { "CUL": 0.8, "SEC": 0.3 },
+    "sourceMeasure": ["jean-luc-melenchon-26", "edouard-philippe-25"],
+    "literature": ["mill", "burke"],
+    "explanation": "Les partisans de la légalisation invoquent la liberté individuelle, l'échec de la prohibition, la réduction des risques et l'affaiblissement des trafics. Ses opposants redoutent une banalisation, des effets sur la santé des jeunes et estiment que la loi doit aussi signaler ce que la société réprouve."
+  },
+  {
+    "id": "Q055", "type": "likert", "primaryAxis": "CUL", "theme": "gpa-pma", "block": "societe", "reversed": true,
+    "text": "Il est préférable pour un enfant d'être élevé par un père et une mère.",
+    "loadings": { "CUL": -0.9, "REL": 0.2 },
+    "sourceMeasure": ["jean-luc-melenchon-28"],
+    "literature": ["scruton", "butler"],
+    "explanation": "Les conservateurs (Scruton) défendent l'altérité des sexes dans la filiation comme repère pour l'enfant et fondement de la famille. Les travaux sur l'homoparentalité, et des penseuses comme Judith Butler, soulignent que le bien-être de l'enfant dépend surtout de la qualité des liens, quel que soit le sexe des parents."
+  },
+  {
+    "id": "Q058", "type": "likert", "primaryAxis": "CUL", "theme": "famille", "block": "societe", "reversed": true,
+    "text": "La société est allée trop loin dans la remise en cause des traditions.",
+    "loadings": { "CUL": -0.9 },
+    "literature": ["burke", "marcuse"],
+    "explanation": "Pour Burke et la tradition conservatrice, les institutions héritées contiennent une sagesse accumulée qu'on ne remplace pas sans risque. Marcuse et la pensée libertaire y voient au contraire des normes souvent oppressives, dont la contestation a permis des émancipations."
+  },
+  {
+    "id": "Q059", "type": "likert", "primaryAxis": "CUL", "theme": "genre", "block": "societe", "reversed": false,
+    "text": "Le changement de sexe à l'état civil devrait être possible sur simple déclaration, sans passer par un juge.",
+    "loadings": { "CUL": 0.8 },
+    "sourceMeasure": ["jean-luc-melenchon-25"],
+    "literature": ["butler", "finkielkraut"],
+    "explanation": "Ses partisans estiment que chacun doit pouvoir faire reconnaître son identité de genre sans démarche humiliante, comme dans plusieurs pays européens. D'autres jugent que la mention du sexe engage des droits et des espaces non mixtes, et qu'un contrôle par le juge protège la cohérence de l'état civil."
+  },
+  {
+    "id": "Q061", "type": "likert", "primaryAxis": "ALT", "theme": "discriminations", "block": "immigration", "reversed": false,
+    "text": "Les discriminations liées à l'origine restent un problème important en France.",
+    "loadings": { "ALT": 1 },
+    "literature": ["guillaumin", "racisme-symbolique", "beaud-noiriel"],
+    "explanation": "Les études par testing montrent des écarts persistants d'accès à l'emploi et au logement selon l'origine supposée ; la psychologie sociale observe que le déni de ces discriminations est un marqueur d'attitudes plus fermées. D'autres, y compris à gauche (Beaud, Noiriel), estiment que l'accent mis sur l'origine peut masquer le poids de la classe sociale."
+  },
+  {
+    "id": "Q062", "type": "likert", "primaryAxis": "ALT", "theme": "immigration", "block": "immigration", "reversed": true,
+    "text": "Les aides sociales devraient être réservées aux Français.",
+    "loadings": { "ALT": -0.8, "ETA": -0.5, "ECO": 0.2 },
+    "sourceMeasure": ["marine-le-pen-02", "eric-zemmour-04", "nicolas-dupont-aignan-06"],
+    "literature": ["goodhart", "le-bras-heran"],
+    "explanation": "Pour ses partisans, la « préférence nationale » protège un modèle social financé par la collectivité nationale et limite l'attrait de l'immigration. Ses opposants rappellent que les étrangers en situation régulière cotisent et paient des impôts, et que cette mesure se heurte au principe constitutionnel d'égalité.",
+    "contradicts": ["Q064"],
+    "coexistence": "on peut distinguer le droit au séjour de celui aux prestations : régulariser ceux qui travaillent déjà ici tout en réservant certaines aides non contributives aux nationaux."
+  },
+  {
+    "id": "Q063", "type": "likert", "primaryAxis": "ALT", "theme": "nationalite", "block": "immigration", "reversed": true,
+    "text": "Un enfant né en France de parents étrangers ne devrait plus pouvoir devenir français automatiquement.",
+    "loadings": { "ALT": -0.8, "ETA": -0.2 },
+    "sourceMeasure": ["marine-le-pen-03", "david-lisnard-13", "eric-zemmour-04", "jean-luc-melenchon-39"],
+    "literature": ["renan", "schnapper"],
+    "explanation": "Les partisans de la fin du droit du sol veulent que la nationalité résulte d'un choix et d'une adhésion, non du hasard du lieu de naissance. Leurs contradicteurs rappellent que le droit du sol, ancien en France, traduit une conception élective de la nation (Renan) et favorise l'intégration des enfants qui grandissent ici."
+  },
+  {
+    "id": "Q064", "type": "likert", "primaryAxis": "ALT", "theme": "immigration", "block": "immigration", "reversed": false,
+    "text": "Les étrangers sans titre de séjour qui travaillent en France depuis plusieurs années devraient être régularisés.",
+    "loadings": { "ALT": 0.8 },
+    "sourceMeasure": ["jean-luc-melenchon-36", "francois-ruffin-11"],
+    "literature": ["le-bras-heran", "malik"],
+    "explanation": "Les partisans de la régularisation invoquent la contribution économique de ces travailleurs, souvent dans des métiers en tension, et la dignité de personnes installées durablement. Ses opposants craignent un « appel d'air » qui encouragerait l'immigration irrégulière et jugent qu'elle récompense le non-respect de la loi."
+  },
+  {
+    "id": "Q065", "type": "likert", "primaryAxis": "ALT", "theme": "laicite", "block": "religion", "reversed": true,
+    "text": "Le port du voile islamique devrait être interdit aux mineures de moins de 15 ans.",
+    "loadings": { "ALT": -0.5, "CUL": -0.3 }, "facet": "REL.laicite", "facetLoading": 0.6,
+    "sourceMeasure": ["gabriel-attal-14"],
+    "literature": ["bauberot-pena-ruiz", "badinter", "farris"],
+    "explanation": "Ses partisans (dans la lignée d'Élisabeth Badinter) veulent protéger des enfants contre une pression religieuse ou familiale et défendre l'égalité entre filles et garçons. Ses opposants y voient une atteinte à la liberté religieuse et à l'autorité parentale qui vise une seule religion ; Sara Farris parle de « fémonationalisme » quand les droits des femmes servent à cibler des minorités."
+  },
+  {
+    "id": "Q066", "type": "likert", "primaryAxis": "ALT", "theme": "laicite", "block": "religion", "reversed": false,
+    "text": "Une femme majeure devrait pouvoir porter le voile islamique dans la rue.",
+    "loadings": { "ALT": 0.7, "CUL": 0.2 }, "facet": "REL.laicite", "facetLoading": -0.6,
+    "sourceMeasure": ["marine-le-pen-10", "gabriel-attal-15"],
+    "literature": ["bauberot-pena-ruiz", "badinter"],
+    "explanation": "La laïcité de 1905 s'impose à l'État, non aux citoyens dans l'espace public : pour Jean Baubérot et la plupart des juristes, une interdiction générale serait contraire à la liberté de conscience. Ses partisans y voient un signe d'infériorisation des femmes ou d'emprise islamiste que la République devrait refuser."
+  },
+  {
+    "id": "Q069", "type": "likert", "primaryAxis": "ALT", "theme": "immigration", "block": "immigration", "reversed": true,
+    "text": "L'aide médicale d'État, qui soigne les étrangers en situation irrégulière, devrait être supprimée ou fortement réduite.",
+    "loadings": { "ALT": -0.7, "ECO": -0.3 },
+    "sourceMeasure": ["marine-le-pen-06", "bruno-retailleau-20", "nicolas-dupont-aignan-06", "marine-tondelier-14"],
+    "literature": ["le-bras-heran", "goodhart"],
+    "explanation": "Les partisans d'une réduction de l'AME invoquent son coût, un risque d'attractivité et l'équité envers les assurés qui cotisent. Les soignants et ses défenseurs rappellent qu'elle protège aussi la santé publique (maladies infectieuses) et que renoncer aux soins précoces coûte ensuite plus cher aux urgences."
+  },
+  {
+    "id": "Q071", "type": "likert", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": false,
+    "text": "Davantage de décisions importantes devraient être prises au niveau européen.",
+    "loadings": { "UE": 1 },
+    "sourceMeasure": ["raphael-glucksmann-01", "marine-tondelier-16"],
+    "literature": ["spinelli", "delors", "manent"],
+    "explanation": "Les fédéralistes (Spinelli, Delors) jugent que les États européens, isolés, pèsent peu face aux États-Unis ou à la Chine, et qu'une souveraineté partagée est plus efficace. Les souverainistes (Manent) répondent que l'échelon européen éloigne les décisions des citoyens et qu'il n'existe pas de « peuple européen » pour les légitimer.",
+    "contradicts": ["Q073"],
+    "coexistence": "certains souhaitent une Europe plus intégrée sur d'autres bases tout en jugeant l'Union actuelle irréformable, raisonnement qui mène à envisager d'en sortir pour la refonder."
+  },
+  {
+    "id": "Q072", "type": "likert", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": true,
+    "text": "Le droit français devrait primer sur le droit européen, même contre les traités.",
+    "loadings": { "UE": -0.8, "ETA": -0.4 },
+    "sourceMeasure": ["marine-le-pen-27", "nicolas-dupont-aignan-01"],
+    "literature": ["seguin", "habermas"],
+    "explanation": "Pour Philippe Séguin et les souverainistes, la souveraineté nationale est la source de la légitimité démocratique et ne peut être subordonnée à des juges européens. Les pro-européens rappellent que la primauté du droit européen est la condition d'un marché et de règles communs, et qu'une primauté nationale reviendrait de fait à sortir de l'Union."
+  },
+  {
+    "id": "Q073", "type": "likert", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": true,
+    "text": "La France devrait sortir de l'Union européenne.",
+    "loadings": { "UE": -1, "ETA": -0.3 },
+    "sourceMeasure": ["nicolas-dupont-aignan-01", "francois-asselineau-01", "florian-philippot-01", "marine-le-pen-31"],
+    "literature": ["seguin", "todd", "monnet-schuman"],
+    "explanation": "Les partisans du Frexit estiment que l'Union prive la France de sa souveraineté monétaire, budgétaire et juridique, et qu'une sortie organisée permettrait de retrouver une liberté de choix démocratique. Ses opposants invoquent l'exemple du Brexit, le poids du marché unique, la paix européenne et la capacité collective à peser dans le monde."
+  },
+  {
+    "id": "Q074", "type": "likert", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": false,
+    "text": "L'Union européenne devrait emprunter en commun pour financer de grands investissements, comme la défense ou la transition écologique.",
+    "loadings": { "UE": 0.8, "ECO": 0.2 },
+    "sourceMeasure": ["raphael-glucksmann-01"],
+    "literature": ["delors", "majone-streeck"],
+    "explanation": "Le plan de relance de 2020 a ouvert la voie : ses partisans y voient un moyen d'investir massivement à taux faibles et de mutualiser les efforts. Ses opposants craignent une dette sans contrôle démocratique clair, un transfert entre pays et une étape vers un fédéralisme non consenti."
+  },
+  {
+    "id": "Q075", "type": "likert", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": false,
+    "text": "Les décisions européennes devraient se prendre à la majorité, sans droit de veto pour un seul pays.",
+    "loadings": { "UE": 0.8 },
+    "sourceMeasure": ["raphael-glucksmann-01"],
+    "literature": ["spinelli", "de-gaulle"],
+    "explanation": "Pour les fédéralistes, l'unanimité paralyse l'Union et permet à un seul gouvernement de bloquer les autres. Dans la tradition gaulliste du « compromis de Luxembourg », le veto protège les intérêts vitaux de chaque nation, y compris ceux de la France."
+  },
+  {
+    "id": "Q076", "type": "likert", "primaryAxis": "UE", "theme": "dette", "block": "international", "reversed": true,
+    "text": "Les règles budgétaires européennes (3 % de déficit, 60 % de dette) devraient être abandonnées.",
+    "loadings": { "UE": -0.5, "ECO": 0.4 },
+    "sourceMeasure": ["jean-luc-melenchon-48"],
+    "literature": ["lordon", "eucken-ropke", "kelton"],
+    "explanation": "Leurs critiques, souvent à gauche (Lordon), jugent ces règles arbitraires et responsables de politiques d'austérité qui brident l'investissement public. Dans la tradition ordolibérale (Eucken, Röpke), elles garantissent la stabilité de la monnaie commune et évitent qu'un pays fasse porter ses dettes aux autres."
+  },
+  {
+    "id": "Q081", "type": "likert", "primaryAxis": "GMO", "theme": "defense", "block": "international", "reversed": true,
+    "text": "La France doit être prête à intervenir militairement pour empêcher des crimes de masse à l'étranger.",
+    "loadings": { "GMO": -1 }, "facet": "GMO.intervention", "facetLoading": -0.8,
+    "literature": ["droit-ingerence-r2p", "walzer", "vedrine"],
+    "explanation": "La « responsabilité de protéger » adoptée à l'ONU en 2005 veut que la souveraineté cède devant les génocides et crimes contre l'humanité. Ses critiques (Hubert Védrine) rappellent les suites chaotiques de certaines interventions, comme en Libye en 2011, et la sélectivité de ces engagements."
+  },
+  {
+    "id": "Q082", "type": "likert", "primaryAxis": "GMO", "theme": "otan-ukraine", "block": "international", "reversed": false,
+    "text": "La France devrait quitter l'OTAN.",
+    "loadings": { "GMO": 0.6, "ETA": -0.4, "UE": -0.1 }, "facet": "GMO.multilateralisme", "facetLoading": 0.8,
+    "sourceMeasure": ["jean-luc-melenchon-49", "francois-asselineau-01", "marine-le-pen-32"],
+    "literature": ["de-gaulle", "keohane-nye", "realistes-morgenthau-waltz-mearsheimer"],
+    "explanation": "Les partisans d'une sortie, dans l'esprit de De Gaulle en 1966, veulent une France indépendante des choix stratégiques américains et capable de parler à tous. Leurs contradicteurs rappellent que l'Alliance garantit la sécurité collective de l'Europe, surtout depuis l'invasion de l'Ukraine, et que l'isolement affaiblirait la France."
+  },
+  {
+    "id": "Q083", "type": "likert", "primaryAxis": "GMO", "theme": "otan-ukraine", "block": "international", "reversed": true,
+    "text": "La France devrait augmenter fortement son aide militaire à l'Ukraine.",
+    "loadings": { "GMO": -0.8 }, "facet": "GMO.intervention", "facetLoading": -0.6,
+    "sourceMeasure": ["raphael-glucksmann-03", "gabriel-attal-22"],
+    "literature": ["kagan", "realistes-morgenthau-waltz-mearsheimer"],
+    "explanation": "Pour ses partisans, aider l'Ukraine à se défendre protège le droit international et la sécurité européenne face à une agression. Les réalistes comme Mearsheimer, et les partisans d'une solution négociée, craignent une escalade avec une puissance nucléaire et une guerre sans issue militaire."
+  },
+  {
+    "id": "Q084", "type": "likert", "primaryAxis": "GMO", "theme": "otan-ukraine", "block": "international", "reversed": false,
+    "text": "La paix en Ukraine passe par une négociation, même si elle implique des concessions territoriales.",
+    "loadings": { "GMO": 0.7 }, "facet": "GMO.intervention", "facetLoading": 0.5,
+    "sourceMeasure": ["dominique-de-villepin-07"],
+    "literature": ["kissinger", "walzer"],
+    "explanation": "La tradition réaliste (Kissinger) juge qu'une paix imparfaite vaut mieux qu'une guerre longue et que l'équilibre des puissances impose des compromis. Les partisans d'une paix juste (Walzer) estiment que récompenser une agression par des gains territoriaux encouragerait d'autres conquêtes."
+  },
+  {
+    "id": "Q085", "type": "likert", "primaryAxis": "GMO", "theme": "dissuasion", "block": "international", "reversed": true,
+    "text": "La dissuasion nucléaire française devrait aussi protéger nos partenaires européens.",
+    "loadings": { "GMO": -0.6, "UE": 0.4 }, "facet": "GMO.multilateralisme", "facetLoading": -0.6,
+    "sourceMeasure": ["raphael-glucksmann-02", "fabien-roussel-14"],
+    "literature": ["aron", "de-gaulle"],
+    "explanation": "Ses partisans estiment qu'une garantie nucléaire européenne renforcerait la crédibilité de l'Europe face à la Russie, surtout si l'engagement américain faiblit. Ses opposants, dans une tradition gaulliste, jugent que la dissuasion ne se partage pas : elle protège les intérêts vitaux de la nation et perdrait en crédibilité si elle couvrait d'autres pays."
+  },
+  {
+    "id": "Q087", "type": "likert", "primaryAxis": "GMO", "theme": "otan-ukraine", "block": "international", "reversed": false,
+    "text": "La France devrait être non alignée, à égale distance des États-Unis, de la Chine et de la Russie.",
+    "loadings": { "GMO": 0.6, "ETA": -0.3 }, "facet": "GMO.multilateralisme", "facetLoading": 0.7,
+    "sourceMeasure": ["jean-luc-melenchon-50"],
+    "literature": ["vedrine", "kagan"],
+    "explanation": "Le non-alignement, défendu par une partie de la gauche et des gaullistes, vise à préserver l'indépendance de la France et sa capacité de médiation. Ses critiques (Kagan) jugent qu'il met sur le même plan démocraties alliées et régimes autoritaires, et affaiblit la solidarité occidentale."
+  },
+  {
+    "id": "Q091", "type": "likert", "primaryAxis": "GOV", "theme": "democratie", "block": "institutions", "reversed": true,
+    "text": "Un dirigeant fort qui n'aurait pas à se soucier du Parlement ni des élections serait une bonne chose.",
+    "loadings": { "GOV": -1 },
+    "literature": ["schmitt", "arendt", "linz-levitsky-ziblatt"],
+    "explanation": "Cet item reprend une question classique des enquêtes sur les valeurs : une part croissante des Européens se dit tentée par un pouvoir fort, jugé plus efficace face aux crises. Arendt, Linz, Levitsky et Ziblatt rappellent que c'est ainsi que les démocraties s'érodent : sans élections ni Parlement, rien ne permet de corriger ou de remplacer un dirigeant.",
+    "contradicts": ["Q098"],
+    "coexistence": "certains distinguent les temps ordinaires, où les contre-pouvoirs sont précieux, des crises, où ils attendent une autorité plus directe ; c'est le débat sur l'état d'exception ouvert par Carl Schmitt."
+  },
+  {
+    "id": "Q092", "type": "likert", "primaryAxis": "GOV", "theme": "referendum-conseil-constitutionnel", "block": "institutions", "reversed": false,
+    "text": "Le Conseil constitutionnel doit pouvoir censurer une loi, même voulue par une majorité de Français.",
+    "loadings": { "GOV": 0.8, "INS": -0.2 },
+    "sourceMeasure": ["marine-le-pen-11"],
+    "literature": ["montesquieu", "dworkin", "rousseau"],
+    "explanation": "Pour Montesquieu et Dworkin, des droits fondamentaux doivent être protégés même contre la majorité, et un juge constitutionnel est la garantie de l'État de droit. Dans la tradition de Rousseau, d'autres jugent que la volonté générale du peuple souverain ne saurait être contredite par neuf juges non élus."
+  },
+  {
+    "id": "Q093", "type": "likert", "primaryAxis": "GOV", "theme": "referendum-conseil-constitutionnel", "block": "institutions", "reversed": true,
+    "text": "Un référendum devrait pouvoir modifier la Constitution même si le Conseil constitutionnel s'y oppose.",
+    "loadings": { "GOV": -0.7, "INS": 0.3 },
+    "sourceMeasure": ["marine-le-pen-11", "bruno-retailleau-22"],
+    "literature": ["rousseau", "linz-levitsky-ziblatt"],
+    "explanation": "Ses partisans estiment que le peuple, souverain, doit avoir le dernier mot sur sa Constitution. Ses critiques y voient un moyen de contourner le contrôle des droits fondamentaux, une technique que Levitsky et Ziblatt décrivent dans l'érosion de plusieurs démocraties."
+  },
+  {
+    "id": "Q094", "type": "likert", "primaryAxis": "GOV", "theme": "justice", "block": "institutions", "reversed": false,
+    "text": "Les juges doivent pouvoir poursuivre et condamner les responsables politiques comme n'importe quel citoyen, même en période électorale.",
+    "loadings": { "GOV": 0.7 },
+    "literature": ["montesquieu", "schmitt"],
+    "explanation": "Pour les défenseurs de l'État de droit, l'égalité devant la loi ne souffre pas d'exception et l'indépendance des juges protège contre la corruption. D'autres craignent un « gouvernement des juges » qui interférerait avec le choix des électeurs, surtout quand une décision rend un candidat inéligible."
+  },
+  {
+    "id": "Q095", "type": "likert", "primaryAxis": "GOV", "theme": "justice", "block": "institutions", "reversed": true,
+    "text": "Le gouvernement devrait pouvoir donner des instructions aux procureurs dans des affaires individuelles.",
+    "loadings": { "GOV": -0.6, "SEC": -0.3 },
+    "sourceMeasure": ["edouard-philippe-20", "jean-luc-melenchon-35"],
+    "literature": ["montesquieu", "hobbes"],
+    "explanation": "Ses partisans estiment qu'un gouvernement élu doit pouvoir conduire la politique pénale et en répondre devant les électeurs. Ses opposants, dans la lignée de Montesquieu, y voient un risque d'ingérence politique dans la justice, notamment dans les affaires qui concernent le pouvoir."
+  },
+  {
+    "id": "Q097", "type": "likert", "primaryAxis": "GOV", "theme": "police-libertes", "block": "institutions", "reversed": true,
+    "text": "Dans une crise grave, il est acceptable de suspendre certaines libertés publiques sans contrôle du juge.",
+    "loadings": { "GOV": -0.8, "SEC": -0.3 },
+    "sourceMeasure": ["jean-luc-melenchon-34"],
+    "literature": ["schmitt", "arendt"],
+    "explanation": "Carl Schmitt définit le souverain comme celui qui décide de l'exception : face au terrorisme ou à une pandémie, l'efficacité exigerait des pouvoirs rapides. Les défenseurs des libertés rappellent que l'exception tend à devenir permanente et que le contrôle du juge est précisément ce qui la distingue de l'arbitraire."
+  },
+  {
+    "id": "Q098", "type": "likert", "primaryAxis": "GOV", "theme": "democratie", "block": "institutions", "reversed": false,
+    "text": "Les contre-pouvoirs (juges, presse, opposition, associations) sont indispensables, même quand ils ralentissent l'action du gouvernement.",
+    "loadings": { "GOV": 0.8, "POP": 0.3 },
+    "literature": ["dahl", "lefort", "laclau-mouffe"],
+    "explanation": "Robert Dahl et Claude Lefort font des contre-pouvoirs et du pluralisme le cœur de la démocratie : nul ne peut prétendre incarner seul le peuple. Les théoriciens de la démocratie radicale (Laclau, Mouffe) jugent que ces instances sont souvent capturées par des élites et entravent la volonté populaire."
+  },
+  {
+    "id": "Q101", "type": "likert", "primaryAxis": "SEC", "theme": "ia-numerique", "block": "securite", "reversed": false,
+    "text": "La reconnaissance faciale automatisée dans l'espace public devrait être interdite.",
+    "loadings": { "SEC": 0.8, "GOV": 0.2 },
+    "sourceMeasure": ["jean-luc-melenchon-33", "bruno-retailleau-27", "edouard-philippe-23"],
+    "literature": ["zuboff-morozov", "foucault", "hobbes"],
+    "explanation": "Pour ses défenseurs, l'intelligence artificielle appliquée à la vidéoprotection aiderait à retrouver des suspects et à prévenir des attentats. Ses opposants (Zuboff, Foucault) y voient une surveillance de masse qui menace la vie privée, les libertés de manifester et risque des erreurs discriminantes."
+  },
+  {
+    "id": "Q102", "type": "likert", "primaryAxis": "SEC", "theme": "police-libertes", "block": "securite", "reversed": false,
+    "text": "Les forces de l'ordre ne devraient plus utiliser de lanceurs de balles de défense lors des manifestations.",
+    "loadings": { "SEC": 0.8, "GOV": 0.2 },
+    "sourceMeasure": ["jean-luc-melenchon-29"],
+    "literature": ["foucault", "elias"],
+    "explanation": "Les partisans de l'interdiction rappellent les blessures graves (éborgnements) causées par ces armes lors de manifestations. Les forces de l'ordre et leurs soutiens estiment qu'elles permettent de tenir à distance des émeutiers violents et évitent des affrontements plus dangereux au corps à corps."
+  },
+  {
+    "id": "Q103", "type": "likert", "primaryAxis": "SEC", "theme": "narcotrafic", "block": "securite", "reversed": true,
+    "text": "Pour lutter contre le narcotrafic, l'État devrait pouvoir instaurer un état d'urgence dans certains quartiers.",
+    "loadings": { "SEC": -0.8, "GOV": -0.3 },
+    "sourceMeasure": ["bruno-retailleau-28", "edouard-philippe-23"],
+    "literature": ["hobbes", "foucault"],
+    "explanation": "Face à des réseaux armés et à des homicides en hausse, ses partisans jugent que des moyens exceptionnels et ciblés sont nécessaires pour reprendre le contrôle de territoires. Ses opposants craignent une atteinte aux libertés des habitants, une stigmatisation des quartiers et des résultats limités si l'on ne s'attaque pas à la demande et au blanchiment."
+  },
+  {
+    "id": "Q111", "type": "likert", "primaryAxis": "INS", "theme": "referendum-conseil-constitutionnel", "block": "institutions", "reversed": false,
+    "text": "Les citoyens devraient pouvoir déclencher un référendum par pétition.",
+    "loadings": { "INS": 0.8, "POP": -0.3 },
+    "sourceMeasure": ["jean-luc-melenchon-44", "nicolas-dupont-aignan-05", "marine-le-pen-36", "clara-egger-01"],
+    "literature": ["rousseau", "manin-sintomer", "schumpeter"],
+    "explanation": "Le référendum d'initiative citoyenne, revendication des gilets jaunes, redonnerait aux citoyens un pouvoir direct, dans l'esprit de Rousseau et comme en Suisse. Ses critiques, dans une lecture schumpétérienne, craignent des votes émotionnels, la simplification de questions complexes et la mise en cause de droits des minorités."
+  },
+  {
+    "id": "Q112", "type": "likert", "primaryAxis": "INS", "theme": "democratie", "block": "institutions", "reversed": false,
+    "text": "Les députés devraient être élus à la proportionnelle.",
+    "loadings": { "INS": 0.7, "POP": 0.2 },
+    "sourceMeasure": ["jean-luc-melenchon-43", "marine-le-pen-36"],
+    "literature": ["manin-sintomer", "de-gaulle"],
+    "explanation": "La proportionnelle représente plus fidèlement la diversité des opinions et oblige aux coalitions. Ses opposants, dans l'esprit de la Ve République, craignent l'instabilité gouvernementale de la IVe République et un pouvoir accru des partis dans la composition des listes."
+  },
+  {
+    "id": "Q113", "type": "likert", "primaryAxis": "INS", "theme": "democratie", "block": "institutions", "reversed": true,
+    "text": "Le président de la République devrait garder un rôle central dans les institutions.",
+    "loadings": { "INS": -0.8 },
+    "sourceMeasure": ["jean-luc-melenchon-41", "jean-luc-melenchon-42"],
+    "literature": ["de-gaulle", "castoriadis"],
+    "explanation": "Pour les défenseurs de la Ve République, un président élu au suffrage universel donne cap, stabilité et capacité de décision en temps de crise. Les partisans d'une VIe République ou d'un régime parlementaire y voient une concentration excessive du pouvoir qui affaiblit le Parlement et les citoyens."
+  },
+  {
+    "id": "Q114", "type": "likert", "primaryAxis": "INS", "theme": "democratie", "block": "institutions", "reversed": true,
+    "text": "Pour réformer vite, le gouvernement devrait pouvoir légiférer davantage par ordonnances.",
+    "loadings": { "INS": -0.7, "GOV": -0.3 },
+    "sourceMeasure": ["edouard-philippe-01"],
+    "literature": ["schumpeter", "rosanvallon"],
+    "explanation": "Les ordonnances permettent d'adopter rapidement des réformes techniques ou urgentes, le Parlement gardant le pouvoir de les habiliter puis de les ratifier. Leurs critiques (Rosanvallon) jugent qu'elles court-circuitent le débat parlementaire et renforcent un exécutif déjà dominant."
+  },
+  {
+    "id": "Q121", "type": "likert", "primaryAxis": "TER", "theme": "decentralisation", "block": "territoires", "reversed": false,
+    "text": "Les régions devraient pouvoir adapter certaines lois nationales à leur territoire.",
+    "loadings": { "TER": 0.8 },
+    "sourceMeasure": ["david-lisnard-03"],
+    "literature": ["tocqueville", "chevenement"],
+    "explanation": "Les girondins, dans la lignée de Tocqueville, jugent que les décisions prises au plus près des habitants sont plus adaptées et plus démocratiques, comme en Allemagne ou en Espagne. Les jacobins (Chevènement) craignent la rupture de l'égalité devant la loi et la fragmentation de la République."
+  },
+  {
+    "id": "Q122", "type": "likert", "primaryAxis": "TER", "theme": "services-publics", "block": "territoires", "reversed": true,
+    "text": "Les règles et les services publics devraient être les mêmes partout en France, décidés par l'État.",
+    "loadings": { "TER": -0.8, "ECO": 0.2 },
+    "literature": ["chevenement", "rocard"],
+    "explanation": "Pour la tradition jacobine, l'État central est le garant de l'égalité entre citoyens, quel que soit leur lieu de vie. La « deuxième gauche » de Michel Rocard et les décentralisateurs répondent que l'uniformité ignore la diversité des territoires et étouffe l'initiative locale."
+  },
+  {
+    "id": "Q123", "type": "likert", "primaryAxis": "TER", "theme": "decentralisation", "block": "territoires", "reversed": false,
+    "text": "Les maires devraient disposer de beaucoup plus de pouvoirs et de moyens, quitte à accroître les différences entre communes.",
+    "loadings": { "TER": 0.7, "ECO": -0.2 },
+    "sourceMeasure": ["edouard-philippe-21", "david-lisnard-03"],
+    "literature": ["bookchin", "proudhon", "cage-piketty"],
+    "explanation": "Le municipalisme (Bookchin) et le fédéralisme proudhonien font de la commune le lieu naturel de la démocratie ; les maires sont aussi les élus en qui les Français ont le plus confiance. Cagé et Piketty montrent que les inégalités de ressources entre territoires pèsent sur le vote et appellent une péréquation nationale."
+  },
+  {
+    "id": "Q124", "type": "likert", "primaryAxis": "TER", "theme": "decentralisation", "block": "territoires", "reversed": true,
+    "text": "La décentralisation a surtout créé des inégalités entre territoires.",
+    "loadings": { "TER": -0.7 },
+    "literature": ["guilluy", "rocard"],
+    "explanation": "Certains lient la décentralisation au sentiment d'abandon des territoires périphériques et à des écarts de moyens entre collectivités riches et pauvres. D'autres rappellent qu'elle a rapproché les décisions des citoyens et que les inégalités territoriales tiennent davantage à l'économie qu'aux institutions."
+  },
+  {
+    "id": "Q131", "type": "likert", "primaryAxis": "POP", "theme": "populisme", "block": "institutions", "reversed": true,
+    "text": "Les responsables politiques sont déconnectés des préoccupations des gens ordinaires.",
+    "loadings": { "POP": -0.7 },
+    "literature": ["mudde-muller", "lasch"],
+    "explanation": "Cet énoncé, issu des échelles de populisme, traduit une défiance très répandue ; Christopher Lasch parlait de « sécession des élites ». Les politistes (Mudde) notent qu'elle peut exprimer une critique légitime de la représentation comme nourrir une vision qui oppose un peuple uni à des élites corrompues."
+  },
+  {
+    "id": "Q132", "type": "likert", "primaryAxis": "POP", "theme": "populisme", "block": "institutions", "reversed": true,
+    "text": "Le peuple, et non les responsables politiques, devrait prendre les décisions politiques les plus importantes.",
+    "loadings": { "POP": -0.7, "INS": 0.3 },
+    "literature": ["laclau-mouffe", "mudde-muller"],
+    "explanation": "Pour les tenants d'une démocratie radicale (Laclau, Mouffe), le peuple doit reprendre le pouvoir confisqué par les élites. Jan-Werner Müller objecte que cette vision suppose un peuple homogène à la volonté unique, alors que les citoyens sont divers et que la représentation organise leurs désaccords."
+  },
+  {
+    "id": "Q133", "type": "likert", "primaryAxis": "POP", "theme": "populisme", "block": "institutions", "reversed": false,
+    "text": "En démocratie, il est important de faire des compromis entre des points de vue différents.",
+    "loadings": { "POP": 0.8, "GOV": 0.2 },
+    "literature": ["dahl", "laclau-mouffe"],
+    "explanation": "Pour la tradition pluraliste (Dahl), le compromis est la manière démocratique de faire coexister des intérêts légitimes et divergents. Chantal Mouffe objecte que la recherche permanente du consensus efface les vrais clivages et nourrit le ressentiment envers une politique jugée sans alternative."
+  },
+  {
+    "id": "Q134", "type": "likert", "primaryAxis": "POP", "theme": "populisme", "block": "institutions", "reversed": false,
+    "text": "Ceux qui ne partagent pas mes opinions politiques ont souvent de bonnes raisons de penser ce qu'ils pensent.",
+    "loadings": { "POP": 0.8 },
+    "literature": ["mudde-muller", "haidt", "schmitt"],
+    "explanation": "Jonathan Haidt montre que les convictions politiques reposent sur des intuitions morales différentes, toutes compréhensibles, ce qui plaide pour la reconnaissance de l'adversaire. Pour Carl Schmitt au contraire, la politique repose sur la distinction ami-ennemi, et certains jugent qu'il est des désaccords où l'autre camp a simplement tort."
+  },
+  {
+    "id": "D01", "type": "dilemma", "primaryAxis": "ECO", "theme": "inegalites", "block": "economie", "reversed": false,
+    "text": "Entre ces deux orientations économiques, laquelle a votre préférence ?",
+    "options": [
+      { "label": "Un peu plus de croissance, même avec un peu plus d'inégalités.", "loadings": { "ECO": -0.8 } },
+      { "label": "Un peu moins de croissance, mais moins d'inégalités.", "loadings": { "ECO": 0.8, "ENV": 0.2 } }
+    ],
+    "literature": ["rawls", "hayek", "piketty"],
+    "explanation": "Rawls admet des inégalités si elles améliorent le sort des plus défavorisés, et les libéraux jugent que la croissance profite finalement à tous. Piketty et les égalitaristes répondent que les inégalités fortes minent la cohésion, la démocratie et même la croissance à long terme."
+  },
+  {
+    "id": "D02", "type": "dilemma", "primaryAxis": "IDE", "theme": "identite", "block": "societe", "reversed": true,
+    "text": "Quelle société vous paraît la plus souhaitable ?",
+    "options": [
+      { "label": "Une société où chacun se sent d'abord membre de communautés qui le portent (famille, culture, religion).", "loadings": { "IDE": 1 } },
+      { "label": "Une société où chacun est d'abord un individu libre de ses choix et de ses appartenances.", "loadings": { "IDE": -1 } }
+    ],
+    "literature": ["dumont", "sandel", "constant"],
+    "explanation": "Louis Dumont oppose les sociétés « holistes », où le tout prime, à la modernité individualiste. Les communautariens (Sandel) jugent que l'individu isolé est une fiction appauvrissante ; les libéraux (Constant) y voient la condition de la liberté des Modernes."
+  },
+  {
+    "id": "D03", "type": "dilemma", "primaryAxis": "ENV", "theme": "climat", "block": "ecologie", "reversed": true,
+    "text": "Face au changement climatique, laquelle de ces orientations préférez-vous ?",
+    "options": [
+      { "label": "Accélérer fortement la transition écologique, même si elle coûte cher à court terme.", "loadings": { "ENV": 0.8 } },
+      { "label": "Avancer plus lentement pour préserver le pouvoir d'achat et l'emploi.", "loadings": { "ENV": -0.8 } }
+    ],
+    "sourceMeasure": ["marine-tondelier-02", "bruno-retailleau-30"],
+    "literature": ["jancovici", "lomborg"],
+    "explanation": "Les partisans d'une accélération (Jancovici) rappellent que chaque année de retard alourdit les coûts futurs et les dommages irréversibles. Ceux qui préfèrent une transition graduelle (Lomborg) craignent un rejet social, comme lors du mouvement des gilets jaunes, et misent sur l'innovation et l'adaptation."
+  },
+  {
+    "id": "D04", "type": "dilemma", "primaryAxis": "REL", "theme": "religion", "block": "religion", "reversed": true,
+    "text": "En matière de convictions, que faut-il privilégier pour les enfants ?",
+    "options": [
+      { "label": "Leur transmettre une foi et des traditions religieuses.", "loadings": { "REL": 0.8 } },
+      { "label": "Les laisser choisir seuls leurs convictions à l'âge adulte.", "loadings": { "REL": -0.8, "IDE": -0.3 } }
+    ],
+    "literature": ["mounier-maritain", "condorcet"],
+    "explanation": "Pour le personnalisme chrétien (Mounier, Maritain), la transmission d'une foi est une richesse qui forme la personne. Condorcet et la tradition de l'école laïque veulent former des esprits capables de juger par eux-mêmes, sans convictions imposées."
+  },
+  {
+    "id": "D05", "type": "dilemma", "primaryAxis": "ETA", "theme": "mondialisation", "block": "international", "reversed": true,
+    "text": "En matière d'échanges internationaux, quelle orientation préférez-vous ?",
+    "options": [
+      { "label": "Ouvrir les échanges, qui enrichissent tous les pays à long terme.", "loadings": { "ETA": 0.8, "ECO": -0.3 } },
+      { "label": "Protéger d'abord les emplois et les industries du pays.", "loadings": { "ETA": -0.8, "ECO": 0.2 } }
+    ],
+    "sourceMeasure": ["francois-ruffin-08"],
+    "literature": ["ricardo", "list", "stiglitz-rodrik"],
+    "explanation": "Ricardo a montré que l'échange profite aux deux partenaires, même inégaux. List et les protectionnistes répondent que les nations aujourd'hui riches se sont d'abord protégées ; Rodrik souligne qu'une mondialisation poussée entre en tension avec la souveraineté démocratique."
+  },
+  {
+    "id": "D06", "type": "dilemma", "primaryAxis": "CUL", "theme": "famille", "block": "societe", "reversed": true,
+    "text": "Quelle attitude face aux mœurs vous semble la plus juste ?",
+    "options": [
+      { "label": "Laisser chacun inventer librement sa façon de vivre, de s'aimer et de fonder une famille.", "loadings": { "CUL": 0.8 } },
+      { "label": "Préserver les repères transmis par les générations précédentes.", "loadings": { "CUL": -0.8 } }
+    ],
+    "literature": ["oakeshott", "beauvoir", "haidt"],
+    "explanation": "Pour Oakeshott, être conservateur, c'est préférer le familier à l'inconnu et se méfier des ruptures. Beauvoir et la pensée libertaire y voient des normes héritées qui enferment ; Haidt montre que chacun de ces camps mobilise des intuitions morales légitimes."
+  },
+  {
+    "id": "D07", "type": "dilemma", "primaryAxis": "ALT", "theme": "immigration", "block": "immigration", "reversed": false,
+    "text": "En matière d'immigration, quelle orientation préférez-vous ?",
+    "options": [
+      { "label": "Réduire fortement l'immigration pour mieux intégrer les personnes déjà présentes.", "loadings": { "ALT": -0.8 } },
+      { "label": "Maintenir ou accroître l'immigration, dont le pays a besoin économiquement et démographiquement.", "loadings": { "ALT": 0.8, "ECO": -0.1 } }
+    ],
+    "sourceMeasure": ["eric-zemmour-01", "david-lisnard-12", "gabriel-attal-10"],
+    "literature": ["le-bras-heran", "goodhart"],
+    "explanation": "Les partisans d'une forte réduction jugent que les capacités d'intégration (logement, école, emploi) sont saturées et que la cohésion culturelle en dépend (Goodhart). François Héran rappelle que la France a une immigration moyenne en Europe, que le vieillissement crée des besoins et que les flux obéissent à des facteurs que les États maîtrisent mal."
+  },
+  {
+    "id": "D08", "type": "dilemma", "primaryAxis": "UE", "theme": "ue", "block": "international", "reversed": true,
+    "text": "Quelle Europe souhaitez-vous ?",
+    "options": [
+      { "label": "Une Europe fédérale, avec un gouvernement et un budget communs.", "loadings": { "UE": 1 } },
+      { "label": "Une Europe des nations, où chaque pays garde le dernier mot.", "loadings": { "UE": -0.8, "ETA": -0.2 } }
+    ],
+    "sourceMeasure": ["marine-le-pen-30", "marine-tondelier-16"],
+    "literature": ["spinelli", "de-gaulle"],
+    "explanation": "Le Manifeste de Ventotene (Spinelli) voit dans la fédération européenne le remède aux guerres entre nations. De Gaulle défendait une « Europe des nations » coopérant sans abandon de souveraineté, conception reprise par de nombreux souverainistes de droite comme de gauche."
+  },
+  {
+    "id": "D09", "type": "dilemma", "primaryAxis": "GMO", "theme": "defense", "block": "international", "reversed": true,
+    "text": "Dans le monde actuel, quelle orientation de politique étrangère préférez-vous ?",
+    "options": [
+      { "label": "Privilégier la diplomatie et la non-ingérence, même face à des régimes hostiles.", "loadings": { "GMO": 0.8 } },
+      { "label": "Défendre activement la démocratie et les droits humains, y compris par la force si nécessaire.", "loadings": { "GMO": -0.8 } }
+    ],
+    "facet": "GMO.intervention", "facetLoading": -0.6,
+    "literature": ["vedrine", "droit-ingerence-r2p"],
+    "explanation": "Hubert Védrine et les réalistes se méfient d'un interventionnisme moralisateur aux effets souvent contraires. Les partisans du droit d'ingérence (Kouchner, Bettati) jugent que l'inaction face aux massacres est aussi un choix, dont le Rwanda et la Syrie ont montré le prix."
+  },
+  {
+    "id": "D10", "type": "dilemma", "primaryAxis": "GOV", "theme": "democratie", "block": "institutions", "reversed": false,
+    "text": "Quel type de pouvoir préférez-vous ?",
+    "options": [
+      { "label": "Un pouvoir capable de décider vite, quitte à contourner certaines règles.", "loadings": { "GOV": -0.8 } },
+      { "label": "Un pouvoir encadré par des règles strictes, quitte à décider plus lentement.", "loadings": { "GOV": 0.8 } }
+    ],
+    "literature": ["machiavel", "montesquieu"],
+    "explanation": "Machiavel rappelait que le prince doit savoir agir vite et s'affranchir des règles quand la situation l'exige. Montesquieu répond que « le pouvoir arrête le pouvoir » : la lenteur des procédures est le prix de la liberté."
+  },
+  {
+    "id": "D11", "type": "dilemma", "primaryAxis": "SEC", "theme": "justice", "block": "securite", "reversed": false,
+    "text": "En matière de justice pénale, quel risque vous paraît le plus acceptable ?",
+    "options": [
+      { "label": "Mieux vaut punir plus sévèrement, quitte à se tromper parfois.", "loadings": { "SEC": -1, "GOV": -0.3 } },
+      { "label": "Mieux vaut risquer de laisser un coupable libre que condamner un innocent.", "loadings": { "SEC": 1, "GOV": 0.3 } }
+    ],
+    "literature": ["hobbes", "foucault"],
+    "explanation": "La tradition sécuritaire, dans la lignée de Hobbes, fait de la protection des personnes la première mission de l'État. La tradition garantiste, héritière de Beccaria et relue par Foucault, juge que l'erreur judiciaire et l'arbitraire sont les pires injustices."
+  },
+  {
+    "id": "D12", "type": "dilemma", "primaryAxis": "SEC", "theme": "justice", "block": "securite", "reversed": true,
+    "text": "Pour sanctionner la récidive, que préférez-vous ?",
+    "options": [
+      { "label": "Laisser le juge adapter chaque peine à la personne et à la situation.", "loadings": { "SEC": 0.8 } },
+      { "label": "Imposer des peines minimales automatiques aux récidivistes.", "loadings": { "SEC": -0.8 } }
+    ],
+    "sourceMeasure": ["marine-le-pen-26", "bruno-retailleau-25", "edouard-philippe-18", "eric-zemmour-09"],
+    "literature": ["elias", "altemeyer"],
+    "explanation": "Les peines planchers visent la dissuasion et la prévisibilité de la sanction, que leurs partisans jugent affaiblies par des peines trop rarement exécutées. Leurs opposants rappellent que l'individualisation des peines est un principe constitutionnel et que l'efficacité des peines automatiques contre la récidive n'est pas démontrée."
+  },
+  {
+    "id": "D13", "type": "dilemma", "primaryAxis": "INS", "theme": "democratie", "block": "institutions", "reversed": true,
+    "text": "Pour prendre les grandes décisions publiques, quelle méthode préférez-vous ?",
+    "options": [
+      { "label": "Associer des citoyens tirés au sort, comme dans les conventions citoyennes.", "loadings": { "INS": 0.8 } },
+      { "label": "Les réserver aux élus, qui en rendent compte aux électeurs.", "loadings": { "INS": -0.8 } }
+    ],
+    "literature": ["manin-sintomer", "schumpeter"],
+    "explanation": "Bernard Manin et Yves Sintomer rappellent que le tirage au sort était, à Athènes, la procédure démocratique par excellence, et qu'il fait entrer des profils absents des assemblées élues. Schumpeter et les défenseurs de la représentation soulignent que seuls les élus sont responsables devant les électeurs et peuvent être sanctionnés."
+  },
+  {
+    "id": "D14", "type": "dilemma", "primaryAxis": "POP", "theme": "populisme", "block": "institutions", "reversed": true,
+    "text": "Laquelle de ces deux descriptions de la politique vous semble la plus juste ?",
+    "options": [
+      { "label": "La politique oppose des groupes aux intérêts et aux valeurs différents, tous légitimes.", "loadings": { "POP": 0.9 } },
+      { "label": "La politique oppose d'abord un peuple honnête à des élites qui défendent leurs intérêts.", "loadings": { "POP": -0.9 } }
+    ],
+    "literature": ["mudde-muller", "laclau-mouffe"],
+    "explanation": "Cette opposition résume la définition du populisme par Cas Mudde : un peuple pur face à une élite corrompue. Laclau et Mouffe y voient la forme même de la politique démocratique, qui construit un « nous » contre un « eux » ; les pluralistes y voient une négation de la diversité des citoyens."
+  },
+  {
+    "id": "A01", "type": "allocation", "primaryAxis": "ENV", "theme": "priorites", "block": "priorites", "reversed": false,
+    "text": "Répartissez 10 points entre ces priorités pour le prochain quinquennat, selon l'importance que vous leur accordez.",
+    "options": [
+      { "label": "Climat et biodiversité", "loadings": { "ENV": 0.5 } },
+      { "label": "Pouvoir d'achat", "loadings": { "ECO": 0.3 } },
+      { "label": "Sécurité", "loadings": { "SEC": -0.4 } },
+      { "label": "Réduction de la dette", "loadings": { "ECO": -0.4 } },
+      { "label": "Maîtrise de l'immigration", "loadings": { "ALT": -0.4 } },
+      { "label": "Santé et hôpital", "loadings": { "ECO": 0.2 } }
+    ],
+    "literature": ["inglehart", "keynes"],
+    "explanation": "Cette répartition indique la saillance des enjeux pour vous : elle pondère la comparaison avec les candidat·es, sans changer vos positions. Ronald Inglehart a montré que les priorités « postmatérialistes » (environnement) et « matérialistes » (sécurité, revenu) structurent durablement les choix politiques."
+  },
+  {
+    "id": "A02", "type": "allocation", "primaryAxis": "ECO", "theme": "dette", "block": "priorites", "reversed": false,
+    "text": "Si l'État disposait de 10 milliards d'euros de plus chaque année, comment les répartiriez-vous ? (10 points)",
+    "options": [
+      { "label": "Baisser les impôts et les cotisations", "loadings": { "ECO": -0.5 } },
+      { "label": "Réduire la dette publique", "loadings": { "ECO": -0.4 } },
+      { "label": "Renforcer les services publics (école, hôpital)", "loadings": { "ECO": 0.5 } },
+      { "label": "Augmenter les aides sociales et les minima", "loadings": { "ECO": 0.5 } },
+      { "label": "Investir dans la transition écologique", "loadings": { "ENV": 0.4 } },
+      { "label": "Renforcer la défense", "loadings": { "GMO": -0.3 } }
+    ],
+    "sourceMeasure": ["bruno-retailleau-06", "edouard-philippe-02", "gabriel-attal-01"],
+    "literature": ["buchanan", "keynes", "kelton"],
+    "explanation": "Pour Buchanan et les partisans d'une règle d'or, la dette reporte sur les générations futures le coût des dépenses présentes. Keynes et, plus radicalement, Stephanie Kelton jugent que la dépense publique utile soutient l'activité et que la dette d'un État n'est pas celle d'un ménage."
+  },
+  {
+    "id": "A03", "type": "allocation", "primaryAxis": "GMO", "theme": "priorites", "block": "priorites", "reversed": false,
+    "text": "Répartissez 10 points entre ces priorités de politique étrangère.",
+    "options": [
+      { "label": "Soutenir l'Ukraine et les alliés européens", "loadings": { "GMO": -0.5, "UE": 0.2 } },
+      { "label": "Construire une défense européenne", "loadings": { "UE": 0.4, "GMO": -0.2 } },
+      { "label": "Aide au développement et coopération", "loadings": { "ETA": 0.4 } },
+      { "label": "Diplomatie et non-alignement", "loadings": { "GMO": 0.5 } },
+      { "label": "Protection des frontières nationales", "loadings": { "ALT": -0.3, "ETA": -0.3 } }
+    ],
+    "sourceMeasure": ["raphael-glucksmann-03", "bruno-retailleau-09"],
+    "literature": ["aron", "vedrine", "sen"],
+    "explanation": "Raymond Aron distinguait la puissance, la sécurité et la gloire comme objectifs des États ; le choix entre alliances, défense commune, coopération ou non-alignement traduit des conceptions différentes de l'intérêt national. Amartya Sen rappelle que le développement des autres pays est aussi une condition de la sécurité commune."
+  },
+  {
+    "id": "A04", "type": "allocation", "primaryAxis": "UE", "theme": "ue", "block": "priorites", "reversed": false,
+    "text": "Répartissez 10 points entre les domaines où l'Union européenne devrait agir davantage, ou pas du tout.",
+    "options": [
+      { "label": "Aucun : rendre des compétences aux États", "loadings": { "UE": -0.6 } },
+      { "label": "Défense commune", "loadings": { "UE": 0.5 } },
+      { "label": "Climat et énergie", "loadings": { "UE": 0.3, "ENV": 0.3 } },
+      { "label": "Protection sociale et salaires minimums", "loadings": { "UE": 0.3, "ECO": 0.3 } },
+      { "label": "Contrôle des frontières extérieures", "loadings": { "UE": 0.2, "ALT": -0.3 } },
+      { "label": "Protection de l'industrie face à la concurrence mondiale", "loadings": { "UE": 0.2, "ETA": -0.2 } }
+    ],
+    "literature": ["delors", "majone-streeck"],
+    "explanation": "Jacques Delors voulait une Europe qui protège autant qu'elle ouvre, y compris socialement. Wolfgang Streeck juge au contraire que l'Union s'est construite pour soustraire l'économie aux choix démocratiques nationaux, d'où le souhait de certains de lui retirer des compétences."
+  },
+  {
+    "id": "A05", "type": "allocation", "primaryAxis": "TER", "theme": "decentralisation", "block": "priorites", "reversed": false,
+    "text": "Pour les politiques du quotidien (écoles, transports, logement), répartissez 10 points selon le niveau qui devrait décider.",
+    "options": [
+      { "label": "La commune ou l'intercommunalité", "loadings": { "TER": 0.5 } },
+      { "label": "Le département", "loadings": { "TER": 0.2 } },
+      { "label": "La région", "loadings": { "TER": 0.4 } },
+      { "label": "L'État", "loadings": { "TER": -0.6 } },
+      { "label": "L'Union européenne", "loadings": { "UE": 0.4, "TER": -0.2 } }
+    ],
+    "literature": ["tocqueville", "rousseau"],
+    "explanation": "Tocqueville voyait dans la commune « l'école primaire de la liberté ». La tradition jacobine, héritière de Rousseau et de la Révolution, fait de l'État le garant de l'égalité et de l'intérêt général face aux intérêts locaux."
+  }
+]

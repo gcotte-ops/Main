@@ -54,6 +54,8 @@ export function contributions(q: Question, a: Answer | undefined): Map<string, C
       const m = 2 * Math.max(Math.abs(A!.loadings[axis] ?? 0), Math.abs(B!.loadings[axis] ?? 0));
       out.set(axis, { itemId: q.id, n: Math.abs(a.value) * (chosen.loadings[axis] ?? 0), m });
     }
+    // Facette d'un dilemme : facetLoading s'applique dans le sens de l'option B (v > 0).
+    if (q.facet && q.facetLoading) out.set(q.facet, { itemId: q.id, n: q.facetLoading * a.value, m: 2 * Math.abs(q.facetLoading) });
   } else if (q.type === 'allocation' && a.kind === 'allocation') {
     const opts = q.options!;
     const total = a.points.reduce((s, p) => s + p, 0);
