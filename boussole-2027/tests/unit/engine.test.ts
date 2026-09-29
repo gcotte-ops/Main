@@ -99,7 +99,7 @@ describe('Cohérence et biais', () => {
   it('signale deux réponses tirant vers des pôles opposés sur des items de même logique', () => {
     const r = findInconsistencies([a, b], { Q010: scale(2), Q011: scale(-1) });
     expect(r).toHaveLength(1);
-    expect(r[0]!.text).toMatch(/Ce n'est pas une erreur/);
+    expect(r[0]!.text).toMatch(/Ce n'est pas nécessairement une erreur/);
     expect(findInconsistencies([a, b], { Q010: scale(2), Q011: scale(1) })).toHaveLength(0);
     expect(findInconsistencies([a, b], { Q010: scale(2), Q011: scale(0) })).toHaveLength(0);
   });

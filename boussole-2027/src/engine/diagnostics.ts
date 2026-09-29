@@ -29,8 +29,11 @@ export function findInconsistencies(questions: Question[], answers: Answers, max
       found.push({
         a, b, strength: Math.abs(ra.value) + Math.abs(rb.value),
         text:
-          `Vous avez ${agreeLabel(ra.value)} « ${a.text} » et ${agreeLabel(rb.value)} « ${b.text} », ` +
-          `deux énoncés qui relèvent souvent de la même logique. Ce n'est pas une erreur : ${a.coexistence ?? b.coexistence ?? ''}`,
+          `Vous avez ${agreeLabel(ra.value)} « ${a.text} » et ${agreeLabel(rb.value)} « ${b.text} ». ` +
+          (Math.sign(wa) === Math.sign(wb)
+            ? 'Ces deux énoncés vont d\'ordinaire dans le même sens. '
+            : 'Ces deux énoncés défendent d\'ordinaire des positions opposées. ') +
+          `Ce n'est pas nécessairement une erreur : ${a.coexistence ?? b.coexistence ?? ''}`,
       });
     }
   }

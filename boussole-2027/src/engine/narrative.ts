@@ -54,6 +54,7 @@ const safe = (ids: string[], byId: Map<string, Thinker>) =>
 const wordCount = (paras: string[]) => paras.join(' ').split(/\s+/).filter((w) => /[\p{L}\d]/u.test(w)).length;
 const firstSentences = (s: string, n: number) => (s.match(/[^.!?]+[.!?]+(\s|$)/g) ?? [s]).slice(0, n).join('').trim();
 const lc = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+const joinFr = (xs: string[]) => (xs.length < 2 ? (xs[0] ?? '') : `${xs.slice(0, -1).join(', ')} et ${xs.at(-1)}`);
 
 export function buildResults(d: Dataset, answers: Answers, opts: { draws?: number } = {}): Results {
   const byId = new Map(d.thinkers.map((t) => [t.id, t]));
@@ -123,9 +124,9 @@ function writeSynthesis(axes: AxisReading[], top: ArchetypeMatch[], tensions: Te
   const fmt = (x: AxisReading) => `${x.axis.label.toLowerCase()} (${lc(x.axis.levels[x.level!])}, ${x.score.score! > 0 ? '+' : ''}${Math.round(x.score.score!)})`;
   if (strong.length)
     p.push(
-      `Vos positions les plus affirmées concernent ${strong.map(fmt).join(', ').replace(/, ([^,]*)$/, ' et $1')}. ` +
+      `Vos positions les plus affirmées concernent ${joinFr(strong.map(fmt))}. ` +
         (central.length
-          ? `Vous vous situez en revanche près du centre sur ${central.slice(0, 4).join(', ').replace(/, ([^,]*)$/, ' et $1')}, ce qui peut traduire une position de synthèse, une hésitation ou des convictions qui ne se laissent pas ranger sur cet axe.`
+          ? `Vous vous situez en revanche près du centre sur ${joinFr(central.slice(0, 4))}, ce qui peut traduire une position de synthèse, une hésitation ou des convictions qui ne se laissent pas ranger sur cet axe.`
           : 'Vous ne vous situez au centre sur aucun axe : vos réponses dessinent des convictions nettes, que les objections présentées plus bas permettent de mettre à l\'épreuve.'),
     );
 
