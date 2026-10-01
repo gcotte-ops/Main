@@ -1,0 +1,164 @@
+[
+  {
+    "id": "communisme-revolutionnaire", "name": "Communisme révolutionnaire",
+    "centroid": { "ECO": 95, "IDE": 10, "ENV": 45, "REL": -75, "ETA": 90, "CUL": 55, "ALT": 90, "UE": -55, "GMO": 70, "GOV": -5, "SEC": 45, "INS": 60, "TER": 0, "POP": -60, "CHG": 85 },
+    "justification": "Fichier 02 §5 : propriété collective des moyens de production (Marx, Engels), révolution internationale (Trotsky) et critique de la religion ; hostilité à l'UE « des capitalistes » comme au nationalisme (fichier 01 §3.13). GOV proche du centre : la démocratie ouvrière visée sort du cadre libéral-représentatif sans s'y opposer au nom de l'ordre.",
+    "description": "Ce courant vise le dépassement du capitalisme par l'appropriation collective des grands moyens de production et le contrôle des travailleurs. Il est internationaliste (la solidarité de classe prime sur la nation), anticlérical, antiraciste et critique de la construction européenne actuelle. Les élections y servent d'abord de tribune aux luttes sociales plutôt que de voie d'accès au gouvernement.",
+    "lineage": ["marx-engels", "trotsky", "luxemburg"],
+    "counterpoints": ["hayek", "popper", "arendt"],
+    "internalTensions": ["Démocratie ouvrière ou parti d'avant-garde : le débat entre Rosa Luxemburg et Lénine.", "Productivisme hérité du marxisme ou écologie (Saito, « communisme de décroissance »).", "Centralité de la classe ou des oppressions spécifiques (race, genre) : débat entre organisations trotskistes."]
+  },
+  {
+    "id": "socialisme-democratique", "name": "Socialisme démocratique",
+    "centroid": { "ECO": 75, "IDE": 15, "ENV": 55, "REL": -40, "ETA": 40, "CUL": 50, "ALT": 65, "UE": 0, "GMO": 35, "GOV": 55, "SEC": 35, "INS": 50, "TER": 10, "POP": -20, "CHG": -25 },
+    "justification": "Fichier 02 §6 : Jaurès (« la République jusqu'au bout »), Blum (exercice démocratique du pouvoir) et Piketty (« socialisme participatif ») : transformation profonde de l'économie par la voie démocratique, laïcité, internationalisme pacifiste.",
+    "description": "Ce courant veut réduire fortement les inégalités par l'impôt progressif, les services publics, les droits des salariés et une extension de la propriété sociale, sans rompre avec la démocratie représentative. Il est laïque, attaché aux libertés publiques et ouvert en matière de mœurs, et partagé sur l'Europe : levier de progrès social ou carcan libéral.",
+    "lineage": ["jaures", "blum", "piketty"],
+    "counterpoints": ["hayek", "friedman"],
+    "internalTensions": ["Réforme graduelle (Bernstein, Blum) ou rupture (plan B européen).", "Classe ou identités : Beaud et Noiriel contre le « tout-racial ».", "Croissance redistributive ou décroissance écologique."]
+  },
+  {
+    "id": "social-ecologie-intersectionnelle", "name": "Social-écologie intersectionnelle",
+    "centroid": { "ECO": 75, "IDE": 35, "ENV": 90, "REL": -35, "ETA": 65, "CUL": 85, "ALT": 90, "UE": 35, "GMO": 30, "GOV": 55, "SEC": 70, "INS": 55, "TER": 35, "POP": 0, "CHG": 10 },
+    "justification": "Fichier 02 §26 : convergence de ALT, GEN, ECO et CUL vers les pôles égalitaires (Crenshaw, Hill Collins, Fraser), combinée à l'écologie politique anticapitaliste (Gorz, Malm, Saito) ; fichier 01 §4 : paquet « social-écologie intersectionnelle ».",
+    "description": "Ce courant relie les dominations économiques, raciales, de genre et écologiques et juge qu'elles se renforcent mutuellement. Il associe redistribution et reconnaissance (Fraser), transition écologique rapide, ouverture migratoire, libertés publiques et droits des minorités. Il reconnaît des identités collectives minorisées tout en défendant l'émancipation individuelle.",
+    "lineage": ["crenshaw", "fraser", "malm-saito"],
+    "counterpoints": ["mounk-neiman", "michea", "finkielkraut"],
+    "internalTensions": ["Universalisme ou politiques identitaires : Mounk, Neiman et Malik critiquent la « synthèse identitaire » depuis la gauche.", "Nucléaire ou sortie du nucléaire (Jancovici contre les Écologistes).", "Réformisme institutionnel ou désobéissance (Malm et le sabotage)."]
+  },
+  {
+    "id": "ecosocialisme-productiviste", "name": "Écosocialisme productiviste (nucléaire)",
+    "centroid": { "ECO": 85, "IDE": 0, "ENV": 35, "REL": -45, "ETA": -10, "CUL": 10, "ALT": 30, "UE": -30, "GMO": 45, "GOV": 45, "SEC": 0, "INS": 20, "TER": -40, "POP": -20, "CHG": -15 },
+    "justification": "Fichier 01 §3.10 : mix énergétique 100 % public et décarboné par le nucléaire, planification, 100 % Sécu ; fichier 02 : Jaurès pour la tradition socialiste républicaine, Mazzucato pour l'État investisseur, Jancovici pour la décarbonation par le nucléaire.",
+    "description": "Ce courant associe un socialisme d'État planificateur à une décarbonation fondée sur le nucléaire public et l'industrie. Il défend l'emploi ouvrier, les salaires et les services publics, se méfie de la décroissance comme de l'Union européenne libérale, et reste modéré sur les questions culturelles. Il s'inscrit dans une tradition républicaine et centralisatrice.",
+    "lineage": ["jaures", "mazzucato", "jancovici"],
+    "counterpoints": ["latouche", "illich"],
+    "internalTensions": ["Croissance industrielle ou limites planétaires (Meadows).", "Souveraineté nationale ou internationalisme ouvrier.", "Nucléaire comme bien commun ou technique incontrôlable (Ellul, Anders)."]
+  },
+  {
+    "id": "social-democratie-pro-europeenne", "name": "Social-démocratie pro-européenne",
+    "centroid": { "ECO": 40, "IDE": -10, "ENV": 60, "REL": -20, "ETA": 80, "CUL": 45, "ALT": 45, "UE": 95, "GMO": -65, "GOV": 75, "SEC": 15, "INS": 20, "TER": 25, "POP": 50, "CHG": -70 },
+    "justification": "Fichier 02 §19 et §6 : Europe sociale et fédération d'États-nations (Delors), patriotisme constitutionnel post-national (Habermas), troisième voie (Giddens) ; fichier 01 §3.7 : saut fédéral, défense européenne, aide militaire accrue à l'Ukraine.",
+    "description": "Ce courant veut construire à l'échelle européenne ce que les États ne peuvent plus garantir seuls : protection sociale, transition écologique, défense et régulation des multinationales. Il est redistributif sans être anticapitaliste, attaché à l'État de droit et favorable à une politique étrangère active en soutien aux démocraties.",
+    "lineage": ["delors", "habermas", "giddens"],
+    "counterpoints": ["lordon", "seguin", "majone-streeck"],
+    "internalTensions": ["Europe sociale ou Europe du marché : Streeck juge l'Union structurellement libérale.", "Interventionnisme démocratique ou prudence réaliste.", "Alliance avec la gauche radicale ou avec le centre."]
+  },
+  {
+    "id": "gauche-republicaine-souverainiste", "name": "Gauche républicaine souverainiste",
+    "centroid": { "ECO": 55, "IDE": -55, "ENV": 20, "REL": -55, "ETA": -45, "CUL": 0, "ALT": 15, "UE": -50, "GMO": 40, "GOV": 40, "SEC": -20, "INS": -10, "TER": -65, "POP": -10, "CHG": -30 },
+    "justification": "Fichier 02 §9 et §13 : Chevènement (souveraineté, laïcité, État stratège, opposition à Maastricht), Debray (éloge des frontières), Schnapper (communauté des citoyens) ; fichier 01 §3.7 : « gauche républicaine et souverainiste ».",
+    "description": "Ce courant combine justice sociale, laïcité stricte et souveraineté nationale. La nation républicaine y est le cadre de la démocratie et de la redistribution, contre une Union européenne jugée libérale et post-démocratique. Il défend l'école, l'État stratège et l'égalité des citoyens, et se méfie des politiques identitaires comme de la décentralisation.",
+    "lineage": ["chevenement", "debray", "schnapper"],
+    "counterpoints": ["spinelli", "kymlicka-parekh"],
+    "internalTensions": ["Souveraineté nationale ou internationalisme de la gauche.", "Laïcité d'émancipation ou de reconnaissance (Peña-Ruiz et Baubérot).", "Ordre républicain ou libertés publiques."]
+  },
+  {
+    "id": "liberalisme-social", "name": "Libéralisme social",
+    "centroid": { "ECO": -10, "IDE": -40, "ENV": 40, "REL": -25, "ETA": 45, "CUL": 45, "ALT": 35, "UE": 65, "GMO": -30, "GOV": 80, "SEC": 25, "INS": 20, "TER": 30, "POP": 60, "CHG": -75 },
+    "justification": "Fichier 02 §3 : Rawls (principe de différence), Léon Bourgeois (solidarisme) et Amartya Sen (capabilités) : une économie de marché corrigée par l'égalité des chances et la protection des plus défavorisés, dans un cadre de libertés fortes.",
+    "description": "Ce courant fait confiance au marché, mais le juge légitime seulement s'il s'accompagne d'une véritable égalité des chances et d'une protection des plus fragiles. Il défend des libertés individuelles étendues, l'État de droit, l'intégration européenne et une ouverture modérée. Il se situe au centre-gauche économique et nettement du côté libéral sur les mœurs et les institutions.",
+    "lineage": ["rawls", "bourgeois", "sen"],
+    "counterpoints": ["nozick", "michea"],
+    "internalTensions": ["Redistribution ou responsabilité individuelle (Dworkin : compenser le hasard, pas les choix).", "Neutralité de l'État ou promotion d'une conception du bien (Sandel).", "Libre-échange ou protection des perdants de la mondialisation."]
+  },
+  {
+    "id": "centre-progressiste", "name": "Libéral-libertaire / centre progressiste",
+    "centroid": { "ECO": -50, "IDE": -50, "ENV": 35, "REL": -20, "ETA": 55, "CUL": 50, "ALT": 20, "UE": 85, "GMO": -50, "GOV": 60, "SEC": -10, "INS": -30, "TER": 10, "POP": 55, "CHG": -55 },
+    "justification": "Fichier 02 §26 : « libéral-libertaire » (Boltanski et Chiapello, Michéa) : ECO libéral + CUL libertaire + UE pro, profil du centre urbain diplômé ; économistes « mainstream » sollicités par le centre (Aghion, Tirole, Duflo) ; fichier 01 §3.3 et §3.4.",
+    "description": "Ce courant associe libéralisme économique (compétitivité, réformes du marché du travail, maîtrise des dépenses), libéralisme culturel et engagement européen. Il valorise l'innovation, la mobilité et l'expertise, soutient l'OTAN et l'Ukraine, et adopte une fermeté régalienne modérée. Il se présente comme pragmatique et réformateur.",
+    "lineage": ["aghion-tirole-duflo", "giddens", "mill"],
+    "counterpoints": ["michea", "boltanski-chiapello", "sandel"],
+    "internalTensions": ["Libéralisme culturel ou fermeté régalienne et migratoire.", "Méritocratie ou « tyrannie du mérite » (Sandel).", "Réforme par le Parlement ou par ordonnances et référendums."]
+  },
+  {
+    "id": "liberal-conservatisme", "name": "Libéral-conservatisme",
+    "centroid": { "ECO": -75, "IDE": 0, "ENV": -25, "REL": 35, "ETA": -20, "CUL": -60, "ALT": -50, "UE": 20, "GMO": -40, "GOV": 30, "SEC": -60, "INS": -40, "TER": 45, "POP": 20, "CHG": -65 },
+    "justification": "Fichier 02 §26 : fusionnisme / libéral-conservatisme = ECO libéral + CUL conservateur + REL traditionnel ; Burke (réforme prudente), Tocqueville (corps intermédiaires, local), Hayek (ordre spontané) ; fichier 01 §4 : paquet « libéralisme conservateur ».",
+    "description": "Ce courant associe liberté économique (baisse des dépenses et des impôts, capitalisation, responsabilité individuelle) et conservatisme des mœurs, attaché à la famille, à l'autorité et à l'héritage chrétien. Il défend une politique pénale et migratoire ferme, une décentralisation vers les collectivités et une Europe des coopérations plutôt qu'une Europe fédérale.",
+    "lineage": ["burke", "tocqueville", "hayek"],
+    "counterpoints": ["michea", "polanyi", "piketty"],
+    "internalTensions": ["Le marché dissout les traditions qu'on veut préserver : critique de Michéa et Deneen.", "État minimal ou État fort régalien.", "Libre-échange ou protection de la nation."]
+  },
+  {
+    "id": "conservatisme-traditionaliste", "name": "Conservatisme traditionaliste",
+    "centroid": { "ECO": -10, "IDE": 75, "ENV": 5, "REL": 90, "ETA": -50, "CUL": -90, "ALT": -55, "UE": -35, "GMO": 10, "GOV": -15, "SEC": -60, "INS": -20, "TER": 30, "POP": -10, "CHG": -70 },
+    "justification": "Fichier 02 §8 : ordre fondé sur l'autorité, la religion et la famille (Maistre, Bonald), éthique des vertus dans des communautés de tradition (MacIntyre), oikophilie (Scruton).",
+    "description": "Ce courant fait de la religion, de la famille et des traditions héritées les fondements de l'ordre social et moral. Il se méfie de l'individualisme moderne, du libéralisme des mœurs et des abstractions universalistes, et défend l'enracinement national et local. Sur l'économie, il est moins libéral que la droite de marché.",
+    "lineage": ["maistre-bonald", "macintyre", "scruton"],
+    "counterpoints": ["mill", "beauvoir", "voltaire"],
+    "internalTensions": ["Démocratie libérale ou autorité : Delsol accepte la première, la contre-révolution la récusait.", "Christianisme de tradition ou de conviction (Gauchet).", "Marché ou doctrine sociale de l'Église."]
+  },
+  {
+    "id": "democratie-chretienne", "name": "Démocratie chrétienne / personnalisme",
+    "centroid": { "ECO": 15, "IDE": 45, "ENV": 45, "REL": 55, "ETA": 40, "CUL": -30, "ALT": 35, "UE": 75, "GMO": -25, "GOV": 65, "SEC": -10, "INS": 0, "TER": 50, "POP": 40, "CHG": -75 },
+    "justification": "Fichier 02 §16 : personnalisme et humanisme intégral (Mounier, Maritain), doctrine sociale de l'Église (subsidiarité, corps intermédiaires, juste salaire), pères fondateurs de l'Europe (Schuman) ; écologie intégrale de Laudato si'.",
+    "description": "Ce courant place la personne, ni individu isolé ni rouage collectif, au cœur de la politique. Il défend une économie sociale de marché, la subsidiarité et les corps intermédiaires, la construction européenne et l'accueil, tout en restant attaché à la famille et à une morale d'inspiration chrétienne. Il valorise le compromis et la modération.",
+    "lineage": ["mounier-maritain", "doctrine-sociale-eglise", "monnet-schuman"],
+    "counterpoints": ["nietzsche", "voltaire", "rand"],
+    "internalTensions": ["Accueil des migrants (Laudato si') ou identité chrétienne de l'Europe.", "Bioéthique conservatrice ou libéralisme des mœurs de l'électorat centriste.", "Marché ou solidarité."]
+  },
+  {
+    "id": "souverainisme-gaulliste", "name": "Souverainisme gaulliste",
+    "centroid": { "ECO": 10, "IDE": 0, "ENV": 10, "REL": 15, "ETA": -65, "CUL": -30, "ALT": -25, "UE": -45, "GMO": 45, "GOV": 25, "SEC": -40, "INS": -70, "TER": -45, "POP": -10, "CHG": -30 },
+    "justification": "Fichier 02 §9 : De Gaulle (indépendance nationale, « Europe des nations », sortie du commandement intégré de l'OTAN, exécutif fort), Séguin (Maastricht) ; §18 : réalisme gaullo-mitterrandien de Védrine.",
+    "description": "Ce courant fait de l'indépendance nationale la valeur cardinale : diplomatie autonome, dissuasion non partagée, Europe des nations et méfiance envers l'OTAN. Il défend un exécutif fort, un État centralisé et stratège, et une participation des travailleurs qui l'éloigne du libéralisme pur. Il est modéré sur les questions de mœurs.",
+    "lineage": ["de-gaulle", "seguin", "vedrine"],
+    "counterpoints": ["spinelli", "keohane-nye", "habermas"],
+    "internalTensions": ["Souveraineté ou coopération européenne en matière de défense.", "Gaullisme social (participation) ou libéralisme économique.", "Exécutif fort ou démocratie directe (référendums)."]
+  },
+  {
+    "id": "national-populisme", "name": "National-populisme",
+    "centroid": { "ECO": 25, "IDE": 45, "ENV": -45, "REL": 25, "ETA": -95, "CUL": -45, "ALT": -75, "UE": -55, "GMO": 45, "GOV": -45, "SEC": -70, "INS": 40, "TER": -10, "POP": -75, "CHG": 20 },
+    "justification": "Fichier 02 §26 : souverainisme social / national-populisme (Polanyi, List, Lasch) : ECO protecteur + ETA/UE nationaux + CUL conservateur modéré ; §17 : définition du populisme (Mudde) ; fichier 01 §4 : paquet « souverainisme social ».",
+    "description": "Ce courant oppose un peuple, défini d'abord par la nation, à des élites jugées mondialisées. Il associe protection sociale et économique (retraites, prix de l'énergie, protectionnisme), priorité nationale, forte réduction de l'immigration, fermeté pénale et référendums pour trancher les grandes questions. Il est hostile au fédéralisme européen.",
+    "lineage": ["lasch", "list", "buisson"],
+    "counterpoints": ["mudde-muller", "le-bras-heran", "linz-levitsky-ziblatt"],
+    "internalTensions": ["Programme social ou libéral : l'économie du courant oscille entre les deux.", "Référendum et volonté populaire ou État de droit (Levitsky et Ziblatt).", "Laïcité républicaine ou identité chrétienne."]
+  },
+  {
+    "id": "nationalisme-identitaire", "name": "Nationalisme identitaire",
+    "centroid": { "ECO": -25, "IDE": 70, "ENV": -50, "REL": 45, "ETA": -100, "CUL": -90, "ALT": -100, "UE": -55, "GMO": 35, "GOV": -55, "SEC": -85, "INS": 0, "TER": 0, "POP": -60, "CHG": 45 },
+    "justification": "Fichier 02 §9 et §10 : nationalisme de « la terre et des morts » (Barrès), ethno-différentialisme (de Benoist), choc des civilisations (Huntington) ; fichier 01 §3.6 : remigration, immigration négative, ligne économique libérale.",
+    "description": "Ce courant fait de l'identité culturelle et civilisationnelle de la nation l'enjeu politique central et juge qu'elle est menacée par l'immigration extra-européenne. Il propose un arrêt de l'immigration et des départs organisés, une politique pénale très sévère et un conservatisme culturel affirmé, avec souvent une ligne économique libérale. Ses thèses démographiques sont contestées par les démographes (Le Bras, Héran).",
+    "lineage": ["barres", "benoist", "huntington"],
+    "counterpoints": ["renan", "le-bras-heran", "refutations-racisme-scientifique"],
+    "internalTensions": ["Libéralisme économique ou protection sociale des classes populaires.", "Identité chrétienne ou paganisme (de Benoist).", "Démocratie ou pouvoir d'exception."]
+  },
+  {
+    "id": "libertarianisme", "name": "Libertarianisme",
+    "centroid": { "ECO": -95, "IDE": -90, "ENV": -45, "REL": -30, "ETA": 30, "CUL": 80, "ALT": 35, "UE": -15, "GMO": 80, "GOV": 55, "SEC": 60, "INS": 0, "TER": 60, "POP": 30, "CHG": -20 },
+    "justification": "Fichier 02 §26 : ECO néolibéral + CUL libertaire + GOV libéral + GMO non interventionniste (Nozick, Rothbard) ; §4 : État minimal (Nozick), anarcho-capitalisme (Rothbard), objectivisme (Rand). Quasi absent de l'offre électorale française, présenté comme repère.",
+    "description": "Ce courant défend la liberté individuelle dans tous les domaines : propriété, échanges, mœurs, consommation. L'État doit se limiter à la protection des droits (Nozick), voire disparaître au profit du marché (Rothbard). Il s'oppose à la redistribution forcée, aux interventions militaires et aux lois morales, et se méfie des institutions supranationales.",
+    "lineage": ["nozick", "rothbard-hoppe", "rand"],
+    "counterpoints": ["rawls", "sandel", "polanyi"],
+    "internalTensions": ["Libertarianisme de gauche ou conservatisme culturel (Hoppe).", "Frontières ouvertes ou propriété privée du territoire.", "Climat : marché du carbone ou refus de toute contrainte."]
+  },
+  {
+    "id": "anarchisme-municipalisme", "name": "Anarchisme / municipalisme libertaire",
+    "centroid": { "ECO": 80, "IDE": 10, "ENV": 75, "REL": -80, "ETA": 75, "CUL": 90, "ALT": 85, "UE": -40, "GMO": 80, "GOV": 20, "SEC": 90, "INS": 90, "TER": 95, "POP": -20, "CHG": 75 },
+    "justification": "Fichier 02 §7 et §26 : ECO socialiste + CUL libertaire + GOV anti-étatique (Bakounine, Bookchin) ; municipalisme libertaire et écologie sociale (Bookchin), entraide (Kropotkine). Conteste la pertinence même de l'axe « démocratie libérale ».",
+    "description": "Ce courant refuse l'État comme le capitalisme et veut une société de communes autogérées et fédérées, fondée sur l'entraide et la démocratie directe. Il est internationaliste, antimilitariste, anticlérical et libertaire en matière de mœurs, et relie la domination de la nature à la domination entre humains.",
+    "lineage": ["bakounine", "bookchin", "kropotkine"],
+    "counterpoints": ["hobbes", "de-gaulle", "hayek"],
+    "internalTensions": ["Participation aux élections locales (municipalisme) ou refus de toute institution.", "Communisme libertaire ou mutuellisme (Proudhon).", "Violence révolutionnaire ou non-violence."]
+  },
+  {
+    "id": "ecologie-conservatrice", "name": "Écologie conservatrice / enracinée",
+    "centroid": { "ECO": 20, "IDE": 55, "ENV": 70, "REL": 45, "ETA": -40, "CUL": -45, "ALT": -20, "UE": -20, "GMO": 40, "GOV": 30, "SEC": -20, "INS": 20, "TER": 75, "POP": -10, "CHG": -40 },
+    "justification": "Fichier 02 §15 : écologies conservatrices (Laudato si', écologie « enracinée », localisme, défense des paysages), oikophilie de Scruton, postlibéralisme de Deneen ; §26 : liens possibles entre ENV et CUL.",
+    "description": "Ce courant relie la protection de la nature à celle des paysages, des terroirs, des communautés locales et des traditions. Il critique la société de consommation et la technique sans limite au nom de la mesure et de l'enracinement, plus que de l'émancipation. Il privilégie le local, l'agriculture paysanne et une souveraineté alimentaire et énergétique.",
+    "lineage": ["ecologies-conservatrices", "scruton", "deneen"],
+    "counterpoints": ["ecomodernisme", "malm-saito"],
+    "internalTensions": ["Protection des paysages ou déploiement des renouvelables (éolien).", "Écologie intégrale ouverte (Laudato si') ou identitaire.", "Sobriété choisie ou décroissance imposée."]
+  },
+  {
+    "id": "populisme-de-gauche", "name": "Populisme de gauche",
+    "centroid": { "ECO": 90, "IDE": 10, "ENV": 75, "REL": -40, "ETA": 15, "CUL": 60, "ALT": 85, "UE": -35, "GMO": 65, "GOV": 40, "SEC": 55, "INS": 85, "TER": 15, "POP": -65, "CHG": 35 },
+    "justification": "Fichier 02 §10 : Laclau et Mouffe (construire un « peuple » contre une « oligarchie »), Lordon (souveraineté populaire non nationaliste), Rancière (pouvoir de « n'importe qui ») ; fichier 01 §3.2 : VIe République, RIC, désobéissance aux traités, non-alignement.",
+    "description": "Ce courant veut fédérer les classes populaires et moyennes contre une oligarchie économique et politique. Il associe rupture avec le néolibéralisme, planification écologique, extension de la démocratie directe (Assemblée constituante, référendum d'initiative citoyenne), défense des libertés publiques, antiracisme et non-alignement international.",
+    "lineage": ["laclau-mouffe", "lordon", "ranciere"],
+    "counterpoints": ["mudde-muller", "popper", "lefort"],
+    "internalTensions": ["Peuple contre élites ou pluralisme (Müller, Lefort).", "Souveraineté populaire ou internationalisme.", "Union de la gauche ou hégémonie d'un seul mouvement."]
+  }
+]

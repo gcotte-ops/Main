@@ -1,0 +1,69 @@
+/*
+ * Design tokens — SEUL fichier autorisé à contenir des couleurs littérales
+ * (vérifié par tests/unit/palette.test.ts).
+ *
+ * Charte de l'organisation :
+ *   Bleu foncé #07072d (principal) / #000F2E (variante) · Bleu clair #eaf0f9
+ *   Jaune #ffc40b : accent uniquement, ≤ 10 % de la surface visible, jamais en texte sur fond clair.
+ *   Titres : Fraunces (h1 = 35) · Texte : Open Sans 11 pt, interligne 1,5.
+ * Les polices sont auto-hébergées (@fontsource) : aucune requête vers un tiers.
+ */
+:root {
+  /* Palette de base */
+  --color-navy: #07072d;
+  --color-navy-alt: #000f2e;
+  --color-sky: #eaf0f9;
+  --color-yellow: #ffc40b;
+  --color-white: #ffffff;
+
+  /* Gris d'interface (neutres R = G = B) */
+  --color-grey-700: #4d4d4d; /* texte secondaire : 8,5:1 sur blanc, 7,6:1 sur bleu clair */
+  --color-grey-400: #8c8c8c; /* bordures, graduations */
+  --color-grey-200: #d9d9d9; /* séparateurs */
+
+  /* Nuances dérivées (interpolation linéaire bleu foncé → bleu clair), pour graphiques */
+  --color-blue-15: #292a4c;
+  --color-blue-30: #4b4d6a;
+  --color-blue-45: #6d7089;
+  --color-blue-60: #8f93a7;
+  --color-blue-75: #b1b6c6;
+
+  /* Rôles sémantiques */
+  --bg-page: var(--color-white);
+  --bg-section: var(--color-sky);
+  --bg-dark: var(--color-navy);
+  --text-main: var(--color-navy);
+  --text-muted: var(--color-grey-700);
+  --text-on-dark: var(--color-white);
+  --accent: var(--color-yellow);
+  --border: var(--color-grey-200);
+  --focus-ring: var(--color-navy-alt);
+
+  /* Graphiques : l'utilisateur est en jaune, archétypes en bleus, candidats en gris */
+  --chart-user: var(--color-yellow);
+  --chart-user-stroke: var(--color-navy);
+  --chart-archetype: var(--color-blue-30);
+  --chart-archetype-light: var(--color-blue-60);
+  --chart-candidate: var(--color-grey-700);
+  --chart-grid: var(--color-grey-200);
+  --chart-axis: var(--color-grey-400);
+  --chart-ci: var(--color-blue-75);
+
+  /* Typographie (unités rem : respecte le zoom navigateur ; 1rem = 16px par défaut) */
+  --font-title: 'Fraunces', Georgia, serif;
+  --font-body: 'Open Sans', Arial, sans-serif;
+  --fs-body: 0.9167rem; /* 11 pt ≈ 14,67 px */
+  --fs-small: 0.8125rem;
+  --fs-h1: 2.1875rem; /* 35 px */
+  --fs-h2: 1.625rem; /* 26 px */
+  --fs-h3: 1.25rem; /* 20 px */
+  --lh-body: 1.5;
+
+  --radius: 0.5rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --maxw: 60rem;
+}

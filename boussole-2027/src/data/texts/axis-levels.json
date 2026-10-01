@@ -1,0 +1,1006 @@
+[
+  {
+    "axis": "ECO",
+    "level": 0,
+    "text": "Vous faites confiance au marché libre pour créer la prospérité et coordonner les activités. Avec Friedrich Hayek, vous pensez que le savoir est dispersé entre des millions de personnes et que seuls les prix permettent de le mobiliser : toute planification centrale se heurte à cette limite et finit par restreindre les libertés. Avec Milton Friedman, vous voyez dans la liberté économique une condition de la liberté politique, et dans la baisse des prélèvements un moyen de rendre à chacun la responsabilité de ses choix. L'objection la plus forte vient de Karl Polanyi : un marché « désencastré » de la société traite le travail, la terre et la monnaie comme des marchandises, et suscite en retour des mouvements de protection parfois brutaux.",
+    "near": [
+      "hayek",
+      "friedman"
+    ],
+    "opposed": [
+      "polanyi"
+    ],
+    "question": "Quelles protections collectives jugeriez-vous indispensables de conserver, même si le marché pouvait faire mieux en matière d'efficacité ?"
+  },
+  {
+    "axis": "ECO",
+    "level": 1,
+    "text": "Vous estimez que le marché est le meilleur moyen de produire des richesses, à condition qu'un cadre solide l'encadre. Comme Adam Smith, vous voyez dans l'échange et la division du travail des sources de prospérité, tout en vous méfiant des monopoles et des rentes. Avec l'ordolibéralisme de Walter Eucken et Wilhelm Röpke, vous attendez de l'État qu'il fixe des règles claires (concurrence, stabilité monétaire, discipline budgétaire) plutôt qu'il intervienne au quotidien. Thomas Piketty vous objecterait qu'un marché bien réglé ne suffit pas : lorsque le rendement du capital dépasse la croissance, les patrimoines se concentrent d'eux-mêmes, et seule une fiscalité fortement progressive peut empêcher que l'inégalité héritée l'emporte sur le mérite.",
+    "near": [
+      "smith",
+      "eucken-ropke"
+    ],
+    "opposed": [
+      "piketty"
+    ],
+    "question": "À partir de quel degré de concentration des patrimoines des règles du jeu équitables cesseraient-elles, selon vous, de produire des résultats équitables ?"
+  },
+  {
+    "axis": "ECO",
+    "level": 2,
+    "text": "Vous refusez de choisir entre le marché et l'État : vous voulez les combiner. Avec John Maynard Keynes, vous pensez qu'une économie laissée à elle-même peut rester durablement en sous-emploi, et que la dépense publique doit soutenir la demande dans les crises. Avec William Beveridge, vous tenez une sécurité sociale universelle pour une condition de la liberté réelle. Cet équilibre est contesté des deux côtés. Friedrich Hayek y voit une pente : l'État qui prétend piloter l'économie ne dispose jamais du savoir dispersé qu'exigent ses choix, et restreint peu à peu les libertés. Karl Marx et Friedrich Engels répondraient qu'aucune régulation n'abolit l'extraction de la plus-value : l'économie mixte aménage le capitalisme sans en changer la logique.",
+    "near": [
+      "keynes",
+      "beveridge"
+    ],
+    "opposed": [
+      "hayek",
+      "marx-engels"
+    ],
+    "question": "Dans quels domaines précis le marché vous paraît-il le meilleur arbitre, et dans lesquels la décision publique vous semble-t-elle préférable ?"
+  },
+  {
+    "axis": "ECO",
+    "level": 3,
+    "text": "Vous acceptez l'économie de marché, mais vous jugez que l'État doit en corriger fortement les effets par la redistribution, les services publics et la régulation. Avec Thomas Piketty, vous considérez que les patrimoines tendent à se concentrer et qu'un impôt progressif sur les revenus, la fortune et l'héritage est nécessaire pour maintenir une société d'égaux. Avec Karl Polanyi, vous pensez que la société doit garder la maîtrise du travail, de la terre et de la monnaie plutôt que de les livrer au marché. Milton Friedman vous opposerait que chaque prélèvement réduit la liberté de choisir, que les programmes publics produisent souvent des effets contraires à leurs intentions, et qu'un instrument simple comme l'impôt négatif protégerait mieux les plus modestes.",
+    "near": [
+      "piketty",
+      "polanyi"
+    ],
+    "opposed": [
+      "friedman"
+    ],
+    "question": "Quel niveau de prélèvement vous paraîtrait trop élevé, et selon quel critère le fixeriez-vous ?"
+  },
+  {
+    "axis": "ECO",
+    "level": 4,
+    "text": "Vous pensez que les grandes décisions économiques ne devraient pas dépendre de la propriété privée du capital, mais d'une maîtrise collective ou publique. Avec Karl Marx et Friedrich Engels, vous voyez dans le rapport entre capital et travail une source d'exploitation et de crises récurrentes. Avec Bernard Friot, vous considérez la cotisation sociale et le salaire attaché à la personne comme un « déjà-là » d'une autre économie, à étendre plutôt qu'à réduire. L'objection la plus forte vient de Ludwig von Mises : sans prix de marché issus de la propriété privée, il devient impossible de calculer la valeur relative des biens, et une économie collectivisée se prive de l'information nécessaire pour allouer ses ressources.",
+    "near": [
+      "marx-engels",
+      "friot"
+    ],
+    "opposed": [
+      "mises"
+    ],
+    "question": "Comment une économie à propriété collective pourrait-elle, selon vous, décider de ce qu'il faut produire sans s'appuyer sur les prix de marché ?"
+  },
+  {
+    "axis": "IDE",
+    "level": 0,
+    "text": "Vous pensez qu'une personne se définit d'abord par ses propres choix, et non par la famille, la nation, la religion ou le groupe dont elle est issue. Avec John Stuart Mill, vous estimez que la société ne peut contraindre l'individu que pour l'empêcher de nuire à autrui. Avec Robert Nozick, vous considérez que les droits de chacun fixent des limites qu'aucune collectivité ne peut franchir. Pour vous, la loi ne doit connaître que des personnes égales, pas des appartenances. Alasdair MacIntyre vous objecterait qu'un moi détaché de toute tradition est une fiction : on n'apprend à juger du bien qu'au sein de communautés, et leur érosion laisse l'individu sans langage moral partagé.",
+    "near": [
+      "mill",
+      "nozick"
+    ],
+    "opposed": [
+      "macintyre"
+    ],
+    "question": "Parmi vos convictions les plus personnelles, lesquelles avez-vous réellement choisies, et lesquelles avez-vous reçues de votre milieu ?"
+  },
+  {
+    "axis": "IDE",
+    "level": 1,
+    "text": "Vous accordez la priorité à l'individu et à ses choix, tout en reconnaissant que les appartenances comptent dans une vie. Avec Benjamin Constant, vous voyez dans la jouissance paisible de l'indépendance privée le cœur de la liberté moderne. Avec Dominique Schnapper, vous pensez que la citoyenneté démocratique intègre en dépassant les appartenances particulières : chacun peut garder les siennes, mais la loi commune s'adresse à des citoyens égaux. Will Kymlicka et Bhikhu Parekh vous objecteraient que cette neutralité n'en est pas tout à fait une : les institutions reflètent toujours une culture majoritaire, et des droits spécifiques pour les minorités peuvent être la condition d'une égale liberté, compatible avec le libéralisme.",
+    "near": [
+      "constant",
+      "schnapper"
+    ],
+    "opposed": [
+      "kymlicka-parekh"
+    ],
+    "question": "Dans quelles situations une appartenance culturelle ou religieuse mériterait-elle, selon vous, d'être prise en compte par la loi commune ?"
+  },
+  {
+    "axis": "IDE",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre les droits de l'individu et ce qu'il doit aux communautés qui l'ont formé. Avec Amitai Etzioni, vous pensez que les droits individuels vont de pair avec des responsabilités envers la collectivité. Avec Axel Honneth, vous considérez que chacun se construit par la reconnaissance, dans l'amour, le droit et l'estime sociale. Cet équilibre est discuté des deux côtés. Pour Robert Nozick, parler de devoirs envers la communauté ouvre la porte à des contraintes que l'individu n'a pas consenties. Pour Alasdair MacIntyre, un compromis entre traditions et libre choix reste prisonnier du libéralisme : sans communauté partageant une conception du bien, les vertus ne se transmettent pas.",
+    "near": [
+      "etzioni",
+      "honneth"
+    ],
+    "opposed": [
+      "nozick",
+      "macintyre"
+    ],
+    "question": "Quand vos choix personnels entrent en conflit avec les attentes de vos proches ou de votre communauté, qu'est-ce qui l'emporte pour vous, et pourquoi ?"
+  },
+  {
+    "axis": "IDE",
+    "level": 3,
+    "text": "Vous estimez qu'une personne ne se comprend pas hors des liens qui l'ont formée : famille, culture, langue, communauté de travail ou de foi. Avec Michael Sandel, vous pensez qu'une société ne peut pas rester neutre sur le bien commun et qu'en valorisant le seul mérite individuel, elle fragilise la dignité de ceux qui échouent. Avec Will Kymlicka et Bhikhu Parekh, vous jugez que la reconnaissance des cultures minoritaires peut être compatible avec le libéralisme. John Stuart Mill vous objecterait que les communautés exercent souvent sur leurs membres une pression plus forte que la loi, et que la liberté de chacun de s'en écarter doit primer sur la préservation de l'appartenance.",
+    "near": [
+      "sandel",
+      "kymlicka-parekh"
+    ],
+    "opposed": [
+      "mill"
+    ],
+    "question": "Qu'est-ce qu'une communauté peut légitimement attendre de ses membres, et qu'est-ce qu'elle ne peut jamais leur imposer ?"
+  },
+  {
+    "axis": "IDE",
+    "level": 4,
+    "text": "Vous pensez que les appartenances (tradition, culture, religion, nation ou groupe minoritaire) sont constitutives de la personne, et que la vie politique doit les reconnaître. Cette position peut naître d'un attachement à l'enracinement comme d'une exigence de reconnaissance des minorités. Avec Alasdair MacIntyre, vous estimez que la morale ne se transmet qu'au sein de communautés de tradition. Avec Charles Taylor, vous considérez que l'identité se forme dans le dialogue avec autrui, et que le déni de reconnaissance cause un tort réel. Benjamin Constant vous objecterait que la liberté des Modernes consiste justement à vivre à sa guise, à l'abri des exigences de la collectivité, et que subordonner l'individu au groupe ramène à la liberté des Anciens.",
+    "near": [
+      "macintyre",
+      "taylor"
+    ],
+    "opposed": [
+      "constant"
+    ],
+    "question": "Si une personne souhaite quitter la communauté qui l'a formée, quelles obligations lui reste-t-il, selon vous, envers elle ?"
+  },
+  {
+    "axis": "ENV",
+    "level": 0,
+    "text": "Vous doutez que le réchauffement actuel soit principalement dû aux activités humaines, ou vous jugez ce point moins établi qu'on le dit. Vous vous méfiez des modèles de prévision, des politiques qui s'appuient sur eux et de leur coût pour les ménages et l'industrie. Bjørn Lomborg partage une partie de ces réserves sur les coûts et privilégie l'adaptation et la recherche, mais il reconnaît le réchauffement et son origine humaine : il ne conteste pas le diagnostic. L'objection porte ici sur les faits : le consensus du GIEC sur l'origine humaine du réchauffement repose sur des décennies de mesures. Naomi Oreskes et Erik Conway ont en outre montré comment certains industriels et think tanks ont entretenu le doute sur ces questions.",
+    "near": [
+      "lomborg"
+    ],
+    "opposed": [
+      "oreskes-conway"
+    ],
+    "question": "Quelles données ou quels arguments pourraient vous amener à réviser votre jugement sur l'origine du réchauffement ?"
+  },
+  {
+    "axis": "ENV",
+    "level": 1,
+    "text": "Vous reconnaissez que le climat se réchauffe, mais vous doutez qu'il faille sacrifier la croissance pour réduire rapidement les émissions. Avec Bjørn Lomborg, vous estimez que les coûts du réchauffement sont souvent surestimés, que chaque euro dépensé doit être comparé à d'autres priorités (santé, pauvreté, éducation) et que l'adaptation et la recherche sont plus efficaces que des restrictions immédiates. Vous vous méfiez aussi des politiques qui pèsent d'abord sur les ménages modestes. Hans Jonas vous objecterait que, face à des risques irréversibles pour les générations futures, le calcul coût-bénéfice ne suffit pas : lorsque la permanence de la vie humaine est en jeu, la prudence commande de donner plus de poids au pire scénario qu'au plus probable.",
+    "near": [
+      "lomborg"
+    ],
+    "opposed": [
+      "jonas"
+    ],
+    "question": "Comment mettriez-vous en balance un coût certain aujourd'hui et un dommage incertain mais irréversible demain ?"
+  },
+  {
+    "axis": "ENV",
+    "level": 2,
+    "text": "Vous prenez au sérieux la crise écologique, mais vous misez sur une transition graduelle, l'innovation et l'adaptation plutôt que sur la rupture. Avec les écomodernistes Michael Shellenberger et Ted Nordhaus, vous pensez que la technique (nucléaire, intensification agricole, nouvelles énergies) peut réduire l'empreinte humaine sans renoncer au développement. Avec Elinor Ostrom, vous savez que des règles bien conçues permettent de gérer durablement des ressources partagées. Cet équilibre est contesté des deux côtés. Bjørn Lomborg juge que des objectifs de réduction rapide coûtent plus qu'ils ne rapportent. Serge Latouche répond qu'aucune innovation ne rendra une croissance sans fin compatible avec un monde fini : il faut sortir de l'imaginaire de la croissance.",
+    "near": [
+      "ecomodernisme",
+      "hardin-ostrom"
+    ],
+    "opposed": [
+      "lomborg",
+      "latouche"
+    ],
+    "question": "Si l'innovation tardait à tenir ses promesses, quels changements de mode de vie accepteriez-vous ?"
+  },
+  {
+    "axis": "ENV",
+    "level": 3,
+    "text": "Vous jugez la crise climatique et écologique urgente, et vous estimez qu'elle justifie des changements profonds dans l'énergie, les transports, l'alimentation et la consommation. Avec Jean-Marc Jancovici, vous pensez que la décarbonation impose à la fois la sobriété et le nucléaire, sans compter sur une solution miracle. Avec Hans Jonas, vous considérez que nous sommes responsables des conditions de vie des générations futures, ce qui fonde le principe de précaution. Bjørn Lomborg vous objecterait que des ressources limitées doivent aller là où elles améliorent le plus de vies aujourd'hui, et qu'une transition trop rapide peut coûter cher aux plus pauvres, ici comme dans les pays en développement.",
+    "near": [
+      "jancovici",
+      "jonas"
+    ],
+    "opposed": [
+      "lomborg"
+    ],
+    "question": "Quelles contraintes sur votre propre mode de vie vous paraissent justes, et lesquelles jugeriez-vous excessives ?"
+  },
+  {
+    "axis": "ENV",
+    "level": 4,
+    "text": "Vous placez la préservation du climat et du vivant au-dessus des autres objectifs, croissance comprise, et vous pensez qu'une transformation profonde du système économique est nécessaire. Avec André Gorz, vous liez écologie et critique du capitalisme : réduire le temps de travail et la production marchande pour gagner en autonomie. Avec Andreas Malm et Kohei Saito, vous voyez dans le capitalisme fossile la cause principale de la crise, et dans la décroissance ou l'action directe des réponses à la hauteur de l'enjeu. Les écomodernistes Michael Shellenberger et Ted Nordhaus vous objecteraient que la décroissance pénaliserait d'abord les plus pauvres, et que seule une énergie abondante et décarbonée, nucléaire compris, permet de protéger durablement la nature.",
+    "near": [
+      "gorz",
+      "malm-saito"
+    ],
+    "opposed": [
+      "ecomodernisme"
+    ],
+    "question": "Jusqu'où les moyens d'action pour le climat peuvent-ils aller, selon vous, dans une société démocratique ?"
+  },
+  {
+    "axis": "REL",
+    "level": 0,
+    "text": "Vous voyez dans l'influence des institutions religieuses une menace pour l'émancipation et la liberté de pensée, et vous souhaitez la contenir, dans l'espace public comme dans l'éducation. Avec Voltaire, vous combattez l'intolérance et le pouvoir des Églises au nom de la raison et de la liberté d'expression. Avec Mikhaïl Bakounine, vous considérez que la tutelle religieuse et celle de l'État procèdent d'une même soumission à une autorité extérieure. Alasdair MacIntyre vous objecterait que la mise à l'écart des traditions religieuses a laissé nos sociétés sans langage moral commun : les vertus s'apprennent au sein de communautés de tradition, et leur effacement ne libère pas l'individu, il l'isole.",
+    "near": [
+      "voltaire",
+      "bakounine"
+    ],
+    "opposed": [
+      "macintyre"
+    ],
+    "question": "Qu'est-ce qui distingue, à vos yeux, la critique légitime d'une religion de la restriction de la liberté de croire ?"
+  },
+  {
+    "axis": "REL",
+    "level": 1,
+    "text": "Vous défendez une séparation nette entre religion et institutions, et vous souhaitez que l'appartenance religieuse reste, autant que possible, une affaire privée. Avec Condorcet, vous tenez l'instruction publique laïque pour la condition d'un jugement libre. Avec Henri Peña-Ruiz, vous défendez une laïcité d'émancipation, plus exigeante envers les signes religieux dans certains espaces communs, au nom de l'égalité entre croyants et non-croyants. Chantal Delsol vous objecterait que les valeurs dont se réclame la République se sont formées dans un héritage chrétien, et qu'un universalisme abstrait, coupé des traditions qui l'ont nourri, risque de n'être plus ni compris ni transmis.",
+    "near": [
+      "condorcet",
+      "bauberot-pena-ruiz"
+    ],
+    "opposed": [
+      "delsol"
+    ],
+    "question": "Où situez-vous la frontière entre l'expression publique d'une foi et son intrusion dans l'espace commun ?"
+  },
+  {
+    "axis": "REL",
+    "level": 2,
+    "text": "Vous vous reconnaissez dans la laïcité de 1905 : liberté de conscience, libre exercice des cultes et neutralité d'un État qui ne reconnaît ni ne salarie aucun culte. Avec Ferdinand Buisson et Aristide Briand, vous voyez dans la séparation une garantie de paix civile autant qu'une libération mutuelle de l'État et des cultes. Avec Jean Baubérot, vous défendez une laïcité libérale qui protège croyants et non-croyants. Cet équilibre est discuté des deux côtés. Dans l'esprit de Voltaire, certains jugent que la neutralité laisse trop de place à des autorités religieuses qui pèsent sur les consciences. Dans la tradition de Joseph de Maistre et Louis de Bonald, on objecte qu'aucun ordre social ne tient sur le seul contrat, sans fondement religieux partagé.",
+    "near": [
+      "buisson-briand",
+      "bauberot-pena-ruiz"
+    ],
+    "opposed": [
+      "voltaire",
+      "maistre-bonald"
+    ],
+    "question": "La neutralité de l'État vous paraît-elle exiger la discrétion des citoyens, ou seulement celle des institutions ?"
+  },
+  {
+    "axis": "REL",
+    "level": 3,
+    "text": "Vous estimez que les religions ont un rôle légitime dans la vie publique, par leurs œuvres, leurs écoles, leur engagement social et leur voix dans les débats éthiques. Avec la doctrine sociale de l'Église, depuis l'encyclique Rerum novarum de Léon XIII, vous valorisez les corps intermédiaires, la subsidiarité et le juste salaire. Avec Jürgen Habermas, vous pensez que les citoyens croyants peuvent enrichir le débat démocratique, pourvu que leurs raisons puissent être traduites dans un langage accessible à tous. Voltaire vous objecterait, à la lumière de l'affaire Calas, que lorsque l'autorité religieuse pèse sur les institutions, ce sont les minorités de conviction qui en paient le prix, et que la tolérance exige de tenir cette autorité à distance.",
+    "near": [
+      "doctrine-sociale-eglise",
+      "habermas"
+    ],
+    "opposed": [
+      "voltaire"
+    ],
+    "question": "Quelles contributions des religions à la vie publique vous paraissent enrichissantes, et lesquelles franchiraient une limite ?"
+  },
+  {
+    "axis": "REL",
+    "level": 4,
+    "text": "Vous souhaitez que la religion, ou l'héritage religieux du pays, structure davantage la morale commune, l'éducation et les institutions. Vous y voyez une source de sens, de transmission et de cohésion que l'État seul ne peut produire. Dans la lignée de Joseph de Maistre et Louis de Bonald, vous pensez que l'ordre social repose sur l'autorité, la religion et la famille plutôt que sur un simple contrat. Avec Chantal Delsol, vous vous inquiétez de la fin de la chrétienté comme cadre commun et défendez l'enracinement face à un universalisme abstrait. Mikhaïl Bakounine vous objecterait que l'autorité divine a toujours servi à justifier l'autorité terrestre, et qu'une liberté réelle suppose de ne soumettre sa conscience à aucune tutelle.",
+    "near": [
+      "maistre-bonald",
+      "delsol"
+    ],
+    "opposed": [
+      "bakounine"
+    ],
+    "question": "Comment concilier, selon vous, une morale commune d'inspiration religieuse avec la liberté de celles et ceux qui ne partagent pas cette foi ?"
+  },
+  {
+    "axis": "ETA",
+    "level": 0,
+    "text": "Vous faites de la nation la communauté politique de référence : c'est en elle que s'enracinent la solidarité, la démocratie et la protection des peuples. Avec Maurice Barrès, vous pensez que l'individu est façonné par sa terre, ses morts et son histoire, et qu'on ne choisit pas entièrement ce qui nous constitue. Avec Pierre Manent, vous jugez que la nation est la forme politique qui a rendu la démocratie possible, et que les constructions post-nationales privent les peuples de leur capacité à se gouverner. Emmanuel Kant vous objecterait que la dignité de la personne ne dépend d'aucune appartenance, et qu'une paix durable exige une fédération d'États républicains liés par un droit commun, au-delà des seules souverainetés.",
+    "near": [
+      "barres",
+      "manent"
+    ],
+    "opposed": [
+      "kant"
+    ],
+    "question": "Que devez-vous à vos compatriotes que vous ne devez pas aux autres êtres humains, et pourquoi ?"
+  },
+  {
+    "axis": "ETA",
+    "level": 1,
+    "text": "Vous tenez à la souveraineté nationale comme condition de la démocratie, sans refuser la coopération entre États. Avec Charles de Gaulle, vous défendez l'indépendance nationale et une Europe des nations, où chaque État garde la maîtrise de ses choix essentiels. Avec Régis Debray, vous voyez dans la frontière non un mur, mais ce qui protège et rend l'échange possible. Jürgen Habermas vous objecterait que les défis décisifs, du climat à la finance, dépassent les frontières, et qu'une démocratie repliée sur le cadre national perd prise sur eux ; il propose un patriotisme constitutionnel, attaché à des principes démocratiques plutôt qu'à une nation.",
+    "near": [
+      "de-gaulle",
+      "debray"
+    ],
+    "opposed": [
+      "habermas"
+    ],
+    "question": "Quelles décisions accepteriez-vous de voir prises à un autre échelon que national, et lesquelles jamais ?"
+  },
+  {
+    "axis": "ETA",
+    "level": 2,
+    "text": "Vous cherchez à concilier l'attachement à la nation et l'ouverture à des solidarités qui la dépassent. Avec Ernest Renan, vous concevez la nation comme un héritage de souvenirs et un consentement à vivre ensemble, plutôt qu'une affaire d'origine ou de langue. Avec Dominique Schnapper, vous pensez que la citoyenneté nationale intègre en transcendant les appartenances particulières, sans exclure la coopération internationale. Cet équilibre est contesté des deux côtés. Maurice Barrès jugerait cette nation élective trop abstraite : on n'appartient pas à un peuple par simple consentement, mais par l'enracinement. Dans une perspective kantienne, à l'inverse, la dignité de chaque personne étant inconditionnelle, la nation ne saurait être la limite ultime de nos devoirs.",
+    "near": [
+      "renan",
+      "schnapper"
+    ],
+    "opposed": [
+      "barres",
+      "kant"
+    ],
+    "question": "Dans quels cas vos devoirs envers l'humanité l'emportent-ils, pour vous, sur vos devoirs envers la nation ?"
+  },
+  {
+    "axis": "ETA",
+    "level": 3,
+    "text": "Vous accordez de l'importance à la nation, mais vous estimez que les grands défis appellent des institutions et des solidarités qui la dépassent. Avec Emmanuel Kant, vous pensez qu'une paix durable suppose une fédération d'États républicains liés par un droit commun. Avec Jürgen Habermas, vous défendez un patriotisme constitutionnel, attaché aux principes démocratiques plutôt qu'à une origine, et vous jugez que la démocratie doit se prolonger au-delà du cadre national pour garder prise sur le monde. Pierre Manent vous objecterait que la démocratie a besoin d'un peuple concret, d'une forme politique où les citoyens se reconnaissent : faute de ce socle, les institutions post-nationales risquent de décider loin de ceux qu'elles gouvernent.",
+    "near": [
+      "kant",
+      "habermas"
+    ],
+    "opposed": [
+      "manent"
+    ],
+    "question": "Pour quelle communauté politique vous sentez-vous prêt à consentir des sacrifices, et jusqu'où cette communauté s'étend-elle ?"
+  },
+  {
+    "axis": "ETA",
+    "level": 4,
+    "text": "Vous pensez que la communauté politique de référence est l'humanité, ou la solidarité entre les peuples, plutôt que la nation. Avec Martha Nussbaum, vous défendez un cosmopolitisme ancré dans les émotions, qui vise à garantir à chaque être humain des capabilités centrales, où qu'il soit né. Avec Léon Trotsky, vous pouvez aussi voir dans l'émancipation une tâche nécessairement internationale, la solidarité de classe dépassant les frontières. Régis Debray vous objecterait que la frontière n'est pas un obstacle à l'échange mais sa condition : elle délimite l'espace où la démocratie s'exerce, protège les plus fragiles, et son effacement laisse ceux-ci sans recours face aux forces qui circulent librement.",
+    "near": [
+      "nussbaum",
+      "trotsky"
+    ],
+    "opposed": [
+      "debray"
+    ],
+    "question": "Comment une solidarité à l'échelle de l'humanité pourrait-elle, selon vous, s'incarner dans des institutions et des décisions concrètes ?"
+  },
+  {
+    "axis": "CUL",
+    "level": 0,
+    "text": "Vous accordez une grande valeur à ce qui a été transmis : la famille, les usages, les institutions et les repères moraux qui ont fait leurs preuves. Pour vous, une société ne se refait pas à partir de principes abstraits ; elle se prolonge, et chaque génération en est dépositaire. Edmund Burke décrivait la société comme un contrat entre les morts, les vivants et ceux qui sont à naître ; Roger Scruton parlait d'amour du foyer et des institutions qui nous abritent. L'objection la plus forte vient de John Stuart Mill : tant qu'un choix de vie ne nuit à personne d'autre, ni la loi ni la pression sociale n'ont à le contraindre, car les traditions ont aussi parfois étouffé des vies.",
+    "near": [
+      "burke",
+      "scruton"
+    ],
+    "opposed": [
+      "mill"
+    ],
+    "question": "Parmi les traditions que vous souhaitez transmettre, lesquelles défendriez-vous même si une partie de vos proches les vivait comme une contrainte ?"
+  },
+  {
+    "axis": "CUL",
+    "level": 1,
+    "text": "Vous n'êtes pas hostile au changement des mœurs, mais vous le voulez lent, discuté et réversible, plutôt que décidé d'en haut au nom d'un progrès supposé. Vous pensez que l'école, la famille et la langue commune transmettent quelque chose qu'on ne remplace pas facilement. Michael Oakeshott résumait cette disposition comme le fait de préférer le familier à l'inconnu ; Alain Finkielkraut défend la transmission contre le relativisme culturel. Simone de Beauvoir vous opposerait que bien des normes présentées comme naturelles sont des constructions sociales : ce qui semble familier aux uns a longtemps été une assignation pour d'autres, en particulier pour les femmes.",
+    "near": [
+      "oakeshott",
+      "finkielkraut"
+    ],
+    "opposed": [
+      "beauvoir"
+    ],
+    "question": "Quel changement de mœurs que vous jugiez autrefois trop rapide vous paraît aujourd'hui acquis, et qu'est-ce qui vous a fait évoluer ?"
+  },
+  {
+    "axis": "CUL",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre liberté individuelle et attachement aux cadres communs, en jugeant chaque question de mœurs au cas par cas. Jonathan Haidt vous donne des raisons de penser que les intuitions de soin et d'équité, comme celles de loyauté et d'autorité, sont toutes légitimes ; Alexis de Tocqueville rappelait que les associations et les mœurs locales protègent la liberté autant que la loi. Du côté conservateur, Christopher Lasch vous objecterait que cette neutralité apparente laisse les liens familiaux et communautaires s'effriter. Du côté libertaire, Michel Foucault répondrait que les normes jugées raisonnables par le centre sont elles aussi des formes de pouvoir, simplement moins visibles.",
+    "near": [
+      "haidt",
+      "tocqueville"
+    ],
+    "opposed": [
+      "lasch",
+      "foucault"
+    ],
+    "question": "Sur quelle question de mœurs votre position au cas par cas cache-t-elle en réalité un principe que vous pourriez formuler clairement ?"
+  },
+  {
+    "axis": "CUL",
+    "level": 3,
+    "text": "Vous pensez que les choix qui relèvent de l'intime, comme la sexualité, la forme de la famille ou la fin de vie, appartiennent d'abord aux personnes concernées, tout en admettant qu'une société a besoin de règles communes. John Stuart Mill fonde cette position sur le principe de non-nuisance ; Simone de Beauvoir a montré combien de rôles présentés comme naturels étaient appris. L'objection la plus sérieuse vient d'Edmund Burke : les institutions héritées contiennent une sagesse accumulée que la raison individuelle ne voit pas toujours, et les réformer vite, même pour de bonnes raisons, peut défaire des équilibres qu'on ne sait pas reconstruire.",
+    "near": [
+      "mill",
+      "beauvoir"
+    ],
+    "opposed": [
+      "burke"
+    ],
+    "question": "Où placez-vous la limite entre un choix qui ne regarde que vous et un choix qui engage aussi les autres, par exemple les enfants ou les générations futures ?"
+  },
+  {
+    "axis": "CUL",
+    "level": 4,
+    "text": "Vous considérez que l'autonomie de chacun sur son corps, sa sexualité, sa famille et ses usages doit primer, et vous vous méfiez des normes imposées, qu'elles viennent de l'État, de la religion ou de la pression sociale. Emma Goldman défendait déjà la liberté sexuelle et la contraception ; Michel Foucault a analysé la manière dont les normes façonnent les corps ; Judith Butler a montré le caractère construit des rôles de genre. Christopher Lasch vous adresserait une objection forte : l'émancipation individuelle, poussée jusqu'au bout, affaiblit la famille et les communautés qui protégeaient les plus fragiles, et laisse l'individu seul face au marché.",
+    "near": [
+      "goldman",
+      "foucault",
+      "butler"
+    ],
+    "opposed": [
+      "lasch"
+    ],
+    "question": "Quels liens ou quelles institutions vous paraissent nécessaires pour que l'autonomie que vous défendez reste accessible à ceux qui ont le moins de ressources ?"
+  },
+  {
+    "axis": "ALT",
+    "level": 0,
+    "text": "Vous concevez la communauté nationale comme un héritage : une origine, une histoire, une culture et des mœurs partagées qui unissent un peuple et le distinguent des autres. Pour préserver cette continuité, vous souhaitez réduire fortement l'immigration et réserver certaines protections aux nationaux. Maurice Barrès parlait d'un enracinement dans la terre et les morts ; Alain de Benoist défend le droit des peuples à rester eux-mêmes. Ernest Renan vous objecterait que la nation n'est pas une donnée d'origine mais un consentement renouvelé, un plébiscite de tous les jours ; Hervé Le Bras et François Héran ajouteraient que les données démographiques décrivent des évolutions plus lentes et plus mêlées qu'on ne le craint souvent.",
+    "near": [
+      "barres",
+      "benoist"
+    ],
+    "opposed": [
+      "renan",
+      "le-bras-heran"
+    ],
+    "question": "Qu'est-ce qui ferait, à vos yeux, qu'une personne née ailleurs devienne pleinement membre de la communauté nationale, et ce chemin vous semble-t-il possible ?"
+  },
+  {
+    "axis": "ALT",
+    "level": 1,
+    "text": "Vous tenez à ce que l'appartenance nationale repose sur l'adhésion à des règles, une langue et des valeurs communes, sans considération d'origine. Vous souhaitez une immigration plus maîtrisée et une intégration exigeante, où un effort d'assimilation est attendu de celui qui arrive, parce que la cohésion et la confiance se construisent sur un socle partagé. Dominique Schnapper décrit une nation qui intègre en dépassant les appartenances particulières dans la citoyenneté ; Régis Debray rappelle qu'une frontière protège autant qu'elle permet l'échange. Will Kymlicka et Bhikhu Parekh vous objecteraient que demander aux nouveaux venus d'effacer leurs appartenances n'est pas neutre : une société libérale peut reconnaître des identités multiples sans perdre son unité.",
+    "near": [
+      "schnapper",
+      "debray"
+    ],
+    "opposed": [
+      "kymlicka-parekh"
+    ],
+    "question": "Parmi les efforts d'intégration que vous attendez des nouveaux arrivants, lesquels la société d'accueil doit-elle aussi rendre possibles de son côté ?"
+  },
+  {
+    "axis": "ALT",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre maîtrise des flux migratoires et égalité de traitement des personnes une fois installées. Vous voyez la nation comme une adhésion plutôt qu'une origine, à la manière d'Ernest Renan, et vous partagez avec Pierre-André Taguieff une vigilance à la fois envers les préjugés qui figent les différences culturelles et envers certaines formes d'antiracisme. Du côté de la fermeture, Samuel Huntington vous objecterait que les identités de civilisation pèsent plus lourd que la seule adhésion civique. Du côté de l'égalitarisme antiraciste, Kimberlé Crenshaw vous répondrait qu'une égalité formelle laisse intactes des discriminations qui se combinent et restent invisibles tant qu'on ne les nomme pas.",
+    "near": [
+      "renan",
+      "taguieff"
+    ],
+    "opposed": [
+      "huntington",
+      "crenshaw"
+    ],
+    "question": "Quelle information sur l'immigration ou les discriminations, si elle se révélait exacte, vous ferait pencher d'un côté plutôt que de l'autre ?"
+  },
+  {
+    "axis": "ALT",
+    "level": 3,
+    "text": "Vous considérez l'immigration comme une réalité durable qu'il vaut mieux organiser que refuser, et vous accordez une place centrale à l'égalité des droits, à l'accueil et à la lutte contre les discriminations. Hervé Le Bras et François Héran plaident pour une politique migratoire fondée sur les données plutôt que sur les craintes ; Will Kymlicka et Bhikhu Parekh montrent qu'une société libérale peut reconnaître des appartenances diverses sans se défaire. David Goodhart vous adresserait une objection sérieuse : les personnes enracinées dans un lieu vivent les changements rapides de leur environnement comme une perte réelle, et leur attachement mérite d'être entendu plutôt que tenu pour un simple préjugé.",
+    "near": [
+      "le-bras-heran",
+      "kymlicka-parekh"
+    ],
+    "opposed": [
+      "goodhart"
+    ],
+    "question": "Comment répondriez-vous à une personne qui vit l'évolution de son quartier comme une perte, sans nier ce qu'elle ressent ni renoncer à vos principes ?"
+  },
+  {
+    "axis": "ALT",
+    "level": 4,
+    "text": "Vous considérez que l'égalité proclamée ne suffit pas : des discriminations liées à l'origine persistent dans l'emploi, le logement ou les contrôles, et elles appellent des politiques actives de correction et d'accueil. Colette Guillaumin a montré que l'idée de race est le produit d'un rapport social ; Kimberlé Crenshaw analyse la manière dont les discriminations se combinent ; W. E. B. Du Bois parlait de la ligne de couleur. L'objection la plus forte vient ici de la gauche universaliste : Stéphane Beaud et Gérard Noiriel craignent qu'une lecture centrée sur l'origine éclipse la classe sociale, et Yascha Mounk et Susan Neiman défendent un universalisme qui combat les discriminations sans enfermer les personnes dans une identité.",
+    "near": [
+      "crenshaw",
+      "guillaumin",
+      "du-bois"
+    ],
+    "opposed": [
+      "beaud-noiriel",
+      "mounk-neiman"
+    ],
+    "question": "Comment articulez-vous la lutte contre les discriminations liées à l'origine et celle contre les inégalités sociales lorsqu'elles semblent appeler des priorités différentes ?"
+  },
+  {
+    "axis": "UE",
+    "level": 0,
+    "text": "Vous estimez que l'Union européenne a placé hors du contrôle des citoyens des décisions essentielles, comme la monnaie, le budget ou le commerce, et qu'aucune réforme de l'intérieur ne rendra aux peuples leur souveraineté : il faudrait donc en sortir ou s'affranchir des traités. Cette critique vient de plusieurs horizons. Philippe Séguin jugeait que la monnaie unique dépossédait la nation de sa souveraineté démocratique ; Frédéric Lordon défend, depuis la gauche, une souveraineté populaire contre l'euro. Altiero Spinelli vous objecterait que les États-nations laissés à eux-mêmes ont conduit l'Europe à la guerre, et que seule une démocratie à l'échelle du continent peut peser face aux grandes puissances.",
+    "near": [
+      "seguin",
+      "lordon"
+    ],
+    "opposed": [
+      "spinelli"
+    ],
+    "question": "Quelles coopérations européennes souhaiteriez-vous conserver ou reconstruire après une sortie, et à quelles conditions vos partenaires les accepteraient-ils ?"
+  },
+  {
+    "axis": "UE",
+    "level": 1,
+    "text": "Vous ne demandez pas nécessairement de quitter l'Union, mais vous voulez en limiter fortement les compétences et redonner la main aux parlements nationaux, que vous jugez seuls porteurs d'une légitimité démocratique pleine. Pierre Manent voit dans la nation la forme politique qui a rendu la démocratie possible ; Emmanuel Todd critique l'euro et le déséquilibre de puissance qu'il a installé entre les pays membres. Jacques Delors vous répondrait que le marché unique et l'union monétaire ont été pensés comme une fédération d'États-nations, et qu'une Europe affaiblie laisserait chaque pays seul face à la mondialisation, sans les protections sociales communes qu'elle permet de construire.",
+    "near": [
+      "manent",
+      "todd"
+    ],
+    "opposed": [
+      "delors"
+    ],
+    "question": "Sur quel sujet précis accepteriez-vous que la France soit mise en minorité à Bruxelles, et sur lequel jamais ?"
+  },
+  {
+    "axis": "UE",
+    "level": 2,
+    "text": "Vous voulez une Europe de coopération entre États souverains, capable d'agir ensemble sur des sujets précis, sans devenir un État fédéral ni être abandonnée. Charles de Gaulle défendait cette Europe des nations ; Joseph Stiglitz et Dani Rodrik rappellent qu'on ne peut avoir à la fois une intégration économique sans limite, la souveraineté nationale et la démocratie, et qu'il faut donc choisir ce que l'on partage. Du côté fédéraliste, Jürgen Habermas vous objecterait que les problèmes communs exigent une démocratie européenne véritable, et non des marchandages entre gouvernements. Du côté souverainiste, Philippe Séguin répondrait qu'une fois la monnaie partagée, des réformes à la marge ne rendent pas aux nations ce qu'elles ont cédé.",
+    "near": [
+      "de-gaulle",
+      "stiglitz-rodrik"
+    ],
+    "opposed": [
+      "habermas",
+      "seguin"
+    ],
+    "question": "Quelles compétences confieriez-vous à l'Europe et lesquelles garderiez-vous à la France, et selon quel critère faites-vous ce partage ?"
+  },
+  {
+    "axis": "UE",
+    "level": 3,
+    "text": "Vous voyez dans l'Union européenne un acquis précieux : la paix entre anciens ennemis, un marché commun et une capacité à peser que chaque pays n'aurait pas seul. Vous êtes favorable à des avancées supplémentaires, sans forcément viser une fédération. Jean Monnet et Robert Schuman ont conçu cette Europe des réalisations concrètes créant une solidarité de fait ; Jacques Delors y a ajouté l'ambition d'une Europe sociale. Wolfgang Streeck vous opposerait une objection forte : en confiant la politique économique à des règles et à des institutions éloignées du vote, l'intégration européenne aurait servi à mettre l'économie hors de portée des choix démocratiques.",
+    "near": [
+      "monnet-schuman",
+      "delors"
+    ],
+    "opposed": [
+      "majone-streeck"
+    ],
+    "question": "Que répondriez-vous à un citoyen qui a le sentiment que son vote ne change plus rien aux grandes orientations économiques décidées au niveau européen ?"
+  },
+  {
+    "axis": "UE",
+    "level": 4,
+    "text": "Vous souhaitez aller jusqu'à une fédération européenne : un budget commun important, une défense intégrée, des décisions prises à la majorité et un exécutif responsable devant le Parlement européen. Altiero Spinelli y voyait, dès 1941, le moyen de dépasser les rivalités nationales ; Jürgen Habermas plaide pour une démocratie à l'échelle du continent. Pierre Manent vous adresserait l'objection la plus sérieuse : la démocratie suppose un peuple qui se reconnaît comme tel, un espace de débat et une histoire commune ; sans ce socle, une fédération risquerait de gouverner des citoyens qui ne se sentent pas représentés par elle.",
+    "near": [
+      "spinelli",
+      "habermas"
+    ],
+    "opposed": [
+      "manent"
+    ],
+    "question": "Qu'est-ce qui, concrètement, ferait naître chez les Européens le sentiment d'appartenir à un même peuple politique, et combien de temps cela peut-il prendre ?"
+  },
+  {
+    "axis": "GMO",
+    "level": 0,
+    "text": "Vous estimez que la puissance crée des devoirs : face à une agression ou à des crimes de masse, la France et ses alliés doivent pouvoir agir, y compris militairement, plutôt que s'abstenir au nom de la souveraineté des États. Mario Bettati et Bernard Kouchner ont défendu le droit d'ingérence, repris par l'ONU sous le nom de responsabilité de protéger ; Robert Kagan rappelle que les principes ne tiennent que s'ils sont adossés à la puissance. Hans Morgenthau, Kenneth Waltz et John Mearsheimer vous objecteraient que les interventions menées au nom des valeurs ignorent souvent les rapports de force et produisent des effets imprévus ; le précédent libyen de 2011 est souvent invoqué en ce sens.",
+    "near": [
+      "droit-ingerence-r2p",
+      "kagan"
+    ],
+    "opposed": [
+      "realistes-morgenthau-waltz-mearsheimer"
+    ],
+    "question": "Quelle intervention passée jugez-vous réussie et laquelle regrettez-vous, et qu'est-ce qui distingue les deux à vos yeux ?"
+  },
+  {
+    "axis": "GMO",
+    "level": 1,
+    "text": "Vous acceptez le recours à la force, mais sous conditions : une cause juste, l'échec des autres moyens, des chances raisonnables de succès et, de préférence, un cadre collectif comme l'ONU, l'Union européenne ou les alliances. Michael Walzer a donné un cadre moral à ces conditions ; Robert Keohane et Joseph Nye montrent que les institutions internationales rendent la coopération possible et donnent à l'action une légitimité durable. Hubert Védrine vous opposerait que cette posture reste marquée par une vision occidentale des valeurs : aux yeux d'une grande partie du monde, l'intervention présentée comme morale paraît sélective, et elle affaiblit la capacité de la France à jouer les médiateurs.",
+    "near": [
+      "walzer",
+      "keohane-nye"
+    ],
+    "opposed": [
+      "vedrine"
+    ],
+    "question": "Si le cadre collectif que vous privilégiez restait bloqué face à une crise grave, seriez-vous prêt à ce que la France agisse sans lui ?"
+  },
+  {
+    "axis": "GMO",
+    "level": 2,
+    "text": "Vous refusez de trancher une fois pour toutes : selon les situations, vous pouvez soutenir une intervention ou préférer la négociation, en pesant les intérêts de la France, la légitimité de l'action et ses chances de réussir. Raymond Aron invitait à penser la paix et la guerre sans illusion, en tenant ensemble morale et rapports de force ; Henry Kissinger cherchait un équilibre durable entre les puissances. Du côté interventionniste, Robert Kagan vous objecterait que l'hésitation encourage les agresseurs. Du côté non-interventionniste, Noam Chomsky et Immanuel Wallerstein répondraient que le cas par cas sert surtout les intérêts des puissances dominantes, qui choisissent elles-mêmes leurs causes.",
+    "near": [
+      "aron",
+      "kissinger"
+    ],
+    "opposed": [
+      "kagan",
+      "wallerstein-chomsky"
+    ],
+    "question": "Quels critères, énoncés à l'avance, vous permettraient de décider d'une intervention sans dépendre de l'émotion du moment ?"
+  },
+  {
+    "axis": "GMO",
+    "level": 3,
+    "text": "Vous privilégiez la diplomatie, la négociation et le respect de la souveraineté des États, et vous ne concevez l'usage de la force qu'en dernier ressort, lorsque des intérêts vitaux sont en jeu. Hubert Védrine défend une France puissance d'équilibre, méfiante envers l'ingérence au nom de la morale ; les réalistes comme Hans Morgenthau rappellent que la politique étrangère part de l'intérêt national et de l'équilibre des puissances. Michael Walzer vous adresserait une objection forte : il existe des crimes face auxquels l'abstention n'est pas neutre, et invoquer la souveraineté peut revenir à laisser un régime frapper sa propre population sans conséquence.",
+    "near": [
+      "vedrine",
+      "realistes-morgenthau-waltz-mearsheimer"
+    ],
+    "opposed": [
+      "walzer"
+    ],
+    "question": "Face à des crimes de masse commis par un État contre sa population, à partir de quel moment l'abstention deviendrait-elle pour vous un choix difficile à assumer ?"
+  },
+  {
+    "axis": "GMO",
+    "level": 4,
+    "text": "Vous estimez que la France ne devrait employer la force hors de ses frontières que pour se défendre, et qu'elle devrait se tenir à distance des engagements décidés par des blocs ou des alliances. Vos raisons peuvent être réalistes, pacifistes ou anti-impérialistes. Kenneth Waltz et John Mearsheimer insistent sur l'équilibre des puissances et les risques d'escalade ; Noam Chomsky et Immanuel Wallerstein voient dans nombre d'interventions l'expression d'intérêts de puissance. Les défenseurs de la responsabilité de protéger, comme Bernard Kouchner, vous objecteraient que la non-ingérence a laissé commettre des crimes de masse ; Robert Kagan ajouterait que le retrait des démocraties laisse le champ libre aux puissances les moins scrupuleuses.",
+    "near": [
+      "realistes-morgenthau-waltz-mearsheimer",
+      "wallerstein-chomsky"
+    ],
+    "opposed": [
+      "droit-ingerence-r2p",
+      "kagan"
+    ],
+    "question": "Si un pays voisin de l'Europe était envahi, quelles formes d'aide jugeriez-vous compatibles avec votre refus de l'intervention ?"
+  },
+  {
+    "axis": "GOV",
+    "level": 0,
+    "text": "Vous jugez acceptable qu'un pouvoir s'affranchisse, au moins pour un temps, des élections, des juges, de la presse ou du Parlement, s'il garantit l'ordre, l'efficacité ou la réalisation de la volonté populaire. Cette position existe à gauche comme à droite. Thomas Hobbes pensait que la sécurité de tous exige un souverain dont l'autorité ne se partage pas ; Carl Schmitt affirmait qu'est souverain celui qui décide de la situation d'exception. Montesquieu vous opposerait que tout homme qui a du pouvoir est porté à en abuser et que seul le pouvoir arrête le pouvoir ; Hannah Arendt ajouterait qu'un pouvoir sans limites finit par détruire l'espace public qui permettait de le contester.",
+    "near": [
+      "hobbes",
+      "schmitt"
+    ],
+    "opposed": [
+      "montesquieu",
+      "arendt"
+    ],
+    "question": "Si le pouvoir fort que vous acceptez passait aux mains de ceux dont vous combattez les idées, quelles garanties voudriez-vous alors conserver ?"
+  },
+  {
+    "axis": "GOV",
+    "level": 1,
+    "text": "Vous restez attaché aux élections, mais vous voulez un exécutif capable de décider vite et de surmonter les blocages : moins de contrôle des juges, un recours plus fréquent aux procédures d'exception ou au référendum, une autorité clairement identifiée. Charles de Gaulle a bâti la Ve République autour d'un exécutif fort ; Machiavel pensait que l'art de gouverner obéit à ses propres règles et exige parfois de trancher. Juan Linz, Steven Levitsky et Daniel Ziblatt vous objecteraient que les démocraties meurent aujourd'hui moins par coup d'État que par érosion légale : chaque affaiblissement des arbitres paraît justifié, mais leur addition peut rendre l'alternance difficile.",
+    "near": [
+      "de-gaulle",
+      "machiavel"
+    ],
+    "opposed": [
+      "linz-levitsky-ziblatt"
+    ],
+    "question": "Quel contre-pouvoir accepteriez-vous de voir affaibli pour gagner en efficacité, et lequel devrait rester intouchable quel que soit le gouvernement ?"
+  },
+  {
+    "axis": "GOV",
+    "level": 2,
+    "text": "Vous tenez l'élection pour la source de toute légitimité, et vous pensez qu'une majorité clairement désignée doit pouvoir appliquer son programme sans être entravée par des juges ou des autorités non élues. Jean-Jacques Rousseau faisait de la souveraineté du peuple une volonté générale inaliénable ; Joseph Schumpeter définissait la démocratie comme une compétition entre élites pour les suffrages. Du côté libéral, Alexis de Tocqueville vous objecterait qu'une majorité peut elle aussi opprimer, et que les minorités ont besoin de protections qu'elle ne peut pas lever seule. Du côté autoritaire, Curtis Yarvin répondrait au contraire que l'élection produit l'impuissance et qu'un pouvoir dirigé comme une entreprise serait plus efficace.",
+    "near": [
+      "rousseau",
+      "schumpeter"
+    ],
+    "opposed": [
+      "tocqueville",
+      "yarvin"
+    ],
+    "question": "Quels droits devraient, selon vous, rester hors de portée d'une majorité, même très large, et pourquoi ceux-là ?"
+  },
+  {
+    "axis": "GOV",
+    "level": 3,
+    "text": "Vous considérez que la légitimité d'un pouvoir ne tient pas seulement à son élection, mais aussi aux limites qu'il accepte : séparation des pouvoirs, juges indépendants, presse libre, droits de l'opposition. John Locke fondait le gouvernement sur le consentement et les droits des personnes ; Montesquieu montrait que le pouvoir doit être arrêté par le pouvoir pour que la liberté soit garantie. Carl Schmitt vous adresserait une objection sérieuse : en temps de crise, une démocratie qui délibère sans fin et multiplie les recours risque de ne plus pouvoir décider, et un régime incapable de trancher laisse d'autres forces le faire à sa place.",
+    "near": [
+      "locke",
+      "montesquieu"
+    ],
+    "opposed": [
+      "schmitt"
+    ],
+    "question": "Face à une crise grave, quelles mesures d'exception accepteriez-vous, pour combien de temps et sous le contrôle de qui ?"
+  },
+  {
+    "axis": "GOV",
+    "level": 4,
+    "text": "Vous voulez des contre-pouvoirs forts et protégés : juridictions indépendantes, médias pluralistes, droits de l'opposition, autorités de contrôle difficiles à capturer, même lorsqu'ils freinent une majorité. Pour vous, il ne s'agit pas d'affaiblir le gouvernement, mais de l'obliger à rendre des comptes. Robert Dahl a défini les critères d'une démocratie réelle ; Juan Linz, Steven Levitsky et Daniel Ziblatt montrent comment elle s'érode par la capture des arbitres ; Hannah Arendt rappelle que la liberté vit d'un espace public pluraliste. Jean-Jacques Rousseau vous opposerait que la souveraineté du peuple ne se délègue pas : multiplier les instances non élues capables de contredire la volonté générale revient à confier le pouvoir à ceux que personne n'a choisis.",
+    "near": [
+      "dahl",
+      "linz-levitsky-ziblatt",
+      "arendt"
+    ],
+    "opposed": [
+      "rousseau"
+    ],
+    "question": "Comment éviteriez-vous que des contre-pouvoirs très forts donnent aux citoyens le sentiment que leur vote ne compte plus ?"
+  },
+  {
+    "axis": "SEC",
+    "level": 0,
+    "text": "Vous placez la protection des personnes au premier rang des devoirs de l'État. Pour vous, la liberté suppose de pouvoir vivre sans craindre pour sa vie ou ses biens : sans ordre public, les droits restent théoriques. D'où votre attachement à la sévérité des peines, aux moyens de la police et, face au terrorisme ou au narcotrafic, à des pouvoirs exceptionnels. Thomas Hobbes voit les individus confier leur sécurité à un souverain pour sortir de la « guerre de tous contre tous », et Norbert Elias fait du monopole étatique de la violence une condition de la pacification des mœurs. Michel Foucault vous objecterait que les dispositifs de surveillance et de punition, une fois installés, s'étendent au-delà des coupables qu'ils visaient.",
+    "near": [
+      "hobbes",
+      "elias"
+    ],
+    "opposed": [
+      "foucault"
+    ],
+    "question": "Quelle garantie vous paraîtrait indispensable pour qu'un pouvoir renforcé de la police ne se retourne pas un jour contre des personnes innocentes ?"
+  },
+  {
+    "axis": "SEC",
+    "level": 1,
+    "text": "Vous donnez la priorité à l'ordre public tout en tenant aux garanties de l'État de droit. Vous estimez que la police et la justice doivent disposer de moyens suffisants et que la fermeté des réponses pénales dissuade, mais vous acceptez que ces pouvoirs restent encadrés par le juge. Norbert Elias vous éclaire : la pacification des sociétés repose sur le monopole étatique de la violence, qui retire aux individus le soin de se faire justice eux-mêmes. Thomas Hobbes rappelle que la sécurité est la raison d'être du pacte politique. Ronald Dworkin vous objecterait que les droits sont des « atouts » contre la majorité : une liberté suspendue chaque fois que l'opinion réclame de la fermeté cesse d'être un droit.",
+    "near": [
+      "elias",
+      "hobbes"
+    ],
+    "opposed": [
+      "dworkin"
+    ],
+    "question": "Dans quelle situation précise accepteriez-vous de renoncer à une mesure de sécurité efficace parce qu'elle empiète trop sur les droits de chacun ?"
+  },
+  {
+    "axis": "SEC",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre deux risques : laisser impunis des coupables et exposer des innocents à l'arbitraire. Vous jugez que l'État doit pouvoir agir fermement, notamment face au terrorisme, mais sous le contrôle du juge et dans le respect des droits de la défense. Le débat entre Olivier Roy et Gilles Kepel sur les ressorts du djihadisme vous rappelle que la bonne réponse dépend du diagnostic, et Norbert Elias que le monopole de la violence n'a de sens que s'il pacifie. Du côté sécuritaire, Thomas Hobbes objecterait qu'hésiter face à la menace, c'est déjà exposer les personnes. Du côté garantiste, Michel Foucault répondrait que chaque mesure d'exception tend à devenir la norme.",
+    "near": [
+      "elias",
+      "roy-kepel"
+    ],
+    "opposed": [
+      "hobbes",
+      "foucault"
+    ],
+    "question": "Lorsque vous pesez une nouvelle loi de sécurité, lequel des deux risques, l'impunité ou l'arbitraire, vous inquiète spontanément le plus, et pourquoi ?"
+  },
+  {
+    "axis": "SEC",
+    "level": 3,
+    "text": "Vous accordez la priorité aux libertés publiques, sans nier le besoin de sécurité. Vous tenez à la présomption d'innocence, aux droits de la défense et au contrôle des forces de l'ordre, et vous pensez que la prévention protège plus durablement que la seule sévérité. Montesquieu vous inspire : « le pouvoir arrête le pouvoir », et la liberté se mesure à la sûreté du citoyen face à l'autorité elle-même. Ronald Dworkin ajoute que les droits sont des « atouts » qui protègent chacun contre les préférences de la majorité. Norbert Elias vous objecterait que les libertés reposent sur une pacification fragile : là où l'État recule, la violence privée et la loi du plus fort reviennent.",
+    "near": [
+      "montesquieu",
+      "dworkin"
+    ],
+    "opposed": [
+      "elias"
+    ],
+    "question": "Qu'est-ce qui, dans votre vie quotidienne ou celle de vos proches, vous ferait accepter davantage de contrôles ou de surveillance ?"
+  },
+  {
+    "axis": "SEC",
+    "level": 4,
+    "text": "Vous voyez dans la protection contre l'arbitraire la première mission du droit pénal. Pour vous, un État qui surveille, enferme et punit sans contrôle strict menace d'abord les plus vulnérables, et la sécurité durable passe par la prévention, l'égalité et des droits opposables à tous. Michel Foucault a montré comment prisons et disciplines façonnent des populations entières ; Angela Davis défend l'abolition carcérale, dans le prolongement de la critique croisée des dominations portée aussi par Patricia Hill Collins et bell hooks ; Ronald Dworkin fait des droits des « atouts » contre la majorité. Thomas Hobbes vous objecterait que sans un pouvoir capable de contraindre, les plus faibles subissent les premiers la violence des plus forts.",
+    "near": [
+      "foucault",
+      "hill-collins-hooks-davis",
+      "dworkin"
+    ],
+    "opposed": [
+      "hobbes"
+    ],
+    "question": "Comment répondriez-vous à une victime qui estime que la protection des droits des suspects passe avant la sienne ?"
+  },
+  {
+    "axis": "INS",
+    "level": 0,
+    "text": "Vous tenez à un exécutif fort, élu au suffrage universel direct, capable de trancher et d'assumer ses choix devant le pays. Pour vous, l'instabilité des gouvernements d'assemblée affaiblit la décision publique, et l'élection présidentielle donne aux citoyens un arbitre identifiable et responsable. Charles de Gaulle a conçu la Ve République dans cet esprit, pour placer le chef de l'État au-dessus des partis. Joseph Schumpeter définit la démocratie comme une compétition entre dirigeants pour les suffrages : les citoyens choisissent, puis jugent sur les résultats. Jean-Jacques Rousseau vous objecterait que la souveraineté ne se délègue pas : un peuple qui confie tout le pouvoir à un seul pour la durée d'un mandat n'est libre qu'au moment du vote.",
+    "near": [
+      "de-gaulle",
+      "schumpeter"
+    ],
+    "opposed": [
+      "rousseau"
+    ],
+    "question": "Si le pouvoir présidentiel que vous défendez revenait à la personne dont vous partagez le moins les idées, le jugeriez-vous toujours souhaitable ?"
+  },
+  {
+    "axis": "INS",
+    "level": 1,
+    "text": "Vous préférez une démocratie représentative où l'exécutif dispose de réels moyens d'agir, tout en admettant un Parlement qui contrôle et amende. Vous vous méfiez des blocages et de la dispersion du pouvoir, et vous jugez que les électeurs doivent pouvoir identifier clairement les responsables pour les reconduire ou les sanctionner. Joseph Schumpeter voit dans la démocratie une compétition entre dirigeants pour les suffrages, et Charles de Gaulle voulait un chef de l'État placé au-dessus des partis. Pierre Rosanvallon vous objecterait que l'élection ne suffit pas à fonder la légitimité : la démocratie vit aussi de la surveillance, de l'empêchement et du contrôle exercés par les citoyens entre deux scrutins.",
+    "near": [
+      "schumpeter",
+      "de-gaulle"
+    ],
+    "opposed": [
+      "rosanvallon"
+    ],
+    "question": "Entre deux élections, de quels moyens concrets aimeriez-vous disposer pour peser sur les décisions de l'exécutif ?"
+  },
+  {
+    "axis": "INS",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre efficacité de l'exécutif et pouvoir du Parlement, entre représentation et participation. Vous tenez surtout à ce qu'aucun organe ne concentre tous les leviers de la décision. Montesquieu vous fournit le principe : « le pouvoir arrête le pouvoir ». Pierre Rosanvallon complète : la légitimité démocratique se construit aussi par la surveillance et la contestation citoyennes, au-delà du vote. Du côté présidentialiste, l'héritage de Charles de Gaulle rappelle qu'un régime qui partage trop la décision risque de ne plus décider du tout. Du côté de la démocratie directe, Cornelius Castoriadis répondrait qu'un équilibre entre élus laisse encore les citoyens à l'écart de l'institution de leurs propres lois.",
+    "near": [
+      "montesquieu",
+      "rosanvallon"
+    ],
+    "opposed": [
+      "de-gaulle",
+      "castoriadis"
+    ],
+    "question": "Face à une crise grave, à qui voudriez-vous voir revenir le dernier mot : au chef de l'exécutif, aux députés ou directement aux citoyens ?"
+  },
+  {
+    "axis": "INS",
+    "level": 3,
+    "text": "Vous voulez rééquilibrer les institutions au profit du Parlement : un gouvernement responsable devant les députés, un mode de scrutin plus proportionnel, des coalitions négociées au grand jour. Pour vous, la délibération entre des sensibilités diverses produit des décisions plus légitimes que l'arbitrage d'une seule personne. Benjamin Constant voyait dans le gouvernement représentatif la garantie de la liberté des Modernes, et Pierre Rosanvallon rappelle que la démocratie ne se réduit pas au moment de l'élection. L'héritage de Charles de Gaulle vous objecterait que le « régime des partis » a produit l'instabilité ministérielle et l'impuissance, et qu'un pays a besoin d'un exécutif capable de décider vite dans les crises.",
+    "near": [
+      "constant",
+      "rosanvallon"
+    ],
+    "opposed": [
+      "de-gaulle"
+    ],
+    "question": "Seriez-vous prêt·e à accepter des gouvernements de coalition incluant des forces dont vous ne partagez pas les idées, au nom d'une meilleure représentation ?"
+  },
+  {
+    "axis": "INS",
+    "level": 4,
+    "text": "Vous souhaitez que les citoyens décident davantage par eux-mêmes : référendum d'initiative citoyenne, tirage au sort, conventions citoyennes. Pour vous, la représentation élective confisque une part de la souveraineté populaire. Jean-Jacques Rousseau tient la volonté générale pour inaliénable ; Cornelius Castoriadis appelle autonomie une société qui se donne consciemment ses propres lois ; Bernard Manin et Yves Sintomer montrent que l'élection a une dimension aristocratique, quand le tirage au sort est l'outil démocratique par excellence. Joseph Schumpeter vous objecterait que la plupart des citoyens manquent de temps et d'information pour trancher des questions complexes, et qu'une démocratie réaliste consiste à choisir puis à renvoyer des dirigeants.",
+    "near": [
+      "rousseau",
+      "castoriadis",
+      "manin-sintomer"
+    ],
+    "opposed": [
+      "schumpeter"
+    ],
+    "question": "Si un référendum ou une convention citoyenne aboutissait à une décision contraire à vos convictions les plus fortes, l'accepteriez-vous comme légitime ?"
+  },
+  {
+    "axis": "TER",
+    "level": 0,
+    "text": "Vous tenez à un État central garant de l'égalité entre les territoires et de l'unité de la loi. Pour vous, un même droit, une même école et des services publics comparables partout sont la condition d'une citoyenneté commune ; transférer trop de compétences aux collectivités creuserait les écarts entre régions riches et pauvres. Jean-Pierre Chevènement incarne ce républicanisme de l'État stratège, et Jean-Jacques Rousseau fonde l'idée d'une souveraineté indivisible exprimant la volonté générale. Alexis de Tocqueville vous objecterait que la centralisation endort l'esprit civique : là où tout se décide loin d'eux, les citoyens perdent l'habitude de gérer leurs affaires communes et s'en remettent à un pouvoir tutélaire.",
+    "near": [
+      "chevenement",
+      "rousseau"
+    ],
+    "opposed": [
+      "tocqueville"
+    ],
+    "question": "Quelle décision qui vous concerne directement accepteriez-vous de voir prise par votre commune plutôt que par l'État, et laquelle refuseriez-vous ?"
+  },
+  {
+    "axis": "TER",
+    "level": 1,
+    "text": "Vous privilégiez l'échelon national pour les grandes décisions, tout en acceptant que les collectivités gèrent la proximité. Vous craignez qu'une décentralisation poussée ne fragmente les politiques publiques et ne laisse les territoires les moins dotés se débrouiller seuls. Pour vous, la péréquation des ressources et les normes communes relèvent de l'État. Jean-Pierre Chevènement défend cet État stratège, garant de la cohésion républicaine. Michel Rocard, figure de la « deuxième gauche », vous objecterait que la loi uniforme décidée d'en haut connaît mal les réalités locales, et que le contrat, la décentralisation et l'autonomie des acteurs rendent l'action publique plus juste parce que plus proche de ceux qu'elle concerne.",
+    "near": [
+      "chevenement"
+    ],
+    "opposed": [
+      "rocard"
+    ],
+    "question": "Pouvez-vous citer une politique publique que vous jugez mal adaptée à votre territoire parce qu'elle a été décidée au niveau national ?"
+  },
+  {
+    "axis": "TER",
+    "level": 2,
+    "text": "Vous cherchez un équilibre entre l'unité de la loi et la proximité de la décision. Vous voulez que l'État garantisse l'égalité d'accès aux services publics, tout en laissant aux collectivités des marges réelles pour s'adapter. Christophe Guilluy décrit une fracture entre métropoles et territoires périphériques, et Julia Cagé et Thomas Piketty montrent qu'un clivage territorial s'ajoute au clivage de classe : ces diagnostics invitent à penser ensemble le centre et le local. Du côté jacobin, Jean-Pierre Chevènement objecterait que tout partage des compétences affaiblit l'égalité républicaine. Du côté municipaliste, Murray Bookchin répondrait qu'un simple aménagement des compétences laisse intacte la dépossession politique des habitants.",
+    "near": [
+      "guilluy",
+      "cage-piketty"
+    ],
+    "opposed": [
+      "chevenement",
+      "bookchin"
+    ],
+    "question": "Pour quels domaines précis, comme l'école, la santé, le logement ou les transports, votre préférence entre État et collectivités change-t-elle ?"
+  },
+  {
+    "axis": "TER",
+    "level": 3,
+    "text": "Vous souhaitez transférer davantage de compétences et de ressources aux régions, aux départements et aux communes. Pour vous, les décisions prises au plus près des habitants sont mieux adaptées, mieux comprises et mieux contrôlées. Alexis de Tocqueville voyait dans les libertés locales et les associations le contrepoids au « despotisme doux » d'un pouvoir central, et Michel Rocard a porté une décentralisation fondée sur le contrat plutôt que sur la loi uniforme. Une lecture républicaine inspirée de Jean-Jacques Rousseau vous objecterait que la loi doit exprimer une volonté générale commune à tous : multiplier les règles locales, c'est accepter que l'égalité des citoyens dépende de leur lieu de résidence.",
+    "near": [
+      "tocqueville",
+      "rocard"
+    ],
+    "opposed": [
+      "rousseau"
+    ],
+    "question": "Jusqu'où accepteriez-vous que les droits ou les services dont bénéficie un habitant varient selon la région où il vit ?"
+  },
+  {
+    "axis": "TER",
+    "level": 4,
+    "text": "Vous voulez organiser la société à partir des communes, librement fédérées entre elles, plutôt qu'à partir d'un État central. Pour vous, l'assemblée locale est le lieu où les citoyens peuvent réellement délibérer et décider ensemble. Murray Bookchin défend un municipalisme libertaire de communes confédérées ; Pierre-Joseph Proudhon a formulé le principe fédératif ; James C. Scott montre que les grands plans étatiques échouent faute de reconnaître les savoirs locaux. Jean-Pierre Chevènement vous objecterait que seul un État fort peut corriger les inégalités entre territoires et garantir les mêmes droits partout : une fédération de communes risquerait de laisser les plus pauvres livrées à elles-mêmes et d'affaiblir la solidarité nationale.",
+    "near": [
+      "bookchin",
+      "proudhon",
+      "scott"
+    ],
+    "opposed": [
+      "chevenement"
+    ],
+    "question": "Comment une fédération de communes pourrait-elle, selon vous, organiser la solidarité entre une ville prospère et un village en difficulté ?"
+  },
+  {
+    "axis": "POP",
+    "level": 0,
+    "text": "Vous lisez la vie politique comme un conflit entre le peuple et des élites qui se sont éloignées de lui. Vous y voyez une critique légitime d'une représentation où les représentés ne se reconnaissent plus, et vous jugez que la volonté populaire doit primer sur les compromis entre partis, experts et juges. Cette lecture existe à gauche comme à droite : Ernesto Laclau et Chantal Mouffe proposent de construire un « peuple » face à une oligarchie, Christopher Lasch décrit la sécession des élites mobiles, Jean-Claude Michéa défend la « common decency » des classes populaires. Jan-Werner Müller vous objecterait que parler au nom du peuple tout entier revient à nier la légitimité des désaccords, car le peuple réel est divers.",
+    "near": [
+      "laclau-mouffe",
+      "lasch",
+      "michea"
+    ],
+    "opposed": [
+      "mudde-muller",
+      "lefort"
+    ],
+    "question": "Lorsque vous dites « le peuple », qui en fait partie selon vous, et comment traiteriez-vous ceux qui, dans ce peuple, pensent autrement que vous ?"
+  },
+  {
+    "axis": "POP",
+    "level": 1,
+    "text": "Vous éprouvez une défiance marquée envers les élites politiques, économiques et médiatiques, sans pour autant réduire toute la politique à ce face-à-face. Vous pensez que les dirigeants partagent souvent un même milieu et un même regard, éloignés des préoccupations populaires, et que la représentation en souffre. Christopher Lasch analyse la sécession des élites mobiles, et Jean-Claude Michéa montre comment libéralisme économique et libéralisme culturel convergent au détriment des classes populaires. Robert Dahl vous objecterait que la démocratie se juge à des critères vérifiables, comme les élections libres, le droit d'opposition et la pluralité de l'information : la défiance est féconde quand elle renforce ces garanties, beaucoup moins quand elle les affaiblit.",
+    "near": [
+      "lasch",
+      "michea"
+    ],
+    "opposed": [
+      "dahl"
+    ],
+    "question": "Qu'est-ce qui distingue, à vos yeux, une élite dont vous vous méfiez à juste titre d'une compétence dont la société a réellement besoin ?"
+  },
+  {
+    "axis": "POP",
+    "level": 2,
+    "text": "Vous partagez une partie de la critique des élites sans adhérer à l'idée d'un peuple uni face à elles. Vous reconnaissez que des catégories entières se sentent méprisées, tout en admettant que la société est traversée de désaccords légitimes. Michael Sandel montre comment la méritocratie humilie ceux qui échouent, Christophe Guilluy décrit la relégation des classes populaires périphériques, et Jacques Rancière rappelle que la démocratie est le pouvoir de « n'importe qui ». Du côté populiste, Ernesto Laclau et Chantal Mouffe objecteraient que sans la construction d'un « nous » face à un « eux », le ressentiment reste sans débouché politique. Du côté pluraliste, Claude Lefort répondrait qu'en démocratie nul ne peut prétendre incarner le peuple.",
+    "near": [
+      "sandel",
+      "guilluy",
+      "ranciere"
+    ],
+    "opposed": [
+      "laclau-mouffe",
+      "lefort"
+    ],
+    "question": "Quand vous critiquez les élites, visez-vous plutôt des personnes, des institutions ou des règles du jeu, et qu'en changeriez-vous concrètement ?"
+  },
+  {
+    "axis": "POP",
+    "level": 3,
+    "text": "Vous considérez que le peuple est pluriel et que la politique consiste d'abord à organiser des désaccords légitimes, même si vous entendez les critiques adressées aux élites. Pour vous, partis, syndicats, experts et juges ne confisquent pas la volonté populaire : ils la médiatisent et la rendent praticable. Robert Dahl définit la démocratie par des critères vérifiables, comme l'inclusivité, le droit d'opposition ou des sources d'information alternatives, et Claude Lefort montre qu'en démocratie le lieu du pouvoir reste vide. Michael Sandel vous objecterait que ce langage des procédures et du mérite peut ignorer l'humiliation vécue par ceux que l'on juge moins qualifiés, et nourrir le ressentiment qu'il prétend apaiser.",
+    "near": [
+      "dahl",
+      "lefort"
+    ],
+    "opposed": [
+      "sandel"
+    ],
+    "question": "Quels signes vous indiqueraient que les institutions intermédiaires ne représentent plus une partie de la population ?"
+  },
+  {
+    "axis": "POP",
+    "level": 4,
+    "text": "Vous tenez le pluralisme pour le cœur de la démocratie : le peuple est divers, aucune force ne peut prétendre l'incarner seule, et la représentation passe par la négociation entre intérêts et valeurs. Cas Mudde et Jan-Werner Müller analysent le populisme comme l'opposition d'un « peuple pur » à une « élite corrompue », qui tend à exclure les désaccords ; Claude Lefort rappelle que le lieu du pouvoir démocratique est vide ; Robert Dahl fait du droit d'opposition un critère de la démocratie. Jacques Rancière vous objecterait que l'éloge du compromis peut réduire la démocratie à une gestion entre gens compétents, et Chantal Mouffe que l'effacement du conflit laisse les classes populaires sans voix réelle.",
+    "near": [
+      "mudde-muller",
+      "lefort",
+      "dahl"
+    ],
+    "opposed": [
+      "ranciere",
+      "laclau-mouffe"
+    ],
+    "question": "Le compromis que vous valorisez inclut-il vraiment les classes populaires, ou se négocie-t-il surtout entre des groupes déjà bien représentés ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 0,
+    "text": "Vous tenez à ce que la société change par des réformes graduelles, votées et appliquées dans le cadre des institutions existantes. Pour vous, les ruptures brutales détruisent plus qu'elles ne construisent : elles emportent des protections patiemment acquises et ouvrent la voie à l'arbitraire. Edmund Burke voyait dans la société un contrat entre les morts, les vivants et ceux qui sont à naître, qu'on amende sans le déchirer. Karl Popper défend une réforme par petites étapes, qui corrige ses erreurs au fur et à mesure, et Eduard Bernstein pensait que le socialisme adviendrait par la réforme démocratique. Rosa Luxemburg vous objecterait que la réforme seule ne touche jamais aux fondements d'un ordre injuste.",
+    "near": [
+      "burke",
+      "popper",
+      "bernstein"
+    ],
+    "opposed": [
+      "luxemburg"
+    ],
+    "question": "Y a-t-il des injustices du passé qui, selon vous, n'auraient pas pu être corrigées sans une rupture avec l'ordre de leur époque ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 1,
+    "text": "Vous préférez la réforme à la rupture, tout en admettant que de grandes transformations sont parfois nécessaires et qu'elles passent aussi par la mobilisation sociale. Pour vous, conquérir le pouvoir par les urnes puis l'exercer dans le respect des règles reste la voie la plus sûre et la plus durable. Léon Blum distinguait l'« exercice » du pouvoir, dans le cadre légal, de sa « conquête » révolutionnaire ; le Front populaire a obtenu les congés payés et la semaine de 40 heures par la loi et par la grève. Eduard Bernstein misait sur l'accumulation des réformes. Lénine vous objecterait qu'un État construit pour protéger l'ordre existant ne se laisse pas transformer de l'intérieur.",
+    "near": [
+      "blum",
+      "bernstein"
+    ],
+    "opposed": [
+      "lenine"
+    ],
+    "question": "Si les réformes votées démocratiquement étaient systématiquement défaites par la majorité suivante, changeriez-vous de méthode ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 2,
+    "text": "Vous ne tranchez pas entre réforme et rupture : selon les sujets, vous jugez qu'il faut soit améliorer ce qui existe, soit changer profondément de cap. Vous tenez aux voies démocratiques sans exclure qu'une transformation de fond soit nécessaire. Jean Jaurès parlait d'« évolution révolutionnaire » : faire avancer le socialisme par la République, la loi et l'éducation. Antonio Gramsci décrit une « guerre de position » : gagner les idées et la société civile avant de gagner l'État. Du côté réformiste, Karl Popper vous objecterait qu'un projet de transformation globale échappe à tout contrôle ; du côté révolutionnaire, Léon Trotsky répondrait qu'une révolution arrêtée à mi-chemin finit toujours par être défaite.",
+    "near": [
+      "jaures",
+      "gramsci"
+    ],
+    "opposed": [
+      "popper",
+      "trotsky"
+    ],
+    "question": "Sur quel sujet précis estimez-vous qu'une réforme ne suffirait plus et qu'il faudrait changer de système ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 3,
+    "text": "Vous pensez que les réformes graduelles ne suffisent plus et qu'une rupture avec l'ordre existant est nécessaire, par la mobilisation massive, la grève ou la désobéissance civile. Pour vous, les institutions actuelles protègent d'abord ceux qui en profitent. Cette position se rencontre à gauche comme dans un rejet national ou identitaire du « système ». Rosa Luxemburg critiquait le réformisme de Bernstein tout en défendant la liberté « de celui qui pense autrement » contre l'autoritarisme bolchevique. Andreas Malm juge légitimes des actions de sabotage face à l'urgence climatique. Léon Blum vous objecterait qu'une rupture imposée sans majorité démocratique menace les libertés qu'elle prétend défendre.",
+    "near": [
+      "luxemburg",
+      "malm-saito"
+    ],
+    "opposed": [
+      "blum"
+    ],
+    "question": "Quelles limites fixeriez-vous aux moyens employés pour obtenir la rupture que vous souhaitez ?"
+  },
+  {
+    "axis": "CHG",
+    "level": 4,
+    "text": "Vous jugez que l'ordre existant ne peut pas être réformé et qu'il faut le renverser pour construire une société entièrement différente. Selon les traditions, cette rupture prend la forme d'une révolution sociale, de l'abolition de l'État ou d'un changement complet de régime au nom de la nation. Karl Marx et Friedrich Engels voient dans la lutte des classes le moteur de l'histoire ; Lénine théorise le parti d'avant-garde ; Mikhaïl Bakounine veut détruire l'État plutôt que le conquérir. Karl Popper vous objecterait que les projets de refonte totale de la société, faute de pouvoir corriger leurs erreurs, produisent une violence que leurs auteurs n'avaient pas voulue.",
+    "near": [
+      "marx-engels",
+      "lenine",
+      "bakounine"
+    ],
+    "opposed": [
+      "popper"
+    ],
+    "question": "Comment la société que vous souhaitez traiterait-elle celles et ceux qui refuseraient d'y adhérer ?"
+  }
+]

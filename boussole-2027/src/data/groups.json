@@ -1,0 +1,224 @@
+[
+  {
+    "id": "B01",
+    "title": "Retraites",
+    "context": "Le système de retraite doit à nouveau être réformé. Que pensez-vous de chacune de ces pistes ?"
+  },
+  {
+    "id": "B02",
+    "title": "Patrimoine et héritage",
+    "context": "Faut-il taxer davantage les patrimoines et les héritages ?"
+  },
+  {
+    "id": "B03",
+    "title": "Une usine qui délocalise",
+    "context": "Une usine rentable de votre région annonce sa fermeture pour produire à l'étranger. Que pensez-vous de ces réponses ?"
+  },
+  {
+    "id": "B04",
+    "title": "Comprendre la société française",
+    "context": "Pour comprendre les grands conflits de la société française, quelle lecture vous paraît juste ?"
+  },
+  {
+    "id": "B05",
+    "title": "Dette publique",
+    "context": "La dette publique française atteint un niveau historiquement élevé. Que faudrait-il faire ?"
+  },
+  {
+    "id": "B06",
+    "title": "Une maternité menacée",
+    "context": "La maternité de votre bassin de vie doit fermer faute de médecins. Que pensez-vous de ces réponses ?"
+  },
+  {
+    "id": "B07",
+    "title": "Salaires et pouvoir d'achat",
+    "context": "Pour améliorer le pouvoir d'achat, que pensez-vous de ces mesures ?"
+  },
+  {
+    "id": "B08",
+    "title": "Climat",
+    "context": "À propos du changement climatique, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B09",
+    "title": "Énergie",
+    "context": "Pour l'énergie de demain, que pensez-vous de ces choix ?"
+  },
+  {
+    "id": "B10",
+    "title": "Une zone à faibles émissions",
+    "context": "Votre ville instaure une zone à faibles émissions qui interdit les véhicules anciens. Qu'en pensez-vous ?"
+  },
+  {
+    "id": "B11",
+    "title": "Agriculture et terres",
+    "context": "Des agriculteurs manifestent contre les normes environnementales. Que pensez-vous de ces positions ?"
+  },
+  {
+    "id": "B12",
+    "title": "Place des religions",
+    "context": "À propos de la place des religions dans la société, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B13",
+    "title": "Laïcité : une sortie scolaire",
+    "context": "Une mère portant le voile souhaite accompagner une sortie scolaire. Que pensez-vous de ces positions ?"
+  },
+  {
+    "id": "B14",
+    "title": "Critique des religions",
+    "context": "Un journal publie des caricatures d'une figure religieuse. Que pensez-vous de ces positions ?"
+  },
+  {
+    "id": "B15",
+    "title": "École et transmission",
+    "context": "À propos de l'école et de la transmission des convictions, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B16",
+    "title": "Commerce international",
+    "context": "Face à la concurrence internationale, quelle politique commerciale vous semble souhaitable ?"
+  },
+  {
+    "id": "B17",
+    "title": "La nation et le monde",
+    "context": "À propos de votre rapport à la nation et au reste du monde, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B18",
+    "title": "Souveraineté et coopération",
+    "context": "Lors de la dernière crise sanitaire, certains médicaments ont manqué. Que pensez-vous de ces orientations ?"
+  },
+  {
+    "id": "B19",
+    "title": "Histoire nationale",
+    "context": "À propos de l'histoire de France et de sa transmission, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B20",
+    "title": "Fin de vie et bioéthique",
+    "context": "À propos de la fin de vie et de la procréation, que pensez-vous de ces positions ?"
+  },
+  {
+    "id": "B21",
+    "title": "Famille et genre",
+    "context": "À propos de la famille et des rapports entre les sexes, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B22",
+    "title": "Mœurs et liberté",
+    "context": "À propos de la liberté individuelle et des normes collectives, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B23",
+    "title": "Appartenances",
+    "context": "À propos de ce qui fait votre identité, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B24",
+    "title": "Une famille en difficulté",
+    "context": "Une famille de votre quartier traverse de graves difficultés. À qui revient-il d'abord de l'aider ?"
+  },
+  {
+    "id": "B25",
+    "title": "Immigration",
+    "context": "À propos de l'immigration en France, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B26",
+    "title": "Droits des étrangers",
+    "context": "À propos des droits des étrangers et de la nationalité, que pensez-vous de ces mesures ?"
+  },
+  {
+    "id": "B27",
+    "title": "Racisme et discriminations",
+    "context": "À propos du racisme et des discriminations en France, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B28",
+    "title": "Contrôles de police dans un quartier",
+    "context": "Dans un quartier populaire, les policiers contrôlent souvent les mêmes jeunes. Que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B29",
+    "title": "L'Union européenne telle qu'elle est",
+    "context": "Pensez à l'Union européenne telle qu'elle fonctionne aujourd'hui, avec ses dirigeants et ses politiques actuelles."
+  },
+  {
+    "id": "B30",
+    "title": "L'Europe que vous souhaiteriez",
+    "context": "Imaginez maintenant une Union européenne dont les orientations politiques vous conviendraient.",
+    "follows": "B29"
+  },
+  {
+    "id": "B31",
+    "title": "Guerre en Ukraine",
+    "context": "À propos de la guerre en Ukraine, que pensez-vous de ces positions ?"
+  },
+  {
+    "id": "B32",
+    "title": "Alliances et interventions",
+    "context": "À propos de la place de la France dans le monde, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B33",
+    "title": "Si le gouvernement était du camp opposé",
+    "context": "Imaginez que le prochain gouvernement soit issu du camp politique le plus éloigné du vôtre."
+  },
+  {
+    "id": "B34",
+    "title": "Si le gouvernement était de votre camp",
+    "context": "Imaginez maintenant que le prochain gouvernement soit issu de votre camp politique.",
+    "follows": "B33"
+  },
+  {
+    "id": "B35",
+    "title": "Le peuple et les élites",
+    "context": "À propos du pouvoir et de la représentation, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B36",
+    "title": "Adversaires et information",
+    "context": "À propos du débat démocratique et de l'information, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B37",
+    "title": "Un cambriolage de trop",
+    "context": "Un multirécidiviste commet un nouveau cambriolage. Que pensez-vous de ces réponses ?"
+  },
+  {
+    "id": "B38",
+    "title": "Police, libertés et technologies",
+    "context": "À propos des moyens de la sécurité publique, que pensez-vous de ces mesures ?"
+  },
+  {
+    "id": "B39",
+    "title": "Institutions",
+    "context": "À propos des institutions de la République, que pensez-vous de ces réformes ?"
+  },
+  {
+    "id": "B40",
+    "title": "Qui décide ?",
+    "context": "Pour les grandes décisions publiques, que pensez-vous de ces méthodes ?"
+  },
+  {
+    "id": "B41",
+    "title": "Territoires",
+    "context": "À propos de l'organisation du territoire, que pensez-vous de ces orientations ?"
+  },
+  {
+    "id": "B42",
+    "title": "Comment changer la société ?",
+    "context": "Pour faire avancer une cause à laquelle on tient, quelles méthodes vous semblent légitimes ?"
+  },
+  {
+    "id": "B43",
+    "title": "Le capitalisme",
+    "context": "À propos du capitalisme, que pensez-vous de ces affirmations ?"
+  },
+  {
+    "id": "B44",
+    "title": "Changer de régime ?",
+    "context": "Certains pensent que le pays a besoin d'un changement profond. Que pensez-vous de ces positions ?"
+  }
+]
