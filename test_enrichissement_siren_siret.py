@@ -194,7 +194,7 @@ class TestEnrichissement(unittest.TestCase):
         # SIREN et SIRET incohérents : signalés, non modifiés.
         self.assertEqual(par_id["13"][6:], ["111222333", "44455566600017"])
         self.assertEqual(rapport["13"][4], "INCOHÉRENT")
-        self.assertEqual(compteurs, {"TROUVÉ": 5, "ADRESSE CORRIGÉE": 1,
+        self.assertEqual(compteurs, {"TROUVÉ": 5, "TROUVÉ (VILLE)": 0, "ADRESSE CORRIGÉE": 1,
                                      "ADRESSE À VÉRIFIER": 1, "FERMÉE": 1, "À VÉRIFIER": 0,
                                      "RECHERCHE INTERNET": 2, "HORS FRANCE": 1,
                                      "DÉJÀ RENSEIGNÉ": 1, "INCOHÉRENT": 1})
@@ -213,6 +213,118 @@ class TestEnrichissement(unittest.TestCase):
                                            "Crecy Sur Serre"), "1 rue des Telliers")
         self.assertEqual(enr.mettre_en_forme("12 AVENUE DES CHAMPS-ELYSEES"),
                          "12 Avenue des Champs-Elysees")
+
+
+def ecole(siren, nom, siege, matching=None, nature="9220", activite="85.20Z", ouverts=None, etat="A"):
+    e = entreprise(siren, nom, siege, etat=etat, matching=matching)
+    e.update({"nature_juridique": nature, "activite_principale": activite})
+    if ouverts is not None:
+        e["nombre_etablissements_ouverts"] = ouverts
+    return e
+
+
+RESULTATS_ECOLES = {
+    # Nom pollué (« DAH - », ville en suffixe) et entité juridique au nom d'OGEC.
+    "ECOLE SAINTE MARGUERITE Haute-Rivoire": [
+        ecole("781111111", "OGEC STE MARGUERITE",
+              etab("78111111100013", "2", "RUE", "DE L EGLISE", "69610", "HAUTE-RIVOIRE")),
+    ],
+    # Deux OGEC « Saint Joseph » différents dans la même ville : on ne choisit pas.
+    "Ecole Saint Joseph Lyon": [
+        ecole("782222222", "OGEC SAINT JOSEPH",
+              etab("78222222200011", "5", "RUE", "SALA", "69002", "LYON")),
+        ecole("783333333", "ASSOCIATION SAINT JOSEPH",
+              etab("78333333300019", "9", "RUE", "MARIETTON", "69009", "LYON")),
+    ],
+    # Une SARL homonyme n'est pas une école.
+    "College Notre Dame Lille": [
+        ecole("784444444", "NOTRE DAME", etab("78444444400015", "1", "RUE", "NATIONALE",
+                                              "59000", "LILLE"),
+              nature="5499", activite="47.11B"),
+    ],
+    # Adresse HubSpot générique : ignorée, l'école est trouvée sur nom + ville.
+    "Lycee Sainte Anne Brest": [
+        ecole("785555555", "ORGANISME DE GESTION DE L ENSEIGNEMENT CATHOLIQUE SAINTE ANNE",
+              etab("78555555500017", "20", "RUE", "LAMARTINE", "29200", "BREST")),
+    ],
+    # SIREN connu, un seul établissement ouvert.
+    "786666666": [
+        ecole("786666666", "OGEC SAINT LOUIS",
+              etab("78666666600012", "4", "PL", "DU MARCHE", "44000", "NANTES"), ouverts=1),
+    ],
+}
+
+
+class FauxClientEcoles(FauxClient):
+    def rechercher(self, texte, par_page=5, page=1):
+        self.requetes.append(texte)
+        index = {enr.normaliser(k): v for k, v in RESULTATS_ECOLES.items()}
+        return index.get(enr.normaliser(texte), [])
+
+
+class TestEcoles(unittest.TestCase):
+    ENTETES = ["ID de fiche d'informations", "Nom de l'entreprise", "Ville",
+               "Sous-catégorie d'actifs majoritaires", "Pays/Région", "Adresse postale",
+               "SIREN", "SIRET"]
+    CAT = "Enseignement Privé - Ecoles, collège, Lycée"
+
+    def test_ecoles(self):
+        lignes = [
+            ["1", "DAH - ECOLE SAINTE MARGUERITE - Haute Rivoire", "Haute-Rivoire", self.CAT,
+             "", "", "", ""],
+            ["2", "Ecole Saint Joseph", "Lyon", self.CAT, "", "", "", ""],
+            ["3", "Collège Notre Dame", "Lille", self.CAT, "", "", "", ""],
+            # Trois fiches de villes différentes avec la même adresse : adresse générique.
+            ["4", "Lycée Sainte Anne", "Brest", self.CAT, "", "277 rue Saint-Jacques", "", ""],
+            ["5", "Autre école", "Rennes", self.CAT, "", "277 rue Saint-Jacques", "", ""],
+            ["6", "Encore une école", "Nice", self.CAT, "", "277 rue Saint-Jacques", "", ""],
+            ["7", "OGEC Saint Louis", "", self.CAT, "", "", "786666666", ""],
+            ["8", "Ecole Saint Pierre", "", self.CAT, "", "", "", ""],
+        ]
+        dossier = tempfile.mkdtemp()
+        entree, sortie, rapport = (os.path.join(dossier, n) for n in ("e.csv", "s.csv", "r.csv"))
+        with open(entree, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(self.ENTETES)
+            w.writerows(lignes)
+        client = FauxClientEcoles()
+        enr.traiter(entree, sortie, rapport, {}, 5, False, client=client)
+        with open(sortie, encoding="utf-8-sig") as f:
+            par_id = {l[0]: l for l in list(csv.reader(f))[1:]}
+        with open(rapport, encoding="utf-8-sig") as f:
+            statut = {l[0]: l[4] for l in list(csv.reader(f))[1:]}
+
+        # Nom nettoyé, OGEC reconnu, adresse vide remplie (1er résultat « nom + ville »).
+        self.assertEqual(statut["1"], "TROUVÉ (VILLE)")
+        self.assertEqual(par_id["1"][5:], ["2 Rue de l Eglise", "781111111", "78111111100013"])
+        self.assertIn("ECOLE SAINTE MARGUERITE Haute-Rivoire", client.requetes)
+        # Homonymes dans la même ville : rien d'écrit.
+        self.assertEqual(statut["2"], "RECHERCHE INTERNET")
+        self.assertEqual(par_id["2"][6:], ["", ""])
+        # Entreprise commerciale homonyme : rejetée.
+        self.assertEqual(statut["3"], "RECHERCHE INTERNET")
+        # Adresse générique ignorée puis remplacée par la vraie.
+        self.assertEqual(statut["4"], "TROUVÉ (VILLE)")
+        self.assertEqual(par_id["4"][5:], ["20 Rue Lamartine", "785555555", "78555555500017"])
+        # SIREN connu et un seul établissement ouvert : SIRET du siège.
+        self.assertEqual(par_id["7"][6:], ["786666666", "78666666600012"])
+        # Ni adresse ni ville : impossible de vérifier.
+        self.assertEqual(statut["8"], "RECHERCHE INTERNET")
+
+    def test_noms(self):
+        self.assertEqual(enr.parties_nom("DAH - OGEC Saint Martin - Collège Immaculée "
+                                         "Conception (fermé)", "Biarritz"),
+                         ["OGEC Saint Martin - Collège Immaculée Conception",
+                          "Collège Immaculée Conception", "OGEC Saint Martin"])
+        self.assertEqual(enr.parties_nom("ECOLE SAINT JOSEPH - MARCOUSSIS", "MARCOUSSIS"),
+                         ["ECOLE SAINT JOSEPH - MARCOUSSIS", "ECOLE SAINT JOSEPH"])
+        oge = {"nom_complet": "ORGANISME DE GESTION DE L ENSEIGNEMENT CATHOLIQUE SAINTE ANNE"}
+        self.assertEqual(enr.score_nom("École Sainte-Anne", oge, ecole=True), 1.0)
+        self.assertLess(enr.score_nom("Ecole Saint Joseph", {"nom_complet": "OGEC SAINT JEAN"},
+                                      ecole=True), enr.SEUIL_NOM)
+        # « Saint » seul ne suffit jamais.
+        self.assertLess(enr.score_nom("Ecole Saint", {"nom_complet": "OGEC SAINT PAUL"},
+                                      ecole=True), enr.SEUIL_NOM)
 
 
 if __name__ == "__main__":

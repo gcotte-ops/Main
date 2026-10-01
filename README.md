@@ -18,7 +18,13 @@ python enrichissement_siren_siret.py entreprises.csv --envoyer  # + envoi par em
   2. Sinon, recherche « nom + ville du CSV » : nom + adresse identiques → **TROUVÉ** ;
      1er résultat = même entreprise, en activité, à une autre adresse → **ADRESSE CORRIGÉE** : SIREN + SIRET écrits,
      adresse et ville HubSpot remplacées (`--sans-correction-adresse` pour ne pas y toucher).
+     Fiche **sans adresse** : une seule entreprise de ce nom avec un établissement actif dans la ville → **TROUVÉ (VILLE)**
+     (adresse vide remplie si l'entreprise sort en 1er résultat) ; plusieurs homonymes dans la ville → rien n'est écrit.
   3. Sinon → **RECHERCHE INTERNET** (rien n'est écrit, adresse non modifiée).
+- Établissements scolaires (catégorie « Enseignement… » ou nom d'école) : noms nettoyés (« DAH - », « (fermé) », suffixe
+  « - Ville »), chaque partie du nom essayée, comparaison sur les mots distinctifs (« OGEC École Sainte-Anne » =
+  « Organisme de gestion… Sainte Anne »), et seules les associations / entités d'enseignement (NAF 85) sont retenues.
+- Adresses génériques (même adresse sur au moins 3 fiches de villes différentes) : ignorées.
   - Entreprise cessée → **FERMÉE** : fiche à supprimer ou entreprise radiée (INPI).
   - SIRET qui ne commence pas par le SIREN → **INCOHÉRENT** (signalé, non modifié).
 - L'adresse n'est modifiée que dans le cas **ADRESSE CORRIGÉE**.

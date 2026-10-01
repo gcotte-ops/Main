@@ -16,6 +16,9 @@ Arbre de décision (lignes dont le SIREN ou le SIRET est vide ; les autres sont 
      Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
   2. Sinon, recherche « nom + ville du CSV ».
      Nom + adresse identiques                      -> TROUVÉ : SIREN + SIRET écrits.
+     Pas d'adresse dans HubSpot, une seule entreprise de ce nom dans la ville
+                                                   -> TROUVÉ (VILLE) : SIREN + SIRET écrits
+                                                      (adresse vide remplie si 1er résultat).
      1er résultat = même entreprise, en activité, autre adresse
                                                    -> ADRESSE CORRIGÉE : SIREN + SIRET écrits,
                                                       adresse et ville HubSpot remplacées.
@@ -77,6 +80,8 @@ ALIAS_COLONNES = {
     "nom": ["nom de l'entreprise", "nom entreprise", "nom", "company name", "name",
             "raison sociale", "entreprise"],
     "secteur": ["secteur d'activite", "secteur", "industry", "activite"],
+    "categorie": ["sous-categorie d'actifs majoritaires", "categorie d'actifs majoritaires",
+                  "sous-categorie", "categorie", "type d'entreprise", "type"],
     "adresse": ["adresse postale", "adresse", "street address", "address", "adresse 1",
                 "rue"],
     "ville": ["ville", "city", "commune"],
@@ -169,6 +174,8 @@ def retirer_ville(adresse, ville):
     mots_ville = normaliser(ville).split()
     mots = normaliser(adresse).split()
     n = len(mots_ville)
+    if mots == mots_ville:
+        return ""                        # « Paris » saisi comme adresse
     if n and len(mots) > n and mots[-n:] == mots_ville:
         # On retire autant de mots dans le texte d'origine (accents et tirets conservés).
         brut = re.split(r"[\s,;]+", adresse.strip())
@@ -195,30 +202,128 @@ def nettoyer_numero(valeur, longueur):
 # Comparaison nom / adresse
 # --------------------------------------------------------------------------- #
 
-def score_nom(nom_crm, resultat):
-    """Meilleure similarité entre le nom HubSpot et les noms connus de l'entreprise."""
-    cible = normaliser_nom(nom_crm)
-    if not cible:
-        return 0.0
-    candidats = [resultat.get("nom_complet"), resultat.get("nom_raison_sociale"),
-                 resultat.get("sigle")]
+# Mots qui décrivent le type d'établissement scolaire ou sa structure de gestion, et non
+# l'établissement lui-même : « OGEC École Sainte-Anne » et « Organisme de gestion de
+# l'enseignement catholique Sainte Anne » ont en commun « sainte anne ».
+GENERIQUES_ECOLE = {
+    "ogec", "ogeec", "ogecap", "aogec", "organisme", "organismes", "gestion", "enseignement",
+    "catholique", "catholiques", "prive", "privee", "prives", "privees", "ecole", "ecoles",
+    "college", "colleges", "lycee", "lycees", "ensemble", "scolaire", "scolaires", "groupe",
+    "institution", "institut", "association", "associations", "aep", "apel", "udogec",
+    "urogec", "cours", "maternelle", "maternelles", "primaire", "primaires", "elementaire",
+    "elementaires", "general", "generale", "technologique", "professionnel", "professionnelle",
+    "polyvalent", "agricole", "internat", "externat", "centre", "cfa", "lp", "lgt", "lpo",
+    "etablissement", "etablissements", "sous", "contrat", "mixte", "populaire", "familiale",
+    "gestionnaire", "comite", "pour", "en", "sur", "a", "au", "aux", "et", "de", "du", "des",
+    "la", "le", "les", "l", "d",
+}
+MOTS_SAINT = {"saint", "sainte", "saints", "saintes"}
+RE_ECOLE = re.compile(r"\b(ogec|ogeec|ecole|college|lycee|ensemble scolaire|groupe scolaire|"
+                      r"institution|maternelle|enseignement|scolaire|cneap|ddec|udogec|urogec)\b")
+RE_PREFIXE = re.compile(r"^\s*(dah|ddec|cneap)\s*[-:/]\s*", re.I)
+
+
+def est_ecole(nom, categorie=""):
+    return bool(RE_ECOLE.search(normaliser(nom))) or normaliser(categorie).startswith("enseignement")
+
+
+def parties_nom(nom, ville=""):
+    """
+    Variantes de recherche d'un nom HubSpot, de la plus complète à la plus courte :
+    « DAH - OGEC Saint Martin - Collège Immaculée Conception (fermé) »
+      -> ["OGEC Saint Martin - Collège Immaculée Conception", "OGEC Saint Martin",
+          "Collège Immaculée Conception"]
+    Les parties qui ne sont que le nom de la ville sont écartées.
+    """
+    nom = re.sub(r"\(.*?\)|\[.*?\]", " ", nom or "")
+    while RE_PREFIXE.match(nom):
+        nom = RE_PREFIXE.sub("", nom, count=1)
+    nom = re.sub(r"\s+", " ", nom).strip(" -–/,;")
+    if not nom:
+        return []
+    ville_n = normaliser_ville(ville)
+    parties = [p.strip() for p in re.split(r"\s[-–/]\s|\s[-–]|[-–]\s", nom) if p.strip()]
+    variantes = [nom]
+    for partie in sorted(parties, key=len, reverse=True):
+        norm = normaliser(partie)
+        if (len(parties) > 1 and norm and norm != ville_n
+                and normaliser_ville(partie) != ville_n and partie not in variantes):
+            variantes.append(partie)
+    return variantes
+
+
+def distinctifs(texte, ville=""):
+    """Mots qui identifient l'établissement (sans les mots génériques ni la ville)."""
+    mots_ville = set(normaliser_ville(ville).split())
+    mots = []
+    for mot in normaliser(re.sub(r"\(.*?\)", " ", texte or "")).split():
+        mot = {"st": "saint", "ste": "sainte", "sts": "saints"}.get(mot, mot)
+        if mot not in GENERIQUES_ECOLE and mot not in FORMES_JURIDIQUES and mot not in mots_ville:
+            mots.append(mot)
+    return mots
+
+
+def noms_resultat(resultat):
+    noms = [resultat.get("nom_complet"), resultat.get("nom_raison_sociale"),
+            resultat.get("sigle")]
     for etab in [resultat.get("siege") or {}] + (resultat.get("matching_etablissements") or []):
-        candidats.extend(etab.get("liste_enseignes") or [])
-        candidats.append(etab.get("nom_commercial"))
+        noms.extend(etab.get("liste_enseignes") or [])
+        noms.append(etab.get("nom_commercial"))
+    return [n for n in noms if n]
+
+
+def score_texte(cible, candidat):
+    """Similarité de deux noms déjà normalisés (formes juridiques retirées)."""
+    if not cible or not candidat:
+        return 0.0
+    if cible == candidat:
+        return 1.0
+    score = similarite(cible, candidat)
+    # « Alter Watt » vs « Alter Watt Energies » : l'un contient l'autre mot pour mot.
+    mots_c, mots_n = set(cible.split()), set(candidat.split())
+    petit = mots_c if len(mots_c) <= len(mots_n) else mots_n
+    if (mots_c <= mots_n or mots_n <= mots_c) and (len(petit) >= 2 or len(" ".join(petit)) >= 5):
+        score = max(score, 0.9)
+    return score
+
+
+def score_distinctif(cible, candidat):
+    """Mode école : compare uniquement les mots distinctifs (« sainte anne »)."""
+    if not cible or not candidat or set(cible) <= MOTS_SAINT:
+        return 0.0
+    if set(cible) <= set(candidat) or (set(candidat) <= set(cible)
+                                       and not set(candidat) <= MOTS_SAINT
+                                       and len(candidat) >= 2):
+        return 1.0
+    score = similarite(" ".join(cible), " ".join(candidat))
+    return 0.9 if score >= 0.85 else score
+
+
+def score_nom(nom_crm, resultat, ecole=False, ville=""):
+    """Meilleure similarité entre le nom HubSpot (et ses parties) et les noms de l'entreprise."""
+    parties = parties_nom(nom_crm, ville) or [nom_crm]
+    candidats = noms_resultat(resultat)
     meilleur = 0.0
-    for candidat in candidats:
-        nom = normaliser_nom(candidat)
-        if not nom:
-            continue
-        if nom == cible:
-            return 1.0
-        score = similarite(cible, nom)
-        # « Alter Watt » vs « Alter Watt Energies » : l'un contient l'autre mot pour mot.
-        mots_c, mots_n = set(cible.split()), set(nom.split())
-        if mots_c and mots_n and (mots_c <= mots_n or mots_n <= mots_c):
-            score = max(score, 0.9)
-        meilleur = max(meilleur, score)
+    for partie in parties:
+        cible = normaliser_nom(partie)
+        cible_d = distinctifs(partie, ville) if ecole else None
+        for candidat in candidats:
+            meilleur = max(meilleur, score_texte(cible, normaliser_nom(candidat)))
+            if ecole:
+                meilleur = max(meilleur, score_distinctif(cible_d, distinctifs(candidat, ville)))
+            if meilleur >= 1.0:
+                return 1.0
     return meilleur
+
+
+def type_compatible(resultat):
+    """Établissement scolaire privé : activité d'enseignement (NAF 85) ou association,
+    fondation, congrégation (catégorie juridique 9xxx)."""
+    activite = str(resultat.get("activite_principale") or "")
+    nature = str(resultat.get("nature_juridique") or "")
+    if not activite and not nature:
+        return True                      # information absente : on ne bloque pas
+    return activite.startswith("85") or nature.startswith("9")
 
 
 def adresse_etablissement(etab):
@@ -335,15 +440,35 @@ def reponse(statut, resultat, etab, rang, detail, recherche):
             "adresse_trouvee": adresse_etablissement(etab), "etablissement": etab}
 
 
+def etablissement_le_plus_proche(etabs, nom_crm, ville):
+    """Parmi les établissements d'une même ville, celui dont l'enseigne ressemble le plus
+    au nom HubSpot (une association gère souvent école + collège dans la même commune)."""
+    if len(etabs) == 1:
+        return etabs[0], False
+    cible = distinctifs(nom_crm, ville)
+
+    def score(e):
+        noms = (e.get("liste_enseignes") or []) + [e.get("nom_commercial") or ""]
+        return max([score_distinctif(cible, distinctifs(n, ville)) for n in noms if n] or [0.0])
+
+    classes = sorted(etabs, key=lambda e: (-score(e), not e.get("est_siege")))
+    ambigu = score(classes[0]) < 1.0
+    return classes[0], ambigu
+
+
 def examiner(resultats, ligne, max_resultats, siren_connu=None, seuil_nom=SEUIL_NOM):
     """
-    Parcourt les résultats dans l'ordre (1er, 2e, ...). Renvoie
-    (correspondance_adresse, homonymes, rejets) :
-      - correspondance_adresse : (rang, résultat, établissement, détail) du premier résultat
-        dont le nom ET l'adresse correspondent (établissements actifs privilégiés) ;
-      - homonymes : [(rang, résultat, score_nom)] des résultats dont seul le nom correspond.
+    Parcourt les résultats dans l'ordre (1er, 2e, ...) et renvoie un dict :
+      - adresse : (rang, résultat, établissement, détail) du premier résultat dont le nom ET
+        l'adresse correspondent (actifs d'abord) ;
+      - ville : [(rang, résultat, établissement, ambigu)] des résultats dont le nom correspond
+        et qui ont un établissement actif dans la ville du CSV (fiches sans adresse) ;
+      - homonymes : [(rang, résultat, score_nom)] des résultats dont seul le nom correspond ;
+      - rejets : explications pour le rapport.
     """
-    adresse_active, adresse_fermee, homonymes, rejets = None, None, [], []
+    ex = {"adresse": None, "ville": [], "homonymes": [], "rejets": []}
+    adresse_fermee = None
+    ecole = ligne.get("ecole", False)
     for rang, resultat in enumerate(resultats[:max_resultats], start=1):
         nom_trouve = resultat.get("nom_complet") or ""
         if siren_connu:
@@ -351,28 +476,41 @@ def examiner(resultats, ligne, max_resultats, siren_connu=None, seuil_nom=SEUIL_
                 continue
             s_nom = 1.0
         else:
-            s_nom = score_nom(ligne["nom"], resultat)
+            s_nom = score_nom(ligne["nom"], resultat, ecole, ligne["ville"])
             if s_nom < seuil_nom:
-                rejets.append("#{} {} : nom différent".format(rang, nom_trouve))
+                ex["rejets"].append("#{} {} : nom différent".format(rang, nom_trouve))
                 continue
-        trouve = False
+            if ecole and not type_compatible(resultat):
+                ex["rejets"].append("#{} {} : pas un établissement d'enseignement / association"
+                                    .format(rang, nom_trouve))
+                continue
+        dans_la_ville, trouve = [], False
         for etab in etablissements_candidats(resultat):
             ok, detail = comparer_adresse(ligne["adresse"], ligne["ville"],
                                           ligne["code_postal"], etab)
             if not ok:
                 continue
             trouve = True
+            if detail == "ville seule":
+                if etab.get("etat_administratif") != "F":
+                    dans_la_ville.append(etab)
+                continue
             actif = etab.get("etat_administratif") != "F" and not entreprise_fermee(resultat)
-            if actif and adresse_active is None:
-                adresse_active = (rang, resultat, etab, detail)
+            if actif and ex["adresse"] is None:
+                ex["adresse"] = (rang, resultat, etab, detail)
             elif not actif and adresse_fermee is None:
                 adresse_fermee = (rang, resultat, etab, detail)
             break
+        if dans_la_ville:
+            etab, ambigu = etablissement_le_plus_proche(dans_la_ville, ligne["nom"], ligne["ville"])
+            ex["ville"].append((rang, resultat, etab, ambigu))
         if not trouve:
-            homonymes.append((rang, resultat, s_nom))
-            rejets.append("#{} {} : adresse différente ({})".format(
-                rang, nom_trouve, adresse_etablissement(resultat.get("siege") or {})))
-    return adresse_active or adresse_fermee, homonymes, rejets
+            ex["homonymes"].append((rang, resultat, s_nom))
+            ex["rejets"].append("#{} {} : {} différente ({})".format(
+                rang, nom_trouve, "adresse" if ligne["adresse"] else "ville",
+                adresse_etablissement(resultat.get("siege") or {})))
+    ex["adresse"] = ex["adresse"] or adresse_fermee
+    return ex
 
 
 MESSAGE_FERMEE = "entreprise cessée : fiche à supprimer ou entreprise radiée (INPI)"
@@ -414,11 +552,14 @@ def trouver_entreprise(client, ligne, max_resultats=5):
       0. SIRET déjà renseigné -> recherche par SIRET (voir trouver_par_siret).
       1. Recherche du nom (ou du SIREN s'il est connu), résultats examinés dans l'ordre :
          nom + adresse identiques                                 -> TROUVÉ
-      2. Sinon, recherche « nom + ville du CSV » :
+      2. Sinon, recherche « nom + ville du CSV » (puis chaque partie du nom) :
          nom + adresse identiques                                 -> TROUVÉ
+         pas d'adresse dans HubSpot : une seule entreprise du nom
+         avec un établissement actif dans la ville                -> TROUVÉ (VILLE)
          1er résultat = même entreprise, active, autre adresse    -> ADRESSE CORRIGÉE
       3. Sinon                                                    -> RECHERCHE INTERNET
-    L'adresse n'est modifiée que dans le cas « ADRESSE CORRIGÉE ».
+    L'adresse HubSpot n'est écrite que pour une entreprise trouvée en 1er résultat avec
+    « nom + ville » (ADRESSE CORRIGÉE, ou TROUVÉ (VILLE) quand l'adresse était vide).
     Une entreprise cessée donne FERMÉE (fiche à supprimer / entreprise radiée INPI).
     """
     nom = ligne["nom"]
@@ -428,6 +569,11 @@ def trouver_entreprise(client, ligne, max_resultats=5):
     siren_connu = ligne["siren"]
     if not (nom or siren_connu):
         return {"statut": "RECHERCHE INTERNET", "detail": "nom de l'entreprise vide"}
+    ecole = ligne.get("ecole", False)
+    # Les noms d'écoles ont beaucoup d'homonymes : on regarde plus de résultats.
+    par_page = max(max_resultats, 10) if ecole else max_resultats
+    variantes = parties_nom(nom, ligne["ville"]) or ([nom] if nom else [])
+    rejets = []
 
     def conclure(correspondance, recherche):
         """Nom + adresse trouvés. None si l'établissement est fermé mais l'entreprise active."""
@@ -436,54 +582,106 @@ def trouver_entreprise(client, ligne, max_resultats=5):
             return reponse("FERMÉE", resultat, etab, rang, MESSAGE_FERMEE, recherche)
         if etab.get("etat_administratif") == "F":
             return None
-        if detail == "ville seule":
-            return reponse("À VÉRIFIER", resultat, etab, rang,
-                           "pas d'adresse dans HubSpot, seule la ville a été vérifiée", recherche)
         return reponse("TROUVÉ", resultat, etab, rang, detail, recherche)
 
-    # 1. Recherche du nom seul (ou du SIREN).
-    requete_1 = siren_connu or nom
-    resultats = client.rechercher(requete_1, par_page=max_resultats)
-    correspondance, _, rejets = examiner(resultats, ligne, max_resultats, siren_connu)
-    if correspondance:
-        res = conclure(correspondance, requete_1)
-        if res:
-            return res
+    def conclure_ville(ex, recherche, nom_ville=False):
+        """Fiche sans adresse : une seule entreprise du nom présente dans la ville."""
+        actives = {}
+        for rang, resultat, etab, ambigu in ex["ville"]:
+            actives.setdefault(resultat.get("siren"), (rang, resultat, etab, ambigu))
+        if len(actives) > 1:
+            rejets.append("« {} » : {} entreprises du même nom dans cette ville".format(
+                recherche, len(actives)))
+            return "ambigu"
+        if not actives:
+            return None
+        rang, resultat, etab, ambigu = next(iter(actives.values()))
+        if entreprise_fermee(resultat):
+            return reponse("FERMÉE", resultat, etab, rang, MESSAGE_FERMEE, recherche)
+        detail = "pas d'adresse dans HubSpot : nom et ville vérifiés"
+        if ligne.get("adresse_generique"):
+            detail = "adresse HubSpot générique ignorée : nom et ville vérifiés"
+        if ambigu:
+            detail += " ; plusieurs établissements dans la ville, à contrôler"
+        res = reponse("TROUVÉ (VILLE)", resultat, etab, rang, detail, recherche)
+        res["remplir_adresse"] = nom_ville and rang == 1
+        return res
 
-    # 2. Recherche « nom + ville du CSV ».
-    if ligne["ville"] and nom:
-        requete_2 = "{} {}".format(nom, ligne["ville"])
-        resultats_2 = client.rechercher(requete_2, par_page=max_resultats)
-        correspondance, _, rejets_2 = examiner(resultats_2, ligne, max_resultats, siren_connu)
-        rejets += rejets_2
-        if correspondance:
-            res = conclure(correspondance, requete_2)
+    # 1. Recherche du nom seul (ou du SIREN).
+    requete_1 = siren_connu or variantes[0]
+    if siren_connu or ligne["adresse"]:
+        resultats = client.rechercher(requete_1, par_page=par_page)
+        ex = examiner(resultats, ligne, par_page, siren_connu)
+        rejets += ex["rejets"]
+        if ex["adresse"]:
+            res = conclure(ex["adresse"], requete_1)
             if res:
                 return res
-        # Trouvée du premier coup (1er résultat) mais à une autre adresse : on corrige.
-        if resultats_2:
-            premier = resultats_2[0]
-            meme = (premier.get("siren") == siren_connu if siren_connu
-                    else score_nom(nom, premier) >= SEUIL_NOM_CORRECTION)
-            if meme:
-                if entreprise_fermee(premier):
-                    return reponse("FERMÉE", premier, premier.get("siege") or {}, 1,
-                                   MESSAGE_FERMEE, requete_2)
-                ville = normaliser_ville(ligne["ville"])
-                actifs = [e for e in etablissements_candidats(premier)
-                          if e.get("etat_administratif") != "F"]
-                dans_la_ville = [e for e in actifs
-                                 if normaliser_ville(e.get("libelle_commune")) == ville]
-                etab = (dans_la_ville or [premier.get("siege") or {}])[0]
-                if etab.get("siret"):
-                    detail = "trouvée en 1er résultat avec « nom + ville », adresse HubSpot différente"
-                    if not dans_la_ville:
-                        detail += " ; aucun établissement actif dans cette ville : siège retenu"
-                    return reponse("ADRESSE CORRIGÉE", premier, etab, 1, detail, requete_2)
+        if siren_connu:
+            unite = next((r for r in resultats if r.get("siren") == siren_connu), None)
+            if unite and entreprise_fermee(unite):
+                return reponse("FERMÉE", unite, unite.get("siege") or {}, 1, MESSAGE_FERMEE,
+                               requete_1)
+            res = conclure_ville(ex, requete_1) if not ligne["adresse"] else None
+            if isinstance(res, dict):
+                return res
+            siege = (unite or {}).get("siege") or {}
+            if (unite and unite.get("nombre_etablissements_ouverts") == 1
+                    and siege.get("etat_administratif") != "F" and siege.get("siret")):
+                return reponse("TROUVÉ", unite, siege, 1,
+                               "SIREN connu, un seul établissement ouvert", requete_1)
+
+    # 2. Recherche « nom + ville du CSV », puis avec chaque partie du nom.
+    if ligne["ville"]:
+        for variante in variantes:
+            requete_2 = "{} {}".format(variante, ligne["ville"])
+            resultats_2 = client.rechercher(requete_2, par_page=par_page)
+            ex = examiner(resultats_2, ligne, par_page, siren_connu)
+            rejets += ex["rejets"]
+            if ex["adresse"]:
+                res = conclure(ex["adresse"], requete_2)
+                if res:
+                    return res
+            if not ligne["adresse"]:
+                res = conclure_ville(ex, requete_2, nom_ville=True)
+                if res == "ambigu":
+                    break
+                if res:
+                    return res
+            elif resultats_2:
+                # Trouvée du premier coup (1er résultat) mais à une autre adresse : on corrige.
+                premier = resultats_2[0]
+                meme = (premier.get("siren") == siren_connu if siren_connu
+                        else score_nom(nom, premier, ecole, ligne["ville"]) >= SEUIL_NOM_CORRECTION
+                        and (not ecole or type_compatible(premier)))
+                if meme:
+                    if entreprise_fermee(premier):
+                        return reponse("FERMÉE", premier, premier.get("siege") or {}, 1,
+                                       MESSAGE_FERMEE, requete_2)
+                    ville = normaliser_ville(ligne["ville"])
+                    actifs = [e for e in etablissements_candidats(premier)
+                              if e.get("etat_administratif") != "F"]
+                    dans_la_ville = [e for e in actifs
+                                     if normaliser_ville(e.get("libelle_commune")) == ville]
+                    etab = (dans_la_ville or [premier.get("siege") or {}])[0]
+                    if etab.get("siret"):
+                        detail = ("trouvée en 1er résultat avec « nom + ville », "
+                                  "adresse HubSpot différente")
+                        if ligne.get("adresse_generique"):
+                            detail = ("trouvée en 1er résultat avec « nom + ville », "
+                                      "adresse HubSpot générique remplacée")
+                        if not dans_la_ville:
+                            detail += " ; aucun établissement actif dans cette ville : siège retenu"
+                        return reponse("ADRESSE CORRIGÉE", premier, etab, 1, detail, requete_2)
+            if ex["ville"] or ex["homonymes"]:
+                break                       # le nom a été trouvé : inutile d'essayer plus court
 
     # 3. Rien de sûr dans l'Annuaire.
+    if not ligne["ville"] and not ligne["adresse"] and not rejets:
+        rejets.append("ni adresse ni ville dans HubSpot : impossible de vérifier")
     return {"statut": "RECHERCHE INTERNET",
-            "detail": " | ".join(rejets) or "aucun résultat dans l'Annuaire des Entreprises"}
+            "detail": " | ".join(dict.fromkeys(rejets)) or
+                      "aucun résultat dans l'Annuaire des Entreprises"}
 
 
 # --------------------------------------------------------------------------- #
@@ -593,6 +791,20 @@ def envoyer_email(destinataire, fichiers, resume):
 # Programme principal
 # --------------------------------------------------------------------------- #
 
+def adresses_generiques(lignes, colonnes, seuil=3):
+    """Adresses saisies sur au moins `seuil` fiches de villes différentes (siège d'un réseau,
+    adresse remplie automatiquement par HubSpot...) : elles ne décrivent pas l'entreprise."""
+    if "adresse" not in colonnes:
+        return set()
+    fiches, villes = {}, {}
+    for ligne in lignes:
+        adresse = normaliser(valeur(ligne, colonnes, "adresse"))
+        if adresse:
+            fiches[adresse] = fiches.get(adresse, 0) + 1
+            villes.setdefault(adresse, set()).add(normaliser_ville(valeur(ligne, colonnes, "ville")))
+    return {a for a, n in fiches.items() if n >= seuil and len(villes[a]) >= 2}
+
+
 MOTS_MINUSCULES = {"de", "du", "des", "la", "le", "les", "d", "l", "et", "a", "au", "aux",
                    "sur", "sous", "en"}
 
@@ -632,9 +844,11 @@ def rue_etablissement(etab):
     return " ".join(mots)
 
 
-STATUTS_ECRITS = {"TROUVÉ", "ADRESSE CORRIGÉE", "ADRESSE À VÉRIFIER", "FERMÉE"}
+STATUTS_ECRITS = {"TROUVÉ", "TROUVÉ (VILLE)", "ADRESSE CORRIGÉE", "ADRESSE À VÉRIFIER",
+                  "FERMÉE"}
 ACTIONS = {
     "TROUVÉ": "SIREN/SIRET ajoutés",
+    "TROUVÉ (VILLE)": "SIREN/SIRET ajoutés (vérifiés sur le nom et la ville)",
     "ADRESSE CORRIGÉE": "SIREN/SIRET ajoutés + adresse corrigée",
     "ADRESSE À VÉRIFIER": "SIREN ajouté ; comparer l'adresse HubSpot à celle de l'Annuaire",
     "FERMÉE": "Supprimer la fiche (entreprise cessée / radiée INPI)",
@@ -652,10 +866,11 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
     client = client or ClientAnnuaire()
 
     rapport = []
-    compteurs = {"TROUVÉ": 0, "ADRESSE CORRIGÉE": 0, "ADRESSE À VÉRIFIER": 0, "FERMÉE": 0,
+    compteurs = {"TROUVÉ": 0, "TROUVÉ (VILLE)": 0, "ADRESSE CORRIGÉE": 0, "ADRESSE À VÉRIFIER": 0, "FERMÉE": 0,
                  "À VÉRIFIER": 0, "RECHERCHE INTERNET": 0, "HORS FRANCE": 0,
                  "DÉJÀ RENSEIGNÉ": 0, "INCOHÉRENT": 0}
     total = len(lignes)
+    generiques = adresses_generiques(lignes, colonnes)
 
     for numero, ligne in enumerate(lignes, start=1):
         if not any(c.strip() for c in ligne):
@@ -666,6 +881,12 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
         siren = nettoyer_numero(donnees["siren"], 9)
         siret = nettoyer_numero(donnees["siret"], 14)
         donnees["siren"], donnees["siret"] = siren, siret
+        donnees["ecole"] = est_ecole(donnees["nom"], donnees["categorie"]) or \
+            normaliser(donnees["secteur"]).startswith("enseignement")
+        donnees["adresse_generique"] = normaliser(donnees["adresse"]) in generiques
+        if donnees["adresse_generique"]:
+            # Adresse partagée par des fiches de villes différentes : elle est fausse.
+            donnees["adresse"] = ""
 
         if siren and siret and siret[:9] == siren:
             compteurs["DÉJÀ RENSEIGNÉ"] += 1
@@ -692,12 +913,14 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
                 ligne[colonnes["siren"]] = res["siren"]
             if not siret:
                 ligne[colonnes["siret"]] = res["siret"]
-        if ecrit and statut == "ADRESSE CORRIGÉE" and corriger_adresse:
+        corrige = statut == "ADRESSE CORRIGÉE" or res.get("remplir_adresse")
+        if ecrit and corrige and corriger_adresse:
             etab = res["etablissement"]
             nouvelle_adresse = mettre_en_forme(rue_etablissement(etab))
             if "adresse" in colonnes and nouvelle_adresse:
                 ligne[colonnes["adresse"]] = nouvelle_adresse
-            if "ville" in colonnes and etab.get("libelle_commune"):
+            if ("ville" in colonnes and etab.get("libelle_commune")
+                    and (statut == "ADRESSE CORRIGÉE" or not donnees["ville"])):
                 ligne[colonnes["ville"]] = mettre_en_forme(etab["libelle_commune"])
             if "code_postal" in colonnes and etab.get("code_postal"):
                 ligne[colonnes["code_postal"]] = etab["code_postal"]
@@ -756,7 +979,8 @@ def main(argv=None):
     compteurs = traiter(args.csv, sortie, rapport, forcees, args.max_resultats,
                         args.remplir_a_verifier,
                         corriger_adresse=not args.sans_correction_adresse)
-    resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {ADRESSE CORRIGÉE} avec "
+    resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {TROUVÉ (VILLE)} trouvée(s) "
+              "sur le nom et la ville, {ADRESSE CORRIGÉE} avec "
               "adresse corrigée, {ADRESSE À VÉRIFIER} adresse(s) à vérifier (SIRET connu), "
               "{FERMÉE} fermée(s) (fiches à supprimer), {À VÉRIFIER} à vérifier, "
               "{RECHERCHE INTERNET} à chercher sur Internet, {HORS FRANCE} hors France, "
