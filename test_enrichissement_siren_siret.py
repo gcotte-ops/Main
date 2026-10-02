@@ -96,6 +96,16 @@ RESULTATS = {
 }
 
 
+def lire_sortie(chemin):
+    """Lit le CSV complété ; renvoie (lignes sans la colonne de statut, {id: statut})."""
+    with open(chemin, encoding="utf-8-sig") as f:
+        lignes = list(csv.reader(f))
+    i = lignes[0].index(enr.COLONNE_STATUT)
+    assert lignes[0][i - 1] == "SIRET", "la colonne de statut doit suivre « SIRET »"
+    rendus = {l[0]: l[i] for l in lignes[1:]}
+    return [l[:i] + l[i + 1:] for l in lignes], rendus
+
+
 class FauxClient:
     def __init__(self):
         self.requetes = []
@@ -144,10 +154,9 @@ class TestEnrichissement(unittest.TestCase):
         self.client = FauxClient()
 
     def lancer(self, **options):
-        compteurs = enr.traiter(self.entree, self.sortie, self.rapport, {}, 5, False,
+        compteurs = enr.traiter(self.entree, self.sortie, self.rapport, {}, 5,
                                 client=self.client, **options)
-        with open(self.sortie, encoding="utf-8-sig") as f:
-            lignes = list(csv.reader(f))
+        lignes, self.rendus = lire_sortie(self.sortie)
         with open(self.rapport, encoding="utf-8-sig") as f:
             rapport = {r[0]: r for r in list(csv.reader(f))[1:]}
         return compteurs, lignes, rapport
@@ -194,6 +203,13 @@ class TestEnrichissement(unittest.TestCase):
         # SIREN et SIRET incohérents : signalés, non modifiés.
         self.assertEqual(par_id["13"][6:], ["111222333", "44455566600017"])
         self.assertEqual(rapport["13"][4], "INCOHÉRENT")
+        # Colonne « Statut enrichissement » à droite de « SIRET ».
+        self.assertEqual(self.rendus["1"], "Trouvé")
+        self.assertEqual(self.rendus["3"], "Trouvé")         # adresse corrigée
+        self.assertEqual(self.rendus["5"], "Fermée")
+        self.assertEqual(self.rendus["12"], "À vérifier")    # SIRET connu, autre adresse
+        self.assertEqual(self.rendus["6"], "")               # rien d'écrit
+        self.assertEqual(self.rendus["7"], "")               # déjà renseignée
         self.assertEqual(compteurs, {"TROUVÉ": 5, "TROUVÉ (VILLE)": 0, "ADRESSE CORRIGÉE": 1,
                                      "ADRESSE À VÉRIFIER": 1, "FERMÉE": 1, "À VÉRIFIER": 0,
                                      "RECHERCHE INTERNET": 2, "HORS FRANCE": 1,
@@ -280,6 +296,7 @@ class TestEcoles(unittest.TestCase):
             ["6", "Encore une école", "Nice", self.CAT, "", "277 rue Saint-Jacques", "", ""],
             ["7", "OGEC Saint Louis", "", self.CAT, "", "", "786666666", ""],
             ["8", "Ecole Saint Pierre", "", self.CAT, "", "", "", ""],
+            ["9", "École inconnue", "Paris", self.CAT, "", "", "", "99988877700011"],
         ]
         dossier = tempfile.mkdtemp()
         entree, sortie, rapport = (os.path.join(dossier, n) for n in ("e.csv", "s.csv", "r.csv"))
@@ -288,9 +305,9 @@ class TestEcoles(unittest.TestCase):
             w.writerow(self.ENTETES)
             w.writerows(lignes)
         client = FauxClientEcoles()
-        enr.traiter(entree, sortie, rapport, {}, 5, False, client=client)
-        with open(sortie, encoding="utf-8-sig") as f:
-            par_id = {l[0]: l for l in list(csv.reader(f))[1:]}
+        enr.traiter(entree, sortie, rapport, {}, 5, client=client)
+        lignes_sortie, rendus = lire_sortie(sortie)
+        par_id = {l[0]: l for l in lignes_sortie[1:]}
         with open(rapport, encoding="utf-8-sig") as f:
             statut = {l[0]: l[4] for l in list(csv.reader(f))[1:]}
 
@@ -310,6 +327,19 @@ class TestEcoles(unittest.TestCase):
         self.assertEqual(par_id["7"][6:], ["786666666", "78666666600012"])
         # Ni adresse ni ville : impossible de vérifier.
         self.assertEqual(statut["8"], "RECHERCHE INTERNET")
+        # SIRET introuvable : SIREN déduit du SIRET, écrit comme « À vérifier ».
+        self.assertEqual(statut["9"], "À VÉRIFIER")
+        self.assertEqual(par_id["9"][6:], ["999888777", "99988877700011"])
+        self.assertEqual(rendus["9"], "À vérifier")
+        self.assertEqual(rendus["1"], "Trouvé")
+
+        # Relancer sur le CSV complété ne duplique pas la colonne et garde les statuts.
+        sortie_2 = os.path.join(dossier, "s2.csv")
+        enr.traiter(sortie, sortie_2, os.path.join(dossier, "r2.csv"), {}, 5, client=client)
+        with open(sortie_2, encoding="utf-8-sig") as f:
+            entetes_2 = next(csv.reader(f))
+        self.assertEqual(entetes_2.count(enr.COLONNE_STATUT), 1)
+        self.assertEqual(lire_sortie(sortie_2)[1]["1"], "Trouvé")
 
     def test_noms(self):
         self.assertEqual(enr.parties_nom("DAH - OGEC Saint Martin - Collège Immaculée "

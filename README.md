@@ -28,6 +28,9 @@ python enrichissement_siren_siret.py entreprises.csv --envoyer  # + envoi par em
   - Entreprise cessée → **FERMÉE** : fiche à supprimer ou entreprise radiée (INPI).
   - SIRET qui ne commence pas par le SIREN → **INCOHÉRENT** (signalé, non modifié).
 - L'adresse n'est modifiée que dans le cas **ADRESSE CORRIGÉE**.
+- Le CSV complété contient une colonne **« Statut enrichissement »** juste à droite de « SIRET » : `Trouvé`,
+  `À vérifier` (SIREN/SIRET écrits mais à contrôler) ou `Fermée`, vide quand rien n'a été écrit. Elle est réutilisée
+  (pas dupliquée) si on relance le script sur un CSV déjà complété.
 - Le rapport indique pour chaque ligne le statut, l'action à mener, la recherche effectuée, l'ancienne et la
   nouvelle adresse, et le lien vers la fiche de l'Annuaire.
 - Colonnes détectées automatiquement (`Record ID`, `Nom de l'entreprise`, `Adresse`, `Ville`, `SIREN`, `SIRET`...) ;

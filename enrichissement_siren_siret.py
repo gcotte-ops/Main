@@ -89,6 +89,7 @@ ALIAS_COLONNES = {
     "code_postal": ["code postal", "postal code", "zip", "cp"],
     "siren": ["siren", "numero siren", "n siren"],
     "siret": ["siret", "numero siret", "n siret"],
+    "statut_enrichissement": ["statut enrichissement"],
 }
 
 FORMES_JURIDIQUES = {
@@ -543,7 +544,10 @@ def trouver_par_siret(client, ligne, siret, max_resultats=5):
             if etab.get("etat_administratif") == "F":
                 detail += " ; cet établissement est fermé"
             return reponse("ADRESSE À VÉRIFIER", resultat, etab, rang, detail, requete)
-    return {"statut": "À VÉRIFIER", "detail": "SIRET introuvable dans l'Annuaire des Entreprises"}
+    # Le SIREN est toujours les 9 premiers chiffres du SIRET : on l'écrit, à vérifier.
+    return {"statut": "À VÉRIFIER", "siren": siren, "siret": siret,
+            "detail": "SIRET introuvable dans l'Annuaire : SIREN déduit du SIRET, "
+                      "adresse non vérifiée"}
 
 
 def trouver_entreprise(client, ligne, max_resultats=5):
@@ -845,7 +849,8 @@ def rue_etablissement(etab):
 
 
 STATUTS_ECRITS = {"TROUVÉ", "TROUVÉ (VILLE)", "ADRESSE CORRIGÉE", "ADRESSE À VÉRIFIER",
-                  "FERMÉE"}
+                  "À VÉRIFIER", "FERMÉE"}
+COLONNE_STATUT = "Statut enrichissement"
 ACTIONS = {
     "TROUVÉ": "SIREN/SIRET ajoutés",
     "TROUVÉ (VILLE)": "SIREN/SIRET ajoutés (vérifiés sur le nom et la ville)",
@@ -853,16 +858,30 @@ ACTIONS = {
     "ADRESSE À VÉRIFIER": "SIREN ajouté ; comparer l'adresse HubSpot à celle de l'Annuaire",
     "FERMÉE": "Supprimer la fiche (entreprise cessée / radiée INPI)",
     "INCOHÉRENT": "Corriger : le SIRET ne commence pas par le SIREN",
-    "À VÉRIFIER": "Contrôler manuellement",
+    "À VÉRIFIER": "SIREN/SIRET ajoutés ; contrôler manuellement",
     "RECHERCHE INTERNET": "Chercher sur Internet",
     "HORS FRANCE": "Aucune (entreprise étrangère)",
 }
 
 
+def statut_rendu(res):
+    """Valeur de la colonne « Statut enrichissement » du CSV complété."""
+    statut = res["statut"]
+    if statut == "FERMÉE":
+        return "Fermée"
+    if statut in ("À VÉRIFIER", "ADRESSE À VÉRIFIER") or "à contrôler" in res.get("detail", ""):
+        return "À vérifier"
+    return "Trouvé"
+
+
 def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats,
-            remplir_a_verifier, client=None, corriger_adresse=True):
+            client=None, corriger_adresse=True):
     entetes, lignes, separateur, _ = lire_csv(chemin_entree)
     colonnes = detecter_colonnes(entetes, forcees)
+    # Colonne de statut juste à droite de « SIRET » (réutilisée si le fichier en a déjà une,
+    # par exemple quand on relance le script sur un CSV déjà complété).
+    col_statut = colonnes.get("statut_enrichissement")
+    statuts_rendus = {}
     client = client or ClientAnnuaire()
 
     rapport = []
@@ -905,10 +924,10 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
 
         statut = res["statut"]
         compteurs[statut] += 1
-        ecrit = bool(res.get("siren")) and (
-            statut in STATUTS_ECRITS or (statut == "À VÉRIFIER" and remplir_a_verifier))
+        ecrit = bool(res.get("siren")) and statut in STATUTS_ECRITS
         nouvelle_adresse = ""
         if ecrit:
+            statuts_rendus[numero - 1] = statut_rendu(res)
             if not nettoyer_numero(ligne[colonnes["siren"]], 9):
                 ligne[colonnes["siren"]] = res["siren"]
             if not siret:
@@ -937,6 +956,14 @@ def traiter(chemin_entree, chemin_sortie, chemin_rapport, forcees, max_resultats
             numero, total, donnees["nom"], statut, res.get("siren", "") or "",
             res.get("siret", "") or ""), flush=True)
 
+    if col_statut is None:
+        col_statut = colonnes["siret"] + 1
+        entetes.insert(col_statut, COLONNE_STATUT)
+        for ligne in lignes:
+            if any(c.strip() for c in ligne):
+                ligne.insert(col_statut, "")
+    for index, rendu in statuts_rendus.items():
+        lignes[index][col_statut] = rendu
     ecrire_csv(chemin_sortie, entetes, lignes, separateur)
     ecrire_csv(chemin_rapport, [
         "ID HubSpot", "Nom HubSpot", "Adresse HubSpot", "Ville HubSpot", "Statut",
@@ -956,9 +983,6 @@ def main(argv=None):
     parser.add_argument("--rapport", help="Rapport détaillé (défaut : <entrée>_rapport.csv)")
     parser.add_argument("--max-resultats", type=int, default=5,
                         help="Nombre de résultats de recherche examinés par entreprise (défaut 5)")
-    parser.add_argument("--remplir-a-verifier", action="store_true",
-                        help="Écrire aussi les correspondances « À VÉRIFIER » (ville seule, "
-                             "nom proche) dans le CSV")
     parser.add_argument("--sans-correction-adresse", action="store_true",
                         help="Ne pas remplacer l'adresse HubSpot quand elle diffère de "
                              "l'Annuaire (SIREN/SIRET du siège écrits quand même)")
@@ -977,7 +1001,6 @@ def main(argv=None):
     forcees = {cle: getattr(args, "col_" + cle) for cle in ALIAS_COLONNES}
 
     compteurs = traiter(args.csv, sortie, rapport, forcees, args.max_resultats,
-                        args.remplir_a_verifier,
                         corriger_adresse=not args.sans_correction_adresse)
     resume = ("Résultat : {TROUVÉ} trouvée(s) à la bonne adresse, {TROUVÉ (VILLE)} trouvée(s) "
               "sur le nom et la ville, {ADRESSE CORRIGÉE} avec "
