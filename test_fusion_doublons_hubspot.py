@@ -12,7 +12,6 @@ ENTETES = ["Groupe", "Niveau", "Raison du rapprochement", "Racine suggérée", "
            "Intitulé du poste", "Propriétaire du contact", "Date de création",
            "Dernière activité", "LinkedIn"]
 
-CHANGEMENT = "Même prénom et nom + même identifiant email, a changé d’entreprise ou de domaine"
 DOMAINE = "Même boîte mail sur deux domaines de la même structure"
 
 
@@ -66,33 +65,88 @@ class Regles(unittest.TestCase):
         fiches = [fiche(1, "2023-07", prenom="S", nom="Duchene", racine=True),
                   fiche(2, "2023-11", prenom="Sophie", nom="DUCHENE"),
                   fiche(3, "2023-12")]
-        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Sophie", "Duchene"))
+        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Sophie", "DUCHENE"))
         # Nom complet dans le champ nom, prénom vide : la forme la plus complète l'emporte.
         fiches = [fiche(1, "2025", prenom="Sabine", nom="Nevers", racine=True),
                   fiche(2, "2024", nom="Sabine Nevers-Brunel")]
-        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Sabine", "Nevers-Brunel"))
+        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Sabine", "NEVERS-BRUNEL"))
         # Prénom/nom inversés : la répartition majoritaire gagne.
         fiches = [fiche(1, "2026", prenom="François", nom="Thibault", racine=True),
                   fiche(2, "2024", prenom="Thibault", nom="François"),
                   fiche(3, "2023", prenom="Thibault", nom="Francois")]
-        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Thibault", "François"))
+        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Thibault", "FRANÇOIS"))
         # Aucun prénom : redécoupage confirmé par l'email.
         fiches = [fiche(1, "2024", nom="Léa Sournac", email="l.sournac@6si.fr")]
-        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Léa", "Sournac"))
+        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Léa", "SOURNAC"))
+        # Nom en majuscules, particule comprise.
+        fiches = [fiche(1, "2025", prenom="Pierre", nom="de Saint-Just")]
+        self.assertEqual(fus.choisir_nom(fiches, fiches[0])[:2], ("Pierre", "DE SAINT-JUST"))
 
     def test_email(self):
+        # Même entreprise, domaine mal orthographié : la racine, pas la fiche récente.
+        racine = fiche(1, "2023", email="monprojetrenov@nantesmetropole.fr",
+                       entreprise="Mairie - Nantes", racine=True)
+        recente = fiche(2, "2025", email="monprojetrenov@nantesmetrople.fr",
+                        entreprise="Nantes Métropole")
+        ref = fus.choisir_entreprise([racine, recente])
+        self.assertIs(ref, recente)
+        self.assertIs(fus.choisir_email([racine, recente], ref), racine)
+        # Punycode et adresse en échec écartés.
         racine = fiche(1, "2025-01", email="marie.dupeyroux@corum-am.com", racine=True)
         recente = fiche(2, "2026-09", email="marie.dupeyroux@xn--corumam-906c.com")
-        self.assertIs(fus.choisir_email([racine, recente], CHANGEMENT), racine)
-        racine = fiche(1, "2025-11", email="s.fesq@5-cinq.com", racine=True)
-        recente = fiche(2, "2026-09", email="s.fesq@avramova.org")
-        self.assertIs(fus.choisir_email([racine, recente], CHANGEMENT), recente)
-        racine = fiche(1, "2023", email="monprojetrenov@nantesmetropole.fr", racine=True)
-        recente = fiche(2, "2025", email="monprojetrenov@nantesmetrople.fr")
-        self.assertIs(fus.choisir_email([racine, recente], DOMAINE), racine)
+        self.assertIs(fus.choisir_email([racine, recente], None), racine)
         racine = fiche(1, "2023", email="sduchene@archimeet.fr", racine=True, en_echec=True)
         autre = fiche(2, "2022", email="s.duchene@archimeet.fr")
-        self.assertIs(fus.choisir_email([racine, autre], DOMAINE), autre)
+        self.assertIs(fus.choisir_email([racine, autre], None), autre)
+
+    def test_changement_d_entreprise_selon_les_echanges(self):
+        ancienne = fiche(1, "2025-11-18", prenom="Sébastien", nom="Fesq", racine=True,
+                         email="s.fesq@5-cinq.com", entreprise="5-CINQ")
+        nouvelle = fiche(2, "2026-09-22", prenom="Sébastien", nom="Fesq",
+                         email="s.fesq@avramova.org", entreprise="Avramova & Associes")
+        # Sans échange : la fiche créée en dernier fait foi, avec l'adresse de l'entreprise.
+        plan = fus.planifier("G-008", [ancienne, nouvelle])
+        self.assertEqual((plan["entreprise"], plan["email"]),
+                         ("Avramova & Associes", "s.fesq@avramova.org"))
+        # Le contact a écrit depuis son ancienne adresse après : l'ancienne entreprise reste.
+        ancienne.dernier_echange = "2026-10-05 12:13:00"
+        plan = fus.planifier("G-008", [ancienne, nouvelle])
+        self.assertEqual((plan["entreprise"], plan["email"]),
+                         ("5-CINQ", "s.fesq@5-cinq.com"))
+
+    def test_echange_attribue_a_la_fiche_de_l_adresse_d_envoi(self):
+        a = fiche(1, "2024", email="p.martin@ancienne.fr", entreprise="Ancienne",
+                  dernier_echange="2026-05-01", adresse_echange="p.martin@nouvelle.fr")
+        b = fiche(2, "2023", email="p.martin@nouvelle.fr", entreprise="Nouvelle")
+        fus.attribuer_echanges([a, b])
+        self.assertEqual((a.dernier_echange, b.dernier_echange), ("", "2026-05-01"))
+
+    def test_white_bird(self):
+        # G-197 : l'adresse White Bird suit l'entreprise White Bird si c'est elle qui est
+        # la plus à jour ; sinon Paref est gardée et, faute d'adresse Paref, l'email
+        # White Bird reste avec une remarque.
+        white = fiche(1, "2023-07-03", prenom="Sophie-Anne", nom="BRACCHI SEBAIBI",
+                      email="property@whitebird.immo", entreprise="White Bird", racine=True)
+        paref = fiche(2, "2024-02-09", nom="Sophie-Anne BRACCHI SEBAIBI", entreprise="Paref")
+        plan = fus.planifier("G-197", [white, paref])
+        self.assertEqual(plan["entreprise"], "Paref")
+        self.assertEqual(plan["email"], "property@whitebird.immo")
+        self.assertTrue(any("pas d'adresse email" in r for r in plan["remarques"]))
+        white.dernier_echange = "2026-06-04 08:00:00"
+        plan = fus.planifier("G-197", [white, paref])
+        self.assertEqual((plan["entreprise"], plan["email"]),
+                         ("White Bird", "property@whitebird.immo"))
+        self.assertFalse(any("pas d'adresse email" in r for r in plan["remarques"]))
+
+    def test_proprietaire_actif(self):
+        principale = fiche(1, "2026", proprietaire="11", proprietaire_actif=False, racine=True,
+                           email="a@b.fr")
+        ancienne = fiche(2, "2020", proprietaire="22", proprietaire_actif=True)
+        self.assertEqual(fus.choisir_proprietaire([principale, ancienne], principale)[0], "22")
+        ancienne.proprietaire_actif = False
+        proprio, remarque = fus.choisir_proprietaire([principale, ancienne], principale)
+        self.assertEqual(proprio, "11")
+        self.assertIn("désactivé", remarque)
 
     def test_plan(self):
         racine = fiche(1, "2025-11-18", prenom="Sébastien", nom="Fesq", email="s.fesq@5-cinq.com",
@@ -103,7 +157,7 @@ class Regles(unittest.TestCase):
                         email="s.fesq@avramova.org", telephone="+33 (0)6 73 80 44 68",
                         entreprise="Avramova & Associes Architecte", id_entreprise="77",
                         poste="Chargé de projet", proprietaire="22", proprietaire_actif=True)
-        plan = fus.planifier("G-008", [racine, recente], CHANGEMENT)
+        plan = fus.planifier("G-008", [racine, recente])
         self.assertEqual(plan["statut"], "À FUSIONNER")
         self.assertIs(plan["principale"], recente)
         self.assertEqual(plan["poste"], "Chargé de projet")
@@ -117,14 +171,14 @@ class Regles(unittest.TestCase):
         racine = fiche(1, "2024", prenom="Jessica", nom="Sinibaldi", entreprise="Objectif 54",
                        poste="Directrice", racine=True, email="jessica.s@objectif54.fr")
         recente = fiche(2, "2025", entreprise="54.fr", email="jessica.s@objectif.54.fr")
-        plan = fus.planifier("G-009", [racine, recente], DOMAINE)
+        plan = fus.planifier("G-009", [racine, recente])
         self.assertEqual(plan["entreprise"], "Objectif 54")   # « 54.fr » vient du domaine
         self.assertEqual(plan["poste"], "Directrice")
 
     def test_prenoms_differents_non_fusionnes(self):
         a = fiche(1, "2023", prenom="Mélissa", nom="Belkadi", racine=True)
         b = fiche(2, "2023", prenom="Nadia", nom="Gowsy")
-        self.assertEqual(fus.planifier("G-068", [a, b], DOMAINE)["statut"], "À VÉRIFIER")
+        self.assertEqual(fus.planifier("G-068", [a, b])["statut"], "À VÉRIFIER")
 
 
 class FauxHubSpot:
@@ -143,7 +197,8 @@ class FauxHubSpot:
             return None
         copie = fus.Fiche(**{k: getattr(f, k) for k in (
             "id", "prenom", "nom", "email", "telephone", "mobile", "poste", "entreprise",
-            "id_entreprise", "proprietaire", "proprietaire_actif", "creation", "en_echec")})
+            "id_entreprise", "proprietaire", "proprietaire_actif", "creation", "en_echec",
+            "dernier_echange", "adresse_echange")})
         copie.racine = racine
         return copie
 
@@ -212,7 +267,7 @@ class Execution(unittest.TestCase):
         self.assertEqual(compteur, {"SIMULATION": 1})
         self.assertEqual(self.client.appels, [])
         ligne = self.lire_rapport(self.rapport)[0]
-        self.assertEqual((ligne["Prénom"], ligne["Nom"]), ("Sophie", "Duchene"))
+        self.assertEqual((ligne["Prénom"], ligne["Nom"]), ("Sophie", "DUCHENE"))
         self.assertEqual(ligne["Email principal"], "s.duchene@archimeet.fr")
         self.assertEqual(ligne["Intitulé du poste"], "Architecte")
 
@@ -226,7 +281,7 @@ class Execution(unittest.TestCase):
         self.assertEqual(patch[1], "9001")
         self.assertEqual(patch[2]["firstname"], "Sophie")
         self.assertEqual(patch[2]["jobtitle"], "Architecte")
-        self.assertNotIn("lastname", patch[2])
+        self.assertEqual(patch[2]["lastname"], "DUCHENE")
         self.assertIn(("assoc", "9001", "55"), self.client.appels)
         self.assertEqual(self.lire_rapport(self.rapport)[0]["ID final"], "9001")
 
@@ -241,6 +296,56 @@ class Execution(unittest.TestCase):
         compteur = fus.traiter(self.csv, self.rapport, client=self.client, filtre={"G-999"},
                                journal=lambda *a: 0)
         self.assertEqual(compteur, {})
+
+
+class LectureHubSpot(unittest.TestCase):
+    """Lecture d'un contact : réponses de l'API HubSpot simulées."""
+
+    def test_fiche(self):
+        reponses = {
+            ("GET", "/crm/v3/owners?limit=500&archived=false"): {"results": [{"id": "22"}]},
+            ("GET", "/crm/v3/objects/companies/55?properties=name"):
+                {"properties": {"name": "White Bird"}},
+            ("POST", "/crm/v3/objects/emails/search"): {"results": [{"properties": {
+                "hs_timestamp": "2026-06-04T08:00:00Z",
+                "hs_email_from_email": "property@whitebird.immo"}}]},
+        }
+        contact = {"id": "804051", "properties": {
+            "firstname": "Sophie-Anne", "lastname": "BRACCHI SEBAIBI",
+            "email": "property@whitebird.immo", "hubspot_owner_id": "11",
+            "createdate": "2023-07-03T15:38:00Z", "company": ""},
+            "associations": {"companies": {"results": [
+                {"id": "77", "type": "contact_to_company_unlabeled"},
+                {"id": "55", "type": "contact_to_company"}]}}}
+        client = fus.ClientHubSpot("jeton")
+        appels = []
+
+        def requete(methode, chemin, corps=None):
+            appels.append((methode, chemin, corps))
+            if chemin.startswith("/crm/v3/objects/contacts/804051?"):
+                return contact
+            return reponses[(methode, chemin)]
+        client.requete = requete
+
+        f = client.fiche("804051", racine=True)
+        self.assertEqual((f.entreprise, f.id_entreprise), ("White Bird", "55"))
+        self.assertEqual(f.dernier_echange, "2026-06-04 08:00:00")
+        self.assertEqual(f.adresse_echange, "property@whitebird.immo")
+        self.assertIs(f.proprietaire_actif, False)
+        self.assertEqual(f.creation, "2023-07-03 15:38:00")
+        recherche = next(c for m, ch, c in appels if ch.endswith("emails/search"))
+        filtres = recherche["filterGroups"][0]["filters"]
+        self.assertIn({"propertyName": "hs_email_direction", "operator": "EQ",
+                       "value": "INCOMING_EMAIL"}, filtres)
+
+    def test_emails_illisibles(self):
+        client = fus.ClientHubSpot("jeton")
+
+        def requete(methode, chemin, corps=None):
+            raise fus.ErreurHubSpot(403, "missing scopes")
+        client.requete = requete
+        self.assertEqual(client.dernier_email_recu("1"), ("", ""))
+        self.assertFalse(client._echanges_lisibles)
 
 
 if __name__ == "__main__":

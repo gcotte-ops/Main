@@ -6,25 +6,31 @@ Fusion des contacts HubSpot en doublon certain, à partir de la liste « Doublon
 Les fiches d'un même groupe (G-001, G-002...) sont fusionnées en une seule, puis la fiche
 obtenue est corrigée selon les règles de fusion Alter Watt :
 
+  Fiche à jour   celle qui renseigne l'entreprise la plus actuelle : on regarde d'abord le
+                 dernier email REÇU du contact (échange réel, l'adresse d'envoi désigne la
+                 fiche), à défaut la date de création. La date retenue pour chaque fiche est
+                 la plus récente des deux.
+  Entreprise     celle de la fiche la plus à jour qui en a une : nom de l'entreprise et
+                 entreprise associée principale. Une valeur copiée d'un domaine email
+                 (« 54.fr ») est ignorée.
   Email          une seule adresse est gardée en email principal (HubSpot conserve l'autre
-                 en email secondaire). Adresses écartées : en échec (hard bounce), punycode
-                 « xn-- », domaine invalide. Puis :
-                   - le groupe signale un changement d'entreprise ou de domaine
-                     -> adresse de la fiche la plus récente ;
-                   - sinon -> adresse de la fiche « Racine suggérée ».
-                 La fiche qui porte cette adresse devient la fiche principale de la fusion.
+                 en email secondaire) : celle qui correspond à l'entreprise retenue si
+                 possible (même entreprise, ou même boîte sur un domaine mal orthographié),
+                 en préférant l'adresse du dernier échange, puis la « Racine suggérée ».
+                 Adresses écartées : en échec (hard bounce), punycode « xn-- », domaine
+                 invalide. La fiche qui porte cette adresse devient la fiche principale.
   Prénom / Nom   la fiche la mieux renseignée (prénom ET nom, prénom complet plutôt qu'une
-                 initiale ; à égalité, la graphie la plus répandue dans le groupe). Graphie
-                 retenue : avec accents, jamais en tout-majuscules (« DUCHENE » -> « Duchene »).
+                 initiale, forme la plus complète ; à égalité, la graphie la plus répandue).
+                 Prénom avec accents (« Sophie-Anne »), NOM en majuscules (« DUCHENE »).
                  Nom complet saisi dans un seul champ (« Rémy Viallet ») : redécoupé seulement
                  si l'email le confirme (remy.viallet@).
-  Téléphone      dès qu'une fiche en a un, il est repris (le plus récent s'il y en a
-                 plusieurs). Idem pour le mobile. Les numéros non repris sont listés dans
-                 le rapport.
-  Poste          celui de la fiche la plus récente (date de création) qui en a un.
-  Entreprise     celle de la fiche la plus récente qui en a une : nom de l'entreprise
-                 et entreprise associée principale.
-  Propriétaire   celui de la fiche principale s'il est actif, sinon le plus récent actif.
+  Téléphone      dès qu'une fiche en a un, il est repris (celui de la fiche la plus à jour
+                 s'il y en a plusieurs). Idem pour le mobile. Les numéros non repris sont
+                 listés dans le rapport.
+  Poste          celui de la fiche la plus à jour qui en a un.
+  Propriétaire   toujours un utilisateur actif quand une des fiches en a un (celui de la
+                 fiche principale en priorité) ; un propriétaire désactivé n'est gardé que
+                 si aucun n'est actif.
 
 Sécurités :
   - par défaut, SIMULATION : rien n'est modifié, le rapport montre ce qui serait fait ;
@@ -42,7 +48,8 @@ Exemples :
 
 Accès HubSpot : variable d'environnement HUBSPOT_TOKEN = jeton d'une application privée
 avec les droits crm.objects.contacts.read, crm.objects.contacts.write,
-crm.objects.companies.read et crm.objects.owners.read.
+crm.objects.companies.read, crm.objects.owners.read et sales-email-read
+(lecture des emails échangés).
 """
 
 import argparse
@@ -66,6 +73,10 @@ LIEN_FICHE = "https://app-eu1.hubspot.com/contacts/{portail}/record/0-1/{id}"
 # Limite des applications privées : 100 requêtes / 10 s. On reste en dessous.
 DELAI_ENTRE_REQUETES = 0.15
 
+# Deux adresses de même partie locale sur des domaines aussi proches = même boîte
+# (« nantesmetropole.fr » / « nantesmetrople.fr »).
+SEUIL_MEME_BOITE = 0.75
+
 PROPRIETES = ["firstname", "lastname", "email", "hs_additional_emails", "phone", "mobilephone",
               "jobtitle", "company", "associatedcompanyid", "hubspot_owner_id", "createdate",
               "hs_email_hard_bounce_reason_enum"]
@@ -81,7 +92,6 @@ CIVILITES = {"m", "mr", "mme", "mlle", "monsieur", "madame", "mademoiselle", "ab
 
 COLONNES = {
     "groupe": "Groupe",
-    "raison": "Raison du rapprochement",
     "racine": "Racine suggérée",
     "id": "ID HubSpot",
     "prenom": "Prénom",
@@ -95,7 +105,8 @@ COLONNES = {
 }
 
 ENTETES_RAPPORT = [
-    "Groupe", "Statut", "Fiches du groupe", "Fiche principale", "ID final", "Lien HubSpot",
+    "Groupe", "Statut", "Fiches du groupe", "Fiche principale", "Fiche la plus à jour",
+    "Dernier email reçu", "ID final", "Lien HubSpot",
     "Prénom", "Nom", "Email principal", "Autres emails", "Téléphone", "Mobile",
     "Intitulé du poste", "Entreprise", "ID entreprise principale", "Propriétaire",
     "Numéros non repris", "Remarques",
@@ -218,7 +229,8 @@ class Fiche:
 
     def __init__(self, id, prenom="", nom="", email="", telephone="", mobile="", poste="",
                  entreprise="", id_entreprise="", proprietaire="", proprietaire_actif=None,
-                 creation="", en_echec=False, racine=False, emails_secondaires=""):
+                 creation="", en_echec=False, racine=False, emails_secondaires="",
+                 dernier_echange="", adresse_echange=""):
         self.id = str(id)
         self.prenom = (prenom or "").strip()
         self.nom = (nom or "").strip()
@@ -234,6 +246,9 @@ class Fiche:
         self.en_echec = en_echec
         self.racine = racine
         self.emails_secondaires = emails_secondaires or ""
+        # Dernier email reçu du contact (date triable) et adresse d'où il l'a envoyé.
+        self.dernier_echange = dernier_echange or ""
+        self.adresse_echange = (adresse_echange or "").strip().lower()
         # Prénom et nom sans civilité, utilisés pour décider ; les champs bruts servent
         # à détecter ce qu'il faut corriger dans HubSpot.
         self.prenom_net, self.nom_net = nettoyer_nom(self.prenom, self.nom)
@@ -274,8 +289,24 @@ def fiche_depuis_csv(ligne):
     )
 
 
-def plus_recentes(fiches):
-    return sorted(fiches, key=lambda f: f.creation, reverse=True)
+def actualite(fiche):
+    """Date la plus récente qui atteste de la situation de la fiche."""
+    return max(fiche.creation, fiche.dernier_echange)
+
+
+def plus_a_jour(fiches):
+    """Fiches de la plus à jour à la moins à jour (dernier échange reçu, sinon création)."""
+    return sorted(fiches, key=lambda f: (actualite(f), f.creation), reverse=True)
+
+
+def attribuer_echanges(fiches):
+    """Un email reçu depuis l'adresse d'une autre fiche du groupe compte pour cette fiche."""
+    for f in fiches:
+        if not f.adresse_echange or f.adresse_echange == f.email.lower():
+            continue
+        autre = next((g for g in fiches if g.email.lower() == f.adresse_echange), None)
+        if autre is not None and f.dernier_echange > autre.dernier_echange:
+            autre.dernier_echange, f.dernier_echange = f.dernier_echange, ""
 
 
 # --------------------------------------------------------------------------- #
@@ -334,7 +365,7 @@ def decouper_par_email(nom_complet, emails):
 
 def choisir_nom(fiches, principale):
     """(prénom, nom, remarque) les mieux renseignés du groupe."""
-    ordre = [principale] + [f for f in plus_recentes(fiches) if f is not principale]
+    ordre = [principale] + [f for f in plus_a_jour(fiches) if f is not principale]
     completes = [(f, f.prenom_net, nom_sans_prenom(f)) for f in ordre
                  if f.prenom_net and f.nom_net]
     completes = [c for c in completes if c[2]]
@@ -344,9 +375,9 @@ def choisir_nom(fiches, principale):
             complet = f.nom_net if not f.prenom_net else f.prenom_net if not f.nom_net else ""
             decoupe = decouper_par_email(complet, emails) if complet else None
             if decoupe:
-                return (graphie([decoupe[0]]), graphie([decoupe[1]]),
+                return (graphie([decoupe[0]]), decoupe[1].upper(),
                         "nom complet redécoupé d'après l'email")
-        return principale.prenom, principale.nom, "aucune fiche avec prénom et nom"
+        return principale.prenom, principale.nom.upper(), "aucune fiche avec prénom et nom"
 
     # Prénom complet plutôt qu'une initiale, puis la répartition prénom/nom la plus répandue.
     pleines = [c for c in completes if not est_initiale(c[1])] or completes
@@ -370,7 +401,7 @@ def choisir_nom(fiches, principale):
     long_n = max(len(normaliser(n)) for n in noms)
     prenoms = [p for p in prenoms if len(normaliser(p)) == long_p]
     noms = [n for n in noms if len(normaliser(n)) == long_n]
-    prenom, nom = graphie(prenoms), graphie(noms)
+    prenom, nom = graphie(prenoms), graphie(noms).upper()
 
     remarque = ""
     if len(votes) > 1 or (normaliser(prenom), normaliser(nom)) != cle:
@@ -378,21 +409,45 @@ def choisir_nom(fiches, principale):
     return prenom, nom, remarque
 
 
-def choisir_email(fiches, raison):
-    """Fiche dont l'adresse devient l'email principal."""
+def meme_boite(email_a, email_b):
+    """Même partie locale sur deux domaines très proches (faute de frappe)."""
+    if "@" not in email_a or "@" not in email_b:
+        return False
+    (la, da), (lb, db) = (e.lower().rsplit("@", 1) for e in (email_a, email_b))
+    return la == lb and difflib.SequenceMatcher(None, da, db).ratio() >= SEUIL_MEME_BOITE
+
+
+def choisir_entreprise(fiches):
+    """Fiche dont on garde l'entreprise : la plus à jour qui en a une vraie."""
+    ordre = plus_a_jour(fiches)
+    return (next((f for f in ordre if f.entreprise and not ressemble_domaine(f.entreprise)), None)
+            or next((f for f in ordre if f.entreprise or f.id_entreprise), None))
+
+
+def meme_entreprise(fiche, reference):
+    if fiche is reference:
+        return True
+    if fiche.id_entreprise and fiche.id_entreprise == reference.id_entreprise:
+        return True
+    if fiche.entreprise and normaliser(fiche.entreprise) == normaliser(reference.entreprise):
+        return True
+    return meme_boite(fiche.email, reference.email)
+
+
+def choisir_email(fiches, reference):
+    """Fiche dont l'adresse devient l'email principal : celle de l'entreprise retenue si
+    possible ; puis l'adresse du dernier échange, la racine suggérée, la plus à jour."""
     candidates = [f for f in fiches if f.email and email_valide(f.email) and not f.en_echec]
     if not candidates:
         candidates = [f for f in fiches if f.email] or list(fiches)
-    racine = next((f for f in candidates if f.racine), None)
-    changement = "chang" in normaliser(raison)    # « a changé d'entreprise ou de domaine »
-    if changement or racine is None:
-        return plus_recentes(candidates)[0]
-    return racine
+    if reference is not None:
+        candidates = [f for f in candidates if meme_entreprise(f, reference)] or candidates
+    return max(candidates, key=lambda f: (f.dernier_echange, f.racine, actualite(f), f.creation))
 
 
 def choisir_telephones(fiches):
     """(fixe, mobile, numéros non repris) : le plus récent de chaque, sans rien perdre."""
-    recentes = plus_recentes(fiches)
+    recentes = plus_a_jour(fiches)
     fixe = next((f.telephone for f in recentes if f.telephone), "")
     mobile = next((f.mobile for f in recentes if f.mobile), "")
     gardes = {chiffres(fixe), chiffres(mobile)} - {""}
@@ -410,17 +465,19 @@ def choisir_telephones(fiches):
 
 
 def choisir_proprietaire(fiches, principale):
-    candidats = [principale] + plus_recentes([f for f in fiches if f is not principale])
+    candidats = [principale] + plus_a_jour([f for f in fiches if f is not principale])
     actif = next((f for f in candidats if f.proprietaire and f.proprietaire_actif), None)
     if actif:
         return actif.proprietaire, ""
     present = next((f for f in candidats if f.proprietaire), None)
+    if present and present.proprietaire_actif is None:
+        return present.proprietaire, "statut des propriétaires inconnu"
     if present:
-        return present.proprietaire, "propriétaire désactivé conservé"
+        return present.proprietaire, "aucun propriétaire actif : propriétaire désactivé conservé"
     return "", ""
 
 
-def planifier(groupe, fiches, raison):
+def planifier(groupe, fiches):
     """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
     for i, a in enumerate(fiches):
@@ -431,14 +488,13 @@ def planifier(groupe, fiches, raison):
                                          .format(a.prenom, b.prenom))
                 return plan
 
-    principale = choisir_email(fiches, raison)
+    attribuer_echanges(fiches)
+    source_entreprise = choisir_entreprise(fiches)
+    principale = choisir_email(fiches, source_entreprise)
     prenom, nom, remarque = choisir_nom(fiches, principale)
     fixe, mobile, restants = choisir_telephones(fiches)
-    recentes = plus_recentes(fiches)
+    recentes = plus_a_jour(fiches)
     poste = next((f.poste for f in recentes if f.poste), "")
-    source_entreprise = (
-        next((f for f in recentes if f.entreprise and not ressemble_domaine(f.entreprise)), None)
-        or next((f for f in recentes if f.entreprise or f.id_entreprise), None))
     id_entreprise = source_entreprise.id_entreprise if source_entreprise else ""
     if source_entreprise and not id_entreprise:
         # Même entreprise (nom identique) associée sur une autre fiche : on la reprend.
@@ -459,13 +515,13 @@ def planifier(groupe, fiches, raison):
         "entreprise": source_entreprise.entreprise if source_entreprise else "",
         "id_entreprise": id_entreprise,
         "proprietaire": proprietaire,
+        "reference": source_entreprise,
+        "dernier_echange": max((f.dernier_echange for f in fiches), default=""),
     })
     plan["remarques"] += [r for r in (remarque, remarque_proprio) if r]
-    if (source_entreprise and source_entreprise is not principale and source_entreprise.email
-            and source_entreprise.email.split("@")[-1].lower()
-            != principale.email.split("@")[-1].lower()
-            and normaliser(source_entreprise.entreprise) != normaliser(principale.entreprise)):
-        plan["remarques"].append("email et entreprise issus de fiches différentes : à vérifier")
+    if source_entreprise and not meme_entreprise(principale, source_entreprise):
+        plan["remarques"].append("pas d'adresse email pour l'entreprise retenue : "
+                                 "email d'une autre entreprise conservé")
     if principale.en_echec or (principale.email and not email_valide(principale.email)):
         plan["remarques"].append("aucune adresse sûre : email à vérifier")
     return plan
@@ -489,6 +545,7 @@ class ClientHubSpot:
         self._dernier = 0.0
         self._noms_entreprises = {}
         self._proprietaires_actifs = None
+        self._echanges_lisibles = True
 
     def requete(self, methode, chemin, corps=None, essais=4):
         for essai in range(essais):
@@ -520,8 +577,8 @@ class ClientHubSpot:
                 time.sleep(2 ** (essai + 1))
         raise ErreurHubSpot(429, "trop de requêtes, réessayer plus tard")
 
-    def proprietaires_actifs(self):
-        """IDs des propriétaires actifs (None si le droit owners.read manque)."""
+    def proprietaires_actifs(self, strict=False):
+        """IDs des propriétaires actifs (ensemble vide si le droit owners.read manque)."""
         if self._proprietaires_actifs is None:
             actifs, apres = set(), None
             try:
@@ -535,7 +592,9 @@ class ClientHubSpot:
                     if not apres:
                         break
             except ErreurHubSpot as e:
-                print("  ! propriétaires non lus ({}) : règle propriétaire ignorée".format(e),
+                if strict:
+                    raise
+                print("  ! propriétaires non lus ({}) : propriétaires actifs inconnus".format(e),
                       file=sys.stderr)
                 actifs = set()
             self._proprietaires_actifs = actifs
@@ -551,6 +610,34 @@ class ClientHubSpot:
                 nom = ""
             self._noms_entreprises[id_entreprise] = nom
         return self._noms_entreprises[id_entreprise]
+
+    def dernier_email_recu(self, id_contact):
+        """(date, adresse d'envoi) du dernier email reçu de ce contact, ou ("", "")."""
+        if not self._echanges_lisibles:
+            return "", ""
+        corps = {
+            "filterGroups": [{"filters": [
+                {"propertyName": "associations.contact", "operator": "EQ",
+                 "value": str(id_contact)},
+                {"propertyName": "hs_email_direction", "operator": "EQ",
+                 "value": "INCOMING_EMAIL"}]}],
+            "sorts": [{"propertyName": "hs_timestamp", "direction": "DESCENDING"}],
+            "properties": ["hs_timestamp", "hs_email_from_email"],
+            "limit": 1,
+        }
+        try:
+            rep = self.requete("POST", "/crm/v3/objects/emails/search", corps)
+        except ErreurHubSpot as e:
+            if e.statut in (401, 403):
+                print("  ! emails non lisibles ({}) : entreprise choisie sur la date de "
+                      "création".format(e), file=sys.stderr)
+                self._echanges_lisibles = False
+                return "", ""
+            raise
+        for email in rep.get("results", []):
+            p = email.get("properties", {})
+            return date_iso(p.get("hs_timestamp")), p.get("hs_email_from_email") or ""
+        return "", ""
 
     def lire_contact(self, id_contact):
         """Brut HubSpot du contact, ou None s'il n'existe plus.
@@ -578,15 +665,17 @@ class ClientHubSpot:
             entreprise = self.nom_entreprise(id_entreprise)
         actifs = self.proprietaires_actifs()
         proprietaire = p.get("hubspot_owner_id") or ""
+        dernier_echange, adresse_echange = self.dernier_email_recu(brut["id"])
         return Fiche(
             id=brut["id"], prenom=p.get("firstname"), nom=p.get("lastname"),
             email=p.get("email"), telephone=p.get("phone"), mobile=p.get("mobilephone"),
             poste=p.get("jobtitle"), entreprise=entreprise, id_entreprise=id_entreprise,
             proprietaire=proprietaire,
-            proprietaire_actif=(proprietaire in actifs) if actifs else True,
+            proprietaire_actif=(proprietaire in actifs) if actifs else None,
             creation=date_iso(p.get("createdate") or brut.get("createdAt")),
             en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
             racine=racine, emails_secondaires=p.get("hs_additional_emails"),
+            dernier_echange=dernier_echange, adresse_echange=adresse_echange,
         )
 
     def fusionner(self, id_principal, id_a_fusionner):
@@ -691,6 +780,8 @@ def ligne_rapport(plan, portail, id_final=""):
         id_lien = id_final or plan["principale"].id
         ligne.update({
             "Fiche principale": plan["principale"].id,
+            "Fiche la plus à jour": plan["reference"].id if plan["reference"] else "",
+            "Dernier email reçu": plan["dernier_echange"],
             "ID final": id_final,
             "Lien HubSpot": LIEN_FICHE.format(portail=portail, id=id_lien),
             "Prénom": plan["prenom"], "Nom": plan["nom"],
@@ -743,7 +834,6 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
     for n, (groupe, lignes) in enumerate(sorted(groupes.items())):
         if limite is not None and n >= limite:
             break
-        raison = lignes[0].get(COLONNES["raison"], "")
         try:
             fiches, absentes = fiches_du_groupe(lignes, client)
             if len(fiches) < 2:
@@ -754,7 +844,7 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                     plan["statut"] = "INTROUVABLE"
                     plan["remarques"] = ["fiches introuvables (supprimées ?) : " + ", ".join(absentes)]
             else:
-                plan = planifier(groupe, fiches, raison)
+                plan = planifier(groupe, fiches)
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
             id_final = ""
@@ -800,6 +890,14 @@ def main(argv=None):
             parser.error("définir HUBSPOT_TOKEN (jeton d'application privée), "
                          "ou utiliser --hors-ligne pour un aperçu")
         client = ClientHubSpot(jeton)
+
+    if args.executer:
+        # Le propriétaire actif doit pouvoir être reconnu avant toute fusion.
+        try:
+            client.proprietaires_actifs(strict=True)
+        except ErreurHubSpot as e:
+            parser.error("propriétaires HubSpot illisibles ({}) : ajouter le droit "
+                         "crm.objects.owners.read au jeton".format(e))
 
     filtre = {g.strip() for g in args.groupes.split(",")} if args.groupes else None
     rapport = args.rapport or os.path.splitext(args.csv)[0] + "_fusion_rapport.csv"

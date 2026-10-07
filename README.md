@@ -59,12 +59,13 @@ Règles appliquées à chaque groupe :
 
 | Champ | Valeur conservée |
 |---|---|
-| Email | Une seule adresse en email principal (HubSpot garde l'autre en email secondaire). Écartées : adresses en échec (hard bounce), punycode `xn--`, domaine invalide. Groupe « a changé d'entreprise ou de domaine » → adresse de la fiche la plus récente ; sinon → adresse de la « Racine suggérée ». La fiche qui porte l'adresse retenue est la fiche principale de la fusion. |
-| Prénom / Nom | La fiche la mieux renseignée : prénom **et** nom, prénom complet plutôt qu'initiale, forme la plus complète (« Nevers-Brunel » plutôt que « Nevers »), répartition majoritaire si prénom et nom sont inversés. Civilités retirées (« M. », « Madame »), accents gardés, jamais de tout-majuscules (« DUCHENE » → « Duchene »). |
-| Téléphone / Mobile | Repris dès qu'une fiche en a un (le plus récent s'il y en a plusieurs). Un second mobile va dans le champ mobile s'il est vide ; les autres numéros sont listés dans le rapport. |
-| Intitulé du poste | Celui de la fiche la plus récente (date de création) qui en a un. |
-| Entreprise | Celle de la fiche la plus récente qui en a une : nom de l'entreprise et entreprise associée principale. Une valeur copiée d'un domaine email (« 54.fr ») est ignorée. |
-| Propriétaire | Celui de la fiche principale s'il est actif, sinon le plus récent actif. |
+| Fiche la plus à jour | On regarde d'abord les **emails reçus du contact** : le dernier email qu'il a envoyé désigne la fiche (et l'adresse) avec laquelle il a travaillé en dernier. À défaut d'échange, c'est la date de création qui compte. Chaque fiche est datée par le plus récent des deux. |
+| Entreprise | Celle de la fiche la plus à jour qui en a une : nom de l'entreprise et entreprise associée principale. Une valeur copiée d'un domaine email (« 54.fr ») est ignorée. |
+| Email | Une seule adresse en email principal (HubSpot garde l'autre en email secondaire) : **celle de l'entreprise retenue si elle existe** (même entreprise, ou même boîte sur un domaine mal orthographié), en préférant l'adresse du dernier échange, puis la « Racine suggérée ». Écartées : adresses en échec (hard bounce), punycode `xn--`, domaine invalide. S'il n'y a aucune adresse pour l'entreprise retenue, l'autre est gardée et signalée dans le rapport. La fiche qui porte l'adresse retenue est la fiche principale de la fusion. |
+| Prénom / Nom | La fiche la mieux renseignée : prénom **et** nom, prénom complet plutôt qu'initiale, forme la plus complète (« Nevers-Brunel » plutôt que « Nevers »), répartition majoritaire si prénom et nom sont inversés. Civilités retirées (« M. », « Madame »). Prénom avec accents (« Sophie-Anne »), **NOM en majuscules** (« DUCHENE »). |
+| Téléphone / Mobile | Repris dès qu'une fiche en a un (celui de la fiche la plus à jour s'il y en a plusieurs). Un second mobile va dans le champ mobile s'il est vide ; les autres numéros sont listés dans le rapport. |
+| Intitulé du poste | Celui de la fiche la plus à jour qui en a un. |
+| Propriétaire | **Toujours un utilisateur actif** quand une des fiches en a un (celui de la fiche principale en priorité). Un propriétaire désactivé n'est gardé que si aucun n'est actif. Sans le droit de lire les propriétaires, `--executer` refuse de démarrer. |
 
 Sécurités :
 - **par défaut, rien n'est modifié** : le rapport `<csv>_fusion_rapport.csv` montre ce qui serait fait ;
@@ -74,9 +75,14 @@ Sécurités :
 
 Le rapport (CSV `;`, lisible dans Excel) donne pour chaque groupe : statut, ID de la fiche finale et lien,
 valeurs retenues, numéros non repris et remarques à vérifier (prénoms divergents, email et entreprise
-issus de fiches différentes, propriétaire désactivé conservé…).
+sans adresse pour l'entreprise retenue, propriétaire désactivé faute d'actif…), ainsi que la fiche la
+plus à jour et la date du dernier email reçu.
 
 Accès HubSpot : variable d'environnement `HUBSPOT_TOKEN` = jeton d'une application privée avec les droits
-`crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read` et `crm.objects.owners.read`.
+`crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read`, `crm.objects.owners.read`
+et `sales-email-read` (lecture des emails échangés ; sans lui, l'entreprise est choisie sur la date de création).
+
+En mode `--hors-ligne`, les échanges d'emails et les propriétaires ne sont pas lus : l'aperçu s'appuie sur la
+date de création et sur la mention « (Deactivated User) » du CSV.
 
 Tests hors ligne : `python -m unittest test_fusion_doublons_hubspot`
