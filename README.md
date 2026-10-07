@@ -41,3 +41,42 @@ Envoi d'email : définir `SMTP_HOST`, `SMTP_PORT` (587 par défaut), `SMTP_USER`
 (pour Google Workspace : `smtp.gmail.com` et un mot de passe d'application).
 
 Tests hors ligne : `python -m unittest test_enrichissement_siren_siret`
+
+# Fusion des contacts HubSpot en doublon certain
+
+`fusion_doublons_hubspot.py` fusionne les contacts listés dans l'onglet « Doublons certains »
+(`doublons_potentiels_hubspot.xlsx` exporté en CSV) : les fiches d'un même groupe (G-001, G-002…)
+sont fusionnées en une seule, puis la fiche obtenue est corrigée.
+
+```bash
+python fusion_doublons_hubspot.py doublons.csv --hors-ligne            # aperçu à partir du seul CSV
+python fusion_doublons_hubspot.py doublons.csv                         # simulation, fiches lues dans HubSpot
+python fusion_doublons_hubspot.py doublons.csv --groupes G-001,G-002 --executer   # test sur 2 groupes
+python fusion_doublons_hubspot.py doublons.csv --executer              # tous les groupes
+```
+
+Règles appliquées à chaque groupe :
+
+| Champ | Valeur conservée |
+|---|---|
+| Email | Une seule adresse en email principal (HubSpot garde l'autre en email secondaire). Écartées : adresses en échec (hard bounce), punycode `xn--`, domaine invalide. Groupe « a changé d'entreprise ou de domaine » → adresse de la fiche la plus récente ; sinon → adresse de la « Racine suggérée ». La fiche qui porte l'adresse retenue est la fiche principale de la fusion. |
+| Prénom / Nom | La fiche la mieux renseignée : prénom **et** nom, prénom complet plutôt qu'initiale, forme la plus complète (« Nevers-Brunel » plutôt que « Nevers »), répartition majoritaire si prénom et nom sont inversés. Civilités retirées (« M. », « Madame »), accents gardés, jamais de tout-majuscules (« DUCHENE » → « Duchene »). |
+| Téléphone / Mobile | Repris dès qu'une fiche en a un (le plus récent s'il y en a plusieurs). Un second mobile va dans le champ mobile s'il est vide ; les autres numéros sont listés dans le rapport. |
+| Intitulé du poste | Celui de la fiche la plus récente (date de création) qui en a un. |
+| Entreprise | Celle de la fiche la plus récente qui en a une : nom de l'entreprise et entreprise associée principale. Une valeur copiée d'un domaine email (« 54.fr ») est ignorée. |
+| Propriétaire | Celui de la fiche principale s'il est actif, sinon le plus récent actif. |
+
+Sécurités :
+- **par défaut, rien n'est modifié** : le rapport `<csv>_fusion_rapport.csv` montre ce qui serait fait ;
+- `--executer` fusionne réellement (irréversible), après avoir tapé `FUSIONNER` (`--oui` pour s'en passer) ;
+- les groupes dont les prénoms se contredisent ne sont pas fusionnés (statut **À VÉRIFIER**) ;
+- le script peut être relancé : les groupes déjà fusionnés sont détectés (**DÉJÀ FUSIONNÉ**).
+
+Le rapport (CSV `;`, lisible dans Excel) donne pour chaque groupe : statut, ID de la fiche finale et lien,
+valeurs retenues, numéros non repris et remarques à vérifier (prénoms divergents, email et entreprise
+issus de fiches différentes, propriétaire désactivé conservé…).
+
+Accès HubSpot : variable d'environnement `HUBSPOT_TOKEN` = jeton d'une application privée avec les droits
+`crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read` et `crm.objects.owners.read`.
+
+Tests hors ligne : `python -m unittest test_fusion_doublons_hubspot`
