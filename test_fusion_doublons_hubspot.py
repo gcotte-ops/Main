@@ -348,5 +348,29 @@ class LectureHubSpot(unittest.TestCase):
         self.assertFalse(client._echanges_lisibles)
 
 
+class Jeton(unittest.TestCase):
+
+    def client(self, statut):
+        client = fus.ClientHubSpot("x")
+
+        def requete(methode, chemin, corps=None):
+            if statut:
+                raise fus.ErreurHubSpot(statut, "refus")
+            return {"results": []}
+        client.requete = requete
+        return client
+
+    def test_jeton_refuse(self):
+        message = fus.verifier_jeton(self.client(401), "pat-eu1-abcd-0000-0000-0000-000000000000")
+        self.assertIn("401", message)
+        self.assertIn("8 caractères", message)
+        self.assertIn("403", fus.verifier_jeton(self.client(403), "x"))
+        self.assertIsNone(fus.verifier_jeton(self.client(None), "x"))
+
+    def test_fichier_introuvable(self):
+        with self.assertRaises(SystemExit):
+            fus.main(["fichier_absent.csv", "--hors-ligne"])
+
+
 if __name__ == "__main__":
     unittest.main()

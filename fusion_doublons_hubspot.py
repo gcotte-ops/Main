@@ -695,6 +695,30 @@ class ClientHubSpot:
                        "associationTypeId": TYPE_ASSOCIATION_PRINCIPALE}])
 
 
+FORME_JETON = re.compile(r"pat-[a-z]{2}\d-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
+
+
+def verifier_jeton(client, jeton):
+    """Message d'erreur clair si HubSpot refuse le jeton, sinon None."""
+    jeton = jeton.strip()
+    forme = ("Un jeton complet a la forme pat-eu1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx "
+             "(8 caractères dans le 1er bloc après « pat-eu1- ») : le recopier en entier "
+             "depuis HubSpot, onglet « Authentification » de l'application privée.")
+    try:
+        client.requete("GET", "/crm/v3/objects/contacts?limit=1")
+    except ErreurHubSpot as e:
+        if e.statut == 401:
+            message = "HubSpot refuse le jeton (HTTP 401) : il est incomplet, faux ou supprimé."
+            if not FORME_JETON.fullmatch(jeton):
+                message += " " + forme
+            return message
+        if e.statut == 403:
+            return ("Le jeton n'a pas le droit de lire les contacts (HTTP 403) : ajouter "
+                    "crm.objects.contacts.read à l'application privée.")
+        return "HubSpot injoignable : {}".format(e)
+    return None
+
+
 def corrections(plan, fiche):
     """Propriétés à écrire sur la fiche fusionnée : uniquement les écarts."""
     cibles = {"firstname": (plan["prenom"], fiche.prenom),
@@ -883,13 +907,22 @@ def main(argv=None):
 
     if args.executer and args.hors_ligne:
         parser.error("--executer et --hors-ligne sont incompatibles")
+    if not os.path.isfile(args.csv):
+        dossier = os.path.dirname(os.path.abspath(args.csv))
+        presents = sorted(f for f in os.listdir(dossier) if f.lower().endswith(".csv")
+                          and not f.lower().endswith("_fusion_rapport.csv"))
+        parser.error("fichier introuvable : « {} ». CSV présents dans le dossier : {}".format(
+            args.csv, ", ".join(presents) or "aucun"))
     client = None
     if not args.hors_ligne:
         jeton = os.environ.get("HUBSPOT_TOKEN")
         if not jeton:
             parser.error("définir HUBSPOT_TOKEN (jeton d'application privée), "
                          "ou utiliser --hors-ligne pour un aperçu")
-        client = ClientHubSpot(jeton)
+        client = ClientHubSpot(jeton.strip())
+        probleme = verifier_jeton(client, jeton)
+        if probleme:
+            parser.error(probleme)
 
     if args.executer:
         # Le propriétaire actif doit pouvoir être reconnu avant toute fusion.
@@ -897,7 +930,7 @@ def main(argv=None):
             client.proprietaires_actifs(strict=True)
         except ErreurHubSpot as e:
             parser.error("propriétaires HubSpot illisibles ({}) : ajouter le droit "
-                         "crm.objects.owners.read au jeton".format(e))
+                         "crm.objects.owners.read à l'application privée".format(e))
 
     filtre = {g.strip() for g in args.groupes.split(",")} if args.groupes else None
     rapport = args.rapport or os.path.splitext(args.csv)[0] + "_fusion_rapport.csv"
