@@ -102,7 +102,7 @@ python fusion_entreprises_hubspot.py doublons.xlsx --executer                   
 
 | Champ | Valeur conservée |
 |---|---|
-| Fiche racine | Celle qui a **le plus de contacts associés** ; à égalité, la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
+| Fiche racine | Celle qui a **une ou plusieurs transactions associées** ; sinon (ou si plusieurs en ont), celle qui a **le plus de contacts associés** ; à égalité, la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
 | Nom | Celui de la racine ; si la racine n'a pas de vrai nom (vide ou nom de domaine), celui de la racine suggérée, sinon le vrai nom le plus récent. |
 | Domaine, site web | Ceux de la fiche qui donne le nom (ils servent à rattacher les contacts), remplacés seulement s'ils sont vides, factices (`4313.co`), en punycode (`xn--`) ou sur une plateforme (e-lyco, wixsite…), ou par le domaine principal du même site (`intranet.apei.fr` → `apei.fr`). |
 | Propriétaire | Toujours un utilisateur actif si une des fiches en a un (celui de la racine d'abord) ; un propriétaire désactivé n'est jamais ajouté. |

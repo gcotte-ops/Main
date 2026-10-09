@@ -6,7 +6,8 @@ classeur doublons_potentiels_entreprises_hubspot.xlsx (lignes de niveau « Certa
 Les fiches d'un même groupe (G-001, G-002...) sont fusionnées en une seule, puis la fiche
 obtenue est complétée pour garder le plus d'information possible, la plus à jour :
 
-  Fiche racine   celle qui a le plus de contacts associés ; à égalité, la « Racine
+  Fiche racine   celle qui a une ou plusieurs transactions associées ; sinon (ou si plusieurs
+                 en ont) celle qui a le plus de contacts associés ; à égalité, la « Racine
                  suggérée » du classeur, puis la plus complète, puis la plus ancienne.
   Nom            celui de la racine, sauf s'il n'est qu'un nom de domaine ou vide : on prend
                  alors celui de la racine suggérée, sinon le vrai nom le plus récent (cette
@@ -79,7 +80,7 @@ STANDARD = set(PROPRIETES_DEFAUT[:23])
 # Gérées par HubSpot lors de la fusion, ou à ne jamais réécrire.
 EXCLUES = {"lifecyclestage", "createdate", "hs_object_id", "hs_merged_object_ids",
            "num_associated_contacts", "num_associated_deals", "hs_parent_company_id"}
-LECTURE_SEULE = {"num_associated_contacts", "createdate"}
+LECTURE_SEULE = {"num_associated_contacts", "num_associated_deals", "createdate"}
 
 # Valeurs qui ne disent rien : gardées seulement si aucune fiche n'a mieux.
 INCONNUES = {"ne sais pas encore", "ne sait pas encore", "nc", "inconnu", "n/a", "na", "-"}
@@ -89,7 +90,8 @@ PLATEFORMES = ("e-lyco.fr", "wixsite.com", "google.com", "sites.google", "blogsp
                "wordpress.com", "jimdo", "free.fr", "orange.fr", "wanadoo.fr", "facebook.com")
 
 ENTETES_RAPPORT = [
-    "Groupe", "Statut", "Fiches du groupe", "Contacts par fiche", "Fiche racine", "ID final",
+    "Groupe", "Statut", "Fiches du groupe", "Transactions par fiche", "Contacts par fiche",
+    "Fiche racine", "ID final",
     "Lien HubSpot", "Nom", "Domaine", "Téléphone", "Ville", "SIREN", "SIRET",
     "Type de décideur", "Propriétaire", "Champs complétés ou mis à jour", "Remarques",
 ]
@@ -235,7 +237,7 @@ class Entreprise:
     """Une fiche entreprise : valeurs utiles et date à laquelle chacune a été saisie."""
 
     def __init__(self, id, valeurs, dates=None, nb_contacts=0, creation="", racine=False,
-                 proprietaire_actif=None):
+                 proprietaire_actif=None, nb_transactions=0):
         self.id = str(id)
         self.valeurs = {}
         for p, v in valeurs.items():
@@ -246,6 +248,8 @@ class Entreprise:
         # Sans historique (mode hors ligne), chaque valeur est datée de la création.
         self.dates = {p: (dates or {}).get(p) or self.creation for p in self.valeurs}
         self.nb_contacts = int(nb_contacts or 0)
+        # None : inconnu (le classeur ne donne pas les transactions).
+        self.nb_transactions = None if nb_transactions is None else int(nb_transactions or 0)
         self.racine = racine
         self.proprietaire_actif = proprietaire_actif
 
@@ -276,6 +280,8 @@ def entreprise_depuis_ligne(ligne):
     return Entreprise(
         id=str(ligne["ID HubSpot"]).strip(), valeurs=valeurs,
         nb_contacts=str(ligne.get("Contacts associés") or 0).strip() or 0,
+        nb_transactions=(str(ligne.get("Transactions associées") or 0).strip() or 0
+                         if "Transactions associées" in ligne else None),
         creation=date_iso(str(ligne.get("Date de création") or "")),
         racine=str(ligne.get("Racine suggérée") or "").strip().lower() == "oui",
         proprietaire_actif=actif)
@@ -286,9 +292,11 @@ def entreprise_depuis_ligne(ligne):
 # --------------------------------------------------------------------------- #
 
 def choisir_racine(fiches):
-    """Le plus de contacts associés ; puis racine suggérée, plus complète, plus ancienne."""
-    return max(fiches, key=lambda f: (f.nb_contacts, f.racine, vrai_nom(f.nom),
-                                      len(f.valeurs), [-ord(c) for c in f.creation]))
+    """Une fiche avec transactions ; puis le plus de contacts associés, la racine suggérée,
+    la plus complète, la plus ancienne."""
+    return max(fiches, key=lambda f: ((f.nb_transactions or 0) > 0, f.nb_contacts, f.racine,
+                                      vrai_nom(f.nom), len(f.valeurs),
+                                      [-ord(c) for c in f.creation]))
 
 
 def fiche_identite(fiches, racine):
@@ -371,6 +379,9 @@ def planifier(groupe, fiches, proprietes):
         return plan
 
     racine = choisir_racine(fiches)
+    if sum(1 for f in fiches if (f.nb_transactions or 0) > 0) > 1:
+        plan["remarques"].append("transactions sur plusieurs fiches : racine = celle qui a le "
+                                 "plus de contacts")
     cibles = {}
     for p in proprietes:
         if p in ("name", "hubspot_owner_id"):
@@ -443,6 +454,7 @@ class ClientEntreprises(ClientHubSpot):
         return Entreprise(
             id=brut["id"], valeurs={k: p.get(k) for k in proprietes}, dates=dates,
             nb_contacts=p.get("num_associated_contacts") or 0,
+            nb_transactions=p.get("num_associated_deals") or 0,
             creation=date_iso(p.get("createdate") or brut.get("createdAt")), racine=racine,
             proprietaire_actif=(proprietaire in actifs) if actifs else None)
 
@@ -510,6 +522,8 @@ def ligne_rapport(plan, portail, id_final=""):
     ligne = {
         "Groupe": plan["groupe"], "Statut": plan["statut"],
         "Fiches du groupe": " ; ".join(f.id for f in fiches),
+        "Transactions par fiche": " ; ".join(
+            "?" if f.nb_transactions is None else str(f.nb_transactions) for f in fiches),
         "Contacts par fiche": " ; ".join(str(f.nb_contacts) for f in fiches),
         "Remarques": " ; ".join(plan["remarques"]),
     }

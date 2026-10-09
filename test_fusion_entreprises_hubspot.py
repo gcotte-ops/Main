@@ -15,9 +15,10 @@ ENTETES = ["Groupe", "Niveau", "Raison du rapprochement", "Racine suggérée", "
            "Date de création"]
 
 
-def entreprise(id, creation, contacts=0, racine=False, actif=None, dates=None, **valeurs):
+def entreprise(id, creation, contacts=0, racine=False, actif=None, dates=None, transactions=0,
+               **valeurs):
     return fe.Entreprise(id, valeurs, dates=dates, nb_contacts=contacts, creation=creation,
-                         racine=racine, proprietaire_actif=actif)
+                         racine=racine, proprietaire_actif=actif, nb_transactions=transactions)
 
 
 def ecrire_xlsx(chemin, lignes, feuille="Doublons"):
@@ -83,6 +84,16 @@ class Regles(unittest.TestCase):
         self.assertIs(fe.choisir_racine([a, b]), b)
         b.nb_contacts = 1                    # égalité : la racine suggérée
         self.assertIs(fe.choisir_racine([a, b]), a)
+
+    def test_racine_avec_transactions(self):
+        a = entreprise(1, "2021", contacts=1, transactions=2, name="ABBAYE")
+        b = entreprise(2, "2023", contacts=9, racine=True, name="ABBAYE")
+        self.assertIs(fe.choisir_racine([a, b]), a)
+        # Transactions des deux côtés : le plus de contacts départage.
+        b.nb_transactions = 1
+        self.assertIs(fe.choisir_racine([a, b]), b)
+        plan = fe.planifier("G-001", [a, b], fe.PROPRIETES_DEFAUT)
+        self.assertTrue(any("transactions sur plusieurs" in r for r in plan["remarques"]))
 
     def test_siren_differents(self):
         a = entreprise(1, "2021", name="Sainte Marie Antony", siren="301546503")
@@ -168,7 +179,8 @@ class FauxHubSpot:
             return None
         return fe.Entreprise(f.id, dict(f.valeurs), dates=dict(f.dates),
                              nb_contacts=f.nb_contacts, creation=f.creation, racine=racine,
-                             proprietaire_actif=f.proprietaire_actif)
+                             proprietaire_actif=f.proprietaire_actif,
+                             nb_transactions=f.nb_transactions)
 
     def fusionner_entreprises(self, principal, autre):
         self.appels.append(("merge", principal, autre))
@@ -177,6 +189,7 @@ class FauxHubSpot:
         self.prochain += 1
         p.id = nouveau
         p.nb_contacts += a.nb_contacts
+        p.nb_transactions += a.nb_transactions
         self.entreprises[nouveau] = p
         for k in [principal, autre] + [k for k, v in self.redirections.items()
                                        if v in (principal, autre)]:
@@ -214,6 +227,15 @@ class Execution(unittest.TestCase):
         compteur = fe.traiter(self.liste, self.rapport, client=self.client, journal=lambda *a: 0)
         self.assertEqual(compteur, {"SIMULATION": 1})
         self.assertEqual(self.client.appels, [])
+
+    def test_fiche_avec_transaction_gardee_en_racine(self):
+        self.client.entreprises["10"].nb_transactions = 1
+        fe.traiter(self.liste, self.rapport, client=self.client, reel=True, journal=lambda *a: 0)
+        self.assertEqual(self.client.appels[0], ("merge", "10", "20"))
+        with open(self.rapport, encoding="utf-8-sig") as f:
+            ligne = next(csv.DictReader(f, delimiter=";"))
+        self.assertEqual(ligne["Transactions par fiche"], "1 ; 0")
+        self.assertEqual(ligne["Fiche racine"], "10")
 
     def test_fusion_dans_la_fiche_qui_a_le_plus_de_contacts(self):
         compteur = fe.traiter(self.liste, self.rapport, client=self.client, reel=True,
@@ -254,13 +276,14 @@ class ClientHubSpot(unittest.TestCase):
             ("GET", "/crm/v3/objects/companies/10?"): {"id": "10", "properties": {
                 "name": "ABBAYE", "phone": "00 00 00 00 00", "city": "Auros",
                 "hubspot_owner_id": "22", "num_associated_contacts": "3",
+                "num_associated_deals": "2",
                 "createdate": "2021-07-09T12:48:00Z"},
                 "propertiesWithHistory": {"city": [
                     {"value": "Auros", "timestamp": "2024-05-02T10:00:00.000Z"},
                     {"value": "AUROS", "timestamp": "2021-07-09T12:48:00.000Z"}]}},
         })
         f = client.entreprise("10", ["name", "phone", "city", "hubspot_owner_id"])
-        self.assertEqual(f.nb_contacts, 3)
+        self.assertEqual((f.nb_contacts, f.nb_transactions), (3, 2))
         self.assertNotIn("phone", f.valeurs)                      # numéro factice
         self.assertEqual(f.dates["city"], "2024-05-02 10:00:00")
         self.assertEqual(f.dates["name"], "2021-07-09 12:48:00")   # sans historique
