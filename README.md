@@ -86,3 +86,33 @@ En mode `--hors-ligne`, les échanges d'emails et les propriétaires ne sont pas
 date de création et sur la mention « (Deactivated User) » du CSV.
 
 Tests hors ligne : `python -m unittest test_fusion_doublons_hubspot`
+
+# Fusion des entreprises HubSpot en doublon certain
+
+`fusion_entreprises_hubspot.py` fusionne les entreprises de niveau « Certain » de l'onglet « Doublons » du
+classeur `doublons_potentiels_entreprises_hubspot.xlsx` (lu directement, sans rien installer ; un CSV exporté
+avec les mêmes colonnes convient aussi). Il utilise `fusion_doublons_hubspot.py`, à garder dans le même dossier.
+
+```bash
+python fusion_entreprises_hubspot.py doublons.xlsx --hors-ligne                          # aperçu à partir du seul classeur
+python fusion_entreprises_hubspot.py doublons.xlsx                                       # simulation, fiches lues dans HubSpot
+python fusion_entreprises_hubspot.py doublons.xlsx --groupes G-001,G-002 --executer      # essai sur 2 groupes
+python fusion_entreprises_hubspot.py doublons.xlsx --executer                            # tous les groupes « Certain »
+```
+
+| Champ | Valeur conservée |
+|---|---|
+| Fiche racine | Celle qui a **le plus de contacts associés** ; à égalité, la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
+| Nom | Celui de la racine ; si la racine n'a pas de vrai nom (vide ou nom de domaine), celui de la racine suggérée, sinon le vrai nom le plus récent. |
+| Domaine, site web | Ceux de la fiche qui donne le nom (ils servent à rattacher les contacts), remplacés seulement s'ils sont vides, factices (`4313.co`), en punycode (`xn--`) ou sur une plateforme (e-lyco, wixsite…), ou par le domaine principal du même site (`intranet.apei.fr` → `apei.fr`). |
+| Propriétaire | Toujours un utilisateur actif si une des fiches en a un (celui de la racine d'abord) ; un propriétaire désactivé n'est jamais ajouté. |
+| Tous les autres champs | Adresse, ville, téléphone, SIREN, SIRET, Type de décideur, secteur, catégorie d'actifs, champs OPERAT… : **la valeur saisie le plus récemment** dans HubSpot (historique de chaque propriété) ; une fiche vide est complétée par les autres. Téléphones `00 00 00 00 00` ignorés, « Ne sait pas encore » utilisé seulement faute de mieux, une valeur identique à la casse ou à la mise en forme près n'est pas réécrite. |
+
+Les groupes dont les fiches portent des **SIREN différents** ne sont pas fusionnés (statut **À VÉRIFIER**) : ce sont
+souvent deux entités juridiques distinctes (OGEC et association, par exemple). Mêmes sécurités que pour les contacts :
+simulation par défaut, confirmation `FUSIONNER`, relance sans risque. Le rapport donne, pour chaque groupe, le nombre de
+contacts de chaque fiche, la racine retenue, le lien vers la fiche et la liste des champs complétés ou mis à jour.
+
+Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
+
+Tests hors ligne : `python -m unittest test_fusion_entreprises_hubspot`
