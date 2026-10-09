@@ -81,19 +81,44 @@ class Regles(unittest.TestCase):
     def test_racine_le_plus_de_contacts(self):
         a = entreprise(1, "2021", contacts=1, racine=True, name="ABBAYE")
         b = entreprise(2, "2023", contacts=4, name="abbaye.fr")
-        self.assertIs(fe.choisir_racine([a, b]), b)
+        self.assertIs(fe.choisir_racine([a, b])[0], b)
         b.nb_contacts = 1                    # égalité : la racine suggérée
-        self.assertIs(fe.choisir_racine([a, b]), a)
+        self.assertIs(fe.choisir_racine([a, b])[0], a)
 
     def test_racine_avec_transactions(self):
         a = entreprise(1, "2021", contacts=1, transactions=2, name="ABBAYE")
         b = entreprise(2, "2023", contacts=9, racine=True, name="ABBAYE")
-        self.assertIs(fe.choisir_racine([a, b]), a)
-        # Transactions des deux côtés : le plus de contacts départage.
-        b.nb_transactions = 1
-        self.assertIs(fe.choisir_racine([a, b]), b)
-        plan = fe.planifier("G-001", [a, b], fe.PROPRIETES_DEFAUT)
-        self.assertTrue(any("transactions sur plusieurs" in r for r in plan["remarques"]))
+        self.assertIs(fe.choisir_racine([a, b])[0], a)
+
+    def test_transactions_des_deux_cotes_gt3(self):
+        a = entreprise(1, "2021", contacts=1, transactions=2, name="ABBAYE")
+        b = entreprise(2, "2023", contacts=9, transactions=1, name="ABBAYE")
+        # Une seule des deux dans la GT 3.0 : c'est elle, même avec moins de contacts.
+        racine, remarque = fe.choisir_racine([a, b], gt3={"1", "77"})
+        self.assertIs(racine, a)
+        self.assertIn("GT 3.0", remarque)
+        # Les deux dans la GT 3.0, aucune, ou GT 3.0 non fournie : le plus de contacts.
+        for gt3 in ({"1", "2"}, set(), None):
+            self.assertIs(fe.choisir_racine([a, b], gt3=gt3)[0], b)
+        plan = fe.planifier("G-001", [a, b], fe.PROPRIETES_DEFAUT, gt3={"1", "2"})
+        self.assertIs(plan["racine"], b)
+        self.assertTrue(any("toutes dans la GT 3.0" in r for r in plan["remarques"]))
+
+    def test_lecture_gt3(self):
+        dossier = tempfile.mkdtemp()
+        liste = os.path.join(dossier, "gt3_ids.txt")
+        with open(liste, "w") as f:
+            f.write("# GT 3.0 (onglet GT3, colonne Id_hubspot) - extraction\n"
+                    "8881957130\n16091473180\n\n")
+        self.assertEqual(fe.lire_gt3(liste), {"8881957130", "16091473180"})
+        export = os.path.join(dossier, "GT3.csv")
+        with open(export, "w", encoding="utf-8") as f:
+            f.write("Numero_projet,Nom_projet,Lien_hubspot,Id_hubspot\n"
+                    "2022255,AFS,https://app.hubspot.com/contacts/1/record/0-2/8881957130,"
+                    "8881957130\n"
+                    "2022430,Ch,https://app.hubspot.com/contacts/1/record/0-2/16091473180,\n"
+                    "2022431,X,,\n")
+        self.assertEqual(fe.lire_gt3(export), {"8881957130", "16091473180"})
 
     def test_siren_differents(self):
         a = entreprise(1, "2021", name="Sainte Marie Antony", siren="301546503")

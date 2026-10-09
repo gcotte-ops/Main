@@ -102,7 +102,7 @@ python fusion_entreprises_hubspot.py doublons.xlsx --executer                   
 
 | Champ | Valeur conservée |
 |---|---|
-| Fiche racine | Celle qui a **une ou plusieurs transactions associées** ; sinon (ou si plusieurs en ont), celle qui a **le plus de contacts associés** ; à égalité, la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
+| Fiche racine | Celle qui a **une ou plusieurs transactions associées**. Si plusieurs en ont : celle dont la transaction figure dans la **GT 3.0** (onglet GT3 du classeur « 0 - SUIVI PROJETS », colonne `Id_hubspot`) ; si plusieurs y figurent ou aucune, et pour les groupes sans transaction : celle qui a **le plus de contacts associés**. À égalité : la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
 | Nom | Celui de la racine ; si la racine n'a pas de vrai nom (vide ou nom de domaine), celui de la racine suggérée, sinon le vrai nom le plus récent. |
 | Domaine, site web | Ceux de la fiche qui donne le nom (ils servent à rattacher les contacts), remplacés seulement s'ils sont vides, factices (`4313.co`), en punycode (`xn--`) ou sur une plateforme (e-lyco, wixsite…), ou par le domaine principal du même site (`intranet.apei.fr` → `apei.fr`). |
 | Propriétaire | Toujours un utilisateur actif si une des fiches en a un (celui de la racine d'abord) ; un propriétaire désactivé n'est jamais ajouté. |
@@ -112,6 +112,10 @@ Les groupes dont les fiches portent des **SIREN différents** ne sont pas fusion
 souvent deux entités juridiques distinctes (OGEC et association, par exemple). Mêmes sécurités que pour les contacts :
 simulation par défaut, confirmation `FUSIONNER`, relance sans risque. Le rapport donne, pour chaque groupe, le nombre de
 contacts de chaque fiche, la racine retenue, le lien vers la fiche et la liste des champs complétés ou mis à jour.
+
+La GT 3.0 est lue dans `gt3_ids.txt` (IDs HubSpot des entreprises de l'onglet GT3, un par ligne) s'il est dans le
+dossier, ou dans le fichier donné par `--gt3` : cette liste ou un export CSV de l'onglet GT3. Sans elle, le script le
+signale et départage les fiches à transactions par le nombre de contacts.
 
 Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
 

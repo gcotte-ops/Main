@@ -6,9 +6,12 @@ classeur doublons_potentiels_entreprises_hubspot.xlsx (lignes de niveau « Certa
 Les fiches d'un même groupe (G-001, G-002...) sont fusionnées en une seule, puis la fiche
 obtenue est complétée pour garder le plus d'information possible, la plus à jour :
 
-  Fiche racine   celle qui a une ou plusieurs transactions associées ; sinon (ou si plusieurs
-                 en ont) celle qui a le plus de contacts associés ; à égalité, la « Racine
-                 suggérée » du classeur, puis la plus complète, puis la plus ancienne.
+  Fiche racine   celle qui a une ou plusieurs transactions associées. Si plusieurs en ont :
+                 celle dont la transaction figure dans la GT 3.0 (onglet GT3 du classeur
+                 « 0 - SUIVI PROJETS », colonne Id_hubspot) ; si plusieurs y figurent, ou
+                 aucune, celle qui a le plus de contacts associés. Sans transaction : le plus
+                 de contacts. À égalité : la « Racine suggérée » du classeur, puis la plus
+                 complète, puis la plus ancienne.
   Nom            celui de la racine, sauf s'il n'est qu'un nom de domaine ou vide : on prend
                  alors celui de la racine suggérée, sinon le vrai nom le plus récent (cette
                  fiche donne aussi le domaine).
@@ -31,6 +34,10 @@ Sécurités :
   - --executer fusionne réellement (irréversible), après confirmation ;
   - un groupe dont les fiches portent des SIREN différents n'est pas fusionné (« À VÉRIFIER ») ;
   - relancer le script est sans risque : les groupes déjà fusionnés sont détectés.
+
+La GT 3.0 est lue dans gt3_ids.txt (IDs HubSpot des entreprises présentes dans l'onglet GT3,
+un par ligne) s'il est dans le dossier, ou dans le fichier donné par --gt3 : cette liste ou un
+export CSV de l'onglet GT3 (colonne « Id_hubspot »).
 
 Exemples :
   python fusion_entreprises_hubspot.py doublons_entreprises.xlsx --hors-ligne   # aperçu sans HubSpot
@@ -58,6 +65,7 @@ from fusion_doublons_hubspot import (PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpo
 
 LIEN_FICHE = "https://app-eu1.hubspot.com/contacts/{portail}/record/0-2/{id}"
 FEUILLE = "Doublons"
+GT3_DEFAUT = "gt3_ids.txt"
 
 # Propriétés consolidées si la liste des propriétés HubSpot ne peut pas être lue.
 PROPRIETES_DEFAUT = [
@@ -90,7 +98,8 @@ PLATEFORMES = ("e-lyco.fr", "wixsite.com", "google.com", "sites.google", "blogsp
                "wordpress.com", "jimdo", "free.fr", "orange.fr", "wanadoo.fr", "facebook.com")
 
 ENTETES_RAPPORT = [
-    "Groupe", "Statut", "Fiches du groupe", "Transactions par fiche", "Contacts par fiche",
+    "Groupe", "Statut", "Fiches du groupe", "Transactions par fiche", "Dans la GT 3.0",
+    "Contacts par fiche",
     "Fiche racine", "ID final",
     "Lien HubSpot", "Nom", "Domaine", "Téléphone", "Ville", "SIREN", "SIRET",
     "Type de décideur", "Propriétaire", "Champs complétés ou mis à jour", "Remarques",
@@ -158,6 +167,26 @@ def lire_xlsx(chemin, feuille=FEUILLE):
         return []
     entetes = [str(e).strip() for e in lignes[0]]
     return [{e: (l[i] if i < len(l) else "") for i, e in enumerate(entetes)} for l in lignes[1:]]
+
+
+def lire_gt3(chemin):
+    """IDs HubSpot des entreprises présentes dans la GT 3.0 : liste (un ID par ligne) ou
+    export CSV de l'onglet GT3 (colonne Id_hubspot, à défaut Lien_hubspot)."""
+    with open(chemin, encoding="utf-8-sig", errors="replace") as f:
+        texte = "\n".join(l for l in f.read().splitlines() if not l.startswith("#"))
+    premiere = texte.splitlines()[0] if texte.strip() else ""
+    if "id_hubspot" in premiere.lower() or "lien_hubspot" in premiere.lower():
+        separateur = ";" if premiere.count(";") > premiere.count(",") else ","
+        ids = set()
+        for ligne in csv.DictReader(texte.splitlines(), delimiter=separateur):
+            valeur = ligne.get("Id_hubspot") or ""
+            if not valeur.strip():
+                m = re.search(r"/0-2/(\d+)", ligne.get("Lien_hubspot") or "")
+                valeur = m.group(1) if m else ""
+            if valeur.strip().isdigit():
+                ids.add(valeur.strip())
+        return ids
+    return {l.strip() for l in texte.splitlines() if l.strip().isdigit()}
 
 
 def lire_liste(chemin, niveau="Certain"):
@@ -291,12 +320,33 @@ def entreprise_depuis_ligne(ligne):
 # Règles de fusion
 # --------------------------------------------------------------------------- #
 
-def choisir_racine(fiches):
-    """Une fiche avec transactions ; puis le plus de contacts associés, la racine suggérée,
-    la plus complète, la plus ancienne."""
-    return max(fiches, key=lambda f: ((f.nb_transactions or 0) > 0, f.nb_contacts, f.racine,
-                                      vrai_nom(f.nom), len(f.valeurs),
-                                      [-ord(c) for c in f.creation]))
+def choisir_racine(fiches, gt3=None):
+    """(racine, remarque). Une fiche avec transactions ; si plusieurs, celle qui figure dans
+    la GT 3.0 ; puis le plus de contacts associés, la racine suggérée, la plus complète, la
+    plus ancienne."""
+    candidates, remarque = list(fiches), ""
+    avec = [f for f in fiches if (f.nb_transactions or 0) > 0]
+    if len(avec) == 1:
+        candidates = avec
+    elif len(avec) > 1:
+        candidates = avec
+        if gt3 is None:
+            remarque = ("transactions sur plusieurs fiches, GT 3.0 non fournie : racine = "
+                        "celle qui a le plus de contacts")
+        else:
+            dans_gt3 = [f for f in avec if f.id in gt3]
+            if len(dans_gt3) == 1:
+                candidates = dans_gt3
+                remarque = "transactions sur plusieurs fiches : racine = celle de la GT 3.0"
+            else:
+                candidates = dans_gt3 or avec
+                remarque = ("transactions sur plusieurs fiches, {} dans la GT 3.0 : racine = "
+                            "celle qui a le plus de contacts".format(
+                                "toutes" if len(dans_gt3) == len(avec) else
+                                "plusieurs" if dans_gt3 else "aucune"))
+    racine = max(candidates, key=lambda f: (f.nb_contacts, f.racine, vrai_nom(f.nom),
+                                            len(f.valeurs), [-ord(c) for c in f.creation]))
+    return racine, remarque
 
 
 def fiche_identite(fiches, racine):
@@ -369,7 +419,7 @@ def choisir_valeur(propriete, fiches, racine):
     return valeur
 
 
-def planifier(groupe, fiches, proprietes):
+def planifier(groupe, fiches, proprietes, gt3=None):
     """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
     sirens = {siren_de(f) for f in fiches} - {""}
@@ -378,10 +428,9 @@ def planifier(groupe, fiches, proprietes):
         plan["remarques"].append("SIREN différents : " + ", ".join(sorted(sirens)))
         return plan
 
-    racine = choisir_racine(fiches)
-    if sum(1 for f in fiches if (f.nb_transactions or 0) > 0) > 1:
-        plan["remarques"].append("transactions sur plusieurs fiches : racine = celle qui a le "
-                                 "plus de contacts")
+    racine, remarque = choisir_racine(fiches, gt3)
+    if remarque:
+        plan["remarques"].append(remarque)
     cibles = {}
     for p in proprietes:
         if p in ("name", "hubspot_owner_id"):
@@ -517,13 +566,15 @@ def executer(client, plan, proprietes):
 # Rapport et programme principal
 # --------------------------------------------------------------------------- #
 
-def ligne_rapport(plan, portail, id_final=""):
+def ligne_rapport(plan, portail, id_final="", gt3=None):
     fiches = plan["fiches"]
     ligne = {
         "Groupe": plan["groupe"], "Statut": plan["statut"],
         "Fiches du groupe": " ; ".join(f.id for f in fiches),
         "Transactions par fiche": " ; ".join(
             "?" if f.nb_transactions is None else str(f.nb_transactions) for f in fiches),
+        "Dans la GT 3.0": " ; ".join(
+            "?" if gt3 is None else "oui" if f.id in gt3 else "non" for f in fiches),
         "Contacts par fiche": " ; ".join(str(f.nb_contacts) for f in fiches),
         "Remarques": " ; ".join(plan["remarques"]),
     }
@@ -573,7 +624,7 @@ def fiches_du_groupe(lignes, client, proprietes):
 
 
 def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite=None,
-            portail=PORTAIL_DEFAUT, niveau="Certain", journal=print):
+            portail=PORTAIL_DEFAUT, niveau="Certain", gt3=None, journal=print):
     groupes = {}
     for ligne in lire_liste(chemin, niveau):
         g = str(ligne.get("Groupe") or "").strip()
@@ -593,7 +644,7 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                         "remarques": ["fiches absentes : " + ", ".join(absentes)] if absentes
                         else ["les fiches ne forment déjà plus qu'une"]}
             else:
-                plan = planifier(groupe, fiches, proprietes)
+                plan = planifier(groupe, fiches, proprietes, gt3)
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
             if plan["statut"] == "À FUSIONNER":
@@ -608,7 +659,7 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                                  "crm.objects.companies.write à l'application privée. "
                                  "Groupes déjà traités : voir {}".format(chemin_rapport))
             plan = {"groupe": groupe, "fiches": [], "statut": "ERREUR", "remarques": [str(e)]}
-        ligne = ligne_rapport(plan, portail, id_final)
+        ligne = ligne_rapport(plan, portail, id_final, gt3)
         rapport.append(ligne)
         compteur[plan["statut"]] = compteur.get(plan["statut"], 0) + 1
         journal("{} {:<30} {}".format(groupe, plan["statut"], ligne.get("Nom", "")).rstrip())
@@ -631,10 +682,20 @@ def main(argv=None):
     parser.add_argument("--rapport",
                         help="chemin du rapport (défaut : <liste>_fusion_rapport.csv)")
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
+    parser.add_argument("--gt3", help="IDs HubSpot présents dans la GT 3.0 (défaut : {} s'il "
+                        "est dans le dossier) ou export CSV de l'onglet GT3".format(GT3_DEFAUT))
     args = parser.parse_args(argv)
 
     if args.executer and args.hors_ligne:
         parser.error("--executer et --hors-ligne sont incompatibles")
+    gt3 = None
+    chemin_gt3 = args.gt3 or next(
+        (c for c in (GT3_DEFAUT, os.path.join(os.path.dirname(os.path.abspath(args.liste)),
+                                             GT3_DEFAUT)) if os.path.isfile(c)), None)
+    if args.gt3 and not os.path.isfile(args.gt3):
+        parser.error("fichier GT 3.0 introuvable : « {} »".format(args.gt3))
+    if chemin_gt3:
+        gt3 = lire_gt3(chemin_gt3)
     if not os.path.isfile(args.liste):
         dossier = os.path.dirname(os.path.abspath(args.liste))
         presents = sorted(f for f in os.listdir(dossier)
@@ -678,8 +739,10 @@ def main(argv=None):
 
     mode = "FUSION" if args.executer else "SIMULATION" + (" hors ligne" if args.hors_ligne else "")
     print("Mode : {}".format(mode))
+    print("GT 3.0 : " + ("{} entreprises lues dans {}".format(len(gt3), chemin_gt3) if gt3
+                         is not None else "non fournie (règle des transactions sans la GT 3.0)"))
     compteur = traiter(args.liste, rapport, client=client, reel=args.executer, filtre=filtre,
-                       limite=args.limite, portail=args.portail)
+                       limite=args.limite, portail=args.portail, gt3=gt3)
     print("\nBilan : " + ", ".join("{} {}".format(v, k) for k, v in sorted(compteur.items())))
     print("Rapport : {}".format(rapport))
     if not args.executer:
