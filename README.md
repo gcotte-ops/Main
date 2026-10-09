@@ -41,3 +41,82 @@ Envoi d'email : définir `SMTP_HOST`, `SMTP_PORT` (587 par défaut), `SMTP_USER`
 (pour Google Workspace : `smtp.gmail.com` et un mot de passe d'application).
 
 Tests hors ligne : `python -m unittest test_enrichissement_siren_siret`
+
+# Fusion des contacts HubSpot en doublon certain
+
+`fusion_doublons_hubspot.py` fusionne les contacts listés dans l'onglet « Doublons certains »
+(`doublons_potentiels_hubspot.xlsx` exporté en CSV) : les fiches d'un même groupe (G-001, G-002…)
+sont fusionnées en une seule, puis la fiche obtenue est corrigée.
+
+```bash
+python fusion_doublons_hubspot.py doublons.csv --hors-ligne            # aperçu à partir du seul CSV
+python fusion_doublons_hubspot.py doublons.csv                         # simulation, fiches lues dans HubSpot
+python fusion_doublons_hubspot.py doublons.csv --groupes G-001,G-002 --executer   # test sur 2 groupes
+python fusion_doublons_hubspot.py doublons.csv --executer              # tous les groupes
+```
+
+Règles appliquées à chaque groupe :
+
+| Champ | Valeur conservée |
+|---|---|
+| Fiche la plus à jour | On regarde d'abord les **emails reçus du contact** : le dernier email qu'il a envoyé désigne la fiche (et l'adresse) avec laquelle il a travaillé en dernier. À défaut d'échange, c'est la date de création qui compte. Chaque fiche est datée par le plus récent des deux. |
+| Entreprise | Celle de la fiche la plus à jour qui en a une : nom de l'entreprise et entreprise associée principale. Une valeur copiée d'un domaine email (« 54.fr ») est ignorée. |
+| Email | Une seule adresse en email principal (HubSpot garde l'autre en email secondaire) : **celle de l'entreprise retenue si elle existe** (même entreprise, ou même boîte sur un domaine mal orthographié), en préférant l'adresse du dernier échange, puis la « Racine suggérée ». Écartées : adresses en échec (hard bounce), punycode `xn--`, domaine invalide. S'il n'y a aucune adresse pour l'entreprise retenue, l'autre est gardée et signalée dans le rapport. La fiche qui porte l'adresse retenue est la fiche principale de la fusion. |
+| Prénom / Nom | La fiche la mieux renseignée : prénom **et** nom, prénom complet plutôt qu'initiale, forme la plus complète (« Nevers-Brunel » plutôt que « Nevers »), répartition majoritaire si prénom et nom sont inversés. Civilités retirées (« M. », « Madame »). Prénom avec accents (« Sophie-Anne »), **NOM en majuscules** (« DUCHENE »). |
+| Téléphone / Mobile | Repris dès qu'une fiche en a un (celui de la fiche la plus à jour s'il y en a plusieurs). Un second mobile va dans le champ mobile s'il est vide ; les autres numéros sont listés dans le rapport. |
+| Intitulé du poste | Celui de la fiche la plus à jour qui en a un. |
+| Propriétaire | **Toujours un utilisateur actif** quand une des fiches en a un (celui de la fiche principale en priorité). Un propriétaire désactivé n'est gardé que si aucun n'est actif. Sans le droit de lire les propriétaires, `--executer` refuse de démarrer. |
+
+Sécurités :
+- **par défaut, rien n'est modifié** : le rapport `<csv>_fusion_rapport.csv` montre ce qui serait fait ;
+- `--executer` fusionne réellement (irréversible), après avoir tapé `FUSIONNER` (`--oui` pour s'en passer) ;
+- les groupes dont les prénoms se contredisent ne sont pas fusionnés (statut **À VÉRIFIER**) ;
+- le script peut être relancé : les groupes déjà fusionnés sont détectés (**DÉJÀ FUSIONNÉ**).
+
+Le rapport (CSV `;`, lisible dans Excel) donne pour chaque groupe : statut, ID de la fiche finale et lien,
+valeurs retenues, numéros non repris et remarques à vérifier (prénoms divergents, email et entreprise
+sans adresse pour l'entreprise retenue, propriétaire désactivé faute d'actif…), ainsi que la fiche la
+plus à jour et la date du dernier email reçu.
+
+Accès HubSpot : variable d'environnement `HUBSPOT_TOKEN` = jeton d'une application privée avec les droits
+`crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read`, `crm.objects.owners.read`
+et `sales-email-read` (lecture des emails échangés ; sans lui, l'entreprise est choisie sur la date de création).
+
+En mode `--hors-ligne`, les échanges d'emails et les propriétaires ne sont pas lus : l'aperçu s'appuie sur la
+date de création et sur la mention « (Deactivated User) » du CSV.
+
+Tests hors ligne : `python -m unittest test_fusion_doublons_hubspot`
+
+# Fusion des entreprises HubSpot en doublon certain
+
+`fusion_entreprises_hubspot.py` fusionne les entreprises de niveau « Certain » de l'onglet « Doublons » du
+classeur `doublons_potentiels_entreprises_hubspot.xlsx` (lu directement, sans rien installer ; un CSV exporté
+avec les mêmes colonnes convient aussi). Il utilise `fusion_doublons_hubspot.py`, à garder dans le même dossier.
+
+```bash
+python fusion_entreprises_hubspot.py doublons.xlsx --hors-ligne                          # aperçu à partir du seul classeur
+python fusion_entreprises_hubspot.py doublons.xlsx                                       # simulation, fiches lues dans HubSpot
+python fusion_entreprises_hubspot.py doublons.xlsx --groupes G-001,G-002 --executer      # essai sur 2 groupes
+python fusion_entreprises_hubspot.py doublons.xlsx --executer                            # tous les groupes « Certain »
+```
+
+| Champ | Valeur conservée |
+|---|---|
+| Fiche racine | Celle qui a **une ou plusieurs transactions associées**. Si plusieurs en ont : celle dont la transaction figure dans la **GT 3.0** (onglet GT3 du classeur « 0 - SUIVI PROJETS », colonne `Id_hubspot`) ; si plusieurs y figurent ou aucune, et pour les groupes sans transaction : celle qui a **le plus de contacts associés**. À égalité : la « Racine suggérée » du classeur, puis la plus complète, puis la plus ancienne. Les autres fiches y sont fusionnées. |
+| Nom | Celui de la racine ; si la racine n'a pas de vrai nom (vide ou nom de domaine), celui de la racine suggérée, sinon le vrai nom le plus récent. |
+| Domaine, site web | Ceux de la fiche qui donne le nom (ils servent à rattacher les contacts), remplacés seulement s'ils sont vides, factices (`4313.co`), en punycode (`xn--`) ou sur une plateforme (e-lyco, wixsite…), ou par le domaine principal du même site (`intranet.apei.fr` → `apei.fr`). |
+| Propriétaire | Toujours un utilisateur actif si une des fiches en a un (celui de la racine d'abord) ; un propriétaire désactivé n'est jamais ajouté. |
+| Tous les autres champs | Adresse, ville, téléphone, SIREN, SIRET, Type de décideur, secteur, catégorie d'actifs, champs OPERAT… : **la valeur saisie le plus récemment** dans HubSpot (historique de chaque propriété) ; une fiche vide est complétée par les autres. Téléphones `00 00 00 00 00` ignorés, « Ne sait pas encore » utilisé seulement faute de mieux, une valeur identique à la casse ou à la mise en forme près n'est pas réécrite. |
+
+Les groupes dont les fiches portent des **SIREN différents** ne sont pas fusionnés (statut **À VÉRIFIER**) : ce sont
+souvent deux entités juridiques distinctes (OGEC et association, par exemple). Mêmes sécurités que pour les contacts :
+simulation par défaut, confirmation `FUSIONNER`, relance sans risque. Le rapport donne, pour chaque groupe, le nombre de
+contacts de chaque fiche, la racine retenue, le lien vers la fiche et la liste des champs complétés ou mis à jour.
+
+La GT 3.0 est lue dans `gt3_ids.txt` (IDs HubSpot des entreprises de l'onglet GT3, un par ligne) s'il est dans le
+dossier, ou dans le fichier donné par `--gt3` : cette liste ou un export CSV de l'onglet GT3. Sans elle, le script le
+signale et départage les fiches à transactions par le nombre de contacts.
+
+Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
+
+Tests hors ligne : `python -m unittest test_fusion_entreprises_hubspot`
