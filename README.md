@@ -42,17 +42,108 @@ Envoi d'email : définir `SMTP_HOST`, `SMTP_PORT` (587 par défaut), `SMTP_USER`
 
 Tests hors ligne : `python -m unittest test_enrichissement_siren_siret`
 
-# Fusion des contacts HubSpot en doublon certain
+# Dédoublonnage HubSpot : détection puis fusion
 
-`fusion_doublons_hubspot.py` fusionne les contacts listés dans l'onglet « Doublons certains »
-(`doublons_potentiels_hubspot.xlsx` exporté en CSV) : les fiches d'un même groupe (G-001, G-002…)
-sont fusionnées en une seule, puis la fiche obtenue est corrigée.
+Quatre scripts, à lancer **dans cet ordre** (portail Alter Watt `20368543`) :
+
+| Étape | Script | Produit / effet |
+|---|---|---|
+| 1. Détection des entreprises, puis **relecture** | `detection_entreprises_hubspot.py` | `doublons_entreprises.xlsx` (lecture seule) |
+| 2. Fusion des entreprises | `fusion_entreprises_hubspot.py doublons_entreprises.xlsx` | fusionne les groupes « Certain » |
+| 3. **Nouvelle extraction** des contacts, puis détection | `detection_contacts_hubspot.py` | `doublons_contacts.xlsx` (lecture seule) |
+| 4. Fusion des contacts | `fusion_doublons_hubspot.py doublons_contacts.xlsx` | fusionne les groupes « Certain » |
+
+La détection des contacts se lance **après** la fusion des entreprises : une fois les ID d'entreprise stabilisés,
+« même entreprise associée » devient un lien fiable. Seuls les groupes de niveau **« Certain »** sont fusionnés ; les
+niveaux « Probable » et les onglets de relecture servent à la vérification humaine.
+
+Fichiers à garder dans le même dossier : les quatre scripts, `normalisation.py` (normalisation commune), `familles.py`
+et `lexique_familles.csv` (règle des familles). Les scripts de fusion n'ont besoin d'aucune dépendance ; les scripts
+de détection utilisent `openpyxl` pour écrire le classeur (`pip install openpyxl`).
+
+Accès : variable d'environnement `HUBSPOT_TOKEN`. La détection ne demande que la lecture
+(`crm.objects.companies.read`, `crm.objects.contacts.read`, `crm.objects.owners.read`) et n'écrit jamais dans HubSpot.
+
+Tests hors ligne : `python -m unittest test_detection_doublons test_fusion_entreprises_hubspot test_fusion_doublons_hubspot`
+
+## Détection des entreprises
 
 ```bash
-python fusion_doublons_hubspot.py doublons.csv --hors-ligne            # aperçu à partir du seul CSV
-python fusion_doublons_hubspot.py doublons.csv                         # simulation, fiches lues dans HubSpot
-python fusion_doublons_hubspot.py doublons.csv --groupes G-001,G-002 --executer   # test sur 2 groupes
-python fusion_doublons_hubspot.py doublons.csv --executer              # tous les groupes
+python detection_entreprises_hubspot.py                                   # lecture de toutes les entreprises par l'API
+python detection_entreprises_hubspot.py --depuis-export entreprises.csv   # sur un export HubSpot, sans l'API
+python detection_entreprises_hubspot.py --ancien doublons_potentiels_entreprises_hubspot.xlsx   # + onglet « Comparaison »
+```
+
+Toutes les comparaisons se font sur des valeurs normalisées (`normalisation.py`) : noms sans accents ni ponctuation,
+« St » → « Saint », nom équivalent sans forme juridique (SARL, EURL, association, fondation…), sans type
+d'établissement (OGEC, école, lycée, EHPAD…) ni mots vides ; villes sans « cedex » ni arrondissement ; téléphones
+à 10 chiffres ; domaine principal (deux derniers labels, trois pour `gouv.fr`, `asso.fr`, `ac-*.fr`…). Domaines
+factices (`4313.co`), punycode, plateformes (wixsite, e-lyco…), téléphones `00 00 00 00 00`, « Ne sait pas encore »,
+« NC »… sont traités comme vides.
+
+| Niveau | Règle |
+|---|---|
+| **Bloquée** | SIREN différents (B1), ou **familles incompatibles** (B2). La paire n'est dans aucun groupe : onglet « Entités distinctes ». |
+| **Certain** | Même nom / nom équivalent + au moins un lien fort (même domaine, même téléphone, même ville), sans contradiction ; nom générique (nom distinctif de 6 caractères ou moins, ou porté dans 3 villes) : deux liens forts ; domaines différents tolérés avec deux liens forts. Fiche sans nom ou nommée par son domaine + même site + même téléphone ou même ville. Même SIREN + « Centralisé » sur les deux fiches. Nom à une faute près + même SIREN. |
+| Jamais Certain | Nom à une faute près sans SIREN identique, nom seulement inclus, domaine seulement proche (y compris deux sous-domaines d'un même domaine), villes différentes, ville absente sans autre lien fort, domaines différents avec un seul lien fort. |
+| **Probable** | Nom identique, équivalent, à une faute près ou inclus + un lien fort ou une ville absente ; fiche sans nom ou nommée par son domaine + domaine identique ou proche, ou même téléphone ; noms différents + même domaine + même téléphone. |
+
+**Règle des familles** (`familles.py`) : deux noms qui portent chacun un qualificatif de champs différents ne sont
+jamais fusionnés, en activité (enseignement, collectivité, État, médico-social, religieux, immobilier…) ou en nature
+juridique (association/fondation, société, public). « OGEC Marmoutier » / « Mairie - Marmoutier » : incompatibles ;
+« Fondation Alix Le Clerc » / « Association Alix Le Clerc » : compatibles. Les marqueurs sont dans
+`lexique_familles.csv` (séparateur `;`), à enrichir sans toucher au code ; les mots ambigus (institut, résidence,
+maison, groupe, centre, communauté, MAS) ne sont jamais marqueurs seuls.
+
+**Groupes, règle stricte** : une fusion est irréversible, aucun chaînage n'est accepté. Dans un groupe « Certain »,
+toutes les paires de fiches sont « Certain ». Une fiche liée à une partie seulement du groupe va dans un groupe
+« Probable » « lien indirect (chaînage) », avec la racine du groupe Certain. Numérotation `G-001`… triée par nom de la
+racine, identique d'une exécution à l'autre.
+
+**Racine suggérée** : même ordre que la fusion (fiche avec transactions, celle de la GT 3.0 si plusieurs, le plus de
+contacts associés, un vrai nom, la plus complète, un propriétaire actif, la plus ancienne).
+
+Le classeur contient :
+- **Synthèse** : date et source, nombres de fiches et de groupes par niveau et par onglet, avertissements, « Comment
+  lire les niveaux » ;
+- **Doublons** : niveaux Certain et Probable, colonnes lues par la fusion (sans renommage) + « Transactions
+  associées », « Dans la GT 3.0 » et « Liens avec la racine » (liens et contradictions de chaque fiche avec la racine) ;
+- **Filiales et établissements** (`F-`), **Homonymes à vérifier** (`H-`), **SIREN commun** (`S-`), **Entités
+  distinctes** (`E-`, paires bloquées avec leur motif) : relecture seulement, jamais fusionnés ;
+- **Comparaison** (avec `--ancien`) : ancien et nouveau niveau de chaque groupe de l'ancien classeur.
+
+Avec `--depuis-export`, les colonnes absentes de l'export sont signalées et les règles qui en dépendent désactivées.
+L'ancien classeur de doublons peut servir d'export (`--depuis-export ancien.xlsx`) pour un test de non-régression.
+
+## Détection des contacts
+
+```bash
+python detection_contacts_hubspot.py                                 # nouvelle extraction par l'API
+python detection_contacts_hubspot.py --depuis-export contacts.csv
+```
+
+| Niveau | Règle |
+|---|---|
+| **Bloquée** | Prénoms incompatibles (deux prénoms complets différents, initiales qui ne correspondent pas) : onglet « Personnes distinctes ». |
+| **Certain** | Même email (principal identique, ou principal de l'un parmi les emails secondaires de l'autre), sauf adresse générique ; même boîte sur un domaine mal orthographié + même nom de famille ; même prénom et même nom + un lien fort : même entreprise associée, même domaine email professionnel, même mobile, même téléphone fixe. |
+| Jamais Certain | Webmails seuls, entreprises différentes sans autre lien, prénom réduit à une initiale (sauf même email), adresse générique partagée (contact@, accueil@…). |
+| **Probable** | Les cas ci-dessus ; nom à une faute près, incomplet ou composé + un lien fort ; fiche sans nom dont l'email reprend le prénom et le nom de l'autre. Un prénom + nom porté par plus de 3 fiches sans autre lien n'est pas proposé (homonymes). |
+
+Onglets : **Doublons** (colonnes lues par la fusion + « Autres emails », « Mobile », « ID entreprise associée »,
+« Liens avec la racine »), **Personnes distinctes** (`P-`), **Adresses génériques partagées** (`A-`).
+
+# Fusion des contacts HubSpot en doublon certain
+
+`fusion_doublons_hubspot.py` fusionne les contacts de niveau « Certain » de l'onglet « Doublons » du classeur
+`doublons_contacts.xlsx` (lu directement ; un CSV avec les mêmes colonnes, comme l'ancienne liste « Doublons
+certains », convient aussi) : les fiches d'un même groupe (G-001, G-002…) sont fusionnées en une seule, puis la
+fiche obtenue est corrigée.
+
+```bash
+python fusion_doublons_hubspot.py doublons_contacts.xlsx --hors-ligne        # aperçu à partir du seul classeur
+python fusion_doublons_hubspot.py doublons_contacts.xlsx                     # simulation, fiches lues dans HubSpot
+python fusion_doublons_hubspot.py doublons_contacts.xlsx --groupes G-001,G-002 --executer   # test sur 2 groupes
+python fusion_doublons_hubspot.py doublons_contacts.xlsx --executer          # tous les groupes « Certain »
 ```
 
 Règles appliquées à chaque groupe :
@@ -70,7 +161,9 @@ Règles appliquées à chaque groupe :
 Sécurités :
 - **par défaut, rien n'est modifié** : le rapport `<csv>_fusion_rapport.csv` montre ce qui serait fait ;
 - `--executer` fusionne réellement (irréversible), après avoir tapé `FUSIONNER` (`--oui` pour s'en passer) ;
-- les groupes dont les prénoms se contredisent ne sont pas fusionnés (statut **À VÉRIFIER**) ;
+- les groupes dont les prénoms se contredisent ne sont pas fusionnés (statut **À VÉRIFIER**), ni ceux dont une
+  paire n'est pas un doublon certain d'après les fiches lues (même email, même boîte + même nom, ou même prénom et
+  nom + un lien fort : voir « Détection des contacts ») ;
 - le script peut être relancé : les groupes déjà fusionnés sont détectés (**DÉJÀ FUSIONNÉ**).
 
 Le rapport (CSV `;`, lisible dans Excel) donne pour chaque groupe : statut, ID de la fiche finale et lien,
@@ -90,8 +183,9 @@ Tests hors ligne : `python -m unittest test_fusion_doublons_hubspot`
 # Fusion des entreprises HubSpot en doublon certain
 
 `fusion_entreprises_hubspot.py` fusionne les entreprises de niveau « Certain » de l'onglet « Doublons » du
-classeur `doublons_potentiels_entreprises_hubspot.xlsx` (lu directement, sans rien installer ; un CSV exporté
-avec les mêmes colonnes convient aussi). Il utilise `fusion_doublons_hubspot.py`, à garder dans le même dossier.
+classeur `doublons_entreprises.xlsx` (lu directement, sans rien installer ; un CSV exporté avec les mêmes colonnes
+convient aussi). Il utilise `fusion_doublons_hubspot.py`, `normalisation.py`, `familles.py` et
+`detection_entreprises_hubspot.py`, à garder dans le même dossier.
 
 ```bash
 python fusion_entreprises_hubspot.py doublons.xlsx --hors-ligne                          # aperçu à partir du seul classeur
@@ -108,14 +202,21 @@ python fusion_entreprises_hubspot.py doublons.xlsx --executer                   
 | Propriétaire | Toujours un utilisateur actif si une des fiches en a un (celui de la racine d'abord) ; un propriétaire désactivé n'est jamais ajouté. |
 | Tous les autres champs | Adresse, ville, téléphone, SIREN, SIRET, Type de décideur, secteur, catégorie d'actifs, champs OPERAT… : **la valeur saisie le plus récemment** dans HubSpot (historique de chaque propriété) ; une fiche vide est complétée par les autres. Téléphones `00 00 00 00 00` ignorés, « Ne sait pas encore » utilisé seulement faute de mieux, une valeur identique à la casse ou à la mise en forme près n'est pas réécrite. |
 
-Les groupes dont les fiches portent des **SIREN différents** ne sont pas fusionnés (statut **À VÉRIFIER**) : ce sont
-souvent deux entités juridiques distinctes (OGEC et association, par exemple). Mêmes sécurités que pour les contacts :
+Ne sont pas fusionnés (statut **À VÉRIFIER**) les groupes dont les fiches portent des **SIREN différents** (souvent
+deux entités juridiques distinctes, OGEC et association par exemple), dont deux noms sont de **familles
+incompatibles** (« familles incompatibles : A / B »), ou dont une paire n'est pas un doublon certain d'après les fiches
+lues dans HubSpot (« lien indirect » : règles de la détection recalculées). Un nom retenu qui commence par une forme
+juridique (« EURL ABBAYE DE LA COUDRE ») est remplacé par celui d'une autre fiche du groupe qui n'en a pas ; un « Type
+de décideur » ou une catégorie d'actifs contradictoires entre fiches sont signalés dans les remarques (la valeur la
+plus récente est gardée). Mêmes sécurités que pour les contacts :
 simulation par défaut, confirmation `FUSIONNER`, relance sans risque. Le rapport donne, pour chaque groupe, le nombre de
 contacts de chaque fiche, la racine retenue, le lien vers la fiche et la liste des champs complétés ou mis à jour.
 
 La GT 3.0 est lue dans `gt3_ids.txt` (IDs HubSpot des entreprises de l'onglet GT3, un par ligne) s'il est dans le
 dossier, ou dans le fichier donné par `--gt3` : cette liste ou un export CSV de l'onglet GT3. Sans elle, le script le
-signale et départage les fiches à transactions par le nombre de contacts.
+signale et départage les fiches à transactions par le nombre de contacts. Les lignes non numériques sont ignorées et
+les ID de moins de 8 chiffres signalés. Si l'onglet GT3 contient finalement des ID de transaction, passer
+`GT3_CONTIENT = "transactions"` en tête de `fusion_entreprises_hubspot.py` (utilisé aussi par la détection).
 
 Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
 

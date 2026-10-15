@@ -1,0 +1,71 @@
+dimension;famille;marqueur;position;nature_implicite
+activite;enseignement;ogec;;asso_fondation
+activite;enseignement;agea;;asso_fondation
+activite;enseignement;ecole;;
+activite;enseignement;lycee;;
+activite;enseignement;college;;
+activite;enseignement;groupe scolaire;;
+activite;enseignement;institution;;
+activite;enseignement;universite;;public
+activite;enseignement;campus;;
+activite;enseignement;enseignement;;
+activite;collectivite;mairie;;public
+activite;collectivite;ville de;debut;public
+activite;collectivite;commune de;debut;public
+activite;collectivite;communaute de communes;;public
+activite;collectivite;communaute d agglomeration;;public
+activite;collectivite;agglomeration;;public
+activite;collectivite;metropole;;public
+activite;collectivite;departement;debut;public
+activite;collectivite;conseil departemental;;public
+activite;collectivite;region;debut;public
+activite;collectivite;conseil regional;;public
+activite;collectivite;sivom;;public
+activite;collectivite;sivu;;public
+activite;collectivite;syndicat intercommunal;;public
+activite;etat;services de l etat;;public
+activite;etat;prefecture;;public
+activite;etat;ministere;;public
+activite;etat;ddt;;public
+activite;etat;dreal;;public
+activite;etat;rectorat;;public
+activite;medico_social;ehpad;;
+activite;medico_social;clinique;;
+activite;medico_social;hopital;;
+activite;medico_social;centre hospitalier;;public
+activite;medico_social;ime;;
+activite;medico_social;esat;;
+activite;medico_social;foyer;;
+activite;medico_social;maison d accueil specialisee;;
+activite;medico_social;residence autonomie;;
+activite;medico_social;apajh;;asso_fondation
+activite;medico_social;adapei;;asso_fondation
+activite;religieux;abbaye;;
+activite;religieux;diocese;;
+activite;religieux;diocesaine;;
+activite;religieux;carmel;;
+activite;religieux;paroisse;;
+activite;religieux;prieure;;
+activite;religieux;congregation;;
+activite;religieux;monastere;;
+activite;religieux;eveche;;
+activite;immobilier;fonciere;;societe
+activite;immobilier;sci;;societe
+activite;immobilier;regie;;societe
+activite;immobilier;syndic;;societe
+activite;immobilier;immobilier;;societe
+activite;immobilier;immobiliere;;societe
+activite;immobilier;habitat;;
+activite;immobilier;bailleur;;
+activite;immobilier;oph;;public
+nature;asso_fondation;association;;
+nature;asso_fondation;asso;;
+nature;asso_fondation;fondation;;
+nature;societe;sarl;;
+nature;societe;eurl;;
+nature;societe;sas;;
+nature;societe;sasu;;
+nature;societe;sa;;
+nature;societe;snc;;
+nature;societe;cabinet;;
+nature;public;etablissement public;;

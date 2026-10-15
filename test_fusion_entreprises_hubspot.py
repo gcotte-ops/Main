@@ -91,8 +91,11 @@ class Regles(unittest.TestCase):
         self.assertIs(fe.choisir_racine([a, b])[0], a)
 
     def test_transactions_des_deux_cotes_gt3(self):
-        a = entreprise(1, "2021", contacts=1, transactions=2, name="ABBAYE")
-        b = entreprise(2, "2023", contacts=9, transactions=1, name="ABBAYE")
+        # Nom générique (6 lettres) : deux liens forts pour que la paire soit certaine.
+        a = entreprise(1, "2021", contacts=1, transactions=2, name="ABBAYE", city="Laval",
+                       phone="02 43 02 85 85")
+        b = entreprise(2, "2023", contacts=9, transactions=1, name="ABBAYE", city="LAVAL",
+                       phone="+33 2 43 02 85 85")
         # Une seule des deux dans la GT 3.0 : c'est elle, même avec moins de contacts.
         racine, remarque = fe.choisir_racine([a, b], gt3={"1", "77"})
         self.assertIs(racine, a)
@@ -166,9 +169,14 @@ class Regles(unittest.TestCase):
     def test_racine_sans_nom(self):
         # G-226 : la fiche créée depuis un domaine a plus de contacts et reste la racine,
         # mais le nom et le domaine viennent de la vraie fiche.
+        # Paire certaine par la règle C4 (même SIREN, « Centralisé » sur les deux fiches) avec
+        # deux liens forts, les domaines étant différents.
         vraie = entreprise(1, "2023-02-15", contacts=0, racine=True, name="Ville de Nevers",
-                           domain="nevers.fr", siren="831869367")
-        auto = entreprise(2, "2025-11-20", contacts=1, domain="ville-nevers.fr")
+                           domain="nevers.fr", siren="831869367", city="Nevers",
+                           phone="03 86 68 45 00", type_de_decideur="Centralisé")
+        auto = entreprise(2, "2025-11-20", contacts=1, domain="ville-nevers.fr",
+                          siren="831869367", city="NEVERS", phone="+33386684500",
+                          type_de_decideur="Centralisé")
         plan = fe.planifier("G-226", [vraie, auto], fe.PROPRIETES_DEFAUT)
         self.assertIs(plan["racine"], auto)
         self.assertEqual(plan["cibles"]["name"], "Ville de Nevers")
@@ -241,6 +249,7 @@ class Execution(unittest.TestCase):
                         "", "", "0", "2023-03-16 14:39"])
         self.client = FauxHubSpot({
             "10": entreprise("10", "2021-07-09", contacts=1, name="ABBAYE DU RIVET",
+                             domain="abbayesaintemariedurivet.com",
                              phone="+33556650530", city="AUROS", hubspot_owner_id="11",
                              actif=False),
             "20": entreprise("20", "2023-03-16", contacts=3, name="abbaye.com",
