@@ -68,19 +68,27 @@ Tests hors ligne : `python -m unittest test_detection_doublons test_fusion_entre
 
 ### Usage récurrent
 
-La chaîne tourne chaque semaine grâce à trois routines Claude (lundi : détection des entreprises ;
-mercredi : fusion des entreprises puis détection des contacts ; vendredi : fusion des contacts). Calendrier,
-dossiers Drive, configuration et procédure : **[DEDOUBLONNAGE_RECURRENT.md](DEDOUBLONNAGE_RECURRENT.md)**.
+Chaque lundi, une routine Claude lit toute la base par le **connecteur HubSpot**, repère les fiches créées
+depuis 7 jours, les compare à toute la base, **fusionne les doublons Certain** (API HubSpot, contrôle fiche
+par fiche juste avant la fusion) et envoie le compte rendu (doublons Probable à vérifier à la main, avec les
+liens). Configuration, procédure et rattrapage : **[DEDOUBLONNAGE_RECURRENT.md](DEDOUBLONNAGE_RECURRENT.md)**.
 
-- **Relecture** : la colonne « Décision » de l'onglet Doublons vaut « Fusionner » sur les groupes Certain ;
-  « Ne pas fusionner » sur une ligne retire la fiche de son groupe (sur toutes les lignes : groupe écarté).
-  Les scripts de fusion respectent ces choix.
-- **Mémoire des décisions** : `--memoriser decisions.csv` (scripts de fusion) enregistre les fiches écartées ;
-  `--decisions` (scripts de détection, fichiers ou dossiers, classeurs relus ou CSV de mémoire) les relit :
-  elles ne sont plus jamais reproposées ensemble.
-- **Groupes nouveaux** : avec `--ancien <classeur précédent>`, la colonne « Nouveau » signale les groupes
-  absents de l'analyse précédente.
-- `outils_routine.py` convertit les réponses des connecteurs Drive et Sheets en fichiers pour les scripts.
+```bash
+python detection_entreprises_hubspot.py --depuis-mcp base_entreprises.jsonl --nouvelles-depuis 7
+python detection_contacts_hubspot.py --depuis-mcp base_contacts.jsonl --nouvelles-depuis 7
+```
+
+- `--depuis-mcp` : réponses du connecteur HubSpot enregistrées (fichiers, dossiers, ou `.jsonl` écrit par
+  `outils_routine.py collecter`). Le connecteur ne lit pas les emails secondaires des contacts
+  (`hs_additional_emails`) : la règle correspondante est désactivée et la synthèse le signale.
+- `--nouvelles-depuis N` : ne garde que les groupes qui contiennent une fiche créée depuis minuit, il y a
+  N jours ; ces fiches sont comparées à toute la base.
+- `outils_routine.py` prépare les requêtes SQL du connecteur (tours de 20 pages de 500 fiches), contrôle que
+  la lecture est complète (somme des ID), et résume classeur et rapport de fusion (`bilan`).
+- **Relecture** (usage manuel) : la colonne « Décision » de l'onglet Doublons vaut « Fusionner » sur les
+  groupes Certain ; « Ne pas fusionner » sur une ligne retire la fiche de son groupe (sur toutes les lignes :
+  groupe écarté). `--memoriser decisions.csv` (fusion) enregistre ces choix, `--decisions` (détection) les
+  relit ; `--ancien <classeur précédent>` remplit la colonne « Nouveau ».
 
 ## Détection des entreprises
 

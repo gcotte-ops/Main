@@ -38,6 +38,7 @@ principale elle-même : la racine sert à la relecture.
 Exemples :
   python detection_contacts_hubspot.py                                 # lecture HubSpot
   python detection_contacts_hubspot.py --depuis-export contacts.csv    # sans l'API
+  python detection_contacts_hubspot.py --depuis-mcp base_contacts.jsonl --nouvelles-depuis 7
   python detection_contacts_hubspot.py --ancien doublons_potentiels_hubspot.xlsx
   python detection_contacts_hubspot.py --ancien relus/precedent.xlsx --decisions relus/
 
@@ -533,6 +534,27 @@ def fiche_depuis_hubspot(brut, proprietaires):
         activite=p.get("notes_last_updated") or "")
 
 
+def fiche_depuis_mcp(p):
+    """Fiche lue par le connecteur HubSpot (query_crm_data)."""
+    proprietaire = str(p.get("hubspot_owner_id_formatted") or p.get("hubspot_owner_id") or "").strip()
+    return FicheContact(
+        id=p["hs_object_id"], prenom=p.get("firstname"), nom=p.get("lastname"),
+        email=p.get("email"), telephone=p.get("phone"), mobile=p.get("mobilephone"),
+        poste=p.get("jobtitle"),
+        entreprise=nz.nettoyer(p.get("company") or p.get("associatedcompanyid_formatted")),
+        id_entreprise=p.get("associatedcompanyid") or "", proprietaire=proprietaire,
+        proprietaire_actif=False if "deactivated" in proprietaire.lower() else None,
+        creation=date_iso(p.get("createdate_iso") or ""),
+        en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
+        activite=p.get("notes_last_updated_iso") or "")
+
+
+def lire_mcp(chemins):
+    """Fiches des réponses du connecteur HubSpot enregistrées (voir outils_routine.py)."""
+    import outils_routine
+    return [fiche_depuis_mcp(p) for p in outils_routine.enregistrements(chemins, "contacts")]
+
+
 def lire_export(chemin):
     """(fiches, colonnes absentes) depuis un export HubSpot ou l'ancien classeur."""
     lignes = de.lire_tableau(chemin)
@@ -670,6 +692,12 @@ def main(argv=None):
                     "la fusion des entreprises, sur une nouvelle extraction des contacts.")
     parser.add_argument("--depuis-export", metavar="FICHIER",
                         help="export HubSpot (.csv) ou ancien classeur (.xlsx) au lieu de l'API")
+    parser.add_argument("--depuis-mcp", nargs="+", metavar="REPONSES",
+                        help="réponses du connecteur HubSpot enregistrées (fichiers, dossiers ou "
+                             ".jsonl de outils_routine.py collecter) au lieu de l'API")
+    parser.add_argument("--nouvelles-depuis", type=int, metavar="JOURS",
+                        help="ne lister que les doublons d'une fiche créée ces N derniers jours "
+                             "(comparée à toute la base)")
     parser.add_argument("-o", "--sortie", default=FICHIER_SORTIE,
                         help="classeur produit (défaut : {})".format(FICHIER_SORTIE))
     parser.add_argument("--ancien", metavar="CLASSEUR",
@@ -688,7 +716,20 @@ def main(argv=None):
             parser.error("classeur ou dossier de relecture introuvable : « {} »".format(chemin))
 
     avertissements, client = [], None
-    if args.depuis_export:
+    if args.depuis_export and args.depuis_mcp:
+        parser.error("--depuis-export et --depuis-mcp sont incompatibles")
+    if args.depuis_mcp:
+        fiches = lire_mcp(args.depuis_mcp)
+        if not fiches:
+            parser.error("aucun contact dans les réponses du connecteur : {}".format(
+                ", ".join(args.depuis_mcp)))
+        source = "connecteur HubSpot (MCP)"
+        message = ("Lecture par le connecteur : les emails secondaires (hs_additional_emails) ne "
+                   "sont pas lisibles ; règle désactivée : {}.".format(
+                       REGLES_PAR_COLONNE["hs_additional_emails"]))
+        avertissements.append(message)
+        print("  ! " + message)
+    elif args.depuis_export:
         fiches, absentes = lire_export(args.depuis_export)
         source = "export {}".format(os.path.basename(args.depuis_export))
         for colonne in absentes:
@@ -708,6 +749,11 @@ def main(argv=None):
 
     distinctes = de.lire_decisions(args.decisions, objet="contact") if args.decisions else None
     analyse = AnalyseContacts(fiches, distinctes=distinctes).executer()
+    recentes = None
+    if args.nouvelles_depuis is not None:
+        seuil = de.seuil_nouvelles(args.nouvelles_depuis)
+        recentes = analyse.filtrer_nouvelles(seuil)
+        print("Fiches créées depuis le {} (UTC) : {}".format(seuil[:10], recentes))
     avertissements += analyse.avertissements
     noms = {}
     if client is not None:
@@ -728,7 +774,7 @@ def main(argv=None):
         onglets.append(("Comparaison", de.COLONNES_COMPARAISON, comparaison))
         bilan = de.bilan_comparaison(comparaison)
     de.ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements,
-                                             de.lignes_releve(analyse, nouveaux)),
+                                             de.lignes_releve(analyse, nouveaux, recentes)),
                        onglets, horodatage)
 
     c = analyse.compteurs()

@@ -1,134 +1,136 @@
-# Dédoublonnage HubSpot récurrent
+# Dédoublonnage HubSpot hebdomadaire
 
-Chaque semaine, trois routines Claude enchaînent la chaîne de dédoublonnage. La relecture humaine
-reste obligatoire : **une fusion ne part que si le classeur relu a été déposé dans Drive**.
+Chaque **lundi à 7 h 47** (heure de Paris), une routine Claude :
 
-## Calendrier (heure de Paris)
+1. lit toute la base HubSpot (entreprises, puis contacts) avec le **connecteur HubSpot** ;
+2. repère les fiches **créées depuis 7 jours** (depuis minuit, il y a 7 jours) et les compare à toute la base ;
+3. **fusionne les doublons « Certain »** : chaque groupe est relu dans HubSpot et recontrôlé fiche par fiche
+   juste avant la fusion (la fiche gardée est la racine suggérée) ;
+4. envoie le compte rendu (email et app Claude) : groupes fusionnés, doublons « Probable » à vérifier à la
+   main avec les liens HubSpot, alertes. Les classeurs de la semaine sont joints dans l'app Claude.
 
-| Jour | Routine | Ce qu'elle fait | Ce que fait l'équipe |
-|---|---|---|---|
-| Lundi 7 h 47 | Détection des entreprises | Lit HubSpot, produit `doublons_entreprises_AAAA-MM-JJ.xlsx`, l'envoie (notification Claude + email récapitulatif). | Relit le classeur et le dépose dans « 1 - Relus à fusionner » **avant mercredi 7 h**. |
-| Mercredi 7 h 47 | Fusion des entreprises, puis détection des contacts | Fusionne les groupes validés du classeur déposé, mémorise les décisions, range le classeur dans « 2 - Traités ». Puis nouvelle extraction des contacts et envoi de `doublons_contacts_AAAA-MM-JJ.xlsx`. | Relit le classeur des contacts et le dépose **avant vendredi 7 h**. |
-| Vendredi 7 h 47 | Fusion des contacts | Fusionne les groupes validés du classeur des contacts déposé. | — |
-
-Sans dépôt, rien n'est fusionné : la détection suivante reproposera les mêmes groupes.
-
-## Relecture (équipe)
-
-1. Ouvrir le classeur reçu, onglet **Doublons**. La colonne **Nouveau** signale les groupes absents de
-   la relecture précédente : ce sont eux à regarder en priorité.
-2. Colonne **Décision** (liste déroulante) :
-   - « Fusionner » est pré-rempli sur les groupes **Certain** : rien à faire s'ils sont bons ;
-   - « Ne pas fusionner » sur la ligne d'une fiche la **retire du groupe** ; sur toutes les lignes, le
-     groupe entier est écarté ;
-   - sur un groupe **Probable**, « Ne pas fusionner » enregistre que ce ne sont pas des doublons : ils
-     ne seront plus proposés. Les vrais doublons Probable se fusionnent à la main dans HubSpot.
-3. Enregistrer en .xlsx **sans changer le nom du fichier** et le déposer dans Drive :
-   « Dédoublonnage HubSpot / 1 - Relus à fusionner ».
-
-Les décisions « Ne pas fusionner » sont mémorisées dans la feuille « Mémoire des décisions » : une fiche
-écartée n'est plus jamais reproposée avec les autres fiches de son groupe. Pour revenir sur une
-décision, supprimer la ligne correspondante de la feuille.
-
-## Dossiers et fichiers Drive
-
-| Élément | ID |
-|---|---|
-| Dossier « Dédoublonnage HubSpot » | `1E8Gpt6V3TJliz1pXU_FyAp5aNpjd_uGE` |
-| « 1 - Relus à fusionner » (dépôt de l'équipe) | `1asQliFbRrWgJ5rZ3O0XLO7-aFN7cvyxz` |
-| « 2 - Traités » (classeurs fusionnés, servent de classeur précédent) | `14KQ3kMG1RTaeM8TNXUpKoxy_X1HexUes` |
-| « 3 - Mémoire des décisions » | `1Fe7f8msvtFTZwvkY41iXBD-qCWwSdQEZ` |
-| Google Sheet « Mémoire des décisions », onglet `Décisions` (ID A, ID B, Objet, Classeur, Date) | `1SKAtfPIckho7E_-4P_2c0MLyd-cz-V53YrWg8vIEtlE` |
-| GT 3.0 : « 0 - SUIVI PROJETS », onglet `GT3`, colonnes `Lien_hubspot` (FF) et `Id_hubspot` (FG) : **ID d'entreprise** | `1K2kXDwHK_k4H-PEp-X-2J3F2h-iXqYbK1bzsjbkt6P0` |
-
-Emails envoyés à : gcotte@alter-watt.com.
+Les doublons « Probable » ne sont **jamais** fusionnés automatiquement. Les entreprises passent avant les
+contacts : les contacts sont lus après la fusion des entreprises, avec leurs nouvelles associations.
 
 ## Configuration requise (une fois)
 
-- **Réseau** de l'environnement cloud : autoriser `api.hubapi.com`.
+Les connecteurs HubSpot et Alter Watt MCP lisent les données mais ne savent pas fusionner : la fusion passe
+par l'API HubSpot, avec le jeton de l'application privée.
+
+Dans les réglages de l'environnement cloud (menu de l'environnement dans la barre de titre d'une session,
+puis **Edit**) :
+
+- **Accès réseau** : ajouter `api.hubapi.com` aux domaines autorisés (laisser cochée l'autorisation des
+  gestionnaires de paquets) ;
 - **Variable d'environnement** `HUBSPOT_TOKEN` : jeton de l'application privée HubSpot, avec les droits
   `crm.objects.companies.read`, `crm.objects.companies.write`, `crm.objects.contacts.read`,
   `crm.objects.contacts.write`, `crm.objects.owners.read` et `sales-email-read`.
-- **Connecteurs** des routines : Gmail, Google Drive et Alter Watt MCP (Google Sheets).
 
-Mettre une routine en pause : claude.ai/code, Routines, désactiver la routine.
+Ne jamais écrire le jeton dans le dépôt (il est public), dans un fichier ou dans un message.
+
+Connecteurs de la routine : **HubSpot** (lecture), **Alter Watt MCP** (GT 3.0), **Gmail** (compte rendu).
+
+Sans jeton ou sans accès réseau, la routine détecte quand même mais ne fusionne rien : le compte rendu
+liste les doublons Certain à fusionner à la main et rappelle la configuration à faire.
+
+## Fusionner à la main
+
+Dans HubSpot, ouvrir la fiche marquée « garder », **Actions › Fusionner**, choisir la fiche « doublon » et
+garder la fiche « garder » comme fiche principale.
+
+## Rattraper une semaine manquée, mettre en pause
+
+- Semaine manquée : claude.ai/code › Routines › la routine › exécuter maintenant, avec le message
+  « période : 14 jours ».
+- Pause : claude.ai/code › Routines › désactiver la routine.
+
+## Références
+
+| Élément | Valeur |
+|---|---|
+| Portail HubSpot | `20368543` (EU) |
+| GT 3.0 : « 0 - SUIVI PROJETS », onglet `GT3`, colonnes `Lien_hubspot` (FF) et `Id_hubspot` (FG) : **ID d'entreprise** | `1K2kXDwHK_k4H-PEp-X-2J3F2h-iXqYbK1bzsjbkt6P0` |
+| Destinataire du compte rendu | gcotte@alter-watt.com |
 
 ---
 
-## Procédure des routines (instructions pour Claude)
+## Procédure de la routine (instructions pour Claude)
 
 Règles de conduite :
-- ne jamais lancer `--executer` sur un classeur qui n'a pas été pris dans « 1 - Relus à fusionner » ;
-  ne jamais modifier un classeur relu ;
-- au plus 200 groupes fusionnés par passage (`--limite 200`) : le reste est redétecté la semaine suivante ;
-- jeton refusé (401/403), HubSpot injoignable ou classeur abîmé : ne rien fusionner, envoyer l'email
-  d'alerte et s'arrêter ;
-- emails courts, en français : chiffres, groupes à vérifier, prochaine échéance. Pas d'autres données
-  personnelles que les noms de groupes nécessaires.
+- ne fusionner que les groupes **Certain** du classeur produit par la détection de ce passage ; jamais les
+  Probable ;
+- plus de **20 groupes Certain** pour un objet : ne rien fusionner pour cet objet (import en masse
+  probable) et le signaler en tête du compte rendu ;
+- jeton absent ou refusé, HubSpot injoignable : ne rien fusionner (simulation hors ligne) ; le compte rendu
+  le dit et liste les Certain à fusionner à la main ;
+- ne jamais afficher, écrire ni transmettre la valeur de `HUBSPOT_TOKEN` ;
+- compte rendu court, en français : chiffres, groupes, liens, alertes.
 
-### Préparation commune
+### 1. Préparation
 
-1. `git clone --depth 1 https://github.com/gcotte-ops/main dedoublonnage && cd dedoublonnage && pip install -q openpyxl`
-2. Contrôle : `test -n "$HUBSPOT_TOKEN"` puis
-   `curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HUBSPOT_TOKEN" "https://api.hubapi.com/crm/v3/objects/companies?limit=1"`
-   doit renvoyer 200. Sinon, envoyer l'email « Dédoublonnage HubSpot : configuration à faire » (ce qui
-   manque : variable, accès réseau ou droits du jeton ; voir « Configuration requise ») et s'arrêter.
-3. **Lire une réponse de connecteur** : quand Claude Code enregistre une réponse longue dans un fichier,
-   utiliser ce fichier. Une réponse courte : l'écrire telle quelle dans `reponse.json`. Puis :
-   - fichier Drive (`download_file_content`) : `python outils_routine.py fichier REPONSE sortie.xlsx`
-     (pour une Google Sheet, demander `exportMimeType` =
-     `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`). « classeur abîmé » : ne pas
-     l'utiliser ;
-   - plage Sheets (`sheets_get_values`) : `python outils_routine.py valeurs REPONSE sortie.csv`.
-4. **Mémoire** : `sheets_get_values` sur la feuille mémoire, plage `Décisions!A:E`, vers `memoire.csv`.
-5. **GT 3.0** (entreprises) : `sheets_get_values` sur « 0 - SUIVI PROJETS », plage `GT3!FF1:FG`, vers
-   `gt3.csv`. Vérifier que la 1re ligne contient `Lien_hubspot` et `Id_hubspot` ; sinon lire `GT3!1:1`,
-   retrouver ces deux colonnes et relire la bonne plage. En cas d'échec : continuer sans `--gt3`.
-6. **Lien vers la session** (pour les emails) : `get_session` sans argument donne l'ID de la session ;
-   le lien est `https://claude.ai/code/<ID>`.
-7. **Classeur précédent** : dans « 2 - Traités » (`search_files` avec `parentId`), le fichier le plus
-   récent dont le nom contient `entreprises` (ou `contacts`), téléchargé vers `precedent.xlsx`. S'il
-   n'y en a pas, lancer la détection sans `--ancien`.
+1. `git clone --depth 1 https://github.com/gcotte-ops/main dedoublonnage && cd dedoublonnage && pip install -q openpyxl && mkdir -p travail`
+2. **Période** : 7 jours, sauf si le message de lancement en donne une autre (« période : 14 jours »).
+3. **Accès à l'API** (pour fusionner) :
+   `test -n "$HUBSPOT_TOKEN" && curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HUBSPOT_TOKEN" "https://api.hubapi.com/crm/v3/objects/companies?limit=1"`
+   - `200` : FUSION = oui ;
+   - sinon FUSION = non, avec la raison pour le compte rendu : variable `HUBSPOT_TOKEN` absente ; `000`
+     (réseau : `api.hubapi.com` non autorisé) ; `401` (jeton refusé) ; `403` (droits du jeton).
+4. **Réponses des connecteurs** : quand Claude Code enregistre une réponse longue dans un fichier, il indique
+   son chemin ; ces fichiers sont dans le dossier `tool-results` de la session (noté DOSSIER ci-dessous).
+   Une réponse courte : l'écrire telle quelle dans un fichier `.json` de `travail/`.
+5. **GT 3.0** : `sheets_get_values` (Alter Watt MCP) sur `1K2kXDwHK_k4H-PEp-X-2J3F2h-iXqYbK1bzsjbkt6P0`, plage
+   `GT3!FF1:FG`, puis `python outils_routine.py valeurs REPONSE travail/gt3.csv`. La 1re ligne doit contenir
+   `Lien_hubspot` et `Id_hubspot` ; sinon lire `GT3!1:1`, retrouver ces deux colonnes et relire la bonne
+   plage. En cas d'échec : continuer sans `--gt3` et le signaler.
+6. **Lien de la session** (compte rendu) : `get_session` sans argument donne l'ID ; le lien est
+   `https://claude.ai/code/<ID>`.
 
-### Lundi : détection des entreprises
+### 2. Lecture de la base (OBJET = `entreprises`, puis `contacts`)
 
-1. Préparation 1 à 7.
-2. `python detection_entreprises_hubspot.py -o doublons_entreprises_AAAA-MM-JJ.xlsx --decisions memoire.csv --gt3 gt3.csv --ancien precedent.xlsx`
-   (sans les options dont le fichier manque).
-3. Envoyer le classeur avec `SendUserFile` (status `proactive`, display `attach`).
-4. Email « Dédoublonnage HubSpot – entreprises à relire » : groupes et fiches Certain et Probable, groupes
-   nouveaux, paires écartées à une relecture précédente, onglets de relecture (chiffres affichés par le
-   script), lien vers cette session, consignes de relecture (section « Relecture » ci-dessus), échéance :
-   dépôt dans « 1 - Relus à fusionner » avant mercredi 7 h.
+Le connecteur HubSpot (`query_crm_data`) renvoie au plus 500 fiches par requête et 10 000 par recherche :
+la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus grand ID lu.
 
-### Mercredi : fusion des entreprises, puis détection des contacts
+1. `python outils_routine.py requetes OBJET` : 20 requêtes SQL. Les lancer **toutes dans un même message**
+   (`query_crm_data`, `verbosityLevel` = `LOW`), sans recopier les résultats.
+2. `python outils_routine.py borne OBJET DOSSIER --depuis 0`. Tant que la réponse dit `tour_complet=oui` :
+   `python outils_routine.py requetes OBJET --borne <borne>`, lancer ces 20 requêtes, puis
+   `python outils_routine.py borne OBJET DOSSIER --depuis <borne de ce tour>`.
+3. `python outils_routine.py fin OBJET` : lancer cette requête (les 500 derniers ID, dont la dernière page,
+   trop courte pour être enregistrée).
+4. `python outils_routine.py collecter OBJET travail/base_OBJET.jsonl DOSSIER`
+5. Contrôle : `python outils_routine.py somme OBJET`, lancer la requête (elle renvoie la somme des ID), puis
+   `python outils_routine.py controle OBJET travail/base_OBJET.jsonl <somme>`. « Lecture INCOMPLÈTE » :
+   relancer la requête « fin » et la requête « somme », recollecter et recontrôler une fois ; si l'écart
+   demeure, continuer mais le signaler (des doublons peuvent manquer ; les fusions restent contrôlées).
 
-A. Fusion des entreprises
-1. Préparation 1 à 6.
-2. Lister « 1 - Relus à fusionner ». Garder les classeurs dont le nom contient `entreprises`. S'il n'y en
-   a pas : pas de fusion, le dire dans l'email, passer à B.
-3. Pour chaque classeur, du plus ancien au plus récent : le télécharger vers `relu.xlsx`, puis
-   - simulation : `python fusion_entreprises_hubspot.py relu.xlsx --gt3 gt3.csv --memoriser decisions_nouvelles.csv --rapport simulation.csv`
-   - fusion : `python fusion_entreprises_hubspot.py relu.xlsx --gt3 gt3.csv --executer --oui --limite 200 --rapport fusion.csv`
-     (sans `--gt3` si `gt3.csv` n'a pas pu être lu) ;
-   - décisions : `python outils_routine.py lignes decisions_nouvelles.csv` ; si la liste n'est pas vide,
-     l'ajouter avec `sheets_append_values` (plage `Décisions!A1`, `valueInputOption` = `RAW`) ;
-   - ranger le classeur : `update_file` avec `parentId` = « 2 - Traités » et le titre
-     « <nom sans .xlsx> – fusionné AAAA-MM-JJ.xlsx ».
-4. Résumé du rapport `fusion.csv` (séparateur `;`) : nombre de groupes par statut ; pour les statuts
-   « À VÉRIFIER », « ERREUR » et « FUSIONNÉ - CORRECTIONS À FAIRE », le groupe, le nom et la remarque.
+### 3. Entreprises
 
-B. Détection des contacts (même s'il n'y a pas eu de fusion)
-1. Lien vers la session et classeur précédent des contacts (préparation 6 et 7, nom contenant `contacts`).
-2. `python detection_contacts_hubspot.py -o doublons_contacts_AAAA-MM-JJ.xlsx --decisions memoire.csv --ancien precedent_contacts.xlsx`
-3. `SendUserFile` comme le lundi.
-4. Un seul email « Dédoublonnage HubSpot – fusion des entreprises et contacts à relire » : résumé de A,
-   chiffres de B, lien vers cette session, échéance : dépôt avant vendredi 7 h.
+1. Lecture (section 2) avec OBJET = `entreprises`.
+2. `python detection_entreprises_hubspot.py --depuis-mcp travail/base_entreprises.jsonl --nouvelles-depuis 7 --gt3 travail/gt3.csv -o travail/doublons_entreprises_AAAA-MM-JJ.xlsx`
+   (7 : la période ; sans `--gt3` si la GT 3.0 n'a pas pu être lue). Noter les chiffres affichés.
+3. Fusion des groupes Certain (s'il y en a, et au plus 20) :
+   - FUSION = oui : `python fusion_entreprises_hubspot.py travail/doublons_entreprises_AAAA-MM-JJ.xlsx --gt3 travail/gt3.csv --executer --oui --limite 20 --rapport travail/fusion_entreprises.csv`
+   - FUSION = non : la même commande avec `--hors-ligne` au lieu de `--executer --oui` (rien n'est modifié).
+4. `python outils_routine.py bilan travail/doublons_entreprises_AAAA-MM-JJ.xlsx --rapport travail/fusion_entreprises.csv`
 
-### Vendredi : fusion des contacts
+### 4. Contacts (après la fusion des entreprises)
 
-1. Préparation 1 à 4 et 6.
-2. Comme le mercredi (A), avec les classeurs dont le nom contient `contacts` et
-   `python fusion_doublons_hubspot.py relu.xlsx …` (mêmes options, sans `--gt3`).
-3. Email « Dédoublonnage HubSpot – fusion des contacts » : résumé du rapport. S'il n'y avait aucun
-   classeur déposé, l'email le dit simplement.
+1. Lecture (section 2) avec OBJET = `contacts`.
+2. `python detection_contacts_hubspot.py --depuis-mcp travail/base_contacts.jsonl --nouvelles-depuis 7 -o travail/doublons_contacts_AAAA-MM-JJ.xlsx`
+3. Fusion des groupes Certain, comme pour les entreprises, avec
+   `python fusion_doublons_hubspot.py travail/doublons_contacts_AAAA-MM-JJ.xlsx --executer --oui --limite 20 --rapport travail/fusion_contacts.csv`
+   (ou `--hors-ligne`).
+4. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
+
+### 5. Compte rendu
+
+1. `SendUserFile` (status `proactive`, display `attach`) : les deux classeurs et les rapports de fusion.
+2. Email (Gmail, `send_message`) à gcotte@alter-watt.com, objet
+   « Dédoublonnage HubSpot – semaine du JJ/MM/AAAA », texte brut :
+   - alertes d'abord (fusion impossible et pourquoi, plus de 20 Certain, lecture incomplète, GT 3.0 non lue) ;
+   - entreprises puis contacts : fiches lues, fiches créées sur la période, puis le texte de `bilan`.
+     Statuts : `FUSIONNÉ` (fait) ; `FUSIONNÉ - CORRECTIONS À FAIRE` (fusionné, champs à reprendre à la
+     main) ; `À VÉRIFIER` (le contrôle avant fusion a refusé : ne pas fusionner sans regarder) ; `ERREUR` ;
+     `SIMULATION` (pas fusionné : à faire à la main) ;
+   - lien vers la session.
+   Si aucun doublon n'a été trouvé, l'email le dit en deux lignes.

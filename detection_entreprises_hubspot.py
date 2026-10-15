@@ -45,6 +45,8 @@ vérifier », « SIREN commun », « Entités distinctes ».
 Exemples :
   python detection_entreprises_hubspot.py                                  # lecture HubSpot
   python detection_entreprises_hubspot.py --depuis-export entreprises.csv  # sans l'API
+  python detection_entreprises_hubspot.py --depuis-mcp base_entreprises.jsonl --nouvelles-depuis 7
+                       # base lue par le connecteur HubSpot ; seulement les fiches des 7 derniers jours
   python detection_entreprises_hubspot.py --ancien doublons_potentiels_entreprises_hubspot.xlsx
   python detection_entreprises_hubspot.py --ancien relus/precedent.xlsx --decisions relus/
 
@@ -778,6 +780,27 @@ class AnalyseDoublons:
             groupes.append(g)
         return groupes
 
+    def filtrer_nouvelles(self, seuil):
+        """Ne garde que les groupes qui contiennent une fiche créée depuis seuil (date_iso) :
+        les fiches récentes sont comparées à toute la base. Renvoie le nombre de fiches
+        récentes."""
+        nouvelle = lambda g: any(self.fiches[m].creation >= seuil for m in g.membres)
+        gardes = [g for g in self.doublons if nouvelle(g)]
+        # Un groupe ancien n'est pas listé (il ne serait pas à fusionner cette fois) ; un groupe
+        # gardé qui y renvoie (chaînage) le désigne par le nom de sa racine.
+        for g in self.doublons:
+            if g not in gardes:
+                f = self.fiches[g.racine]
+                nom = (" ".join(x for x in (getattr(f, "prenom", ""), f.nom) if x)
+                       or getattr(f, "email", "") or f.id)
+                g.numero = "« {} » (groupe plus ancien, non listé)".format(nom)
+        self.doublons = numeroter(gardes, self._cle_groupe, "G-")
+        prefixes = dict(self.CATEGORIES, bloquees=self.PREFIXE_BLOQUEES)
+        for categorie, groupes in self.relecture.items():
+            self.relecture[categorie] = numeroter([g for g in groupes if nouvelle(g)],
+                                                  self._cle_groupe, prefixes[categorie])
+        return sum(1 for f in self.fiches if f.creation >= seuil)
+
     def compteurs(self, onglets):
         """Chiffres de la synthèse ; onglets : [(catégorie, nom de l'onglet)]."""
         c = {}
@@ -988,6 +1011,34 @@ def fiche_depuis_hubspot(brut, proprietaires):
         nb_transactions=p.get("num_associated_deals") or 0,
         creation=p.get("createdate") or brut.get("createdAt"), secteur=p.get("industry"),
         ids_transactions=transactions)
+
+
+def fiche_depuis_mcp(p):
+    """Fiche lue par le connecteur HubSpot (query_crm_data) : propriétés et libellés
+    (« hubspot_owner_id_formatted » = nom du propriétaire)."""
+    proprietaire = str(p.get("hubspot_owner_id_formatted") or p.get("hubspot_owner_id") or "").strip()
+    return FicheEntreprise(
+        id=p["hs_object_id"], nom=p.get("name"), domaine=p.get("domain"), site=p.get("website"),
+        telephone=p.get("phone"), ville=p.get("city"), code_postal=p.get("zip"),
+        adresse=p.get("address"), siren=p.get("siren"), siret=p.get("siret"),
+        type_de_decideur=p.get("type_de_decideur"), proprietaire=proprietaire,
+        proprietaire_actif=False if "deactivated" in proprietaire.lower() else None,
+        nb_contacts=p.get("num_associated_contacts"),
+        nb_transactions=p.get("num_associated_deals") or 0,
+        creation=p.get("createdate_iso") or "", secteur=p.get("industry"))
+
+
+def lire_mcp(chemins):
+    """Fiches des réponses du connecteur HubSpot enregistrées (voir outils_routine.py)."""
+    import outils_routine
+    return [fiche_depuis_mcp(p) for p in outils_routine.enregistrements(chemins, "entreprises")]
+
+
+def seuil_nouvelles(jours, maintenant=None):
+    """Date (UTC, format de date_iso) à partir de laquelle une fiche est « nouvelle » : minuit,
+    il y a N jours (une routine qui part quelques minutes en retard ne laisse pas de trou)."""
+    maintenant = maintenant or datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+    return (maintenant - datetime.timedelta(days=jours)).strftime("%Y-%m-%d 00:00:00")
 
 
 def feuilles_xlsx(chemin):
@@ -1404,9 +1455,12 @@ RELECTURE = [
 ]
 
 
-def lignes_releve(analyse, nouveaux=None):
+def lignes_releve(analyse, nouveaux=None, recentes=None):
     """Chiffres de la relecture pour la synthèse."""
     lignes = []
+    if recentes is not None:
+        lignes.append(("texte", "Fiches créées sur la période (seules leurs paires sont listées)",
+                       recentes))
     if nouveaux is not None:
         lignes.append(("texte", "Groupes nouveaux depuis l’analyse précédente", nouveaux))
     if analyse.distinctes:
@@ -1489,6 +1543,12 @@ def main(argv=None):
                     "le classeur de relecture lu par fusion_entreprises_hubspot.py.")
     parser.add_argument("--depuis-export", metavar="FICHIER",
                         help="export HubSpot (.csv) ou ancien classeur (.xlsx) au lieu de l'API")
+    parser.add_argument("--depuis-mcp", nargs="+", metavar="REPONSES",
+                        help="réponses du connecteur HubSpot enregistrées (fichiers, dossiers ou "
+                             ".jsonl de outils_routine.py collecter) au lieu de l'API")
+    parser.add_argument("--nouvelles-depuis", type=int, metavar="JOURS",
+                        help="ne lister que les doublons d'une fiche créée ces N derniers jours "
+                             "(comparée à toute la base)")
     parser.add_argument("-o", "--sortie", default=FICHIER_SORTIE,
                         help="classeur produit (défaut : {})".format(FICHIER_SORTIE))
     parser.add_argument("--ancien", metavar="CLASSEUR",
@@ -1514,7 +1574,16 @@ def main(argv=None):
         args.depuis_export or args.sortie))]))
 
     avertissements = []
-    if args.depuis_export:
+    if args.depuis_export and args.depuis_mcp:
+        parser.error("--depuis-export et --depuis-mcp sont incompatibles")
+    if args.depuis_mcp:
+        fiches = lire_mcp(args.depuis_mcp)
+        if not fiches:
+            parser.error("aucune entreprise dans les réponses du connecteur : {}".format(
+                ", ".join(args.depuis_mcp)))
+        source = "connecteur HubSpot (MCP)"
+        villes_connues = True
+    elif args.depuis_export:
         fiches, absentes = lire_export(args.depuis_export)
         source = "export {}".format(os.path.basename(args.depuis_export))
         for colonne in absentes:
@@ -1538,6 +1607,11 @@ def main(argv=None):
     distinctes = lire_decisions(args.decisions) if args.decisions else None
     analyse = Analyse(fiches, gt3=gt3, villes_connues=villes_connues,
                       distinctes=distinctes).executer()
+    recentes = None
+    if args.nouvelles_depuis is not None:
+        seuil = seuil_nouvelles(args.nouvelles_depuis)
+        recentes = analyse.filtrer_nouvelles(seuil)
+        print("Fiches créées depuis le {} (UTC) : {}".format(seuil[:10], recentes))
     avertissements += analyse.avertissements
     lignes = analyse.lignes(args.portail)
     horodatage = datetime.datetime.now().replace(microsecond=0)
@@ -1552,7 +1626,7 @@ def main(argv=None):
         onglets.append(("Comparaison", COLONNES_COMPARAISON, comparaison))
         bilan = bilan_comparaison(comparaison)
     ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements,
-                                          lignes_releve(analyse, nouveaux)),
+                                          lignes_releve(analyse, nouveaux, recentes)),
                     onglets, horodatage)
 
     c = analyse.compteurs()
