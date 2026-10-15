@@ -66,6 +66,22 @@ Accès : variable d'environnement `HUBSPOT_TOKEN`. La détection ne demande que 
 
 Tests hors ligne : `python -m unittest test_detection_doublons test_fusion_entreprises_hubspot test_fusion_doublons_hubspot`
 
+### Usage récurrent
+
+La chaîne tourne chaque semaine grâce à trois routines Claude (lundi : détection des entreprises ;
+mercredi : fusion des entreprises puis détection des contacts ; vendredi : fusion des contacts). Calendrier,
+dossiers Drive, configuration et procédure : **[DEDOUBLONNAGE_RECURRENT.md](DEDOUBLONNAGE_RECURRENT.md)**.
+
+- **Relecture** : la colonne « Décision » de l'onglet Doublons vaut « Fusionner » sur les groupes Certain ;
+  « Ne pas fusionner » sur une ligne retire la fiche de son groupe (sur toutes les lignes : groupe écarté).
+  Les scripts de fusion respectent ces choix.
+- **Mémoire des décisions** : `--memoriser decisions.csv` (scripts de fusion) enregistre les fiches écartées ;
+  `--decisions` (scripts de détection, fichiers ou dossiers, classeurs relus ou CSV de mémoire) les relit :
+  elles ne sont plus jamais reproposées ensemble.
+- **Groupes nouveaux** : avec `--ancien <classeur précédent>`, la colonne « Nouveau » signale les groupes
+  absents de l'analyse précédente.
+- `outils_routine.py` convertit les réponses des connecteurs Drive et Sheets en fichiers pour les scripts.
+
 ## Détection des entreprises
 
 ```bash
@@ -107,7 +123,8 @@ Le classeur contient :
 - **Synthèse** : date et source, nombres de fiches et de groupes par niveau et par onglet, avertissements, « Comment
   lire les niveaux » ;
 - **Doublons** : niveaux Certain et Probable, colonnes lues par la fusion (sans renommage) + « Transactions
-  associées », « Dans la GT 3.0 » et « Liens avec la racine » (liens et contradictions de chaque fiche avec la racine) ;
+  associées », « Dans la GT 3.0 », « Liens avec la racine » (liens et contradictions de chaque fiche avec la
+  racine), « Nouveau » et « Décision » (relecture) ;
 - **Filiales et établissements** (`F-`), **Homonymes à vérifier** (`H-`), **SIREN commun** (`S-`), **Entités
   distinctes** (`E-`, paires bloquées avec leur motif) : relecture seulement, jamais fusionnés ;
 - **Comparaison** (avec `--ancien`) : ancien et nouveau niveau de chaque groupe de l'ancien classeur.
@@ -130,7 +147,8 @@ python detection_contacts_hubspot.py --depuis-export contacts.csv
 | **Probable** | Les cas ci-dessus ; nom à une faute près, incomplet ou composé + un lien fort ; fiche sans nom dont l'email reprend le prénom et le nom de l'autre. Un prénom + nom porté par plus de 3 fiches sans autre lien n'est pas proposé (homonymes). |
 
 Onglets : **Doublons** (colonnes lues par la fusion + « Autres emails », « Mobile », « ID entreprise associée »,
-« Liens avec la racine »), **Personnes distinctes** (`P-`), **Adresses génériques partagées** (`A-`).
+« Liens avec la racine », « Nouveau », « Décision »), **Personnes distinctes** (`P-`), **Adresses génériques
+partagées** (`A-`).
 
 # Fusion des contacts HubSpot en doublon certain
 
@@ -217,6 +235,8 @@ dossier, ou dans le fichier donné par `--gt3` : cette liste ou un export CSV de
 signale et départage les fiches à transactions par le nombre de contacts. Les lignes non numériques sont ignorées et
 les ID de moins de 8 chiffres signalés. Si l'onglet GT3 contient finalement des ID de transaction, passer
 `GT3_CONTIENT = "transactions"` en tête de `fusion_entreprises_hubspot.py` (utilisé aussi par la détection).
+Vérifié le 15/10/2026 : la colonne `Id_hubspot` de l'onglet GT3 contient des ID d'**entreprise** (`Lien_hubspot`
+pointe vers `record/0-2/…`).
 
 Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
 

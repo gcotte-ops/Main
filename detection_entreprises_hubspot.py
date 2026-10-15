@@ -46,6 +46,12 @@ Exemples :
   python detection_entreprises_hubspot.py                                  # lecture HubSpot
   python detection_entreprises_hubspot.py --depuis-export entreprises.csv  # sans l'API
   python detection_entreprises_hubspot.py --ancien doublons_potentiels_entreprises_hubspot.xlsx
+  python detection_entreprises_hubspot.py --ancien relus/precedent.xlsx --decisions relus/
+
+Relecture : colonne « Décision » de l'onglet Doublons (« Fusionner » sur les groupes Certain).
+« Ne pas fusionner » sur une ligne retire la fiche de son groupe ; avec --decisions, ces choix
+sont mémorisés et les fiches ne sont plus jamais proposées ensemble. Avec --ancien, la colonne
+« Nouveau » signale les groupes absents du classeur précédent (relecture hebdomadaire).
 
 Accès HubSpot : variable d'environnement HUBSPOT_TOKEN = jeton d'une application privée avec
 les droits crm.objects.companies.read et crm.objects.owners.read (lecture seule).
@@ -65,6 +71,7 @@ import zipfile
 from xml.etree import ElementTree
 
 import familles
+import fusion_doublons_hubspot as fc
 import fusion_entreprises_hubspot as fe
 import normalisation as nz
 from fusion_doublons_hubspot import (PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpot, date_iso,
@@ -96,7 +103,11 @@ COLONNES = ["Groupe", "Niveau", "Raison du rapprochement", "Racine suggérée", 
             "Lien HubSpot", "Nom de l’entreprise", "Ville", "SIREN", "SIRET", "Téléphone",
             "Nom de domaine", "Type de décideur", "Propriétaire", "Contacts associés",
             "Date de création", "Transactions associées", "Dans la GT 3.0",
-            "Liens avec la racine"]
+            "Liens avec la racine", "Nouveau", "Décision"]
+
+# Relecture : choix proposés dans la colonne Décision de l'onglet Doublons.
+CHOIX_DECISION = ["Fusionner", "Ne pas fusionner"]
+RELUE = "Relecture – fiches déclarées distinctes (« Ne pas fusionner »)"
 
 # (catégorie, préfixe, onglet, niveau affiché)
 ONGLETS_RELECTURE = [("filiale", "F-", "Filiales et établissements", "À vérifier"),
@@ -646,7 +657,7 @@ class AnalyseDoublons:
     CATEGORIES = []
     PREFIXE_BLOQUEES = "E-"
 
-    def __init__(self, fiches, journal=print):
+    def __init__(self, fiches, journal=print, distinctes=None):
         uniques = {}
         for f in fiches:
             uniques.setdefault(f.id, f)
@@ -654,6 +665,9 @@ class AnalyseDoublons:
         self.journal = journal
         self.avertissements = []
         self._cache = {}
+        # Paires déclarées distinctes à une relecture précédente : jamais regroupées.
+        self.distinctes = distinctes or set()
+        self.ecartees_relecture = 0
 
     def paire(self, i, j):
         if i > j:
@@ -661,6 +675,10 @@ class AnalyseDoublons:
         p = self._cache.get((i, j))
         if p is None:
             p = self._cache[(i, j)] = self.comparer(self.fiches[i], self.fiches[j])
+            if frozenset((self.fiches[i].id, self.fiches[j].id)) in self.distinctes:
+                p.relue = True
+                p.blocage.insert(0, RELUE)
+                p.niveau = ""
         return p
 
     def racine(self, indices):
@@ -711,6 +729,8 @@ class AnalyseDoublons:
                 voisins_certain.setdefault(i, []).append(j)
                 voisins_certain.setdefault(j, []).append(i)
         self.journal("  {} paires comparées".format(len(candidates)))
+        self.ecartees_relecture = sum(1 for i, j in candidates
+                                      if getattr(self.paire(i, j), "relue", False))
 
         constructeur = Constructeur(len(self.fiches), self.paire, self.racine)
         self.doublons = numeroter(constructeur.construire(voisins_certain, voisins_lies),
@@ -740,14 +760,15 @@ class AnalyseDoublons:
         bloquees = {}
         for i, j in candidates:
             p = self.paire(i, j)
-            if p.bloquee and self.rapprochee(p):
+            if p.bloquee and self.rapprochee(p) and not getattr(p, "relue", False):
                 bloquees[(i, j)] = None
         for x in sorted(voisins_lies):
             voisins = sorted(set(voisins_lies[x]))
             if len(voisins) > TAILLE_MAX_COMPOSANTE:
                 continue
             for y, z in itertools.combinations(voisins, 2):
-                if self.paire(y, z).bloquee and (y, z) not in bloquees:
+                p = self.paire(y, z)
+                if p.bloquee and not getattr(p, "relue", False) and (y, z) not in bloquees:
                     bloquees[(y, z)] = x
         groupes = []
         for (i, j), via in sorted(bloquees.items()):
@@ -775,8 +796,8 @@ class Analyse(AnalyseDoublons):
 
     CATEGORIES = [(c, p) for c, p, _, _ in ONGLETS_RELECTURE[:3]]
 
-    def __init__(self, fiches, gt3=None, villes_connues=True, journal=print):
-        super().__init__(fiches, journal)
+    def __init__(self, fiches, gt3=None, villes_connues=True, journal=print, distinctes=None):
+        super().__init__(fiches, journal, distinctes)
         self.gt3 = gt3
         lieux = {nz.forme_ville(f.ville_norm) for f in self.fiches}
         self.contexte = Contexte(villes_connues, {l for l in lieux if len(nz.compact(l)) >= 4})
@@ -884,7 +905,8 @@ class Analyse(AnalyseDoublons):
             "Transactions associées": "" if fiche.nb_transactions is None else fiche.nb_transactions,
             "Dans la GT 3.0": "" if self.gt3 is None else
             "Oui" if fe.dans_gt3(fiche, self.gt3) else "Non",
-            "Liens avec la racine": liens,
+            "Liens avec la racine": liens, "Nouveau": "",
+            "Décision": "Fusionner" if niveau == CERTAIN else "",
         }
 
     def compteurs(self):
@@ -1071,6 +1093,7 @@ def ecrire_classeur(chemin, synthese, onglets, horodatage):
         from openpyxl import Workbook
         from openpyxl.styles import Alignment, Font, PatternFill
         from openpyxl.utils import get_column_letter
+        from openpyxl.worksheet.datavalidation import DataValidation
     except ImportError:
         raise SystemExit("openpyxl est nécessaire pour écrire le classeur : pip install openpyxl")
 
@@ -1136,6 +1159,12 @@ def ecrire_classeur(chemin, synthese, onglets, horodatage):
         if lignes:
             ws.auto_filter.ref = "A1:{}{}".format(get_column_letter(len(colonnes)),
                                                   len(lignes) + 1)
+        if titre == "Doublons" and "Décision" in colonnes:
+            lettre = get_column_letter(colonnes.index("Décision") + 1)
+            choix = DataValidation(type="list", allow_blank=True,
+                                   formula1='"{}"'.format(",".join(CHOIX_DECISION)))
+            choix.add("{0}2:{0}{1}".format(lettre, max(len(lignes), 1) + 1))
+            ws.add_data_validation(choix)
     wb.properties.creator = "Alter Watt – détection des doublons HubSpot"
     wb.properties.created = wb.properties.modified = horodatage
     wb.save(chemin)
@@ -1233,6 +1262,86 @@ def bilan_comparaison(lignes):
     return sorted(compte.items(), key=lambda x: (-x[1], x[0]))
 
 
+def onglet_doublons(chemin):
+    """Onglet des groupes d'un classeur : « Doublons » (ou « Doublons certains », ancien
+    classeur des contacts), None s'il n'y en a pas."""
+    feuilles = feuilles_xlsx(chemin)
+    return next((f for f in ("Doublons", "Doublons certains") if f in feuilles), None)
+
+
+def paires_groupees(lignes):
+    """Paires d'ID réunies dans un même groupe."""
+    groupes = {}
+    for l in lignes:
+        g, i = str(l.get("Groupe") or "").strip(), str(l.get("ID HubSpot") or "").strip()
+        if g and i:
+            groupes.setdefault(g, []).append(i)
+    return {frozenset(p) for ids in groupes.values() for p in itertools.combinations(ids, 2)
+            if p[0] != p[1]}
+
+
+def marquer_nouveaux(lignes_doublons, chemin_ancien):
+    """Colonne « Nouveau » = Oui pour les groupes qui réunissent au moins deux fiches jamais
+    groupées ensemble dans le classeur précédent. Renvoie le nombre de groupes nouveaux."""
+    feuille = onglet_doublons(chemin_ancien)
+    anciennes = paires_groupees(fe.lire_xlsx(chemin_ancien, feuille)) if feuille else set()
+    par_groupe = {}
+    for l in lignes_doublons:
+        par_groupe.setdefault(l["Groupe"], []).append(l)
+    nouveaux = 0
+    for rangs in par_groupe.values():
+        ids = [str(l["ID HubSpot"]) for l in rangs]
+        if any(frozenset(p) not in anciennes for p in itertools.combinations(ids, 2)):
+            nouveaux += 1
+            for l in rangs:
+                l["Nouveau"] = "Oui"
+    return nouveaux
+
+
+def fichiers_relus(chemins):
+    """Classeurs .xlsx (ou CSV) donnés, ou contenus dans les dossiers donnés."""
+    fichiers = []
+    for chemin in chemins or ():
+        if os.path.isdir(chemin):
+            fichiers += sorted(os.path.join(chemin, f) for f in os.listdir(chemin)
+                               if f.lower().endswith((".xlsx", ".csv")) and not f.startswith("~$")
+                               and not f.lower().endswith("_rapport.csv"))
+        elif os.path.isfile(chemin):
+            fichiers.append(chemin)
+    return fichiers
+
+
+def lire_decisions(chemins, objet="entreprise", journal=print):
+    """Paires d'ID déclarées distinctes lors des relectures précédentes, lues dans les
+    fichiers de mémoire (--memoriser des scripts de fusion) et dans les classeurs relus
+    (onglet Doublons, lignes « Ne pas fusionner »). objet : « entreprise » ou « contact »."""
+    paires, lus = set(), 0
+    for chemin in fichiers_relus(chemins):
+        try:
+            if chemin.lower().endswith(".csv"):
+                lignes = lire_tableau(chemin)
+            else:
+                feuille = onglet_doublons(chemin)
+                lignes = fe.lire_xlsx(chemin, feuille) if feuille else []
+        except (zipfile.BadZipFile, KeyError, SystemExit, UnicodeDecodeError, OSError) as e:
+            journal("  ! relecture illisible, ignorée : {} ({})".format(chemin, e))
+            continue
+        if not lignes:
+            continue
+        if "ID A" in lignes[0]:                          # mémoire des décisions
+            trouvees = {frozenset((str(l["ID A"]).strip(), str(l["ID B"]).strip()))
+                        for l in lignes if str(l.get("Objet") or "").strip() == objet}
+        elif "Groupe" in lignes[0] and fc.objet_du_classeur(lignes) == objet:
+            trouvees = fc.paires_ecartees(lignes)
+        else:
+            continue
+        lus += 1
+        paires |= {p for p in trouvees if len(p) == 2}
+    journal("Relectures précédentes : {} fichiers, {} paires déclarées distinctes".format(
+        lus, len(paires)))
+    return paires
+
+
 # --------------------------------------------------------------------------- #
 # Synthèse
 # --------------------------------------------------------------------------- #
@@ -1284,8 +1393,29 @@ LECTURE_NIVEAUX = [
     "3. nouvelle extraction puis détection des contacts ; 4. fusion des contacts.",
 ]
 
+RELECTURE = [
+    "Relecture : dans l’onglet Doublons, la colonne Décision vaut « Fusionner » sur les groupes "
+    "Certain. Mettre « Ne pas fusionner » sur la ligne d’une fiche la retire de son groupe "
+    "(sur toutes les lignes : le groupe entier est écarté). Seuls les groupes Certain sont "
+    "fusionnés automatiquement ; un groupe Probable se fusionne à la main dans HubSpot.",
+    "Ces décisions sont mémorisées : une fiche marquée « Ne pas fusionner » n’est plus jamais "
+    "proposée avec les autres fiches de son groupe (option --decisions des détections "
+    "suivantes). La colonne Nouveau signale les groupes absents de l’analyse précédente.",
+]
 
-def synthese(analyse, source, horodatage, comparaison=None, avertissements=()):
+
+def lignes_releve(analyse, nouveaux=None):
+    """Chiffres de la relecture pour la synthèse."""
+    lignes = []
+    if nouveaux is not None:
+        lignes.append(("texte", "Groupes nouveaux depuis l’analyse précédente", nouveaux))
+    if analyse.distinctes:
+        lignes.append(("texte", "Paires écartées à une relecture précédente",
+                       analyse.ecartees_relecture))
+    return lignes
+
+
+def synthese(analyse, source, horodatage, comparaison=None, avertissements=(), releve=()):
     c = analyse.compteurs()
     lignes = [("titre", "Doublons — entreprises HubSpot", None),
               ("texte", "Analyse du {} — source : {}".format(
@@ -1299,12 +1429,15 @@ def synthese(analyse, source, horodatage, comparaison=None, avertissements=()):
               ("texte", "Fiches « Probable »", c[PROBABLE][1])]
     for _, _, onglet, _ in ONGLETS_RELECTURE:
         lignes.append(("texte", "{} (hors liste) : fiches".format(onglet), c[onglet][1]))
+    lignes += list(releve)
     if comparaison:
         lignes += [("vide", "", None), ("section", "Comparaison avec l’ancien classeur", None)]
         lignes += [("texte", evolution, n) for evolution, n in comparaison]
     if avertissements:
         lignes += [("vide", "", None), ("section", "Avertissements", None)]
         lignes += [("paragraphe", a, None) for a in avertissements]
+    lignes += [("vide", "", None), ("section", "Relecture", None)]
+    lignes += [("paragraphe", t, None) for t in RELECTURE]
     lignes += [("vide", "", None), ("section", "Comment lire les niveaux", None)]
     lignes += [("paragraphe", t, None) for t in LECTURE_NIVEAUX]
     return lignes
@@ -1359,7 +1492,10 @@ def main(argv=None):
     parser.add_argument("-o", "--sortie", default=FICHIER_SORTIE,
                         help="classeur produit (défaut : {})".format(FICHIER_SORTIE))
     parser.add_argument("--ancien", metavar="CLASSEUR",
-                        help="ancien classeur de doublons : ajoute l'onglet « Comparaison »")
+                        help="classeur précédent : onglet « Comparaison » et colonne « Nouveau »")
+    parser.add_argument("--decisions", nargs="+", metavar="CLASSEUR_OU_DOSSIER",
+                        help="classeurs relus (ou dossiers qui les contiennent) : les fiches "
+                             "marquées « Ne pas fusionner » ne sont plus proposées ensemble")
     parser.add_argument("--gt3", help="IDs présents dans la GT 3.0 (défaut : {} s'il est dans "
                         "le dossier) ou export CSV de l'onglet GT3".format(fe.GT3_DEFAUT))
     parser.add_argument("--lexique", help="lexique des familles (défaut : lexique_familles.csv)")
@@ -1369,6 +1505,9 @@ def main(argv=None):
     for chemin in (args.depuis_export, args.ancien, args.gt3, args.lexique):
         if chemin and not os.path.isfile(chemin):
             parser.error("fichier introuvable : « {} »".format(chemin))
+    for chemin in args.decisions or ():
+        if not os.path.exists(chemin):
+            parser.error("classeur ou dossier de relecture introuvable : « {} »".format(chemin))
     if args.lexique:
         familles._LEXIQUE = familles.charger_lexique(args.lexique)
     gt3 = charger_gt3(chemin_gt3_defaut(args.gt3, [".", os.path.dirname(os.path.abspath(
@@ -1396,19 +1535,24 @@ def main(argv=None):
     print("{} entreprises lues".format(len(fiches)))
     print("GT 3.0 : " + ("{} ID".format(len(gt3)) if gt3 is not None else "non fournie"))
 
-    analyse = Analyse(fiches, gt3=gt3, villes_connues=villes_connues).executer()
+    distinctes = lire_decisions(args.decisions) if args.decisions else None
+    analyse = Analyse(fiches, gt3=gt3, villes_connues=villes_connues,
+                      distinctes=distinctes).executer()
     avertissements += analyse.avertissements
     lignes = analyse.lignes(args.portail)
     horodatage = datetime.datetime.now().replace(microsecond=0)
 
     onglets = [("Doublons", COLONNES, lignes["Doublons"])]
     onglets += [(onglet, COLONNES, lignes[onglet]) for _, _, onglet, _ in ONGLETS_RELECTURE]
-    bilan = None
+    bilan, nouveaux = None, None
     if args.ancien:
-        comparaison = comparer_ancien(args.ancien, lignes, {f.id for f in analyse.fiches})
+        nouveaux = marquer_nouveaux(lignes["Doublons"], args.ancien)
+        comparaison = comparer_ancien(args.ancien, lignes, {f.id for f in analyse.fiches},
+                                      feuille=onglet_doublons(args.ancien) or "Doublons")
         onglets.append(("Comparaison", COLONNES_COMPARAISON, comparaison))
         bilan = bilan_comparaison(comparaison)
-    ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements),
+    ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements,
+                                          lignes_releve(analyse, nouveaux)),
                     onglets, horodatage)
 
     c = analyse.compteurs()
@@ -1417,6 +1561,11 @@ def main(argv=None):
                                     c[PROBABLE][1], c["chainage"]))
     for _, _, onglet, _ in ONGLETS_RELECTURE:
         print("{} : {} groupes, {} fiches".format(onglet, *c[onglet]))
+    if nouveaux is not None:
+        print("Groupes nouveaux depuis l'analyse précédente : {}".format(nouveaux))
+    if distinctes:
+        print("Paires écartées à une relecture précédente : {}".format(
+            analyse.ecartees_relecture))
     if bilan:
         print("Comparaison avec l'ancien classeur : " +
               ", ".join("{} {}".format(n, e) for e, n in bilan))

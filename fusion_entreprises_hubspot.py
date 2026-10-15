@@ -42,6 +42,8 @@ Sécurités :
     si deux noms appartiennent à des familles incompatibles (OGEC / Mairie, voir familles.py),
     ou si une paire du groupe n'est pas un doublon certain d'après les fiches lues dans
     HubSpot (lien indirect par chaînage, règles de detection_entreprises_hubspot.py) ;
+  - une ligne marquée « Ne pas fusionner » (colonne Décision) sort la fiche de son groupe ;
+    le groupe n'est fusionné que s'il reste au moins deux fiches ;
   - relancer le script est sans risque : les groupes déjà fusionnés sont détectés.
 
 La GT 3.0 est lue dans gt3_ids.txt (IDs HubSpot des entreprises présentes dans l'onglet GT3,
@@ -72,9 +74,10 @@ import time
 import zipfile
 from xml.etree import ElementTree
 
-from fusion_doublons_hubspot import (PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpot, chiffres,
-                                     date_iso, lire_csv, normaliser, ressemble_domaine,
-                                     verifier_jeton)
+from fusion_doublons_hubspot import (ECARTE, PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpot,
+                                     chiffres, date_iso, lire_csv, memoriser_decisions,
+                                     normaliser, plan_ecarte, ressemble_domaine,
+                                     separer_relecture, verifier_jeton)
 from normalisation import PLATEFORMES, domaine_principal, nom_equivalent, nom_norm, siren_depuis
 
 LIEN_FICHE = "https://app-eu1.hubspot.com/contacts/{portail}/record/0-2/{id}"
@@ -733,8 +736,12 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
             break
         id_final = ""
         try:
-            fiches, absentes = fiches_du_groupe(lignes, client, proprietes)
-            if len(fiches) < 2:
+            lignes, ecartees = separer_relecture(lignes)
+            fiches, absentes = (fiches_du_groupe(lignes, client, proprietes) if len(lignes) >= 2
+                                else ([], []))
+            if len(lignes) < 2:
+                plan = plan_ecarte(groupe, ecartees)
+            elif len(fiches) < 2:
                 plan = {"groupe": groupe, "fiches": fiches,
                         "statut": "DÉJÀ FUSIONNÉ" if fiches else "INTROUVABLE",
                         "remarques": ["fiches absentes : " + ", ".join(absentes)] if absentes
@@ -743,6 +750,8 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                 plan = planifier(groupe, fiches, proprietes, gt3)
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
+            if ecartees and plan["statut"] != ECARTE:
+                plan["remarques"].append("écartées à la relecture : " + ", ".join(ecartees))
             if plan["statut"] == "À FUSIONNER":
                 if reel:
                     id_final = executer(client, plan, proprietes)
@@ -780,6 +789,9 @@ def main(argv=None):
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
     parser.add_argument("--gt3", help="IDs HubSpot présents dans la GT 3.0 (défaut : {} s'il "
                         "est dans le dossier) ou export CSV de l'onglet GT3".format(GT3_DEFAUT))
+    parser.add_argument("--memoriser", metavar="FICHIER.csv",
+                        help="ajoute à ce fichier les fiches déclarées distinctes à la relecture "
+                             "(« Ne pas fusionner »), relu par les détections suivantes")
     args = parser.parse_args(argv)
 
     if args.executer and args.hors_ligne:
@@ -841,6 +853,9 @@ def main(argv=None):
     print("Mode : {}".format(mode))
     print("GT 3.0 : " + ("{} entreprises lues dans {}".format(len(gt3), chemin_gt3) if gt3
                          is not None else "non fournie (règle des transactions sans la GT 3.0)"))
+    if args.memoriser:
+        print("Décisions de relecture mémorisées dans {} : {} paires ajoutées".format(
+            args.memoriser, memoriser_decisions(args.liste, args.memoriser)))
     compteur = traiter(args.liste, rapport, client=client, reel=args.executer, filtre=filtre,
                        limite=args.limite, portail=args.portail, gt3=gt3)
     print("\nBilan : " + ", ".join("{} {}".format(v, k) for k, v in sorted(compteur.items())))
