@@ -29,15 +29,26 @@ obtenue est complétée pour garder le plus d'information possible, la plus à j
                  utilisé seulement faute de mieux. Une valeur identique à celle
                  de la racine à la casse ou à la mise en forme près n'est pas réécrite.
 
+  Nom            un nom qui commence par une forme juridique (« EURL ABBAYE DE LA COUDRE »)
+                 est remplacé par celui d'une autre fiche du groupe, de même nom équivalent,
+                 qui n'en a pas (« ABBAYE DE LA COUDRE »).
+  Contradictions Type de décideur et catégorie d'actifs : valeurs connues différentes selon
+                 les fiches -> la plus récente est gardée et la contradiction signalée.
+
 Sécurités :
   - par défaut, SIMULATION : rien n'est modifié, le rapport montre ce qui serait fait ;
   - --executer fusionne réellement (irréversible), après confirmation ;
-  - un groupe dont les fiches portent des SIREN différents n'est pas fusionné (« À VÉRIFIER ») ;
+  - un groupe n'est pas fusionné (« À VÉRIFIER ») si ses fiches portent des SIREN différents,
+    si deux noms appartiennent à des familles incompatibles (OGEC / Mairie, voir familles.py),
+    ou si une paire du groupe n'est pas un doublon certain d'après les fiches lues dans
+    HubSpot (lien indirect par chaînage, règles de detection_entreprises_hubspot.py) ;
   - relancer le script est sans risque : les groupes déjà fusionnés sont détectés.
 
 La GT 3.0 est lue dans gt3_ids.txt (IDs HubSpot des entreprises présentes dans l'onglet GT3,
 un par ligne) s'il est dans le dossier, ou dans le fichier donné par --gt3 : cette liste ou un
-export CSV de l'onglet GT3 (colonne « Id_hubspot »).
+export CSV de l'onglet GT3 (colonne « Id_hubspot »). Les lignes non numériques sont ignorées,
+les ID de moins de 8 chiffres signalés. GT3_CONTIENT dit si ces ID désignent des entreprises
+(par défaut) ou des transactions.
 
 Exemples :
   python fusion_entreprises_hubspot.py doublons_entreprises.xlsx --hors-ligne   # aperçu sans HubSpot
@@ -45,13 +56,15 @@ Exemples :
   python fusion_entreprises_hubspot.py doublons_entreprises.xlsx --groupes G-001,G-002 --executer
   python fusion_entreprises_hubspot.py doublons_entreprises.xlsx --executer
 
-Nécessite fusion_doublons_hubspot.py dans le même dossier (connexion HubSpot commune).
+Nécessite dans le même dossier : fusion_doublons_hubspot.py (connexion HubSpot commune),
+normalisation.py, familles.py, lexique_familles.csv et detection_entreprises_hubspot.py.
 Accès HubSpot : variable d'environnement HUBSPOT_TOKEN = jeton d'une application privée avec
 les droits crm.objects.companies.read, crm.objects.companies.write et crm.objects.owners.read.
 """
 
 import argparse
 import csv
+import itertools
 import os
 import re
 import sys
@@ -62,10 +75,15 @@ from xml.etree import ElementTree
 from fusion_doublons_hubspot import (PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpot, chiffres,
                                      date_iso, lire_csv, normaliser, ressemble_domaine,
                                      verifier_jeton)
+from normalisation import PLATEFORMES, domaine_principal, nom_equivalent, nom_norm, siren_depuis
 
 LIEN_FICHE = "https://app-eu1.hubspot.com/contacts/{portail}/record/0-2/{id}"
 FEUILLE = "Doublons"
 GT3_DEFAUT = "gt3_ids.txt"
+# Les ID de la colonne Id_hubspot de l'onglet GT3 désignent-ils des entreprises ou des
+# transactions ? Par défaut des entreprises ; « transactions » : une fiche est dans la GT 3.0
+# si l'une de ses transactions associées y figure.
+GT3_CONTIENT = "entreprises"
 
 # Propriétés consolidées si la liste des propriétés HubSpot ne peut pas être lue.
 PROPRIETES_DEFAUT = [
@@ -93,9 +111,13 @@ LECTURE_SEULE = {"num_associated_contacts", "num_associated_deals", "createdate"
 # Valeurs qui ne disent rien : gardées seulement si aucune fiche n'a mieux.
 INCONNUES = {"ne sais pas encore", "ne sait pas encore", "nc", "inconnu", "n/a", "na", "-"}
 
-# Domaines de plateformes : gardés seulement faute de mieux.
-PLATEFORMES = ("e-lyco.fr", "wixsite.com", "google.com", "sites.google", "blogspot.",
-               "wordpress.com", "jimdo", "free.fr", "orange.fr", "wanadoo.fr", "facebook.com")
+# Domaines de plateformes (PLATEFORMES, voir normalisation.py) : gardés seulement faute de mieux.
+
+# Formes juridiques retirées d'un nom quand une autre fiche porte le même nom sans elles.
+FORMES_EN_TETE = {"sarl", "eurl", "sas", "sasu", "sa"}
+# Valeurs dont la contradiction entre fiches est signalée.
+CONTRADICTIONS_SIGNALEES = [("type_de_decideur", "Type de décideur"),
+                            ("categorie_d_actifs_majoritaires", "Catégorie d'actifs")]
 
 ENTETES_RAPPORT = [
     "Groupe", "Statut", "Fiches du groupe", "Transactions par fiche", "Dans la GT 3.0",
@@ -189,6 +211,20 @@ def lire_gt3(chemin):
     return {l.strip() for l in texte.splitlines() if l.strip().isdigit()}
 
 
+def ids_gt3_suspects(ids):
+    """ID de moins de 8 chiffres : ni des ID d'entreprise ni des ID de transaction HubSpot."""
+    return sorted((i for i in ids if len(i) < 8), key=lambda i: (len(i), i))
+
+
+def dans_gt3(entreprise, gt3):
+    """Vrai si la fiche figure dans la GT 3.0 (voir GT3_CONTIENT)."""
+    if not gt3:
+        return False
+    if GT3_CONTIENT == "transactions":
+        return bool(set(getattr(entreprise, "ids_transactions", ())) & gt3)
+    return entreprise.id in gt3
+
+
 def lire_liste(chemin, niveau="Certain"):
     """Lignes du niveau voulu, depuis le classeur (onglet Doublons) ou un CSV exporté."""
     if chemin.lower().endswith((".xlsx", ".xlsm")):
@@ -234,8 +270,9 @@ def hote(valeur):
 
 
 def meme_site(a, b):
-    """Même domaine principal : « univ-amu.fr » et « etu.univ-amu.fr »."""
-    return hote(a).split(".")[-2:] == hote(b).split(".")[-2:]
+    """Même domaine principal : « univ-amu.fr » et « etu.univ-amu.fr », mais pas
+    « vendee.gouv.fr » et « loire-atlantique.gouv.fr » (suffixes publics à deux niveaux)."""
+    return domaine_principal(a) == domaine_principal(b)
 
 
 def comparable(propriete, valeur):
@@ -251,11 +288,7 @@ def comparable(propriete, valeur):
 
 def siren_de(entreprise):
     """SIREN de la fiche (lu dans SIREN, sinon déduit du SIRET), ou ""."""
-    siren = re.sub(r"\D", "", entreprise.valeurs.get("siren", ""))
-    if len(siren) == 9:
-        return siren
-    siret = re.sub(r"\D", "", entreprise.valeurs.get("siret", ""))
-    return siret[:9] if len(siret) == 14 else ""
+    return siren_depuis(entreprise.valeurs.get("siren", ""), entreprise.valeurs.get("siret", ""))
 
 
 # --------------------------------------------------------------------------- #
@@ -266,7 +299,7 @@ class Entreprise:
     """Une fiche entreprise : valeurs utiles et date à laquelle chacune a été saisie."""
 
     def __init__(self, id, valeurs, dates=None, nb_contacts=0, creation="", racine=False,
-                 proprietaire_actif=None, nb_transactions=0):
+                 proprietaire_actif=None, nb_transactions=0, ids_transactions=()):
         self.id = str(id)
         self.valeurs = {}
         for p, v in valeurs.items():
@@ -281,6 +314,7 @@ class Entreprise:
         self.nb_transactions = None if nb_transactions is None else int(nb_transactions or 0)
         self.racine = racine
         self.proprietaire_actif = proprietaire_actif
+        self.ids_transactions = {str(i) for i in ids_transactions}
 
     @property
     def nom(self):
@@ -334,16 +368,16 @@ def choisir_racine(fiches, gt3=None):
             remarque = ("transactions sur plusieurs fiches, GT 3.0 non fournie : racine = "
                         "celle qui a le plus de contacts")
         else:
-            dans_gt3 = [f for f in avec if f.id in gt3]
-            if len(dans_gt3) == 1:
-                candidates = dans_gt3
+            presentes = [f for f in avec if dans_gt3(f, gt3)]
+            if len(presentes) == 1:
+                candidates = presentes
                 remarque = "transactions sur plusieurs fiches : racine = celle de la GT 3.0"
             else:
-                candidates = dans_gt3 or avec
+                candidates = presentes or avec
                 remarque = ("transactions sur plusieurs fiches, {} dans la GT 3.0 : racine = "
                             "celle qui a le plus de contacts".format(
-                                "toutes" if len(dans_gt3) == len(avec) else
-                                "plusieurs" if dans_gt3 else "aucune"))
+                                "toutes" if len(presentes) == len(avec) else
+                                "plusieurs" if presentes else "aucune"))
     racine = max(candidates, key=lambda f: (f.nb_contacts, f.racine, vrai_nom(f.nom),
                                             len(f.valeurs), [-ord(c) for c in f.creation]))
     return racine, remarque
@@ -419,6 +453,53 @@ def choisir_valeur(propriete, fiches, racine):
     return valeur
 
 
+def controler_paires(fiches):
+    """Filets de sécurité : remarque « À VÉRIFIER » si deux noms sont de familles
+    incompatibles ou si une paire du groupe n'est pas un doublon certain (section 5.3,
+    recalculée sur les fiches lues), sinon ""."""
+    import detection_entreprises_hubspot as de     # import ici : ce module importe la fusion
+    detection = [de.fiche_depuis_entreprise(f) for f in fiches]
+    paires = [de.evaluer(a, b) for a, b in itertools.combinations(detection, 2)]
+    for p in paires:
+        if p.familles:
+            return "familles incompatibles : {} / {} ({})".format(p.a.nom, p.b.nom, p.familles)
+    for p in paires:
+        if p.niveau != de.CERTAIN:
+            return "lien indirect : « {} » ({}) et « {} » ({}) ne sont pas en doublon certain " \
+                   "({}{})".format(p.a.nom or p.a.domaine, p.a.id, p.b.nom or p.b.domaine, p.b.id,
+                                  de.raison(p), "".join(" ; " + e for e in p.exclusions))
+    return ""
+
+
+def nom_sans_forme_juridique(nom, fiches):
+    """« EURL ABBAYE DE LA COUDRE » -> « ABBAYE DE LA COUDRE » si une autre fiche du groupe
+    porte ce nom équivalent sans forme juridique en tête."""
+    mots = nom_norm(nom).split()
+    if not mots or mots[0] not in FORMES_EN_TETE:
+        return nom
+    for f in sorted(fiches, key=lambda f: f.dates.get("name", ""), reverse=True):
+        autres = nom_norm(f.nom).split()
+        if (vrai_nom(f.nom) and autres and autres[0] not in FORMES_EN_TETE
+                and nom_equivalent(f.nom) == nom_equivalent(nom)):
+            return f.nom
+    return nom
+
+
+def contradictions(fiches, cibles):
+    """« Type de décideur contradictoire : Centralisé / Décentralisé (retenu : …) »."""
+    remarques = []
+    for propriete, libelle in CONTRADICTIONS_SIGNALEES:
+        connues = {}
+        for f in sorted(fiches, key=lambda f: f.dates.get(propriete, ""), reverse=True):
+            valeur = f.valeurs.get(propriete, "")
+            if valeur and normaliser(valeur) not in INCONNUES:
+                connues.setdefault(normaliser(valeur), valeur)
+        if len(connues) > 1:
+            remarques.append("{} contradictoire : {} (retenu : {})".format(
+                libelle, " / ".join(connues.values()), cibles.get(propriete, "")))
+    return remarques
+
+
 def planifier(groupe, fiches, proprietes, gt3=None):
     """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
@@ -426,6 +507,11 @@ def planifier(groupe, fiches, proprietes, gt3=None):
     if len(sirens) > 1:
         plan["statut"] = "À VÉRIFIER"
         plan["remarques"].append("SIREN différents : " + ", ".join(sorted(sirens)))
+        return plan
+    probleme = controler_paires(fiches)
+    if probleme:
+        plan["statut"] = "À VÉRIFIER"
+        plan["remarques"].append(probleme)
         return plan
 
     racine, remarque = choisir_racine(fiches, gt3)
@@ -439,6 +525,12 @@ def planifier(groupe, fiches, proprietes, gt3=None):
         if valeur:
             cibles[p] = valeur
     cibles["name"] = fiche_identite(fiches, racine).nom or racine.nom
+    nom = nom_sans_forme_juridique(cibles["name"], fiches)
+    if nom != cibles["name"]:
+        plan["remarques"].append("nom sans forme juridique : « {} » -> « {} »".format(
+            cibles["name"], nom))
+        cibles["name"] = nom
+    plan["remarques"] += contradictions(fiches, cibles)
     proprietaire, remarque = choisir_proprietaire(fiches, racine)
     if proprietaire:
         cibles["hubspot_owner_id"] = proprietaire
@@ -487,6 +579,8 @@ class ClientEntreprises(ClientHubSpot):
         liste = ",".join(proprietes)
         chemin = ("/crm/v3/objects/companies/{}?properties={},{}&propertiesWithHistory={}"
                   .format(id_entreprise, liste, ",".join(LECTURE_SEULE), liste))
+        if GT3_CONTIENT == "transactions":
+            chemin += "&associations=deals"
         try:
             brut = self.requete("GET", chemin)
         except ErreurHubSpot as e:
@@ -505,7 +599,9 @@ class ClientEntreprises(ClientHubSpot):
             nb_contacts=p.get("num_associated_contacts") or 0,
             nb_transactions=p.get("num_associated_deals") or 0,
             creation=date_iso(p.get("createdate") or brut.get("createdAt")), racine=racine,
-            proprietaire_actif=(proprietaire in actifs) if actifs else None)
+            proprietaire_actif=(proprietaire in actifs) if actifs else None,
+            ids_transactions=[a["id"] for a in brut.get("associations", {}).get("deals", {})
+                              .get("results", [])])
 
     def fusionner_entreprises(self, id_principal, id_a_fusionner):
         rep = self.requete("POST", "/crm/v3/objects/companies/merge",
@@ -574,7 +670,7 @@ def ligne_rapport(plan, portail, id_final="", gt3=None):
         "Transactions par fiche": " ; ".join(
             "?" if f.nb_transactions is None else str(f.nb_transactions) for f in fiches),
         "Dans la GT 3.0": " ; ".join(
-            "?" if gt3 is None else "oui" if f.id in gt3 else "non" for f in fiches),
+            "?" if gt3 is None else "oui" if dans_gt3(f, gt3) else "non" for f in fiches),
         "Contacts par fiche": " ; ".join(str(f.nb_contacts) for f in fiches),
         "Remarques": " ; ".join(plan["remarques"]),
     }
@@ -696,6 +792,10 @@ def main(argv=None):
         parser.error("fichier GT 3.0 introuvable : « {} »".format(args.gt3))
     if chemin_gt3:
         gt3 = lire_gt3(chemin_gt3)
+        suspects = ids_gt3_suspects(gt3)
+        if suspects:
+            print("  ! GT 3.0 : {} ID de moins de 8 chiffres, suspects (à vérifier dans "
+                  "l'onglet GT3) : {}".format(len(suspects), ", ".join(suspects)))
     if not os.path.isfile(args.liste):
         dossier = os.path.dirname(os.path.abspath(args.liste))
         presents = sorted(f for f in os.listdir(dossier)

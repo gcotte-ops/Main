@@ -100,10 +100,12 @@ class Regles(unittest.TestCase):
         self.assertIs(fus.choisir_email([racine, autre], None), autre)
 
     def test_changement_d_entreprise_selon_les_echanges(self):
+        # Même mobile : doublon certain malgré le changement d'entreprise.
         ancienne = fiche(1, "2025-11-18", prenom="Sébastien", nom="Fesq", racine=True,
-                         email="s.fesq@5-cinq.com", entreprise="5-CINQ")
+                         email="s.fesq@5-cinq.com", entreprise="5-CINQ", mobile="06 73 80 44 68")
         nouvelle = fiche(2, "2026-09-22", prenom="Sébastien", nom="Fesq",
-                         email="s.fesq@avramova.org", entreprise="Avramova & Associes")
+                         email="s.fesq@avramova.org", entreprise="Avramova & Associes",
+                         mobile="+33 6 73 80 44 68")
         # Sans échange : la fiche créée en dernier fait foi, avec l'adresse de l'entreprise.
         plan = fus.planifier("G-008", [ancienne, nouvelle])
         self.assertEqual((plan["entreprise"], plan["email"]),
@@ -126,8 +128,10 @@ class Regles(unittest.TestCase):
         # la plus à jour ; sinon Paref est gardée et, faute d'adresse Paref, l'email
         # White Bird reste avec une remarque.
         white = fiche(1, "2023-07-03", prenom="Sophie-Anne", nom="BRACCHI SEBAIBI",
-                      email="property@whitebird.immo", entreprise="White Bird", racine=True)
-        paref = fiche(2, "2024-02-09", nom="Sophie-Anne BRACCHI SEBAIBI", entreprise="Paref")
+                      email="property@whitebird.immo", entreprise="White Bird", racine=True,
+                      mobile="06 12 34 56 78")
+        paref = fiche(2, "2024-02-09", nom="Sophie-Anne BRACCHI SEBAIBI", entreprise="Paref",
+                      telephone="06 12 34 56 78")
         plan = fus.planifier("G-197", [white, paref])
         self.assertEqual(plan["entreprise"], "Paref")
         self.assertEqual(plan["email"], "property@whitebird.immo")
@@ -150,7 +154,7 @@ class Regles(unittest.TestCase):
 
     def test_plan(self):
         racine = fiche(1, "2025-11-18", prenom="Sébastien", nom="Fesq", email="s.fesq@5-cinq.com",
-                       telephone="01 43 45 69 13", entreprise="5-CINQ",
+                       telephone="01 43 45 69 13", mobile="06 73 80 44 68", entreprise="5-CINQ",
                        poste="Chargé de projet économie", proprietaire="11",
                        proprietaire_actif=False, racine=True)
         recente = fiche(2, "2026-09-22", prenom="Sébastien", nom="Fesq",
@@ -170,7 +174,8 @@ class Regles(unittest.TestCase):
     def test_poste_et_entreprise_de_la_fiche_la_plus_recente_qui_en_a(self):
         racine = fiche(1, "2024", prenom="Jessica", nom="Sinibaldi", entreprise="Objectif 54",
                        poste="Directrice", racine=True, email="jessica.s@objectif54.fr")
-        recente = fiche(2, "2025", entreprise="54.fr", email="jessica.s@objectif.54.fr")
+        recente = fiche(2, "2025", prenom="Jessica", nom="SINIBALDI", entreprise="54.fr",
+                        email="jessica.s@objectif.54.fr")
         plan = fus.planifier("G-009", [racine, recente])
         self.assertEqual(plan["entreprise"], "Objectif 54")   # « 54.fr » vient du domaine
         self.assertEqual(plan["poste"], "Directrice")
@@ -198,7 +203,7 @@ class FauxHubSpot:
         copie = fus.Fiche(**{k: getattr(f, k) for k in (
             "id", "prenom", "nom", "email", "telephone", "mobile", "poste", "entreprise",
             "id_entreprise", "proprietaire", "proprietaire_actif", "creation", "en_echec",
-            "dernier_echange", "adresse_echange")})
+            "emails_secondaires", "dernier_echange", "adresse_echange")})
         copie.racine = racine
         return copie
 
@@ -251,15 +256,18 @@ class Execution(unittest.TestCase):
             ["G-001", "Certain", DOMAINE, "", "3", "", "", "", "", "", "", "", "",
              "2023-12-15 10:35", "", ""],
         ])
+        # Chaque paire partage une adresse (email principal de l'une parmi les emails
+        # secondaires de l'autre) : doublons certains malgré l'initiale et la fiche sans nom.
         self.client = FauxHubSpot({
             "1": fiche("1", "2023-07-18", prenom="S", nom="Duchene",
                        email="s.duchene@archimeet.fr", telephone="06 33 56 45 94",
                        entreprise="Archimeet"),
             "2": fiche("2", "2023-11-13", prenom="Sophie", nom="DUCHENE",
                        telephone="+33633564594", entreprise="Archimeet", poste="Architecte",
-                       id_entreprise="55"),
+                       id_entreprise="55",
+                       emails_secondaires="s.duchene@archimeet.fr;sduchene@archimeet.fr"),
             "3": fiche("3", "2023-12-15", email="sduchene@archimeet.fr", en_echec=True,
-                       entreprise="Archimeet"),
+                       entreprise="Archimeet", emails_secondaires="s.duchene@archimeet.fr"),
         })
 
     def test_simulation_ne_modifie_rien(self):

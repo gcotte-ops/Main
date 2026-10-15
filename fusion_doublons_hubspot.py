@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Fusion des contacts HubSpot en doublon certain, à partir de la liste « Doublons certains »
-(export CSV de doublons_potentiels_hubspot.xlsx).
+Fusion des contacts HubSpot en doublon certain, à partir de l'onglet « Doublons » du classeur
+doublons_contacts.xlsx produit par detection_contacts_hubspot.py (lignes de niveau
+« Certain »), ou d'un CSV avec les mêmes colonnes (ancienne liste « Doublons certains »).
 
 Les fiches d'un même groupe (G-001, G-002...) sont fusionnées en une seule, puis la fiche
 obtenue est corrigée selon les règles de fusion Alter Watt :
@@ -35,16 +36,20 @@ obtenue est corrigée selon les règles de fusion Alter Watt :
 Sécurités :
   - par défaut, SIMULATION : rien n'est modifié, le rapport montre ce qui serait fait ;
   - --executer fusionne réellement (irréversible), après confirmation ;
-  - un groupe dont les prénoms se contredisent n'est pas fusionné (« À VÉRIFIER »).
+  - un groupe dont les prénoms se contredisent n'est pas fusionné (« À VÉRIFIER »), ni un
+    groupe dont une paire n'est pas un doublon certain d'après les fiches lues (même email,
+    même boîte + même nom, ou même prénom et nom + un lien fort : voir
+    detection_contacts_hubspot.py) ;
   - relancer le script est sans risque : les groupes déjà fusionnés sont détectés.
 
 Aucune dépendance externe : uniquement la bibliothèque standard Python (3.8+).
 
 Exemples :
-  python fusion_doublons_hubspot.py doublons.csv --hors-ligne        # aperçu sans HubSpot
-  python fusion_doublons_hubspot.py doublons.csv                     # simulation, fiches lues dans HubSpot
-  python fusion_doublons_hubspot.py doublons.csv --groupes G-001,G-002 --executer
-  python fusion_doublons_hubspot.py doublons.csv --executer
+  python fusion_doublons_hubspot.py doublons_contacts.xlsx --hors-ligne   # aperçu sans HubSpot
+  python fusion_doublons_hubspot.py doublons_contacts.xlsx                # simulation
+  python fusion_doublons_hubspot.py doublons_contacts.xlsx --groupes G-001,G-002 --executer
+  python fusion_doublons_hubspot.py doublons_contacts.xlsx --executer
+  python fusion_doublons_hubspot.py doublons.csv --hors-ligne             # CSV exporté
 
 Accès HubSpot : variable d'environnement HUBSPOT_TOKEN = jeton d'une application privée
 avec les droits crm.objects.contacts.read, crm.objects.contacts.write,
@@ -102,6 +107,10 @@ COLONNES = {
     "poste": "Intitulé du poste",
     "proprietaire": "Propriétaire du contact",
     "creation": "Date de création",
+    # Colonnes ajoutées par detection_contacts_hubspot.py (facultatives).
+    "autres_emails": "Autres emails",
+    "mobile": "Mobile",
+    "id_entreprise": "ID entreprise associée",
 }
 
 ENTETES_RAPPORT = [
@@ -265,9 +274,9 @@ def date_iso(valeur):
 def fiche_depuis_csv(ligne):
     """Fiche construite à partir du seul CSV (mode --hors-ligne)."""
     entreprise = ligne.get(COLONNES["entreprise"], "").strip()
-    id_entreprise = ""
+    id_entreprise = ligne.get(COLONNES["id_entreprise"], "").strip()
     if entreprise.isdigit():           # le CSV affiche l'ID quand le nom n'est pas renseigné
-        id_entreprise, entreprise = entreprise, ""
+        id_entreprise, entreprise = id_entreprise or entreprise, ""
     proprietaire = ligne.get(COLONNES["proprietaire"], "").strip()
     actif = None
     if proprietaire:
@@ -279,6 +288,7 @@ def fiche_depuis_csv(ligne):
         nom=ligne.get(COLONNES["nom"], ""),
         email=ligne.get(COLONNES["email"], ""),
         telephone=telephone,
+        mobile=ligne.get(COLONNES["mobile"], ""),
         poste=ligne.get(COLONNES["poste"], ""),
         entreprise=entreprise,
         id_entreprise=id_entreprise,
@@ -286,6 +296,7 @@ def fiche_depuis_csv(ligne):
         proprietaire_actif=actif,
         creation=date_iso(ligne.get(COLONNES["creation"], "")),
         racine=ligne.get(COLONNES["racine"], "").strip().lower() == "oui",
+        emails_secondaires=ligne.get(COLONNES["autres_emails"], ""),
     )
 
 
@@ -477,6 +488,19 @@ def choisir_proprietaire(fiches, principale):
     return "", ""
 
 
+def controler_paires(fiches):
+    """Filet de sécurité : remarque si une paire du groupe n'a pas de lien certain (section
+    6.3, recalculée sur les fiches lues), sinon ""."""
+    import detection_contacts_hubspot as dc       # import ici : ce module importe la fusion
+    for i, a in enumerate(fiches):
+        for b in fiches[i + 1:]:
+            p = dc.evaluer(a, b)
+            if p.niveau != dc.CERTAIN:
+                return "lien indirect : {} et {} ne sont pas en doublon certain ({}{})".format(
+                    a.id, b.id, dc.raison(p), "".join(" ; " + e for e in p.blocage))
+    return ""
+
+
 def planifier(groupe, fiches):
     """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
@@ -487,6 +511,11 @@ def planifier(groupe, fiches):
                 plan["remarques"].append("prénoms différents : « {} » / « {} »"
                                          .format(a.prenom, b.prenom))
                 return plan
+    probleme = controler_paires(fiches)
+    if probleme:
+        plan["statut"] = "À VÉRIFIER"
+        plan["remarques"].append(probleme)
+        return plan
 
     attribuer_echanges(fiches)
     source_entreprise = choisir_entreprise(fiches)
@@ -783,6 +812,24 @@ def lire_csv(chemin):
     return lignes
 
 
+def lire_liste(chemin):
+    """Lignes à fusionner : onglet « Doublons » d'un classeur .xlsx, ou CSV. Quand la colonne
+    « Niveau » existe, seules les lignes « Certain » sont gardées."""
+    if chemin.lower().endswith((".xlsx", ".xlsm")):
+        from fusion_entreprises_hubspot import lire_xlsx   # import ici : ce module importe celui-ci
+        lignes = [{k: "" if v is None else str(v) for k, v in l.items()}
+                  for l in lire_xlsx(chemin, "Doublons")]
+        manquantes = [c for c in ("groupe", "id") if COLONNES[c] not in (lignes[0] if lignes else {})]
+        if manquantes:
+            raise SystemExit("Colonnes absentes de l'onglet « Doublons » : " +
+                             ", ".join(COLONNES[c] for c in manquantes))
+    else:
+        lignes = lire_csv(chemin)
+    if lignes and "Niveau" in lignes[0]:
+        lignes = [l for l in lignes if l.get("Niveau", "").strip().lower() == "certain"]
+    return lignes
+
+
 def grouper(lignes, filtre=None):
     groupes = {}
     for ligne in lignes:
@@ -853,7 +900,7 @@ def fiches_du_groupe(lignes, client):
 
 def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite=None,
             portail=PORTAIL_DEFAUT, journal=print):
-    groupes = grouper(lire_csv(chemin), filtre)
+    groupes = grouper(lire_liste(chemin), filtre)
     rapport, compteur = [], {}
     for n, (groupe, lignes) in enumerate(sorted(groupes.items())):
         if limite is not None and n >= limite:
@@ -892,7 +939,9 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
 def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Fusionne les contacts HubSpot en doublon certain (liste par groupe).")
-    parser.add_argument("csv", help="CSV « Doublons certains » (colonnes Groupe, ID HubSpot...)")
+    parser.add_argument("csv", metavar="liste",
+                        help="classeur doublons_contacts.xlsx (onglet « Doublons », lignes "
+                             "« Certain ») ou CSV (colonnes Groupe, ID HubSpot...)")
     parser.add_argument("--executer", action="store_true",
                         help="fusionner réellement dans HubSpot (irréversible)")
     parser.add_argument("--oui", action="store_true",
@@ -909,9 +958,9 @@ def main(argv=None):
         parser.error("--executer et --hors-ligne sont incompatibles")
     if not os.path.isfile(args.csv):
         dossier = os.path.dirname(os.path.abspath(args.csv))
-        presents = sorted(f for f in os.listdir(dossier) if f.lower().endswith(".csv")
+        presents = sorted(f for f in os.listdir(dossier) if f.lower().endswith((".csv", ".xlsx"))
                           and not f.lower().endswith("_fusion_rapport.csv"))
-        parser.error("fichier introuvable : « {} ». CSV présents dans le dossier : {}".format(
+        parser.error("fichier introuvable : « {} ». Fichiers présents dans le dossier : {}".format(
             args.csv, ", ".join(presents) or "aucun"))
     client = None
     if not args.hors_ligne:
