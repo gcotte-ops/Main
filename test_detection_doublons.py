@@ -1124,6 +1124,18 @@ class ConnecteurHubSpot(unittest.TestCase):
                       "20368543/record/0-2/1", bilan)
         self.assertIn("doublon 2 Abbaye de la Coudre", bilan)
         self.assertIn("Doublons probables (à vérifier, fusion à la main) : 0", bilan)
+        self.assertNotIn("fiche fusionnée", bilan)
+        with open(rapport, encoding="utf-8-sig", newline="") as f:
+            lignes_rapport = list(csv.DictReader(f, delimiter=";"))
+        lignes_rapport[0].update({"Statut": "FUSIONNÉ", "ID final": "9"})
+        with open(rapport, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(lignes_rapport[0]), delimiter=";")
+            w.writeheader()
+            w.writerows(lignes_rapport)
+        bilan = outils.bilan(sortie, rapport)
+        self.assertIn("- G-001 ABBAYE DE LA COUDRE : FUSIONNÉ", bilan)
+        self.assertIn("fiche fusionnée 9 https://app-eu1.hubspot.com/contacts/20368543/"
+                      "record/0-2/9", bilan)
         with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
             de.main(["--depuis-mcp", self.enregistrer("vide.json", reponse_mcp("0-1", [])),
                      "-o", sortie])
