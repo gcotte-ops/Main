@@ -28,7 +28,14 @@ puis **Edit**) :
 
 Ne jamais écrire le jeton dans le dépôt (il est public), dans un fichier ou dans un message.
 
-Connecteurs de la routine : **HubSpot** (lecture), **Alter Watt MCP** (GT 3.0), **Gmail** (compte rendu).
+Dans la routine (claude.ai/code › Routines) :
+
+- **Connecteurs** : **HubSpot** (lecture), **Alter Watt MCP** (GT 3.0), **Gmail** (compte rendu) ;
+- **Dépôt** : `gcotte-ops/Main`, seul dépôt de la routine : la session démarre dans ce dépôt et
+  ses scripts sont son propre code. Un dépôt simplement cloné en cours de session est traité comme
+  du code externe par le mode automatique, qui refuse d'en lancer les scripts. Si des commandes
+  restent bloquées, ajouter dans le dépôt un `.claude/settings.json` avec des règles
+  `permissions.allow` du type `Bash(python outils_routine.py:*)` (une par script).
 
 Sans jeton ou sans accès réseau, la routine détecte quand même mais ne fusionne rien : le compte rendu
 liste les doublons Certain à fusionner à la main et rappelle la configuration à faire.
@@ -68,13 +75,17 @@ Règles de conduite :
 
 ### 1. Préparation
 
-1. `git clone --depth 1 https://github.com/gcotte-ops/main dedoublonnage && cd dedoublonnage && pip install -q openpyxl && mkdir -p travail`
+1. Le dépôt `gcotte-ops/Main` est extrait dans le dossier de travail de la session (dépôt de la
+   routine) : se placer dans ce dossier (`cd` seul, dans une commande à part), puis
+   `mkdir -p travail`. Lancer ensuite chaque script seul, depuis ce dossier
+   (`python outils_routine.py …`, sans `cd … &&` devant ni `|` derrière). openpyxl manquant :
+   `pip install -q openpyxl`.
+   Si le dépôt n'est pas extrait (routine sans dépôt), le dire dans le compte rendu et s'arrêter :
+   les scripts d'un dépôt cloné en cours de session sont refusés.
 2. **Période** : 7 jours, sauf si le message de lancement en donne une autre (« période : 14 jours »).
-3. **Accès à l'API** (pour fusionner) :
-   `test -n "$HUBSPOT_TOKEN" && curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $HUBSPOT_TOKEN" "https://api.hubapi.com/crm/v3/objects/companies?limit=1"`
-   - `200` : FUSION = oui ;
-   - sinon FUSION = non, avec la raison pour le compte rendu : variable `HUBSPOT_TOKEN` absente ; `000`
-     (réseau : `api.hubapi.com` non autorisé) ; `401` (jeton refusé) ; `403` (droits du jeton).
+3. **Accès à l'API** (pour fusionner) : `python outils_routine.py acces` affiche `FUSION=oui` ou
+   `FUSION=non : <raison>` (variable `HUBSPOT_TOKEN` absente, `api.hubapi.com` non autorisé, jeton
+   refusé, droit manquant). La raison va dans le compte rendu.
 4. **Réponses des connecteurs** : quand Claude Code enregistre une réponse longue dans un fichier, il indique
    son chemin ; ces fichiers sont dans le dossier `tool-results` de la session (noté DOSSIER ci-dessous).
    Une réponse courte : l'écrire telle quelle dans un fichier `.json` de `travail/`.

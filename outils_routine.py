@@ -6,6 +6,8 @@ Les connecteurs (HubSpot, Google Drive, Google Sheets) répondent en JSON ; quan
 longue, Claude Code l'enregistre dans un fichier. Ces commandes préparent les requêtes et
 transforment ces réponses en fichiers utilisables par les scripts.
 
+  python outils_routine.py acces                              # FUSION=oui/non : jeton et API
+
 Lecture de toute la base HubSpot par le connecteur (query_crm_data : 500 fiches au plus par
 requête, fenêtre de 10 000 résultats) : par tours de 20 pages lancées en parallèle.
 
@@ -177,6 +179,32 @@ def valeurs(reponse, sortie):
     return max(len(lignes) - 1, 0)
 
 
+def acces():
+    """(fusion possible ?, message) : jeton HUBSPOT_TOKEN présent, API joignable, droits de
+    lecture des contacts, des entreprises et des propriétaires. La valeur du jeton n'est jamais
+    affichée. Les droits d'écriture ne se vérifient qu'à la fusion."""
+    jeton = os.environ.get("HUBSPOT_TOKEN", "").strip()
+    if not jeton:
+        return False, ("variable HUBSPOT_TOKEN absente : l'ajouter aux variables d'environnement "
+                       "de l'environnement cloud (nouvelle session nécessaire)")
+    import fusion_doublons_hubspot as fc
+    client = fc.ClientHubSpot(jeton)
+    probleme = fc.verifier_jeton(client, jeton)
+    if probleme:
+        if "injoignable" in probleme:
+            probleme += " ; vérifier que api.hubapi.com est dans les domaines autorisés"
+        return False, probleme
+    try:
+        client.requete("GET", "/crm/v3/objects/companies?limit=1")
+    except fc.ErreurHubSpot as e:
+        return False, "lecture des entreprises refusée ({}) : droit crm.objects.companies.read".format(e)
+    try:
+        client.proprietaires_actifs(strict=True)
+    except fc.ErreurHubSpot as e:
+        return False, "lecture des propriétaires refusée ({}) : droit crm.objects.owners.read".format(e)
+    return True, "API HubSpot joignable, jeton accepté (contacts, entreprises, propriétaires)"
+
+
 PORTAIL = "20368543"
 LIEN = "https://app-eu1.hubspot.com/contacts/{portail}/record/{type}/{id}"
 
@@ -246,6 +274,7 @@ def lignes(decisions):
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Outils de la routine de dédoublonnage.")
     sous = parser.add_subparsers(dest="commande", required=True)
+    sous.add_parser("acces", help="la fusion par l'API est-elle possible ? (FUSION=oui/non)")
     p = sous.add_parser("requetes", help="requêtes SQL d'un tour de lecture")
     p.add_argument("objet", choices=sorted(OBJETS))
     p.add_argument("--borne", type=int, default=0, help="plus grand ID déjà lu")
@@ -279,6 +308,10 @@ def main(argv=None):
     p.add_argument("--rapport", help="rapport de fusion (.csv)")
     p.add_argument("--portail", default=PORTAIL)
     args = parser.parse_args(argv)
+    if args.commande == "acces":
+        possible, message = acces()
+        print("FUSION={} : {}".format("oui" if possible else "non", message))
+        return 0 if possible else 1
     if args.commande == "requetes":
         print("\n".join(requetes(args.objet, args.borne)))
     elif args.commande == "fin":

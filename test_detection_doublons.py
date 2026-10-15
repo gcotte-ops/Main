@@ -1064,6 +1064,27 @@ class ConnecteurHubSpot(unittest.TestCase):
         self.assertIs(b.proprietaire_actif, False)
         self.assertRegex(b.creation, r"^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$")
 
+    def test_acces_a_l_api(self):
+        from unittest import mock
+        import outils_routine as outils
+        with mock.patch.dict(os.environ, {"HUBSPOT_TOKEN": ""}):
+            possible, message = outils.acces()
+        self.assertFalse(possible)
+        self.assertIn("HUBSPOT_TOKEN absente", message)
+        jeton = "-".join(["pat", "eu1", "abcdef12", "0000", "0000", "0000", "0" * 12])  # factice
+        with mock.patch.dict(os.environ, {"HUBSPOT_TOKEN": jeton}):
+            refus = fc.ErreurHubSpot(401, "Authentication credentials not found")
+            with mock.patch.object(fc.ClientHubSpot, "requete", side_effect=refus):
+                possible, message = outils.acces()
+            self.assertFalse(possible)
+            self.assertIn("refuse le jeton", message)
+            self.assertNotIn(jeton, message)
+            with mock.patch.object(fc.ClientHubSpot, "requete", return_value={}):
+                self.assertEqual(outils.acces()[0], True)
+                with contextlib.redirect_stdout(io.StringIO()) as sortie:
+                    self.assertEqual(outils.main(["acces"]), 0)
+            self.assertTrue(sortie.getvalue().startswith("FUSION=oui"))
+
     def test_seuil(self):
         maintenant = datetime.datetime(2026, 10, 19, 5, 47)
         self.assertEqual(de.seuil_nouvelles(7, maintenant), "2026-10-12 00:00:00")
