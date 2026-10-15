@@ -210,11 +210,12 @@ LIEN = "https://app-eu1.hubspot.com/contacts/{portail}/record/{type}/{id}"
 
 
 def lire_rapport(chemin):
-    """{groupe: (statut, remarques)} d'un rapport de fusion (CSV « ; »)."""
+    """{groupe: (statut, remarques, ID final)} d'un rapport de fusion (CSV « ; »)."""
     if not chemin or not os.path.isfile(chemin):
         return {}
     with open(chemin, encoding="utf-8-sig", newline="") as f:
-        return {l.get("Groupe", ""): (l.get("Statut", ""), l.get("Remarques", ""))
+        return {l.get("Groupe", ""): (l.get("Statut", ""), l.get("Remarques", ""),
+                                      l.get("ID final", ""))
                 for l in csv.DictReader(f, delimiter=";")}
 
 
@@ -248,8 +249,9 @@ def bilan(classeur, rapport=None, portail=PORTAIL):
         for g, ls in choisis:
             ls = sorted(ls, key=lambda l: str(l.get("Racine suggérée") or "").lower() != "oui")
             entete = "- {} {}".format(g, nom(ls[0]))
+            final = ""
             if g in statuts:
-                statut, remarques = statuts[g]
+                statut, remarques, final = statuts[g]
                 entete += " : {}".format(statut) + (" ({})".format(remarques) if remarques else "")
             sortie.append(entete)
             motif = str(ls[0].get("Raison du rapprochement") or "").strip()
@@ -260,6 +262,9 @@ def bilan(classeur, rapport=None, portail=PORTAIL):
                 sortie.append("    {} {} {} {}".format(
                     "garder" if k == 0 else "doublon", i, nom(l),
                     LIEN.format(portail=portail, type=type_objet, id=i)))
+            if final and statuts[g][0].startswith("FUSIONN"):
+                sortie.append("    fiche fusionnée {} {}".format(
+                    final, LIEN.format(portail=portail, type=type_objet, id=final)))
     return "\n".join(sortie)
 
 
