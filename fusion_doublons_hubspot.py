@@ -40,6 +40,8 @@ Sécurités :
     groupe dont une paire n'est pas un doublon certain d'après les fiches lues (même email,
     même boîte + même nom, ou même prénom et nom + un lien fort : voir
     detection_contacts_hubspot.py) ;
+  - une ligne marquée « Ne pas fusionner » (colonne Décision) sort la fiche de son groupe ;
+    le groupe n'est fusionné que s'il reste au moins deux fiches ;
   - relancer le script est sans risque : les groupes déjà fusionnés sont détectés.
 
 Aucune dépendance externe : uniquement la bibliothèque standard Python (3.8+).
@@ -111,7 +113,13 @@ COLONNES = {
     "autres_emails": "Autres emails",
     "mobile": "Mobile",
     "id_entreprise": "ID entreprise associée",
+    "decision": "Décision",
 }
+
+# Relecture : une ligne « Ne pas fusionner » sort la fiche de son groupe ; le groupe n'est
+# fusionné que s'il reste au moins deux fiches.
+DECISIONS_NON = {"ne pas fusionner", "non", "distinctes", "distincte", "pas un doublon"}
+ECARTE = "ÉCARTÉ À LA RELECTURE"
 
 ENTETES_RAPPORT = [
     "Groupe", "Statut", "Fiches du groupe", "Fiche principale", "Fiche la plus à jour",
@@ -812,9 +820,76 @@ def lire_csv(chemin):
     return lignes
 
 
-def lire_liste(chemin):
-    """Lignes à fusionner : onglet « Doublons » d'un classeur .xlsx, ou CSV. Quand la colonne
-    « Niveau » existe, seules les lignes « Certain » sont gardées."""
+def ecartee(ligne):
+    """Fiche retirée de son groupe à la relecture (colonne Décision)."""
+    return normaliser(str(ligne.get(COLONNES["decision"]) or "")) in DECISIONS_NON
+
+
+def separer_relecture(lignes, colonne_id="ID HubSpot"):
+    """(lignes gardées, ID des fiches écartées à la relecture)."""
+    gardees = [l for l in lignes if not ecartee(l)]
+    return gardees, [str(l.get(colonne_id) or "").strip() for l in lignes if ecartee(l)]
+
+
+def plan_ecarte(groupe, ecartees):
+    return {"groupe": groupe, "fiches": [], "statut": ECARTE,
+            "remarques": ["« Ne pas fusionner » à la relecture : " + ", ".join(ecartees)]}
+
+
+def paires_ecartees(lignes):
+    """Paires d'ID déclarées distinctes à la relecture : dans chaque groupe, une fiche marquée
+    « Ne pas fusionner » est distincte de toutes les autres fiches du groupe."""
+    groupes = {}
+    for l in lignes:
+        g, i = str(l.get(COLONNES["groupe"]) or "").strip(), str(l.get(COLONNES["id"]) or "").strip()
+        if g and i:
+            groupes.setdefault(g, []).append(l)
+    paires = set()
+    for rangs in groupes.values():
+        ids = [str(l[COLONNES["id"]]).strip() for l in rangs]
+        for l in rangs:
+            if ecartee(l):
+                i = str(l[COLONNES["id"]]).strip()
+                paires.update(frozenset((i, autre)) for autre in ids if autre != i)
+    return paires
+
+
+def objet_du_classeur(lignes):
+    """« entreprise » ou « contact » d'après les colonnes de la liste."""
+    entete = lignes[0] if lignes else {}
+    return "entreprise" if ("Nom de l’entreprise" in entete or "Nom de l'entreprise" in entete) \
+        else "contact"
+
+
+ENTETES_MEMOIRE = ["ID A", "ID B", "Objet", "Classeur", "Date"]
+
+
+def memoriser_decisions(chemin_liste, chemin_memoire):
+    """Ajoute à chemin_memoire (CSV) les paires déclarées distinctes dans la liste relue,
+    toutes lignes confondues (Certain et Probable). Renvoie le nombre de paires ajoutées."""
+    lignes = lire_lignes(chemin_liste)
+    objet = objet_du_classeur(lignes)
+    deja = set()
+    if os.path.isfile(chemin_memoire):
+        with open(chemin_memoire, encoding="utf-8-sig", newline="") as f:
+            for l in csv.DictReader(f, delimiter=";"):
+                deja.add((l.get("Objet"), frozenset((l.get("ID A"), l.get("ID B")))))
+    nouvelles = sorted((sorted(p) for p in paires_ecartees(lignes) if (objet, p) not in deja),
+                       key=lambda p: [(len(x), x) for x in p])
+    if nouvelles:
+        neuf = not os.path.isfile(chemin_memoire)
+        with open(chemin_memoire, "a", encoding="utf-8-sig" if neuf else "utf-8", newline="") as f:
+            w = csv.writer(f, delimiter=";")
+            if neuf:
+                w.writerow(ENTETES_MEMOIRE)
+            date = time.strftime("%Y-%m-%d")
+            for a, b in nouvelles:
+                w.writerow([a, b, objet, os.path.basename(chemin_liste), date])
+    return len(nouvelles)
+
+
+def lire_lignes(chemin):
+    """Toutes les lignes de la liste : onglet « Doublons » d'un classeur .xlsx, ou CSV."""
     if chemin.lower().endswith((".xlsx", ".xlsm")):
         from fusion_entreprises_hubspot import lire_xlsx   # import ici : ce module importe celui-ci
         lignes = [{k: "" if v is None else str(v) for k, v in l.items()}
@@ -825,6 +900,13 @@ def lire_liste(chemin):
                              ", ".join(COLONNES[c] for c in manquantes))
     else:
         lignes = lire_csv(chemin)
+    return lignes
+
+
+def lire_liste(chemin):
+    """Lignes à fusionner : quand la colonne « Niveau » existe, seules les lignes « Certain »
+    sont gardées."""
+    lignes = lire_lignes(chemin)
     if lignes and "Niveau" in lignes[0]:
         lignes = [l for l in lignes if l.get("Niveau", "").strip().lower() == "certain"]
     return lignes
@@ -906,8 +988,11 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
         if limite is not None and n >= limite:
             break
         try:
-            fiches, absentes = fiches_du_groupe(lignes, client)
-            if len(fiches) < 2:
+            lignes, ecartees = separer_relecture(lignes)
+            fiches, absentes = fiches_du_groupe(lignes, client) if len(lignes) >= 2 else ([], [])
+            if len(lignes) < 2:
+                plan = plan_ecarte(groupe, ecartees)
+            elif len(fiches) < 2:
                 plan = {"groupe": groupe, "fiches": fiches, "statut": "DÉJÀ FUSIONNÉ",
                         "remarques": ["fiches absentes : " + ", ".join(absentes)] if absentes
                         else ["les fiches ne forment déjà plus qu'une"]}
@@ -918,6 +1003,8 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                 plan = planifier(groupe, fiches)
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
+            if ecartees and plan["statut"] != ECARTE:
+                plan["remarques"].append("écartées à la relecture : " + ", ".join(ecartees))
             id_final = ""
             if plan["statut"] == "À FUSIONNER":
                 if reel:
@@ -952,6 +1039,9 @@ def main(argv=None):
     parser.add_argument("--limite", type=int, help="nombre maximum de groupes à traiter")
     parser.add_argument("--rapport", help="chemin du rapport (défaut : <csv>_fusion_rapport.csv)")
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
+    parser.add_argument("--memoriser", metavar="FICHIER.csv",
+                        help="ajoute à ce fichier les fiches déclarées distinctes à la relecture "
+                             "(« Ne pas fusionner »), relu par les détections suivantes")
     args = parser.parse_args(argv)
 
     if args.executer and args.hors_ligne:
@@ -993,6 +1083,9 @@ def main(argv=None):
 
     mode = "FUSION" if args.executer else "SIMULATION" + (" hors ligne" if args.hors_ligne else "")
     print("Mode : {}".format(mode))
+    if args.memoriser:
+        print("Décisions de relecture mémorisées dans {} : {} paires ajoutées".format(
+            args.memoriser, memoriser_decisions(args.csv, args.memoriser)))
     compteur = traiter(args.csv, rapport, client=client, reel=args.executer, filtre=filtre,
                        limite=args.limite, portail=args.portail)
     print("\nBilan : " + ", ".join("{} {}".format(v, k) for k, v in sorted(compteur.items())))

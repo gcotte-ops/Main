@@ -2,8 +2,10 @@
 sécurité ajoutés aux scripts de fusion. Les fiches de référence reprennent les groupes de
 l'ancien classeur doublons_potentiels_entreprises_hubspot.xlsx (G-001, G-084, G-187...)."""
 
+import contextlib
 import csv
 import datetime
+import io
 import itertools
 import os
 import random
@@ -818,6 +820,325 @@ class FusionContacts(unittest.TestCase):
         b.id_entreprise = "1"
         b._normes = None
         self.assertEqual(fc.planifier("G-008", [a, b])["statut"], "À FUSIONNER")
+
+
+class CycleHebdomadaire(unittest.TestCase):
+    """Relecture et usage récurrent : colonne Décision, mémoire des décisions, colonne Nouveau."""
+
+    def setUp(self):
+        self.dossier = tempfile.mkdtemp()
+        self.export = os.path.join(self.dossier, "export.csv")
+        self.ecrire_export([
+            ["1", "ABBAYE DE LA COUDRE", "abbaye-coudre.fr", "Laval", "02 43 02 85 85"],
+            ["2", "EURL ABBAYE DE LA COUDRE", "", "LAVAL CEDEX", "+33 2 43 02 85 85"],
+            ["3", "Abbaye de la Coudre", "abbaye-coudre.fr", "Laval", ""],
+            ["4", "Lycée Saint Louis", "", "Brest", "02 98 00 00 00"],
+        ])
+
+    def ecrire_export(self, lignes):
+        with open(self.export, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["ID de fiche d'informations", "Nom de l'entreprise",
+                        "Nom de domaine de l'entreprise", "Ville", "Numéro de téléphone"])
+            w.writerows(lignes)
+
+    def detecter(self, nom, *options):
+        sortie = os.path.join(self.dossier, nom)
+        self.assertEqual(de.main(["--depuis-export", self.export, "-o", sortie] + list(options)),
+                         0)
+        return sortie
+
+    def relire(self, chemin, ecartees, sortie):
+        """Comme un relecteur : « Ne pas fusionner » sur les lignes des fiches écartées."""
+        import openpyxl
+        wb = openpyxl.load_workbook(chemin)
+        ws = wb["Doublons"]
+        entetes = [c.value for c in ws[1]]
+        for row in ws.iter_rows(min_row=2):
+            if row[entetes.index("ID HubSpot")].value in ecartees:
+                row[entetes.index("Décision")].value = "Ne pas fusionner"
+        wb.save(sortie)
+        return sortie
+
+    def test_colonne_decision(self):
+        chemin = self.detecter("semaine1.xlsx")
+        lignes = fe.lire_xlsx(chemin)
+        self.assertEqual({l["Décision"] for l in lignes if l["Niveau"] == CERTAIN}, {"Fusionner"})
+        import openpyxl
+        ws = openpyxl.load_workbook(chemin)["Doublons"]
+        self.assertEqual(len(ws.data_validations.dataValidation), 1)
+
+    def test_fiche_ecartee_a_la_relecture(self):
+        semaine1 = self.detecter("semaine1.xlsx")
+        groupe = [l for l in fe.lire_xlsx(semaine1) if l["Niveau"] == CERTAIN]
+        self.assertEqual({l["ID HubSpot"] for l in groupe}, {"1", "2", "3"})
+        os.makedirs(os.path.join(self.dossier, "relus"))
+        relu = self.relire(semaine1, {"2"}, os.path.join(self.dossier, "relus", "s1.xlsx"))
+        # Fusion : la fiche 2 est retirée, les fiches 1 et 3 sont fusionnées.
+        rapport = os.path.join(self.dossier, "rapport.csv")
+        self.assertEqual(fe.traiter(relu, rapport, journal=lambda *a: 0), {"SIMULATION": 1})
+        with open(rapport, encoding="utf-8-sig") as f:
+            ligne = next(csv.DictReader(f, delimiter=";"))
+        self.assertEqual(ligne["Fiches du groupe"], "1 ; 3")
+        self.assertIn("écartées à la relecture : 2", ligne["Remarques"])
+        # Semaine suivante : la décision est mémorisée, 2 n'est plus proposée avec 1 et 3.
+        self.assertEqual(de.lire_decisions([os.path.join(self.dossier, "relus")],
+                                           journal=lambda *a: 0),
+                         {frozenset(("2", "1")), frozenset(("2", "3"))})
+        semaine2 = self.detecter("semaine2.xlsx", "--ancien", relu, "--decisions",
+                                 os.path.join(self.dossier, "relus"))
+        lignes = fe.lire_xlsx(semaine2)
+        self.assertEqual({l["ID HubSpot"] for l in lignes}, {"1", "3"})
+        self.assertEqual({l["Nouveau"] for l in lignes}, {""})
+        self.assertFalse(fe.lire_xlsx(semaine2, "Entités distinctes"))
+        synthese = {l[0]: l[1] for l in iter_synthese(semaine2)}
+        self.assertEqual(synthese["Paires écartées à une relecture précédente"], 2)
+        self.assertEqual(synthese["Groupes nouveaux depuis l’analyse précédente"], 0)
+
+    def test_memoire_des_decisions(self):
+        semaine1 = self.detecter("semaine1.xlsx")
+        relu = self.relire(semaine1, {"2"}, os.path.join(self.dossier, "relu.xlsx"))
+        memoire = os.path.join(self.dossier, "memoire", "decisions_semaine1.csv")
+        os.makedirs(os.path.dirname(memoire))
+        sortie = io.StringIO()
+        with contextlib.redirect_stdout(sortie):
+            self.assertEqual(fe.main([relu, "--hors-ligne", "--memoriser", memoire,
+                                      "--rapport", os.path.join(self.dossier, "r.csv")]), 0)
+        self.assertIn("2 paires ajoutées", sortie.getvalue())
+        self.assertEqual(fc.memoriser_decisions(relu, memoire), 0)       # déjà mémorisées
+        silence = lambda *a: None
+        attendu = {frozenset(("1", "2")), frozenset(("2", "3"))}
+        self.assertEqual(de.lire_decisions([os.path.dirname(memoire)], journal=silence), attendu)
+        self.assertEqual(de.lire_decisions([memoire], objet="contact", journal=silence), set())
+        semaine2 = self.detecter("semaine2.xlsx", "--decisions", os.path.dirname(memoire))
+        self.assertEqual({l["ID HubSpot"] for l in fe.lire_xlsx(semaine2)}, {"1", "3"})
+
+    def test_groupe_entierement_ecarte(self):
+        semaine1 = self.detecter("semaine1.xlsx")
+        relu = self.relire(semaine1, {"1", "2", "3"}, os.path.join(self.dossier, "relu.xlsx"))
+        self.assertEqual(fe.traiter(relu, os.path.join(self.dossier, "r.csv"),
+                                    journal=lambda *a: 0), {fc.ECARTE: 1})
+        self.assertEqual(len(de.lire_decisions([relu], journal=lambda *a: 0)), 3)
+
+    def test_groupes_nouveaux(self):
+        semaine1 = self.detecter("semaine1.xlsx")
+        self.ecrire_export([
+            ["1", "ABBAYE DE LA COUDRE", "abbaye-coudre.fr", "Laval", "02 43 02 85 85"],
+            ["2", "EURL ABBAYE DE LA COUDRE", "", "LAVAL CEDEX", "+33 2 43 02 85 85"],
+            ["3", "Abbaye de la Coudre", "abbaye-coudre.fr", "Laval", ""],
+            ["4", "Lycée Saint Louis", "", "Brest", "02 98 00 00 00"],
+            ["5", "LYCEE SAINT-LOUIS", "", "BREST", "0298000000"],
+        ])
+        semaine2 = self.detecter("semaine2.xlsx", "--ancien", semaine1)
+        nouveaux = {l["ID HubSpot"] for l in fe.lire_xlsx(semaine2) if l["Nouveau"] == "Oui"}
+        self.assertEqual(nouveaux, {"4", "5"})
+
+    def test_contacts(self):
+        a = contact(1, "Jean", "Dupont", "j.dupont@abc.fr")
+        b = contact(2, "Jean", "DUPONT", "j.dupont@abc.fr")
+        analyse = dc.AnalyseContacts([a, b], journal=lambda *x: 0,
+                                     distinctes={frozenset(("1", "2"))}).executer()
+        self.assertFalse(analyse.doublons)
+        self.assertFalse(analyse.relecture["bloquees"])
+        self.assertEqual(analyse.ecartees_relecture, 1)
+
+
+class OutilsRoutine(unittest.TestCase):
+
+    def test_reponses_des_connecteurs(self):
+        import base64
+        import json
+        import outils_routine as outils
+        dossier = tempfile.mkdtemp()
+        classeur = os.path.join(dossier, "c.xlsx")
+        de.ecrire_classeur(classeur, [], [("Doublons", ["Groupe"], [{"Groupe": "G-001"}])],
+                           datetime.datetime(2026, 1, 1))
+        with open(classeur, "rb") as f:
+            contenu = base64.b64encode(f.read()).decode()
+        reponse = os.path.join(dossier, "r.json")
+        with open(reponse, "w") as f:
+            json.dump([{"type": "text", "text": json.dumps({"content": contenu, "title": "c"})}], f)
+        sortie = os.path.join(dossier, "copie.xlsx")
+        self.assertEqual(outils.fichier(reponse, sortie), "c")
+        self.assertEqual(fe.lire_xlsx(sortie), [{"Groupe": "G-001"}])
+        with open(reponse, "w") as f:                           # copie abîmée : refusée
+            json.dump({"content": contenu[:-40] + "A" * 40}, f)
+        with self.assertRaises((Exception, SystemExit)):
+            outils.fichier(reponse, sortie)
+        with open(reponse, "w") as f:
+            json.dump({"values": [["ID A", "ID B", "Objet"], ["1", "2", "entreprise"]]}, f)
+        memoire = os.path.join(dossier, "memoire.csv")
+        self.assertEqual(outils.valeurs(reponse, memoire), 1)
+        self.assertEqual(de.lire_decisions([memoire], journal=lambda *a: 0),
+                         {frozenset(("1", "2"))})
+        self.assertEqual(outils.lignes(memoire), [["1", "2", "entreprise"]])
+
+
+def date_mcp(jours):
+    """createdate_iso d'une fiche créée il y a N jours (format du connecteur HubSpot)."""
+    instant = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=jours)
+    return instant.strftime("%Y-%m-%dT%H:%M:%S.123Z")
+
+
+def reponse_mcp(type_objet, fiches):
+    """Réponse de query_crm_data telle qu'enregistrée par Claude Code."""
+    import json
+    return {"results": [{"content": json.dumps({"objectTypeId": type_objet, "properties": p})}
+                        for p in fiches], "instructions": "…"}
+
+
+class ConnecteurHubSpot(unittest.TestCase):
+    """Lecture de la base par le connecteur HubSpot (MCP) et fiches créées sur la période."""
+
+    ENTREPRISES = [
+        {"hs_object_id": "1", "name": "ABBAYE DE LA COUDRE", "domain": "abbaye-coudre.fr",
+         "city": "Laval", "createdate_iso": date_mcp(900), "hubspot_owner_id": "7",
+         "hubspot_owner_id_formatted": "Anne Martin", "num_associated_contacts": "2"},
+        {"hs_object_id": "2", "name": "Abbaye de la Coudre", "domain": "abbaye-coudre.fr",
+         "city": "LAVAL", "createdate_iso": date_mcp(2), "hubspot_owner_id": "8",
+         "hubspot_owner_id_formatted": "Paul Durand (Deactivated User)"},
+        {"hs_object_id": "3", "name": "Lycée Saint Louis", "city": "Brest",
+         "phone": "02 98 00 00 00", "createdate_iso": date_mcp(800)},
+        {"hs_object_id": "4", "name": "LYCEE SAINT-LOUIS", "city": "BREST",
+         "phone": "0298000000", "createdate_iso": date_mcp(700)},
+        {"hs_object_id": "5", "name": "Clinique du Parc", "city": "Lyon",
+         "createdate_iso": date_mcp(1)},
+    ]
+
+    def setUp(self):
+        import json
+        self.json = json
+        self.dossier = tempfile.mkdtemp()
+
+    def enregistrer(self, nom, donnees):
+        chemin = os.path.join(self.dossier, nom)
+        with open(chemin, "w", encoding="utf-8") as f:
+            self.json.dump(donnees, f)
+        return chemin
+
+    def test_requetes_par_tours(self):
+        import outils_routine as outils
+        tour = outils.requetes("entreprises")
+        self.assertEqual(len(tour), outils.PAGES_PAR_TOUR)
+        self.assertTrue(tour[0].startswith("SELECT hs_object_id, name, domain"))
+        self.assertTrue(tour[0].endswith("FROM COMPANY ORDER BY hs_object_id ASC LIMIT 500"))
+        self.assertTrue(tour[-1].endswith("OFFSET 9500"))
+        suite = outils.requetes("contacts", borne=123)
+        self.assertIn("FROM CONTACT WHERE hs_object_id > 123 ORDER BY", suite[0])
+        self.assertNotIn("hs_additional_emails", suite[0])          # masquée en SQL
+        self.assertIn("ORDER BY hs_object_id DESC LIMIT 500", outils.requete_fin("contacts"))
+
+    def test_lecture_des_reponses(self):
+        import outils_routine as outils
+        pages = os.path.join(self.dossier, "pages")
+        os.makedirs(pages)
+        e = self.ENTREPRISES
+        with open(os.path.join(pages, "p1.json"), "w") as f:     # liste de blocs texte
+            self.json.dump([{"type": "text", "text": self.json.dumps(
+                reponse_mcp("0-2", e[:3]))}], f)
+        with open(os.path.join(pages, "p2.json"), "w") as f:     # objet, avec un doublon de lecture
+            self.json.dump(reponse_mcp("0-2", e[2:]), f)
+        with open(os.path.join(pages, "p3.json"), "w") as f:     # contacts : ignorés ici
+            self.json.dump(reponse_mcp("0-1", [{"hs_object_id": "99", "firstname": "A"}]), f)
+        with open(os.path.join(pages, "autre.txt"), "w") as f:
+            f.write("pas du JSON")
+        lus = outils.enregistrements([pages], "entreprises")
+        self.assertEqual([p["hs_object_id"] for p in lus], ["1", "2", "3", "4", "5"])
+        self.assertEqual(outils.borne([pages], "entreprises", depuis=2), (5, 5, 3))
+        base = os.path.join(self.dossier, "base.jsonl")
+        self.assertEqual(outils.collecter([pages], "entreprises", base), 5)
+        self.assertEqual(outils.enregistrements([base], "entreprises"), lus)
+        self.assertEqual(outils.enregistrements([base], "contacts"), [])
+        self.assertEqual(outils.requete_somme("entreprises"), "SELECT SUM(hs_object_id) FROM COMPANY")
+        self.assertEqual(outils.controle([base], "entreprises", "15"), (True, 5, 15))
+        self.assertEqual(outils.controle([base], "entreprises", "21"), (False, 5, 15))
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(outils.main(["controle", "entreprises", base, "21"]), 1)
+        self.assertEqual([p["hs_object_id"] for p in outils.enregistrements([pages], "contacts")],
+                         ["99"])
+
+    def test_fiche_entreprise(self):
+        a, b = (de.fiche_depuis_mcp(p) for p in self.ENTREPRISES[:2])
+        self.assertEqual((a.id, a.nom, a.proprietaire, a.proprietaire_actif, a.nb_contacts),
+                         ("1", "ABBAYE DE LA COUDRE", "Anne Martin", None, 2))
+        self.assertIs(b.proprietaire_actif, False)
+        self.assertRegex(b.creation, r"^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$")
+
+    def test_seuil(self):
+        maintenant = datetime.datetime(2026, 10, 19, 5, 47)
+        self.assertEqual(de.seuil_nouvelles(7, maintenant), "2026-10-12 00:00:00")
+
+    def test_fiches_creees_sur_la_periode(self):
+        fiches = [de.fiche_depuis_mcp(p) for p in self.ENTREPRISES]
+        analyse = de.Analyse(fiches, journal=lambda *a: 0).executer()
+        self.assertEqual(len(analyse.doublons), 2)
+        ancien = next(g for g in analyse.doublons if fiches[g.racine].id in ("3", "4"))
+        self.assertEqual(analyse.filtrer_nouvelles(de.seuil_nouvelles(7)), 2)
+        self.assertEqual([[fiches[m].id for m in g.membres] for g in analyse.doublons],
+                         [["1", "2"]])
+        self.assertEqual(analyse.doublons[0].numero, "G-001")
+        self.assertIn("groupe plus ancien, non listé", ancien.numero)
+
+    def test_detection_depuis_le_connecteur(self):
+        import outils_routine as outils
+        reponse = self.enregistrer("page.json", reponse_mcp("0-2", self.ENTREPRISES))
+        sortie = os.path.join(self.dossier, "semaine.xlsx")
+        with contextlib.redirect_stdout(io.StringIO()) as journal:
+            self.assertEqual(de.main(["--depuis-mcp", reponse, "--nouvelles-depuis", "7",
+                                      "-o", sortie]), 0)
+        self.assertIn("(UTC) : 2", journal.getvalue())
+        lignes = fe.lire_xlsx(sortie)
+        self.assertEqual({(l["ID HubSpot"], l["Niveau"], l["Décision"]) for l in lignes},
+                         {("1", CERTAIN, "Fusionner"), ("2", CERTAIN, "Fusionner")})
+        synthese = {l[0]: l[1] for l in iter_synthese(sortie)}
+        self.assertEqual(synthese["Fiches créées sur la période (seules leurs paires sont "
+                                  "listées)"], 2)
+        # Le classeur de la semaine se fusionne comme un classeur relu.
+        rapport = os.path.join(self.dossier, "simulation.csv")
+        self.assertEqual(fe.traiter(sortie, rapport, journal=lambda *a: 0), {"SIMULATION": 1})
+        bilan = outils.bilan(sortie, rapport)
+        self.assertIn("Doublons certains (fusion automatique) : 1", bilan)
+        self.assertIn("- G-001 ABBAYE DE LA COUDRE : SIMULATION", bilan)
+        self.assertIn("garder 1 ABBAYE DE LA COUDRE https://app-eu1.hubspot.com/contacts/"
+                      "20368543/record/0-2/1", bilan)
+        self.assertIn("doublon 2 Abbaye de la Coudre", bilan)
+        self.assertIn("Doublons probables (à vérifier, fusion à la main) : 0", bilan)
+        with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+            de.main(["--depuis-mcp", self.enregistrer("vide.json", reponse_mcp("0-1", [])),
+                     "-o", sortie])
+
+    def test_contacts_depuis_le_connecteur(self):
+        import outils_routine as outils
+        contacts = [
+            {"hs_object_id": "10", "firstname": "Jean", "lastname": "Dupont",
+             "email": "j.dupont@abc.fr", "createdate_iso": date_mcp(400),
+             "associatedcompanyid": "1", "associatedcompanyid_formatted": "ABC"},
+            {"hs_object_id": "11", "firstname": "Jean", "lastname": "DUPONT",
+             "email": "J.Dupont@abc.fr", "createdate_iso": date_mcp(3)},
+            {"hs_object_id": "12", "firstname": "Marie", "lastname": "Martin",
+             "email": "m.martin@xyz.fr", "createdate_iso": date_mcp(500)},
+            {"hs_object_id": "13", "firstname": "Marie", "lastname": "Martin",
+             "email": "m.martin@xyz.fr", "createdate_iso": date_mcp(450)},
+        ]
+        f = dc.fiche_depuis_mcp(contacts[0])
+        self.assertEqual((f.id, f.entreprise, f.id_entreprise), ("10", "ABC", "1"))
+        reponse = self.enregistrer("contacts.json", reponse_mcp("0-1", contacts))
+        sortie = os.path.join(self.dossier, "contacts.xlsx")
+        with contextlib.redirect_stdout(io.StringIO()) as journal:
+            self.assertEqual(dc.main(["--depuis-mcp", reponse, "--nouvelles-depuis", "7",
+                                      "-o", sortie]), 0)
+        self.assertIn("emails secondaires", journal.getvalue())
+        lignes = fe.lire_xlsx(sortie)
+        self.assertEqual({l["ID HubSpot"] for l in lignes}, {"10", "11"})
+        self.assertEqual({l["Niveau"] for l in lignes}, {CERTAIN})
+        bilan = outils.bilan(sortie)
+        self.assertIn("garder 10 Jean Dupont https://app-eu1.hubspot.com/contacts/20368543/"
+                      "record/0-1/10", bilan)
+
+
+def iter_synthese(chemin):
+    import openpyxl
+    return openpyxl.load_workbook(chemin)["Synthèse"].iter_rows(values_only=True)
 
 
 if __name__ == "__main__":

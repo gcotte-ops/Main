@@ -66,6 +66,30 @@ Accès : variable d'environnement `HUBSPOT_TOKEN`. La détection ne demande que 
 
 Tests hors ligne : `python -m unittest test_detection_doublons test_fusion_entreprises_hubspot test_fusion_doublons_hubspot`
 
+### Usage récurrent
+
+Chaque lundi, une routine Claude lit toute la base par le **connecteur HubSpot**, repère les fiches créées
+depuis 7 jours, les compare à toute la base, **fusionne les doublons Certain** (API HubSpot, contrôle fiche
+par fiche juste avant la fusion) et envoie le compte rendu (doublons Probable à vérifier à la main, avec les
+liens). Configuration, procédure et rattrapage : **[DEDOUBLONNAGE_RECURRENT.md](DEDOUBLONNAGE_RECURRENT.md)**.
+
+```bash
+python detection_entreprises_hubspot.py --depuis-mcp base_entreprises.jsonl --nouvelles-depuis 7
+python detection_contacts_hubspot.py --depuis-mcp base_contacts.jsonl --nouvelles-depuis 7
+```
+
+- `--depuis-mcp` : réponses du connecteur HubSpot enregistrées (fichiers, dossiers, ou `.jsonl` écrit par
+  `outils_routine.py collecter`). Le connecteur ne lit pas les emails secondaires des contacts
+  (`hs_additional_emails`) : la règle correspondante est désactivée et la synthèse le signale.
+- `--nouvelles-depuis N` : ne garde que les groupes qui contiennent une fiche créée depuis minuit, il y a
+  N jours ; ces fiches sont comparées à toute la base.
+- `outils_routine.py` prépare les requêtes SQL du connecteur (tours de 20 pages de 500 fiches), contrôle que
+  la lecture est complète (somme des ID), et résume classeur et rapport de fusion (`bilan`).
+- **Relecture** (usage manuel) : la colonne « Décision » de l'onglet Doublons vaut « Fusionner » sur les
+  groupes Certain ; « Ne pas fusionner » sur une ligne retire la fiche de son groupe (sur toutes les lignes :
+  groupe écarté). `--memoriser decisions.csv` (fusion) enregistre ces choix, `--decisions` (détection) les
+  relit ; `--ancien <classeur précédent>` remplit la colonne « Nouveau ».
+
 ## Détection des entreprises
 
 ```bash
@@ -107,7 +131,8 @@ Le classeur contient :
 - **Synthèse** : date et source, nombres de fiches et de groupes par niveau et par onglet, avertissements, « Comment
   lire les niveaux » ;
 - **Doublons** : niveaux Certain et Probable, colonnes lues par la fusion (sans renommage) + « Transactions
-  associées », « Dans la GT 3.0 » et « Liens avec la racine » (liens et contradictions de chaque fiche avec la racine) ;
+  associées », « Dans la GT 3.0 », « Liens avec la racine » (liens et contradictions de chaque fiche avec la
+  racine), « Nouveau » et « Décision » (relecture) ;
 - **Filiales et établissements** (`F-`), **Homonymes à vérifier** (`H-`), **SIREN commun** (`S-`), **Entités
   distinctes** (`E-`, paires bloquées avec leur motif) : relecture seulement, jamais fusionnés ;
 - **Comparaison** (avec `--ancien`) : ancien et nouveau niveau de chaque groupe de l'ancien classeur.
@@ -130,7 +155,8 @@ python detection_contacts_hubspot.py --depuis-export contacts.csv
 | **Probable** | Les cas ci-dessus ; nom à une faute près, incomplet ou composé + un lien fort ; fiche sans nom dont l'email reprend le prénom et le nom de l'autre. Un prénom + nom porté par plus de 3 fiches sans autre lien n'est pas proposé (homonymes). |
 
 Onglets : **Doublons** (colonnes lues par la fusion + « Autres emails », « Mobile », « ID entreprise associée »,
-« Liens avec la racine »), **Personnes distinctes** (`P-`), **Adresses génériques partagées** (`A-`).
+« Liens avec la racine », « Nouveau », « Décision »), **Personnes distinctes** (`P-`), **Adresses génériques
+partagées** (`A-`).
 
 # Fusion des contacts HubSpot en doublon certain
 
@@ -217,6 +243,8 @@ dossier, ou dans le fichier donné par `--gt3` : cette liste ou un export CSV de
 signale et départage les fiches à transactions par le nombre de contacts. Les lignes non numériques sont ignorées et
 les ID de moins de 8 chiffres signalés. Si l'onglet GT3 contient finalement des ID de transaction, passer
 `GT3_CONTIENT = "transactions"` en tête de `fusion_entreprises_hubspot.py` (utilisé aussi par la détection).
+Vérifié le 15/10/2026 : la colonne `Id_hubspot` de l'onglet GT3 contient des ID d'**entreprise** (`Lien_hubspot`
+pointe vers `record/0-2/…`).
 
 Droits du jeton : `crm.objects.companies.read`, **`crm.objects.companies.write`** et `crm.objects.owners.read`.
 

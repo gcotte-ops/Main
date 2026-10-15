@@ -38,7 +38,12 @@ principale elle-même : la racine sert à la relecture.
 Exemples :
   python detection_contacts_hubspot.py                                 # lecture HubSpot
   python detection_contacts_hubspot.py --depuis-export contacts.csv    # sans l'API
+  python detection_contacts_hubspot.py --depuis-mcp base_contacts.jsonl --nouvelles-depuis 7
   python detection_contacts_hubspot.py --ancien doublons_potentiels_hubspot.xlsx
+  python detection_contacts_hubspot.py --ancien relus/precedent.xlsx --decisions relus/
+
+Relecture : même colonne « Décision » que pour les entreprises (voir
+detection_entreprises_hubspot.py), mêmes options --ancien et --decisions.
 
 Accès HubSpot : variable d'environnement HUBSPOT_TOKEN = jeton d'une application privée avec
 les droits crm.objects.contacts.read, crm.objects.companies.read et crm.objects.owners.read.
@@ -73,7 +78,8 @@ LIENS_GENERIQUES = {"email_generique", "boite_generique"}
 COLONNES = ["Groupe", "Niveau", "Raison du rapprochement", "Racine suggérée", "ID HubSpot",
             "Lien HubSpot", "Prénom", "Nom", "E-mail", "Téléphone", "Entreprise",
             "Intitulé du poste", "Propriétaire du contact", "Date de création",
-            "Autres emails", "Mobile", "ID entreprise associée", "Liens avec la racine"]
+            "Autres emails", "Mobile", "ID entreprise associée", "Liens avec la racine",
+            "Nouveau", "Décision"]
 
 # (catégorie, préfixe, onglet, niveau affiché)
 ONGLETS_RELECTURE = [("generique", "A-", "Adresses génériques partagées", "À vérifier"),
@@ -390,8 +396,8 @@ class AnalyseContacts(de.AnalyseDoublons):
     CATEGORIES = [("generique", "A-")]
     PREFIXE_BLOQUEES = "P-"
 
-    def __init__(self, fiches, journal=print):
-        super().__init__(fiches, journal)
+    def __init__(self, fiches, journal=print, distinctes=None):
+        super().__init__(fiches, journal, distinctes)
         self.frequences = {}
         for f in self.fiches:
             cle = normes(f).complet
@@ -503,6 +509,7 @@ class AnalyseContacts(de.AnalyseDoublons):
             "Date de création": fiche.creation[:16],
             "Autres emails": " ; ".join(normes(fiche).emails[1:]), "Mobile": fiche.mobile,
             "ID entreprise associée": fiche.id_entreprise, "Liens avec la racine": liens,
+            "Nouveau": "", "Décision": "Fusionner" if niveau == CERTAIN else "",
         }
 
     def compteurs(self):
@@ -525,6 +532,27 @@ def fiche_depuis_hubspot(brut, proprietaires):
         en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
         emails_secondaires=p.get("hs_additional_emails"),
         activite=p.get("notes_last_updated") or "")
+
+
+def fiche_depuis_mcp(p):
+    """Fiche lue par le connecteur HubSpot (query_crm_data)."""
+    proprietaire = str(p.get("hubspot_owner_id_formatted") or p.get("hubspot_owner_id") or "").strip()
+    return FicheContact(
+        id=p["hs_object_id"], prenom=p.get("firstname"), nom=p.get("lastname"),
+        email=p.get("email"), telephone=p.get("phone"), mobile=p.get("mobilephone"),
+        poste=p.get("jobtitle"),
+        entreprise=nz.nettoyer(p.get("company") or p.get("associatedcompanyid_formatted")),
+        id_entreprise=p.get("associatedcompanyid") or "", proprietaire=proprietaire,
+        proprietaire_actif=False if "deactivated" in proprietaire.lower() else None,
+        creation=date_iso(p.get("createdate_iso") or ""),
+        en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
+        activite=p.get("notes_last_updated_iso") or "")
+
+
+def lire_mcp(chemins):
+    """Fiches des réponses du connecteur HubSpot enregistrées (voir outils_routine.py)."""
+    import outils_routine
+    return [fiche_depuis_mcp(p) for p in outils_routine.enregistrements(chemins, "contacts")]
 
 
 def lire_export(chemin):
@@ -629,7 +657,7 @@ LECTURE_NIVEAUX = [
 ]
 
 
-def synthese(analyse, source, horodatage, comparaison=None, avertissements=()):
+def synthese(analyse, source, horodatage, comparaison=None, avertissements=(), releve=()):
     c = analyse.compteurs()
     lignes = [("titre", "Doublons — contacts HubSpot", None),
               ("texte", "Analyse du {} — source : {}".format(
@@ -643,12 +671,15 @@ def synthese(analyse, source, horodatage, comparaison=None, avertissements=()):
               ("texte", "Fiches « Probable »", c[PROBABLE][1])]
     for _, _, onglet, _ in ONGLETS_RELECTURE:
         lignes.append(("texte", "{} (hors liste) : fiches".format(onglet), c[onglet][1]))
+    lignes += list(releve)
     if comparaison:
         lignes += [("vide", "", None), ("section", "Comparaison avec l’ancien classeur", None)]
         lignes += [("texte", evolution, n) for evolution, n in comparaison]
     if avertissements:
         lignes += [("vide", "", None), ("section", "Avertissements", None)]
         lignes += [("paragraphe", a, None) for a in avertissements]
+    lignes += [("vide", "", None), ("section", "Relecture", None)]
+    lignes += [("paragraphe", t, None) for t in de.RELECTURE]
     lignes += [("vide", "", None), ("section", "Comment lire les niveaux", None)]
     lignes += [("paragraphe", t, None) for t in LECTURE_NIVEAUX]
     return lignes
@@ -661,19 +692,44 @@ def main(argv=None):
                     "la fusion des entreprises, sur une nouvelle extraction des contacts.")
     parser.add_argument("--depuis-export", metavar="FICHIER",
                         help="export HubSpot (.csv) ou ancien classeur (.xlsx) au lieu de l'API")
+    parser.add_argument("--depuis-mcp", nargs="+", metavar="REPONSES",
+                        help="réponses du connecteur HubSpot enregistrées (fichiers, dossiers ou "
+                             ".jsonl de outils_routine.py collecter) au lieu de l'API")
+    parser.add_argument("--nouvelles-depuis", type=int, metavar="JOURS",
+                        help="ne lister que les doublons d'une fiche créée ces N derniers jours "
+                             "(comparée à toute la base)")
     parser.add_argument("-o", "--sortie", default=FICHIER_SORTIE,
                         help="classeur produit (défaut : {})".format(FICHIER_SORTIE))
     parser.add_argument("--ancien", metavar="CLASSEUR",
-                        help="ancien classeur de doublons : ajoute l'onglet « Comparaison »")
+                        help="classeur précédent : onglet « Comparaison » et colonne « Nouveau »")
+    parser.add_argument("--decisions", nargs="+", metavar="CLASSEUR_OU_DOSSIER",
+                        help="classeurs relus (ou dossiers qui les contiennent) : les fiches "
+                             "marquées « Ne pas fusionner » ne sont plus proposées ensemble")
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
     args = parser.parse_args(argv)
 
     for chemin in (args.depuis_export, args.ancien):
         if chemin and not os.path.isfile(chemin):
             parser.error("fichier introuvable : « {} »".format(chemin))
+    for chemin in args.decisions or ():
+        if not os.path.exists(chemin):
+            parser.error("classeur ou dossier de relecture introuvable : « {} »".format(chemin))
 
     avertissements, client = [], None
-    if args.depuis_export:
+    if args.depuis_export and args.depuis_mcp:
+        parser.error("--depuis-export et --depuis-mcp sont incompatibles")
+    if args.depuis_mcp:
+        fiches = lire_mcp(args.depuis_mcp)
+        if not fiches:
+            parser.error("aucun contact dans les réponses du connecteur : {}".format(
+                ", ".join(args.depuis_mcp)))
+        source = "connecteur HubSpot (MCP)"
+        message = ("Lecture par le connecteur : les emails secondaires (hs_additional_emails) ne "
+                   "sont pas lisibles ; règle désactivée : {}.".format(
+                       REGLES_PAR_COLONNE["hs_additional_emails"]))
+        avertissements.append(message)
+        print("  ! " + message)
+    elif args.depuis_export:
         fiches, absentes = lire_export(args.depuis_export)
         source = "export {}".format(os.path.basename(args.depuis_export))
         for colonne in absentes:
@@ -691,7 +747,13 @@ def main(argv=None):
         source = "API HubSpot (portail {})".format(args.portail)
     print("{} contacts lus".format(len(fiches)))
 
-    analyse = AnalyseContacts(fiches).executer()
+    distinctes = de.lire_decisions(args.decisions, objet="contact") if args.decisions else None
+    analyse = AnalyseContacts(fiches, distinctes=distinctes).executer()
+    recentes = None
+    if args.nouvelles_depuis is not None:
+        seuil = de.seuil_nouvelles(args.nouvelles_depuis)
+        recentes = analyse.filtrer_nouvelles(seuil)
+        print("Fiches créées depuis le {} (UTC) : {}".format(seuil[:10], recentes))
     avertissements += analyse.avertissements
     noms = {}
     if client is not None:
@@ -703,15 +765,16 @@ def main(argv=None):
 
     onglets = [("Doublons", COLONNES, lignes["Doublons"])]
     onglets += [(onglet, COLONNES, lignes[onglet]) for _, _, onglet, _ in ONGLETS_RELECTURE]
-    bilan = None
+    bilan, nouveaux = None, None
     if args.ancien:
-        feuille = next((f for f in ("Doublons", "Doublons certains")
-                        if f in de.feuilles_xlsx(args.ancien)), "Doublons")
+        nouveaux = de.marquer_nouveaux(lignes["Doublons"], args.ancien)
         comparaison = de.comparer_ancien(args.ancien, lignes, {f.id for f in analyse.fiches},
-                                         feuille=feuille, colonne_nom="Nom")
+                                         feuille=de.onglet_doublons(args.ancien) or "Doublons",
+                                         colonne_nom="Nom")
         onglets.append(("Comparaison", de.COLONNES_COMPARAISON, comparaison))
         bilan = de.bilan_comparaison(comparaison)
-    de.ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements),
+    de.ecrire_classeur(args.sortie, synthese(analyse, source, horodatage, bilan, avertissements,
+                                             de.lignes_releve(analyse, nouveaux, recentes)),
                        onglets, horodatage)
 
     c = analyse.compteurs()
@@ -720,6 +783,11 @@ def main(argv=None):
                                     c[PROBABLE][1], c["chainage"]))
     for _, _, onglet, _ in ONGLETS_RELECTURE:
         print("{} : {} groupes, {} fiches".format(onglet, *c[onglet]))
+    if nouveaux is not None:
+        print("Groupes nouveaux depuis l'analyse précédente : {}".format(nouveaux))
+    if distinctes:
+        print("Paires écartées à une relecture précédente : {}".format(
+            analyse.ecartees_relecture))
     if bilan:
         print("Comparaison avec l'ancien classeur : " +
               ", ".join("{} {}".format(n, e) for e, n in bilan))
