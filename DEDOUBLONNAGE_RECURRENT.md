@@ -6,7 +6,9 @@ Chaque **lundi à 7 h 47** (heure de Paris), une routine Claude :
 2. repère les fiches **créées depuis 7 jours** (depuis minuit, il y a 7 jours) et les compare à toute la base ;
 3. **fusionne les doublons « Certain »** : chaque groupe est relu dans HubSpot et recontrôlé fiche par fiche
    juste avant la fusion (la fiche gardée est la racine suggérée) ;
-4. envoie le compte rendu (email et app Claude) : groupes fusionnés, doublons « Probable » à vérifier à la
+4. note chaque fusion dans le **journal des dédoublonnages** (Google Sheet) : horodatage, fiches fusionnées,
+   lien de la fiche finale, motif ;
+5. envoie le compte rendu (email et app Claude) : groupes fusionnés, doublons « Probable » à vérifier à la
    main avec les liens HubSpot, alertes. Les classeurs de la semaine sont joints dans l'app Claude.
 
 Les doublons « Probable » ne sont **jamais** fusionnés automatiquement. Les entreprises passent avant les
@@ -57,6 +59,7 @@ garder la fiche « garder » comme fiche principale.
 |---|---|
 | Portail HubSpot | `20368543` (EU) |
 | GT 3.0 : « 0 - SUIVI PROJETS », onglet `GT3`, colonnes `Lien_hubspot` (FF) et `Id_hubspot` (FG) : **ID d'entreprise** | `1K2kXDwHK_k4H-PEp-X-2J3F2h-iXqYbK1bzsjbkt6P0` |
+| Journal des dédoublonnages (Google Sheet, onglet `Journal`) | `1RsxyzCXyeZrhEnZ2EW4R5N5fyjna07iOSBNbz_elOe8` |
 | Destinataire du compte rendu | gcotte@alter-watt.com |
 
 ---
@@ -126,6 +129,8 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
    - FUSION = oui : `python fusion_entreprises_hubspot.py travail/doublons_entreprises_AAAA-MM-JJ.xlsx --gt3 travail/gt3.csv --executer --oui --limite 20 --rapport travail/fusion_entreprises.csv`
    - FUSION = non : la même commande avec `--hors-ligne` au lieu de `--executer --oui` (rien n'est modifié).
 4. `python outils_routine.py bilan travail/doublons_entreprises_AAAA-MM-JJ.xlsx --rapport travail/fusion_entreprises.csv`
+5. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_entreprises.csv` et
+   le classeur des entreprises.
 
 ### 4. Contacts (après la fusion des entreprises)
 
@@ -135,8 +140,22 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
    `python fusion_doublons_hubspot.py travail/doublons_contacts_AAAA-MM-JJ.xlsx --executer --oui --limite 20 --rapport travail/fusion_contacts.csv`
    (ou `--hors-ligne`).
 4. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
+5. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
+   classeur des contacts.
 
-### 5. Compte rendu
+### 5. Journal des dédoublonnages
+
+Toute fusion faite (routine ou passage à la main) est notée dans le journal, une ligne par groupe fusionné.
+
+1. `python outils_routine.py journal RAPPORT --classeur CLASSEUR --origine "Routine hebdomadaire"` : lignes
+   JSON (horodatage de la fusion, objet, origine, groupe, nom, fiches fusionnées, ID et lien de la fiche
+   finale, statut, motif, remarques). `[]` : rien à noter.
+2. `sheets_append_values` (Alter Watt MCP) sur `1RsxyzCXyeZrhEnZ2EW4R5N5fyjna07iOSBNbz_elOe8`, plage
+   `Journal!A1`, `valueInputOption` = `USER_ENTERED`, `values` = ces lignes recopiées telles quelles (par lots
+   de 40 lignes au plus).
+3. En cas d'échec : le signaler dans le compte rendu (les rapports de fusion restent dans `travail/`).
+
+### 6. Compte rendu
 
 1. `SendUserFile` (status `proactive`, display `attach`) : les deux classeurs et les rapports de fusion.
 2. Email (Gmail, `send_message`) à gcotte@alter-watt.com, objet
@@ -146,5 +165,7 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
      Statuts : `FUSIONNÉ` (fait) ; `FUSIONNÉ - CORRECTIONS À FAIRE` (fusionné, champs à reprendre à la
      main) ; `À VÉRIFIER` (le contrôle avant fusion a refusé : ne pas fusionner sans regarder) ; `ERREUR` ;
      `SIMULATION` (pas fusionné : à faire à la main) ;
+   - lien vers le journal des dédoublonnages
+     (https://docs.google.com/spreadsheets/d/1RsxyzCXyeZrhEnZ2EW4R5N5fyjna07iOSBNbz_elOe8/edit) ;
    - lien vers la session.
    Si aucun doublon n'a été trouvé, l'email le dit en deux lignes.

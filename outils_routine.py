@@ -25,6 +25,9 @@ requête, fenêtre de 10 000 résultats) : par tours de 20 pages lancées en par
   python outils_routine.py lignes DECISIONS.csv               # CSV écrit par --memoriser ->
                                                               # lignes JSON à ajouter à la feuille
   python outils_routine.py bilan CLASSEUR.xlsx [--rapport FUSION.csv]  # compte rendu (email)
+  python outils_routine.py journal FUSION.csv --classeur CLASSEUR.xlsx --origine TEXTE
+                                                              # fusions faites -> lignes JSON du
+                                                              # journal (sheets_append_values)
 
 Aucune dépendance externe : uniquement la bibliothèque standard Python (3.8+).
 """
@@ -302,6 +305,40 @@ def bilan(classeur, rapport=None, portail=PORTAIL):
     return "\n".join(sortie)
 
 
+ENTETES_JOURNAL = ["Horodatage", "Objet", "Origine", "Groupe", "Nom", "Fiches fusionnées",
+                   "ID fiche finale", "Lien fiche finale", "Statut", "Motif", "Remarques"]
+
+
+def journal(rapport, classeur=None, origine="", heure=""):
+    """Lignes du journal des fusions (une par groupe fusionné), pour sheets_append_values.
+    Rapport sans colonne « Horodatage » (rapports anciens) : heure donnée, sinon date du
+    fichier."""
+    with open(rapport, encoding="utf-8-sig", newline="") as f:
+        rangs = list(csv.DictReader(f, delimiter=";"))
+    if not heure:
+        import fusion_doublons_hubspot as fc
+        heure = fc.horodatage(os.path.getmtime(rapport))
+    motifs = {}
+    if classeur:
+        import fusion_entreprises_hubspot as fe
+        for l in fe.lire_xlsx(classeur):
+            g = str(l.get("Groupe") or "").strip()
+            motifs.setdefault(g, str(l.get("Raison du rapprochement") or "").strip())
+    sortie = []
+    for l in rangs:
+        if not l.get("Statut", "").startswith("FUSIONN"):          # fusions faites seulement
+            continue
+        contacts = "Prénom" in l
+        nom = (" ".join(x for x in (l.get("Prénom", "").strip(), l.get("Nom", "").strip()) if x)
+               if contacts else l.get("Nom", "").strip())
+        sortie.append([
+            l.get("Horodatage") or heure, "Contact" if contacts else "Entreprise", origine,
+            l.get("Groupe", ""), nom, l.get("Fiches du groupe", ""), l.get("ID final", ""),
+            l.get("Lien HubSpot", ""), l.get("Statut", ""), motifs.get(l.get("Groupe", ""), ""),
+            l.get("Remarques", "")])
+    return sortie
+
+
 def lignes(decisions):
     """Lignes d'un CSV écrit par --memoriser (sans l'en-tête), en JSON, pour
     sheets_append_values."""
@@ -341,6 +378,11 @@ def main(argv=None):
     p.add_argument("sortie")
     p = sous.add_parser("lignes", help="CSV de décisions -> lignes JSON")
     p.add_argument("decisions")
+    p = sous.add_parser("journal", help="rapport de fusion -> lignes JSON du journal")
+    p.add_argument("rapport")
+    p.add_argument("--classeur", help="classeur de détection (motif du rapprochement)")
+    p.add_argument("--origine", default="", help="« Routine hebdomadaire », « Passage manuel »…")
+    p.add_argument("--heure", default="", help="horodatage des rapports anciens, sans colonne")
     p = sous.add_parser("bilan", help="compte rendu d'un classeur de détection (et du rapport "
                                       "de fusion)")
     p.add_argument("classeur")
@@ -384,6 +426,9 @@ def main(argv=None):
         print("{} écrit : {} lignes".format(args.sortie, valeurs(args.reponse, args.sortie)))
     elif args.commande == "bilan":
         print(bilan(args.classeur, args.rapport, args.portail))
+    elif args.commande == "journal":
+        print(json.dumps(journal(args.rapport, args.classeur, args.origine, args.heure),
+                         ensure_ascii=False))
     else:
         print(json.dumps(lignes(args.decisions), ensure_ascii=False))
     return 0
