@@ -2,3 +2,7 @@ __pycache__/
 *_complete.csv
 *_rapport.csv
 travail/
+
+# Banc de test SIREN : données du CRM, jamais versionnées
+banc_siren/*.csv
+banc_siren/cache*/
