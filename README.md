@@ -1,41 +1,139 @@
 # Enrichissement SIREN / SIRET des entreprises HubSpot
 
 `enrichissement_siren_siret.py` complète les colonnes SIREN et SIRET d'un export CSV
-d'entreprises HubSpot à partir de l'[Annuaire des Entreprises](https://annuaire-entreprises.data.gouv.fr/).
+d'entreprises HubSpot à partir de l'[Annuaire des Entreprises](https://annuaire-entreprises.data.gouv.fr/)
+(API [recherche-entreprises.api.gouv.fr](https://recherche-entreprises.api.gouv.fr)) et du géocodeur de la
+Géoplateforme (`data.geopf.fr`, pour retrouver le département d'une ville).
 
 Python 3.8+ suffit, sans aucune dépendance à installer.
 
 ```bash
 python enrichissement_siren_siret.py entreprises.csv            # -> entreprises_complete.csv + entreprises_rapport.csv
 python enrichissement_siren_siret.py entreprises.csv --envoyer  # + envoi par email à gcotte@alter-watt.fr
+python enrichissement_siren_siret.py entreprises.csv --cache cache_api   # réponses gardées : relance à l'identique
 ```
 
-- Les lignes où le SIREN **et** le SIRET sont déjà remplis sont ignorées, ainsi que les entreprises hors France.
-- Arbre de décision appliqué à chaque autre ligne :
-  0. SIRET déjà renseigné → recherche **par SIRET** (jamais par le nom) : adresse identique → **TROUVÉ** (SIREN écrit) ;
-     adresse différente → **ADRESSE À VÉRIFIER** (SIREN écrit, adresse laissée telle quelle).
-  1. Recherche du nom (ou du SIREN s'il est connu) : nom + adresse identiques → **TROUVÉ**, SIREN + SIRET écrits.
-  2. Sinon, recherche « nom + ville du CSV » : nom + adresse identiques → **TROUVÉ** ;
-     1er résultat = même entreprise, en activité, à une autre adresse → **ADRESSE CORRIGÉE** : SIREN + SIRET écrits,
-     adresse et ville HubSpot remplacées (`--sans-correction-adresse` pour ne pas y toucher).
-     Fiche **sans adresse** : une seule entreprise de ce nom avec un établissement actif dans la ville → **TROUVÉ (VILLE)**
-     (adresse vide remplie si l'entreprise sort en 1er résultat) ; plusieurs homonymes dans la ville → rien n'est écrit.
-  3. Sinon → **RECHERCHE INTERNET** (rien n'est écrit, adresse non modifiée).
-- Établissements scolaires (catégorie « Enseignement… » ou nom d'école) : noms nettoyés (« DAH - », « (fermé) », suffixe
-  « - Ville »), chaque partie du nom essayée, comparaison sur les mots distinctifs (« OGEC École Sainte-Anne » =
+Exporter de préférence, avec le nom, l'adresse, la ville, le code postal, le pays, le SIREN et le SIRET, la colonne
+**« Type de décideur »** (Centralisé / Décentralisé) : elle décide quel SIREN retenir dans un groupe.
+
+## Arbre de décision
+
+Les lignes où le SIREN **et** le SIRET sont déjà remplis (et cohérents) sont ignorées, ainsi que les entreprises hors
+France.
+
+0. **SIRET déjà renseigné** → recherche par SIRET : adresse identique → **TROUVÉ** ; adresse différente → **ADRESSE À
+   VÉRIFIER** (SIREN écrit, adresse laissée telle quelle).
+1. **Recherche du nom seul.** La ville n'est jamais ajoutée à la requête : l'API exige que *tous* les mots de la
+   requête soient présents, sans tolérance aux fautes, si bien que « Nom + PARIS 08 » ou « Nom + LESQUIN CEDEX » ne
+   renvoyaient rien. 25 résultats et 100 établissements par entreprise sont examinés ; les noms trop différents sont
+   écartés (« Mairie de X » / « Ville de X » = « Commune de X » ; un nom réduit à un seul mot du nom HubSpot ne suffit
+   pas).
+2. **Tri par lieu** des entreprises du nom : à l'adresse HubSpot, sinon dans la ville. Si aucune n'y est, 2e recherche
+   filtrée sur le ou les départements de la ville (géocodage ; « Saint-Denis » → 974, 93, 11).
+   - une seule entreprise à l'adresse → **TROUVÉ** ;
+   - une seule dans la ville (pas d'adresse HubSpot) → **TROUVÉ (VILLE)** ;
+   - une seule dans la ville, à une autre adresse → **ADRESSE CORRIGÉE** (adresse HubSpot remplacée, sauf
+     `--sans-correction-adresse`) ;
+   - plusieurs au même endroit (holding et filiales domiciliées au siège, SCI, CSE…) → départage selon le **Type de
+     décideur** : *Centralisé* → SIREN du groupe (nom identique, puis holding / « groupe », NAF 64.20Z ou 70.10Z, puis
+     taille) ; *Décentralisé* → SIREN de l'entité locale (nom identique, puis pas une holding, puis taille) ; vide ou
+     « Ne sais pas encore » → `--defaut-decideur` (local par défaut). Résultat **À ARBITRER** : SIREN proposé dans le
+     rapport, **non écrit** ;
+   - aucune à cet endroit, une seule entreprise de ce nom → son siège, **À ARBITRER**.
+3. **Ni adresse ni ville** : une seule structure porte ce nom → **TROUVÉ (NOM UNIQUE)**.
+4. Sinon → **RECHERCHE INTERNET** (rien n'est écrit).
+
+Cas particuliers :
+- **Société cessée trouvée par le nom** → **À ARBITRER** (non écrit) : lors du test, il s'agissait surtout d'anciennes
+  entités d'entreprises actives. Ne jamais supprimer une fiche sur cette seule base. Une entreprise cessée identifiée
+  par son SIRET reste **FERMÉE** (« Fermée ») : chercher un successeur avant toute suppression.
+- **SIREN / SIRET HubSpot à clé de contrôle fausse** (algorithme de Luhn ; règle propre aux SIRET de La Poste) →
+  **CLÉ INVALIDE** : rien n'est modifié, le SIREN trouvé est proposé dans le rapport.
+- SIRET qui ne commence pas par le SIREN → **INCOHÉRENT** (signalé, non modifié).
+- Établissements scolaires (catégorie « Enseignement… » ou nom d'école) : noms nettoyés (« DAH - », « (fermé) »,
+  suffixe « - Ville »), chaque partie du nom essayée, comparaison sur les mots distinctifs (« OGEC École Sainte-Anne » =
   « Organisme de gestion… Sainte Anne »), et seules les associations / entités d'enseignement (NAF 85) sont retenues.
 - Adresses génériques (même adresse sur au moins 3 fiches de villes différentes) : ignorées.
-  - Entreprise cessée → **FERMÉE** : fiche à supprimer ou entreprise radiée (INPI).
-  - SIRET qui ne commence pas par le SIREN → **INCOHÉRENT** (signalé, non modifié).
-- L'adresse n'est modifiée que dans le cas **ADRESSE CORRIGÉE**.
-- Le CSV complété contient une colonne **« Statut enrichissement »** juste à droite de « SIRET » : `Trouvé`,
-  `À vérifier` (SIREN/SIRET écrits mais à contrôler) ou `Fermée`, vide quand rien n'a été écrit. Elle est réutilisée
-  (pas dupliquée) si on relance le script sur un CSV déjà complété.
-- Le rapport indique pour chaque ligne le statut, l'action à mener, la recherche effectuée, l'ancienne et la
-  nouvelle adresse, et le lien vers la fiche de l'Annuaire.
-- Colonnes détectées automatiquement (`Record ID`, `Nom de l'entreprise`, `Adresse`, `Ville`, `SIREN`, `SIRET`...) ;
-  sinon `--col-nom "..."`, `--col-adresse "..."`, etc.
+
+## Ce qui est écrit dans le CSV
+
+Colonne **« Statut enrichissement »**, juste à droite de « SIRET » (réutilisée, pas dupliquée, si on relance le script
+sur un CSV déjà complété) :
+
+| Valeur | Cas | SIREN justes lors du test |
+|---|---|---|
+| `Trouvé` | une seule entreprise à l'adresse ; SIRET connu à la même adresse | 90 % |
+| `À vérifier` | nom unique sans adresse ni ville ; une seule entreprise dans la ville ; SIRET connu à une autre adresse | 95 % (nom unique 99 %, ville 75 à 79 %) |
+| `Fermée` | SIRET connu d'une entreprise cessée | – |
+| *(vide)* | rien d'écrit : à arbitrer, recherche Internet, clé invalide, hors France… | à arbitrer : 47 % |
+
+Options :
+- `--nom-unique-trouve` : le nom unique passe en « Trouvé » (à activer après contrôle manuel d'un échantillon, voir
+  plus bas) ;
+- `--ecrire-incertains` : les cas « À ARBITRER » sont écrits en « À vérifier » (l'adresse n'est jamais modifiée pour
+  eux) ;
+- `--defaut-decideur groupe` : SIREN du groupe quand le Type de décideur est vide (moins bon lors du test : 159 SIREN
+  justes contre 167 sur 300 fiches) ;
+- `--cache DOSSIER` : chaque réponse de l'API est gardée, une relance du même fichier se fait sans appel.
+
+Le rapport indique pour chaque ligne le statut, l'action à mener, le SIREN trouvé ou proposé, la recherche effectuée,
+le détail de la décision (règle de départage comprise), l'ancienne et la nouvelle adresse, et le lien vers la fiche de
+l'Annuaire.
+
+- Colonnes détectées automatiquement (`Record ID`, `Nom de l'entreprise`, `Adresse`, `Ville`, `SIREN`, `SIRET`,
+  `Type de décideur`...) ; sinon `--col-nom "..."`, `--col-adresse "..."`, etc.
 - Séparateur (`,` ou `;`) et encodage (UTF-8 / Windows) conservés : le CSV complété peut être réimporté dans HubSpot.
+- Réseau : une connexion persistante par service (proxy HTTPS de l'environnement pris en compte), reprise
+  automatique sur coupure, attente progressive sur limite de débit (l'API autorise 7 requêtes / s ; le script en fait
+  au plus 4).
+
+## Résultats mesurés (23/10/2026)
+
+Banc : 2 000 fiches HubSpot dont le SIREN était connu (lignes 301 à 2 300 de l'export, jamais utilisées pour régler le
+script), SIREN et SIRET vidés puis recherchés, comparaison au SIREN d'origine.
+
+| | Ancienne version | Version actuelle |
+|---|---|---|
+| SIREN écrits | 482 | 1 123 |
+| SIREN justes | 368 (18 % des fiches) | 1 031 (52 % des fiches) |
+| SIREN faux | 77 | 66 |
+| Part juste des SIREN écrits | 83 % | 94 % |
+
+Les fiches sans adresse ni ville (58 % du banc) étaient abandonnées par l'ancienne version ; la règle du nom unique y
+trouve 721 SIREN, justes à 99 %. Réserves :
+- sur ces fiches, la référence n'avait presque jamais de clé invalide (0,1 % contre 6 à 19 % ailleurs) : elle a
+  probablement été remplie par un outil, ce qui peut surestimer l'accord ; contrôler à la main un échantillon
+  d'environ 50 fiches avant d'utiliser `--nom-unique-trouve` ;
+- la référence elle-même contient des erreurs (clés invalides, SIREN d'un cabinet d'audit ou d'une association sans
+  rapport) : le vrai taux de réussite est un peu supérieur au taux mesuré ;
+- le choix de la tête de groupe reste une heuristique (la base SIRENE ne contient pas les liens entre sociétés) : sur
+  les fiches « Centralisé », 79 % des SIREN écrits sont justes, et les départages ne le sont qu'à 47 %.
+
+## Banc de test
+
+Mesurer une nouvelle version sur des fiches dont le SIREN est connu (fichiers produits dans `banc_siren/`, ignorés par
+git : ils contiennent des données du CRM) :
+
+```bash
+python banc_siren/preparer_banc.py export_avec_siren.csv --debut 300 -n 2000 --dossier banc_siren --hubspot
+python enrichissement_siren_siret.py banc_siren/test_2000.csv --cache banc_siren/cache_api
+python banc_siren/analyser_banc.py banc_siren/test_2000.csv banc_siren/reference_2000.csv --noms --cache banc_siren/cache_api
+```
+
+`--hubspot` lit le « Type de décideur » dans HubSpot (lecture seule, `HUBSPOT_TOKEN`) si l'export ne le contient pas.
+L'analyse donne les SIREN écrits, justes et faux par statut, par profil de fiche et par type de décideur, et liste les
+écarts dans `banc_siren/test_2000_ecarts.csv`.
+
+## Pistes non encore mises en œuvre
+
+- **Liens entre sociétés (maison mère, filiales)**, par exemple par l'API Societe.com (`api.societe.com`, payante à
+  l'appel, clé non encore configurée) : seul levier identifié pour fiabiliser le départage et la règle « SIREN du
+  groupe ». À tester d'abord sur les cas « À ARBITRER ».
+- Recherche par coordonnées (`/near_point` de l'API, après géocodage de l'adresse HubSpot) pour les marques dont la
+  raison sociale est différente.
+- Nettoyage du nom avant la requête (« Groupe », « Siège », « LLC », formes juridiques), qui font encore échouer des
+  recherches.
+- SIREN lu dans les mentions légales du site web (domaine HubSpot), puis vérifié par l'API.
 
 Envoi d'email : définir `SMTP_HOST`, `SMTP_PORT` (587 par défaut), `SMTP_USER`, `SMTP_PASSWORD`
 (pour Google Workspace : `smtp.gmail.com` et un mot de passe d'application).
