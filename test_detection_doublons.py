@@ -224,6 +224,17 @@ class Normalisation(unittest.TestCase):
         self.assertTrue(nz.texte_designe_domaine("Ingénieur Alter Watt", ["alter-watt.com"]))
         self.assertFalse(nz.texte_designe_domaine("Chargée d'alternance", ["alter-watt.com"]))
 
+    def test_domaines_equivalents(self):
+        with tempfile.TemporaryDirectory() as dossier:
+            chemin = os.path.join(dossier, "equivalents.csv")
+            with open(chemin, "w", encoding="utf-8") as f:
+                f.write("# commentaire\nkerlan.fr; Brisak.COM  # renommé\n\nlumina.fr;orvane.fr\n")
+            table = nz.domaines_equivalents(chemin)
+        self.assertEqual(table["kerlan.fr"], table["brisak.com"])
+        self.assertNotEqual(table["kerlan.fr"], table["lumina.fr"])
+        self.assertEqual(nz.domaines_equivalents(os.path.join(dossier, "absent.csv")), {})
+        self.assertTrue(nz.domaines_apparentes("bricoman.fr", "tecnomat.fr"))   # fichier livré
+
 
 # --------------------------------------------------------------------------- #
 # Règle des familles (section 7, test d'acceptation 1)
