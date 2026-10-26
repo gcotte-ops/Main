@@ -69,7 +69,8 @@ PROPRIETES = fc.PROPRIETES + ["notes_last_updated"]
 # Au-delà de ce nombre de fiches portant le même prénom et le même nom, deux d'entre elles
 # sans autre lien sont des homonymes probables : elles ne sont pas proposées.
 NOM_COURANT = 4
-FORTS = ("meme_entreprise", "meme_domaine_pro", "meme_mobile", "meme_fixe")
+FORTS = ("meme_entreprise", "meme_domaine_pro", "domaine_apparente", "poste_designe",
+         "meme_mobile", "meme_fixe")
 LIENS_DIRECTS = {"meme_email", "email_generique", "meme_boite", "boite_generique",
                  "meme_personne", "prenom_compatible", "nom_faute", "nom_incomplet",
                  "nom_inclus", "email_designe", "meme_mobile", "meme_fixe"}
@@ -158,6 +159,7 @@ class Normes:
             if d:
                 self.numeros[d] = "mobile" if d[:2] in ("06", "07") else "fixe"
         self.entreprise = str(fiche.id_entreprise or "").strip()
+        self.nom_entreprise = nz.compact(personne(fiche.entreprise or ""))
         self.complet = nz.compact(self.prenom + self.nom)
         # Partie locale réduite à ses lettres : « remy.viallet » -> « remyviallet ».
         self.local = re.sub(r"[^a-z]", "", nz.sans_accents(nz.local_email(self.email)))
@@ -213,6 +215,9 @@ def evaluer(a, b, frequences=None):
     if na.prenom and nb.prenom and na.nom and nb.nom:
         if na.prenom == nb.prenom and na.nom == nb.nom:
             L.add("meme_personne")
+        elif (nz.compact(na.prenom) == nz.compact(nb.prenom)
+              and nz.compact(na.nom) == nz.compact(nb.nom)):
+            L.add("meme_personne")               # « Le Bihan » / « Lebihan », « D'Arvel »
         elif na.prenom == nb.nom and na.nom == nb.prenom:
             L.update(("meme_personne", "inverses"))
         elif na.nom == nb.nom and fc.prenoms_compatibles(a, b):
@@ -225,7 +230,8 @@ def evaluer(a, b, frequences=None):
         seul, complet = (na, nb) if not na.prenom else (nb, na)
         if nz.compact(seul.nom) in (complet.complet, nz.compact(complet.nom + complet.prenom)):
             L.update(("meme_personne", "nom_un_champ"))
-    if na.nom and nb.nom and (na.nom == nb.nom or "inverses" in L or "nom_un_champ" in L):
+    if na.nom and nb.nom and (nz.compact(na.nom) == nz.compact(nb.nom) or "inverses" in L
+                              or "nom_un_champ" in L):
         L.add("meme_nom_famille")
     if "meme_personne" not in L and fc.prenoms_compatibles(a, b):
         if (na.nom and na.nom == nb.nom and bool(na.prenom) != bool(nb.prenom)) or \
@@ -252,8 +258,21 @@ def evaluer(a, b, frequences=None):
     # Liens forts.
     if na.entreprise and na.entreprise == nb.entreprise:
         L.add("meme_entreprise")
+    elif ((not na.entreprise or not nb.entreprise) and na.nom_entreprise
+          and na.nom_entreprise == nb.nom_entreprise):
+        L.add("meme_entreprise")                 # fiche importée : entreprise saisie, non associée
     if na.domaines_pro & nb.domaines_pro:
         L.add("meme_domaine_pro")
+    elif any(nz.domaines_apparentes(x, y) for x in na.domaines_pro for y in nb.domaines_pro):
+        L.add("domaine_apparente")               # lumina.fr / lumina-retail.com
+    # Même prénom et nom, une fiche sans email : son poste ou son entreprise désigne
+    # l'organisation de l'email de l'autre (« Responsable Energie - Brionne-Les-Bains » et
+    # marc@ville-brionne.fr).
+    if "meme_personne" in L and bool(na.emails) != bool(nb.emails):
+        sans_email, autre = (a, nb) if not na.emails else (b, na)
+        if nz.texte_designe_domaine(sans_email.poste + " " + (sans_email.entreprise or ""),
+                                    autre.domaines_pro):
+            L.add("poste_designe")
     for numero in set(na.numeros) & set(nb.numeros):
         L.add("meme_mobile" if na.numeros[numero] == "mobile" else "meme_fixe")
     p.forts = sum(1 for f in FORTS if f in L)
@@ -329,6 +348,9 @@ def raison(p):
     texte = " + ".join(t for t in (base, noms) if t) or "Noms différents"
     for cle, libelle in (("meme_entreprise", "même entreprise"),
                          ("meme_domaine_pro", "même domaine email"),
+                         ("domaine_apparente", "domaines email de la même organisation"),
+                         ("poste_designe", "poste ou entreprise de la fiche sans email = "
+                                           "organisation de l’email de l’autre"),
                          ("meme_mobile", "même mobile"), ("meme_fixe", "même téléphone")):
         if cle in L:
             texte += " + " + libelle
@@ -360,6 +382,8 @@ def liens_texte(p):
                          ("email_designe", "email au nom de l’autre fiche"),
                          ("meme_entreprise", "même entreprise"),
                          ("meme_domaine_pro", "même domaine email"),
+                         ("domaine_apparente", "domaines email de la même organisation"),
+                         ("poste_designe", "poste ou entreprise = organisation de l’email"),
                          ("meme_mobile", "même mobile"), ("meme_fixe", "même téléphone"),
                          ("entreprises_differentes", "entreprises différentes"),
                          ("webmails_seuls", "webmails seulement")):

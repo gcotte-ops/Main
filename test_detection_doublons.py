@@ -207,6 +207,22 @@ class Normalisation(unittest.TestCase):
         for adresse in ("contacts@x.fr", "jean.dupont@x.fr", "informatique@x.fr"):
             self.assertFalse(nz.est_generique(adresse), adresse)
         self.assertEqual(nz.emails_liste("A@x.fr; b@y.fr"), ["a@x.fr", "b@y.fr"])
+        self.assertTrue(nz.est_webmail("x@numericable.fr"))                # fournisseur d'accès
+
+    def test_domaines_d_une_meme_organisation(self):
+        self.assertEqual(nz.mots_domaine("ville-brionne.fr"), {"brionne"})
+        self.assertEqual(nz.mots_domaine("lumina.intercom-mail.eu"), {"lumina"})
+        self.assertEqual(nz.mots_domaine("paris.fr"), set())                 # mot générique
+        for x, y in (("lumina.fr", "lumina-retail.com"), ("orvane.com", "orvanegestion.fr"),
+                     ("lumina.com", "lumina.intercom-mail.eu"), ("ikoa.com", "ingka.ikoa.com")):
+            self.assertTrue(nz.domaines_apparentes(x, y), (x, y))
+        for x, y in (("lumina.fr", "luminaire.fr"), ("paris.fr", "paris-habitat.fr"),
+                     ("lumina.fr", "lumina.fr"), ("alter-watt.com", "alterea.fr")):
+            self.assertFalse(nz.domaines_apparentes(x, y), (x, y))
+        self.assertTrue(nz.texte_designe_domaine("Responsable Energie - Brionne-Les-Bains",
+                                                 ["ville-brionne.fr"]))
+        self.assertTrue(nz.texte_designe_domaine("Ingénieur Alter Watt", ["alter-watt.com"]))
+        self.assertFalse(nz.texte_designe_domaine("Chargée d'alternance", ["alter-watt.com"]))
 
 
 # --------------------------------------------------------------------------- #
@@ -692,6 +708,53 @@ class Contacts(unittest.TestCase):
         a = contact(1, "Sylvie", "Kalyniak", id_entreprise="9")
         b = contact(2, "", "Sylvie KALYNIAK", id_entreprise="9")
         self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # nom complet dans un champ
+
+    def test_meme_organisation_quelle_que_soit_l_entreprise(self):
+        # Nom à l'espace ou à l'apostrophe près : même personne.
+        a = contact(1, "Anne", "Le Bihan", "anne.lebihan@orvane.com", id_entreprise="1")
+        b = contact(2, "Anne", "Lebihan", id_entreprise="1")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)
+        a = contact(1, "Anne", "D'Arvel", "anne.darvel@orvane.com", id_entreprise="1")
+        b = contact(2, "Anne", "Darvel", id_entreprise="1")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)
+        # Domaines email de la même organisation, entreprises associées différentes.
+        a = contact(1, "Paul", "Verdier", "p.verdier@lumina.fr", id_entreprise="1")
+        b = contact(2, "Paul", "Verdier", "paul.verdier@lumina-retail.com", id_entreprise="2")
+        p = dc.evaluer(a, b)
+        self.assertEqual((p.niveau, p.regles), (CERTAIN, ["CC3"]))
+        self.assertIn("domaines email de la même organisation", dc.raison(p))
+        b = contact(2, "Paul", "Verdier", "paul.verdier@luminaire.fr", id_entreprise="2")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
+        # Nom à une faute près sur le même domaine : deux personnes possibles, jamais Certain.
+        a = contact(1, "Lucie", "Ferrand", "lucie.ferrand@lumina.fr")
+        b = contact(2, "Lucie", "Ferrant", "lucie.ferrant@lumina.fr")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
+        # Fournisseur d'accès : pas un domaine d'organisation.
+        a = contact(1, "Jean", "Morvan", "jmorvan@numericable.fr")
+        b = contact(2, "Jean", "Morvan", "jean.morvan@numericable.fr")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
+
+    def test_fiche_sans_email_rattachee_par_son_poste(self):
+        a = contact(1, "Marc", "Tessier", "marc@ville-brionne.fr", id_entreprise="1")
+        b = contact(2, "Marc", "Tessier", poste="Responsable Energie - Brionne-Les-Bains",
+                    id_entreprise="2")
+        p = dc.evaluer(a, b)
+        self.assertEqual(p.niveau, CERTAIN)
+        self.assertIn("poste_designe", p.liens)
+        b = contact(2, "Marc", "Tessier", entreprise="Mairie de Brionne", id_entreprise="2")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)                   # par l'entreprise
+        b = contact(2, "Marc", "Tessier", poste="Responsable Energie", id_entreprise="2")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
+        b = contact(2, "Marco", "Tessier", poste="Responsable Energie - Brionne")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)                  # prénom différent
+
+    def test_entreprise_saisie_sans_association(self):
+        a = contact(1, "Hugo", "Vasseur", "hugo.vasseur@kerlan.fr", entreprise="Brasserie du Lac",
+                    id_entreprise="12")
+        b = contact(2, "Hugo", "Vasseur", "hugo.vasseur@lac-sud.fr", entreprise="BRASSERIE DU LAC")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)
+        b = contact(2, "Hugo", "Vasseur", "hugo.vasseur@lac-sud.fr", entreprise="Brasserie du Port")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
 
     def test_nom_courant(self):
         fiches = [contact(i, "Pierre", "Martin", "p{}@x{}.fr".format(i, i)) for i in range(5)]

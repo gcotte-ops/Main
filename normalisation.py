@@ -295,7 +295,10 @@ def distance_un(a, b):
 
 WEBMAILS = {"gmail.com", "yahoo.fr", "yahoo.com", "hotmail.fr", "hotmail.com", "outlook.fr",
             "outlook.com", "live.fr", "orange.fr", "wanadoo.fr", "free.fr", "sfr.fr",
-            "laposte.net", "icloud.com", "me.com", "aol.com"}
+            "laposte.net", "icloud.com", "me.com", "aol.com", "live.com", "msn.com",
+            "numericable.fr", "numericable.com", "neuf.fr", "bbox.fr", "aliceadsl.fr",
+            "club-internet.fr", "noos.fr", "cegetel.net", "9online.fr", "voila.fr",
+            "libertysurf.fr", "gmx.fr", "gmx.com", "protonmail.com", "proton.me"}
 
 LOCAUX_GENERIQUES = ["contact", "info", "infos", "accueil", "secretariat", "direction", "admin",
                      "administration", "compta", "comptabilite", "gestion", "mairie", "ecole",
@@ -329,3 +332,63 @@ def est_generique(adresse):
     """contact@, info.ecole@, accueil-2@... : adresse de fonction, pas d'une personne."""
     local = sans_accents(local_email(adresse))
     return any(local == g or re.match(re.escape(g) + r"[._+-]", local) for g in LOCAUX_GENERIQUES)
+
+
+# Mots d'un domaine d'email qui ne désignent pas une organisation précise : extensions,
+# messageries, mots génériques, grandes villes (« paris.fr » n'est pas « paris-habitat.fr »).
+MOTS_DOMAINE_GENERIQUES = {
+    "asso", "gouv", "info", "paris", "corsica", "alsace", "bzh",
+    "mail", "email", "emails", "mailer", "smtp", "intercom", "onmicrosoft", "outlook", "office",
+    "exchange", "sharepoint", "mailchimp", "sendgrid", "hubspot", "salesforce", "zendesk",
+    "groupe", "group", "france", "french", "ville", "mairie", "commune", "communes", "agglo",
+    "agglomeration", "metropole", "departement", "region", "conseil", "conseils", "cabinet",
+    "agence", "societe", "entreprise", "entreprises", "gestion", "immobilier", "immo", "habitat",
+    "services", "service", "consulting", "energie", "energies", "sante", "retail", "holding",
+    "partners", "partner", "invest", "capital", "solutions", "international", "global",
+    "associes", "associates", "avocats", "notaires", "residence", "residences", "ehpad",
+    "hopital", "clinique", "college", "lycee", "ecole", "universite", "univ", "fondation",
+    "association", "mutuelle", "banque", "bank", "assurance", "assurances", "real", "estate",
+    "realestate", "reim", "asset", "management", "home", "homes", "maison", "maisons",
+    "batiment", "construction", "travaux", "ingenierie", "technologies", "tech", "digital",
+    "data", "systems", "system", "support", "contact", "team", "lyon", "marseille", "toulouse", "nice",
+    "nantes", "bordeaux", "lille", "rennes", "strasbourg", "montpellier"}
+
+
+def mots_domaine(domaine):
+    """Mots d'un domaine d'email qui désignent l'organisation, un par label, sans l'extension
+    ni les mots génériques : « ville-brionne.fr » -> {"brionne"}, « lumina-retail.com » ->
+    {"lumina"}, « alter-watt.com » -> {"alterwatt"}, « orvanegestion.onmicrosoft.com » ->
+    {"orvanegestion"}. Moins de 4 lettres : ignoré."""
+    labels = [l for l in sans_accents((domaine or "").lower()).split(".") if l]
+    mots = set()
+    for label in labels[:-1]:                              # sans l'extension
+        mot = "".join(m for m in re.split(r"[-_]", label)
+                      if m and m not in MOTS_DOMAINE_GENERIQUES)
+        if len(mot) >= 4 and not mot.isdigit():
+            mots.add(mot)
+    return mots
+
+
+def domaines_apparentes(domaine_a, domaine_b):
+    """Deux domaines différents de la même organisation : même mot (« lumina.fr » /
+    « lumina-retail.com », « lumina.com » / « lumina.intercom-mail.eu »), ou un mot
+    suivi d'un mot générique (« orvane.com » / « orvanegestion.onmicrosoft.com »)."""
+    if not domaine_a or not domaine_b or domaine_a == domaine_b:
+        return False
+    for x in mots_domaine(domaine_a):
+        for y in mots_domaine(domaine_b):
+            court, long_ = sorted((x, y), key=len)
+            if x == y or (len(court) >= 5 and long_.startswith(court)
+                          and long_[len(court):] in MOTS_DOMAINE_GENERIQUES):
+                return True
+    return False
+
+
+def texte_designe_domaine(texte, domaines):
+    """Un intitulé de poste ou un nom d'entreprise qui contient, en mots entiers, un mot du
+    domaine d'email : « Responsable Energie - Brionne-Les-Bains » et ville-brionne.fr, « Ville de
+    Brionne » et brionne.fr, « Association Saint Kerlan » et saintkerlan.org."""
+    mots = re.findall(r"[a-z0-9]+", sans_accents_ni_ligatures((texte or "").lower()))
+    suites = {"".join(mots[i:j]) for i in range(len(mots))
+              for j in range(i + 1, min(i + 4, len(mots)) + 1)}
+    return any(m in suites for d in domaines for m in mots_domaine(d))
