@@ -61,6 +61,7 @@ crm.objects.companies.read, crm.objects.owners.read et sales-email-read
 
 import argparse
 import csv
+import datetime
 import difflib
 import io
 import json
@@ -122,7 +123,8 @@ DECISIONS_NON = {"ne pas fusionner", "non", "distinctes", "distincte", "pas un d
 ECARTE = "ÉCARTÉ À LA RELECTURE"
 
 ENTETES_RAPPORT = [
-    "Groupe", "Statut", "Fiches du groupe", "Fiche principale", "Fiche la plus à jour",
+    "Groupe", "Statut", "Horodatage", "Fiches du groupe", "Fiche principale",
+    "Fiche la plus à jour",
     "Dernier email reçu", "ID final", "Lien HubSpot",
     "Prénom", "Nom", "Email principal", "Autres emails", "Téléphone", "Mobile",
     "Intitulé du poste", "Entreprise", "ID entreprise principale", "Propriétaire",
@@ -921,11 +923,23 @@ def grouper(lignes, filtre=None):
     return groupes
 
 
+def horodatage(instant=None):
+    """Date et heure de Paris (maintenant, ou instant en secondes) : « 2026-10-26 15:20:18 »."""
+    instant = time.time() if instant is None else instant
+    try:
+        from zoneinfo import ZoneInfo                   # Python 3.9+
+        moment = datetime.datetime.fromtimestamp(instant, ZoneInfo("Europe/Paris"))
+    except Exception:
+        moment = datetime.datetime.fromtimestamp(instant)
+    return moment.strftime("%Y-%m-%d %H:%M:%S")
+
+
 def ligne_rapport(plan, portail, id_final=""):
     fiches = plan["fiches"]
     ligne = {
         "Groupe": plan["groupe"],
         "Statut": plan["statut"],
+        "Horodatage": horodatage(),
         "Fiches du groupe": " ; ".join(f.id for f in fiches),
         "Remarques": " ; ".join(plan["remarques"]),
     }

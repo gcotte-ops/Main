@@ -1090,6 +1090,23 @@ class ConnecteurHubSpot(unittest.TestCase):
             self.json.dump(donnees, f)
         return chemin
 
+    def test_journal_des_fusions(self):
+        import outils_routine as outils
+        with tempfile.TemporaryDirectory() as dossier:
+            rapport = os.path.join(dossier, "fusion.csv")
+            fc.ecrire_rapport(rapport, [
+                {"Groupe": "G-001", "Statut": "FUSIONNÉ", "Horodatage": "2026-10-26 15:20:18",
+                 "Fiches du groupe": "11 ; 12", "ID final": "99", "Lien HubSpot": "https://x/99",
+                 "Prénom": "Anne", "Nom": "LEBIHAN"},
+                {"Groupe": "G-002", "Statut": "À VÉRIFIER", "Fiches du groupe": "13 ; 14"},
+                {"Groupe": "G-003", "Statut": "DÉJÀ FUSIONNÉ", "Fiches du groupe": "15 ; 16"}])
+            lignes = outils.journal(rapport, origine="Passage manuel", heure="2026-10-26 07:59")
+        self.assertEqual(len(outils.ENTETES_JOURNAL), len(lignes[0]))
+        self.assertEqual(lignes, [["2026-10-26 15:20:18", "Contact", "Passage manuel", "G-001",
+                                   "Anne LEBIHAN", "11 ; 12", "99", "https://x/99", "FUSIONNÉ",
+                                   "", ""]])
+        self.assertRegex(fc.horodatage(), r"^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$")
+
     def test_requetes_par_tours(self):
         import outils_routine as outils
         tour = outils.requetes("entreprises")

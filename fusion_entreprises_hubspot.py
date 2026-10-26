@@ -75,9 +75,9 @@ import zipfile
 from xml.etree import ElementTree
 
 from fusion_doublons_hubspot import (ECARTE, PORTAIL_DEFAUT, ClientHubSpot, ErreurHubSpot,
-                                     chiffres, date_iso, lire_csv, memoriser_decisions,
-                                     normaliser, plan_ecarte, ressemble_domaine,
-                                     separer_relecture, verifier_jeton)
+                                     chiffres, date_iso, horodatage, lire_csv,
+                                     memoriser_decisions, normaliser, plan_ecarte,
+                                     ressemble_domaine, separer_relecture, verifier_jeton)
 from normalisation import PLATEFORMES, domaine_principal, nom_equivalent, nom_norm, siren_depuis
 
 LIEN_FICHE = "https://app-eu1.hubspot.com/contacts/{portail}/record/0-2/{id}"
@@ -123,7 +123,8 @@ CONTRADICTIONS_SIGNALEES = [("type_de_decideur", "Type de décideur"),
                             ("categorie_d_actifs_majoritaires", "Catégorie d'actifs")]
 
 ENTETES_RAPPORT = [
-    "Groupe", "Statut", "Fiches du groupe", "Transactions par fiche", "Dans la GT 3.0",
+    "Groupe", "Statut", "Horodatage", "Fiches du groupe", "Transactions par fiche",
+    "Dans la GT 3.0",
     "Contacts par fiche",
     "Fiche racine", "ID final",
     "Lien HubSpot", "Nom", "Domaine", "Téléphone", "Ville", "SIREN", "SIRET",
@@ -668,7 +669,7 @@ def executer(client, plan, proprietes):
 def ligne_rapport(plan, portail, id_final="", gt3=None):
     fiches = plan["fiches"]
     ligne = {
-        "Groupe": plan["groupe"], "Statut": plan["statut"],
+        "Groupe": plan["groupe"], "Statut": plan["statut"], "Horodatage": horodatage(),
         "Fiches du groupe": " ; ".join(f.id for f in fiches),
         "Transactions par fiche": " ; ".join(
             "?" if f.nb_transactions is None else str(f.nb_transactions) for f in fiches),
