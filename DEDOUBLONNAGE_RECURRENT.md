@@ -103,14 +103,17 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
 
 1. `python outils_routine.py requetes OBJET` : 20 requêtes SQL. Les lancer **toutes dans un même message**
    (`query_crm_data`, `verbosityLevel` = `LOW`), sans recopier les résultats.
-2. `python outils_routine.py borne OBJET DOSSIER --depuis 0`. Tant que la réponse dit `tour_complet=oui` :
+2. `python outils_routine.py borne OBJET DOSSIER --depuis 0`. Tant que la réponse dit `tour_complet=oui`
+   (toutes les pages lues étaient pleines : la base peut continuer au-delà) :
    `python outils_routine.py requetes OBJET --borne <borne>`, lancer ces 20 requêtes, puis
    `python outils_routine.py borne OBJET DOSSIER --depuis <borne de ce tour>`.
 3. `python outils_routine.py fin OBJET` : lancer cette requête (les 500 derniers ID, dont la dernière page,
-   trop courte pour être enregistrée).
+   trop courte pour être enregistrée). Elle peut partir avec le dernier tour : `borne` ignore sa réponse
+   (ID décroissants).
 4. `python outils_routine.py collecter OBJET travail/base_OBJET.jsonl DOSSIER`
 5. Contrôle : `python outils_routine.py somme OBJET`, lancer la requête (elle renvoie la somme des ID), puis
-   `python outils_routine.py controle OBJET travail/base_OBJET.jsonl <somme>`. « Lecture INCOMPLÈTE » :
+   `python outils_routine.py controle OBJET travail/base_OBJET.jsonl <somme>`. Au-delà de 9 × 10^15, HubSpot
+   arrondit la somme à quelques unités près : `controle` tolère cet écart et l'affiche. « Lecture INCOMPLÈTE » :
    relancer la requête « fin » et la requête « somme », recollecter et recontrôler une fois ; si l'écart
    demeure, continuer mais le signaler (des doublons peuvent manquer ; les fusions restent contrôlées).
 

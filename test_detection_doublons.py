@@ -1057,6 +1057,44 @@ class ConnecteurHubSpot(unittest.TestCase):
         self.assertEqual([p["hs_object_id"] for p in outils.enregistrements([pages], "contacts")],
                          ["99"])
 
+    def test_requete_fin_lancee_avec_un_tour(self):
+        """La réponse de la requête « fin » (ID décroissants) ne fait pas sauter la borne."""
+        import outils_routine as outils
+        dossier = os.path.join(self.dossier, "tour")
+        os.makedirs(dossier)
+        tour = [{"hs_object_id": str(i), "name": "E{}".format(i)} for i in range(1, 6)]
+        fin = [{"hs_object_id": str(i), "name": "E{}".format(i)} for i in (100, 99, 98)]
+        for nom, fiches in (("tour.json", tour), ("fin.json", fin)):
+            with open(os.path.join(dossier, nom), "w") as f:
+                self.json.dump(reponse_mcp("0-2", fiches), f)
+        self.assertEqual(outils.borne([dossier], "entreprises", depuis=2), (5, 8, 3))
+        self.assertEqual(len(outils.enregistrements([dossier], "entreprises")), 8)
+
+    def test_tour_complet(self):
+        """Un tour aux pages toutes pleines en appelle un autre, même s'il a moins de 20 pages
+        (19 pages lancées : 9 500 fiches) ; une page incomplète ou un tour vide marque la fin."""
+        import outils_routine as outils
+        self.assertTrue(outils.tour_complet(10000))
+        self.assertTrue(outils.tour_complet(9500))
+        self.assertFalse(outils.tour_complet(9431))
+        self.assertFalse(outils.tour_complet(0))
+
+    def test_somme_arrondie_par_hubspot(self):
+        """Au-delà de 2^53, la somme de HubSpot est arrondie : un écart de quelques unités est
+        toléré, pas une page perdue."""
+        import outils_routine as outils
+        base = os.path.join(self.dossier, "grande.jsonl")
+        with open(base, "w") as f:
+            for i in ("9000000000000000", "362937156795587"):
+                f.write(self.json.dumps({"hs_object_id": i, "_objet": "contacts"}) + "\n")
+        exacte = 9362937156795587
+        self.assertEqual(outils.controle([base], "contacts", str(exacte + 1)), (True, 2, exacte))
+        self.assertFalse(outils.controle([base], "contacts", str(exacte + 1000))[0])
+        self.assertEqual(outils.ecart_admis(15), 0)
+        with contextlib.redirect_stdout(io.StringIO()) as sortie:
+            self.assertEqual(outils.main(["controle", "contacts", base, str(exacte + 1)]), 0)
+        self.assertIn("écart de 1", sortie.getvalue())
+
     def test_fiche_entreprise(self):
         a, b = (de.fiche_depuis_mcp(p) for p in self.ENTREPRISES[:2])
         self.assertEqual((a.id, a.nom, a.proprietaire, a.proprietaire_actif, a.nb_contacts),
