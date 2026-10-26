@@ -511,8 +511,9 @@ def controler_paires(fiches):
     return ""
 
 
-def planifier(groupe, fiches):
-    """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
+def planifier(groupe, fiches, controle=True):
+    """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER ». controle=False : groupe
+    validé à la main, le contrôle « doublon certain » est sauté (pas celui des prénoms)."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
     for i, a in enumerate(fiches):
         for b in fiches[i + 1:]:
@@ -521,7 +522,7 @@ def planifier(groupe, fiches):
                 plan["remarques"].append("prénoms différents : « {} » / « {} »"
                                          .format(a.prenom, b.prenom))
                 return plan
-    probleme = controler_paires(fiches)
+    probleme = controler_paires(fiches) if controle else ""
     if probleme:
         plan["statut"] = "À VÉRIFIER"
         plan["remarques"].append(probleme)
@@ -995,7 +996,7 @@ def fiches_du_groupe(lignes, client):
 
 
 def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite=None,
-            portail=PORTAIL_DEFAUT, journal=print):
+            portail=PORTAIL_DEFAUT, journal=print, controle=True):
     groupes = grouper(lire_liste(chemin), filtre)
     rapport, compteur = [], {}
     for n, (groupe, lignes) in enumerate(sorted(groupes.items())):
@@ -1014,7 +1015,9 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                     plan["statut"] = "INTROUVABLE"
                     plan["remarques"] = ["fiches introuvables (supprimées ?) : " + ", ".join(absentes)]
             else:
-                plan = planifier(groupe, fiches)
+                plan = planifier(groupe, fiches, controle)
+                if not controle:
+                    plan["remarques"].append("groupe validé à la main")
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
             if ecartees and plan["statut"] != ECARTE:
@@ -1053,6 +1056,9 @@ def main(argv=None):
     parser.add_argument("--limite", type=int, help="nombre maximum de groupes à traiter")
     parser.add_argument("--rapport", help="chemin du rapport (défaut : <csv>_fusion_rapport.csv)")
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
+    parser.add_argument("--valides", action="store_true",
+                        help="groupes validés à la main : fusion sans le contrôle « doublon "
+                             "certain » (les prénoms incompatibles restent bloquants)")
     parser.add_argument("--memoriser", metavar="FICHIER.csv",
                         help="ajoute à ce fichier les fiches déclarées distinctes à la relecture "
                              "(« Ne pas fusionner »), relu par les détections suivantes")
@@ -1101,7 +1107,7 @@ def main(argv=None):
         print("Décisions de relecture mémorisées dans {} : {} paires ajoutées".format(
             args.memoriser, memoriser_decisions(args.csv, args.memoriser)))
     compteur = traiter(args.csv, rapport, client=client, reel=args.executer, filtre=filtre,
-                       limite=args.limite, portail=args.portail)
+                       limite=args.limite, portail=args.portail, controle=not args.valides)
     print("\nBilan : " + ", ".join("{} {}".format(v, k) for k, v in sorted(compteur.items())))
     print("Rapport : {}".format(rapport))
     if not args.executer:
