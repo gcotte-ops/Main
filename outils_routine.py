@@ -33,6 +33,7 @@ import argparse
 import base64
 import csv
 import json
+import math
 import os
 import sys
 import zipfile
@@ -100,48 +101,81 @@ def fichiers(chemins):
     return resultat
 
 
+def lecture(chemin, objet):
+    """Propriétés des fiches de l'objet dans un fichier (réponse enregistrée du connecteur ou
+    .jsonl écrit par « collecter »), dans l'ordre du fichier ; [] si le fichier n'en contient
+    pas."""
+    try:
+        if chemin.endswith(".jsonl"):
+            with open(chemin, encoding="utf-8") as f:
+                lus = [json.loads(l) for l in f if l.strip()]
+            if lus and lus[0].get("_objet") != objet:
+                return []
+            lus = [{k: v for k, v in p.items() if k != "_objet"} for p in lus]
+        else:
+            donnees = charger(chemin)
+            if not isinstance(donnees, dict) or "results" not in donnees:
+                return []
+            lus = []
+            for r in donnees["results"]:
+                contenu = r.get("content") if isinstance(r, dict) else None
+                enregistrement = json.loads(contenu) if isinstance(contenu, str) else r
+                if enregistrement.get("objectTypeId") == OBJETS[objet][1]:
+                    lus.append(enregistrement.get("properties", {}))
+    except (ValueError, OSError, AttributeError):
+        return []
+    return [p for p in lus if str(p.get("hs_object_id") or "").isdigit()]
+
+
 def enregistrements(chemins, objet):
     """Propriétés des fiches de l'objet dans les réponses du connecteur HubSpot enregistrées
     (fichiers ou dossiers), ou dans un fichier .jsonl écrit par « collecter ». Une fiche lue
     plusieurs fois n'est gardée qu'une fois."""
-    type_objet = OBJETS[objet][1]
     fiches = {}
     for chemin in fichiers(chemins):
-        try:
-            if chemin.endswith(".jsonl"):
-                with open(chemin, encoding="utf-8") as f:
-                    lus = [json.loads(l) for l in f if l.strip()]
-                if lus and lus[0].get("_objet") != objet:
-                    continue
-                lus = [{k: v for k, v in p.items() if k != "_objet"} for p in lus]
-            else:
-                donnees = charger(chemin)
-                if not isinstance(donnees, dict) or "results" not in donnees:
-                    continue
-                lus = []
-                for r in donnees["results"]:
-                    contenu = r.get("content") if isinstance(r, dict) else None
-                    enregistrement = json.loads(contenu) if isinstance(contenu, str) else r
-                    if enregistrement.get("objectTypeId") == type_objet:
-                        lus.append(enregistrement.get("properties", {}))
-        except (ValueError, OSError, AttributeError):
-            continue
-        for p in lus:
-            if str(p.get("hs_object_id") or "").isdigit():
-                fiches[str(p["hs_object_id"])] = p
+        for p in lecture(chemin, objet):
+            fiches[str(p["hs_object_id"])] = p
     return [fiches[i] for i in sorted(fiches, key=int)]
 
 
+def decroissant(ids):
+    """Réponse de la requête « fin » (ID décroissants) : elle ne compte pas dans la borne."""
+    return len(ids) > 1 and all(a > b for a, b in zip(ids, ids[1:]))
+
+
 def borne(chemins, objet, depuis=0):
-    """(plus grand ID lu, nombre de fiches lues, nombre de fiches d'ID > depuis)."""
-    ids = [int(p["hs_object_id"]) for p in enregistrements(chemins, objet)]
-    return max(ids, default=0), len(ids), sum(1 for i in ids if i > depuis)
+    """(plus grand ID lu, nombre de fiches lues, nombre de fiches d'ID > depuis). La borne et le
+    nombre de fiches du tour ignorent la requête « fin » : lancée avec un tour, elle ferait
+    sauter la borne au-delà des fiches que ce tour n'a pas encore lues."""
+    tous, montants = set(), set()
+    for chemin in fichiers(chemins):
+        ids = [int(p["hs_object_id"]) for p in lecture(chemin, objet)]
+        tous.update(ids)
+        if not decroissant(ids):
+            montants.update(ids)
+    return max(montants, default=0), len(tous), sum(1 for i in montants if i > depuis)
+
+
+def tour_complet(lues_ce_tour):
+    """Faut-il un tour de plus ? Oui dès que toutes les pages lues sont pleines (multiple de
+    500), quel que soit le nombre de pages lancées : seule une page incomplète, ou un tour vide,
+    marque la fin de la base. Au pire, un tour de plus ne renvoie rien."""
+    return lues_ce_tour > 0 and lues_ce_tour % TAILLE_PAGE == 0
+
+
+def ecart_admis(somme):
+    """HubSpot calcule la somme en virgule flottante : au-delà de 2^53 (environ 9 × 10^15), elle
+    est arrondie à quelques unités près. Écart toléré : 4 fois le pas des nombres à virgule
+    flottante à cette hauteur (0 en dessous de 2^53, où le calcul est exact)."""
+    somme = abs(int(somme))
+    return 0 if somme < 2 ** 53 else 4 * 2 ** (math.frexp(somme)[1] - 53)
 
 
 def controle(chemins, objet, somme):
-    """(lecture complète ?, fiches lues, somme de leurs ID) ; somme : réponse de requete_somme."""
+    """(lecture complète ?, fiches lues, somme de leurs ID) ; somme : réponse de requete_somme.
+    Une page de 500 fiches perdue fait un écart bien plus grand que l'arrondi toléré."""
     ids = [int(p["hs_object_id"]) for p in enregistrements(chemins, objet)]
-    return sum(ids) == int(somme), len(ids), sum(ids)
+    return abs(sum(ids) - int(somme)) <= ecart_admis(somme), len(ids), sum(ids)
 
 
 def collecter(chemins, objet, sortie):
@@ -326,14 +360,17 @@ def main(argv=None):
     elif args.commande == "controle":
         complet, total, somme = controle([args.base], args.objet, args.somme)
         if complet:
-            print("lecture complète : {} fiches".format(total))
+            ecart = abs(somme - int(args.somme))
+            print("lecture complète : {} fiches".format(total) + (
+                " (écart de {} sur la somme : arrondi du calcul de HubSpot)".format(ecart)
+                if ecart else ""))
         else:
             print("lecture INCOMPLÈTE : {} fiches lues, somme des ID {} au lieu de {}".format(
                 total, somme, args.somme))
             return 1
     elif args.commande == "borne":
         plus_grand, total, tour = borne(args.chemins, args.objet, args.depuis)
-        complet = tour >= TAILLE_PAGE * PAGES_PAR_TOUR
+        complet = tour_complet(tour)
         print("borne={} fiches_lues={} lues_ce_tour={} tour_complet={}".format(
             plus_grand, total, tour, "oui" if complet else "non"))
         print("suite : " + ("nouveau tour avec --borne {}".format(plus_grand) if complet else
