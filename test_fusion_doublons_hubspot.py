@@ -116,6 +116,15 @@ class Regles(unittest.TestCase):
         self.assertEqual((plan["entreprise"], plan["email"]),
                          ("5-CINQ", "s.fesq@5-cinq.com"))
 
+    def test_groupe_valide_a_la_main(self):
+        a = fiche(1, "2024-01-01", prenom="Lina", nom="Kervran", email="lina.kervran@orvane.fr",
+                  id_entreprise="1")
+        b = fiche(2, "2025-01-01", prenom="Lina", nom="Kervran", email="lkervran@gmail.com")
+        self.assertEqual(fus.planifier("G-001", [a, b])["statut"], "À VÉRIFIER")
+        self.assertEqual(fus.planifier("G-001", [a, b], controle=False)["statut"], "À FUSIONNER")
+        c = fiche(3, "2025-01-01", prenom="Marc", nom="Kervran", email="m.kervran@gmail.com")
+        self.assertEqual(fus.planifier("G-001", [a, c], controle=False)["statut"], "À VÉRIFIER")
+
     def test_echange_attribue_a_la_fiche_de_l_adresse_d_envoi(self):
         a = fiche(1, "2024", email="p.martin@ancienne.fr", entreprise="Ancienne",
                   dernier_echange="2026-05-01", adresse_echange="p.martin@nouvelle.fr")

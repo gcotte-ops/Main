@@ -268,7 +268,12 @@ python fusion_doublons_hubspot.py doublons_contacts.xlsx --hors-ligne        # a
 python fusion_doublons_hubspot.py doublons_contacts.xlsx                     # simulation, fiches lues dans HubSpot
 python fusion_doublons_hubspot.py doublons_contacts.xlsx --groupes G-001,G-002 --executer   # test sur 2 groupes
 python fusion_doublons_hubspot.py doublons_contacts.xlsx --executer          # tous les groupes « Certain »
+python fusion_doublons_hubspot.py liste.csv --valides --executer             # groupes validés à la main
 ```
+
+`--valides` : groupes relus et validés à la main (CSV avec les colonnes `Groupe` et `ID HubSpot`). Le
+contrôle « doublon certain » fait avant chaque fusion est sauté ; des prénoms incompatibles bloquent toujours
+le groupe, et le rapport porte la remarque « groupe validé à la main ».
 
 Règles appliquées à chaque groupe :
 
