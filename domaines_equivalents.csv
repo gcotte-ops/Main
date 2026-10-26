@@ -1,0 +1,4 @@
+# Domaines email d'une même organisation que rien ne relie dans leur nom (enseigne renommée,
+# fusion…). Une organisation par ligne, domaines séparés par « ; ». Ce qui suit « # » est un
+# commentaire. Même prénom et nom + emails sur deux domaines d'une même ligne : doublon certain.
+bricoman.fr;tecnomat.fr          # Bricoman devenu Tecnomat

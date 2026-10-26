@@ -22,6 +22,7 @@ Aucune dépendance externe : uniquement la bibliothèque standard Python (3.8+).
 """
 
 import difflib
+import os
 import re
 
 from fusion_doublons_hubspot import (chiffres, email_valide, normaliser, ressemble_domaine,
@@ -369,12 +370,37 @@ def mots_domaine(domaine):
     return mots
 
 
+# Domaines d'une même organisation que rien ne relie dans leur nom (enseigne renommée…) :
+# une organisation par ligne de domaines_equivalents.csv, séparateur « ; », « # » commente.
+EQUIVALENTS_DEFAUT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  "domaines_equivalents.csv")
+_equivalents = {}
+
+
+def domaines_equivalents(chemin=EQUIVALENTS_DEFAUT):
+    """{domaine: numéro de ligne de son organisation} ; fichier absent : {}."""
+    if chemin not in _equivalents:
+        table = {}
+        if os.path.exists(chemin):
+            with open(chemin, encoding="utf-8-sig") as f:
+                for n, ligne in enumerate(f):
+                    for d in re.split(r"[;,\s]+", ligne.split("#", 1)[0].strip().lower()):
+                        if d:
+                            table[d] = n
+        _equivalents[chemin] = table
+    return _equivalents[chemin]
+
+
 def domaines_apparentes(domaine_a, domaine_b):
     """Deux domaines différents de la même organisation : même mot (« lumina.fr » /
     « lumina-retail.com », « lumina.com » / « lumina.intercom-mail.eu »), ou un mot
-    suivi d'un mot générique (« orvane.com » / « orvanegestion.onmicrosoft.com »)."""
+    suivi d'un mot générique (« orvane.com » / « orvanegestion.onmicrosoft.com »), ou
+    déclarés équivalents dans domaines_equivalents.csv."""
     if not domaine_a or not domaine_b or domaine_a == domaine_b:
         return False
+    equivalents = domaines_equivalents()
+    if domaine_a in equivalents and equivalents[domaine_a] == equivalents.get(domaine_b):
+        return True
     for x in mots_domaine(domaine_a):
         for y in mots_domaine(domaine_b):
             court, long_ = sorted((x, y), key=len)
