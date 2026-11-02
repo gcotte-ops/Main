@@ -136,11 +136,17 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
 
 1. Lecture (section 2) avec OBJET = `contacts`.
 2. `python detection_contacts_hubspot.py --depuis-mcp travail/base_contacts.jsonl --nouvelles-depuis 7 -o travail/doublons_contacts_AAAA-MM-JJ.xlsx`
-3. Fusion des groupes Certain, comme pour les entreprises, avec
+3. Contexte des échanges (si FUSION = oui) :
+   `python contexte_contacts.py travail/doublons_contacts_AAAA-MM-JJ.xlsx`. Les doublons Probable au même
+   prénom et nom passent en Certain dans le classeur quand leurs emails HubSpot se recoupent (même
+   interlocuteur Alter Watt, et organisation de l'une citée dans les échanges de l'autre). La commande
+   liste ensuite les Probable restants dont les fiches ont deux organisations différentes : les noter
+   pour le compte rendu (« à vérifier sur LinkedIn, en session »).
+4. Fusion des groupes Certain, comme pour les entreprises, avec
    `python fusion_doublons_hubspot.py travail/doublons_contacts_AAAA-MM-JJ.xlsx --executer --oui --limite 20 --rapport travail/fusion_contacts.csv`
    (ou `--hors-ligne`).
-4. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
-5. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
+5. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
+6. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
    classeur des contacts.
 
 ### 5. Journal des dédoublonnages
@@ -165,7 +171,26 @@ Toute fusion faite (routine ou passage à la main) est notée dans le journal, u
      Statuts : `FUSIONNÉ` (fait) ; `FUSIONNÉ - CORRECTIONS À FAIRE` (fusionné, champs à reprendre à la
      main) ; `À VÉRIFIER` (le contrôle avant fusion a refusé : ne pas fusionner sans regarder) ; `ERREUR` ;
      `SIMULATION` (pas fusionné : à faire à la main) ;
+   - doublons Probable à vérifier sur LinkedIn (étape 4.3) : nom, les deux organisations, les deux liens ;
+     ils se traitent en session (section 7) ;
    - lien vers le journal des dédoublonnages
      (https://docs.google.com/spreadsheets/d/1RsxyzCXyeZrhEnZ2EW4R5N5fyjna07iOSBNbz_elOe8/edit) ;
    - lien vers la session.
    Si aucun doublon n'a été trouvé, l'email le dit en deux lignes.
+
+### 7. Vérification LinkedIn (en session uniquement)
+
+Sales Navigator ne s'ouvre que par Claude in Chrome, en présence d'un membre de l'équipe (règle 12 de la
+skill `enrichissement-crm-alter-watt`) : jamais pendant la routine.
+
+Pour chaque doublon Probable « à vérifier sur LinkedIn » (même personne possible, deux organisations) :
+1. Avec la skill `enrichissement-crm-alter-watt` (Sales Navigator, lecture seule), ouvrir le profil de la
+   personne et lire ses expériences professionnelles.
+2. Les deux organisations y figurent : doublon certain. La fiche à garder est celle dont l'organisation
+   est la plus récente dans les expériences. Sinon : rester en Probable (ne rien fusionner).
+3. Écrire `travail/linkedin_valides_AAAA-MM-JJ.csv` (séparateur « ; », colonnes `Groupe`, `ID HubSpot`,
+   `Racine suggérée` : `Oui` sur la fiche à garder), puis
+   `python fusion_doublons_hubspot.py travail/linkedin_valides_AAAA-MM-JJ.csv --valides --executer --oui --rapport travail/fusion_linkedin_AAAA-MM-JJ.csv`
+   (la fiche `Oui` donne l'entreprise et l'email gardés).
+4. Journal (section 5), origine « Vérification LinkedIn ».
+

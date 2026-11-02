@@ -125,6 +125,15 @@ class Regles(unittest.TestCase):
         c = fiche(3, "2025-01-01", prenom="Marc", nom="Kervran", email="m.kervran@gmail.com")
         self.assertEqual(fus.planifier("G-001", [a, c], controle=False)["statut"], "À VÉRIFIER")
 
+    def test_groupe_valide_garde_la_racine(self):
+        a = fiche(1, "2024-01-01", prenom="Lina", nom="Kervran", email="lina@orvane.fr",
+                  entreprise="Orvane", racine=True)
+        b = fiche(2, "2025-06-01", prenom="Lina", nom="Kervran", email="lina@brisak.fr",
+                  entreprise="Brisak")
+        b.dernier_echange = "2026-10-01 10:00:00"
+        plan = fus.planifier("G-001", [a, b], controle=False)
+        self.assertEqual((plan["entreprise"], plan["email"]), ("Orvane", "lina@orvane.fr"))
+
     def test_echange_attribue_a_la_fiche_de_l_adresse_d_envoi(self):
         a = fiche(1, "2024", email="p.martin@ancienne.fr", entreprise="Ancienne",
                   dernier_echange="2026-05-01", adresse_echange="p.martin@nouvelle.fr")
