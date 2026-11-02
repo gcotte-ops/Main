@@ -7,7 +7,7 @@ autre lien fort) désignent la même personne quand leurs échanges se recoupent
   - toutes deux ont échangé avec la même personne d'Alter Watt (adresse d'un domaine interne) ;
   - et l'organisation de l'email de l'une apparaît dans les échanges de l'autre : une adresse de
     son domaine (ou d'un domaine de la même organisation), ou un correspondant dont l'adresse
-    porte le nom de cette organisation (« n.avramova@… » pour une fiche en « @avramova.org »).
+    porte le nom de cette organisation (« n.brisak@… » pour une fiche en « @brisak.org »).
 
   python contexte_contacts.py doublons_contacts.xlsx            # passe en Certain ce qui l'est
   python contexte_contacts.py doublons_contacts.xlsx --apercu   # n'écrit rien
