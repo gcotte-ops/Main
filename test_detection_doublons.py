@@ -767,6 +767,35 @@ class Contacts(unittest.TestCase):
         b = contact(2, "Hugo", "Vasseur", "hugo.vasseur@lac-sud.fr", entreprise="Brasserie du Port")
         self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
 
+    def test_contexte_des_echanges(self):
+        import contexte_contacts as cc
+        a = contact(1, "Lina", "Kervran", "l.kervran@orvane.com", entreprise="Orvane")
+        b = contact(2, "Lina", "Kervran", "lina.kervran@brisak.org", entreprise="Brisak")
+        self.assertTrue(cc.eligible(dc.evaluer(a, b)))
+        commun = "marc.tessier@alter-watt.com"
+        # Correspondant de a dont l'adresse porte le nom de l'organisation de b.
+        raison = cc.lien_par_echanges(a, b, {commun, "n.brisak@cabinet-lumina.fr"},
+                                      {commun, "lina.kervran@brisak.org"})
+        self.assertIn("brisak", raison)
+        # Adresse du domaine de b dans les échanges de a.
+        self.assertTrue(cc.lien_par_echanges(a, b, {commun, "p.dumont@brisak.org"}, {commun}))
+        # Sans interlocuteur Alter Watt commun, ou sans organisation citée : rien.
+        self.assertEqual(cc.lien_par_echanges(a, b, {"p.dumont@brisak.org"}, {commun}), "")
+        self.assertEqual(cc.lien_par_echanges(a, b, {commun, "x@lumina.fr"}, {commun}), "")
+        # Prénoms différents : le contexte ne départage pas.
+        c = contact(3, "Marc", "Kervran", "m.kervran@brisak.org")
+        self.assertFalse(cc.eligible(dc.evaluer(a, c)))
+
+    def test_organisations_differentes_a_verifier_sur_linkedin(self):
+        import contexte_contacts as cc
+        a = contact(1, "Lina", "Kervran", "l.kervran@orvane.com", entreprise="Orvane")
+        b = contact(2, "Lina", "Kervran", "lina.kervran@brisak.org")
+        self.assertTrue(cc.organisations_differentes(a, b))
+        b = contact(2, "Lina", "Kervran", "lina.kervran@orvane-retail.com")
+        self.assertFalse(cc.organisations_differentes(a, b))         # même organisation
+        b = contact(2, "Lina", "Kervran", "contact@brisak.org")
+        self.assertFalse(cc.organisations_differentes(a, b))         # adresse générique
+
     def test_nom_courant(self):
         fiches = [contact(i, "Pierre", "Martin", "p{}@x{}.fr".format(i, i)) for i in range(5)]
         analyse = dc.AnalyseContacts(fiches, journal=lambda *x: 0).executer()

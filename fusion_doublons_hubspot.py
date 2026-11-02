@@ -498,21 +498,24 @@ def choisir_proprietaire(fiches, principale):
     return "", ""
 
 
-def controler_paires(fiches):
+def controler_paires(fiches, client=None):
     """Filet de sécurité : remarque si une paire du groupe n'a pas de lien certain (section
-    6.3, recalculée sur les fiches lues), sinon ""."""
+    6.3, recalculée sur les fiches lues, ou contexte des échanges lu dans HubSpot), sinon ""."""
     import detection_contacts_hubspot as dc       # import ici : ce module importe la fusion
+    import contexte_contacts as cc
+    cache = {}
     for i, a in enumerate(fiches):
         for b in fiches[i + 1:]:
             p = dc.evaluer(a, b)
-            if p.niveau != dc.CERTAIN:
+            if p.niveau != dc.CERTAIN and not (client and cc.confirmer(client, a, b, cache)):
                 return "lien indirect : {} et {} ne sont pas en doublon certain ({}{})".format(
                     a.id, b.id, dc.raison(p), "".join(" ; " + e for e in p.blocage))
     return ""
 
 
-def planifier(groupe, fiches):
-    """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER »."""
+def planifier(groupe, fiches, controle=True, client=None):
+    """Valeurs cibles de la fiche fusionnée, ou statut « À VÉRIFIER ». controle=False : groupe
+    validé à la main, le contrôle « doublon certain » est sauté (pas celui des prénoms)."""
     plan = {"groupe": groupe, "fiches": fiches, "remarques": []}
     for i, a in enumerate(fiches):
         for b in fiches[i + 1:]:
@@ -521,14 +524,20 @@ def planifier(groupe, fiches):
                 plan["remarques"].append("prénoms différents : « {} » / « {} »"
                                          .format(a.prenom, b.prenom))
                 return plan
-    probleme = controler_paires(fiches)
+    probleme = controler_paires(fiches, client) if controle else ""
     if probleme:
         plan["statut"] = "À VÉRIFIER"
         plan["remarques"].append(probleme)
         return plan
 
     attribuer_echanges(fiches)
-    source_entreprise = choisir_entreprise(fiches)
+    # Groupe validé à la main : la racine désignée (entreprise la plus récente sur LinkedIn,
+    # par exemple) donne l'entreprise et l'email gardés.
+    racine = None if controle else next((f for f in fiches if f.racine), None)
+    if racine and (racine.entreprise or racine.id_entreprise):
+        source_entreprise = racine
+    else:
+        source_entreprise = choisir_entreprise(fiches)
     principale = choisir_email(fiches, source_entreprise)
     prenom, nom, remarque = choisir_nom(fiches, principale)
     fixe, mobile, restants = choisir_telephones(fiches)
@@ -995,7 +1004,7 @@ def fiches_du_groupe(lignes, client):
 
 
 def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite=None,
-            portail=PORTAIL_DEFAUT, journal=print):
+            portail=PORTAIL_DEFAUT, journal=print, controle=True):
     groupes = grouper(lire_liste(chemin), filtre)
     rapport, compteur = [], {}
     for n, (groupe, lignes) in enumerate(sorted(groupes.items())):
@@ -1014,7 +1023,9 @@ def traiter(chemin, chemin_rapport, client=None, reel=False, filtre=None, limite
                     plan["statut"] = "INTROUVABLE"
                     plan["remarques"] = ["fiches introuvables (supprimées ?) : " + ", ".join(absentes)]
             else:
-                plan = planifier(groupe, fiches)
+                plan = planifier(groupe, fiches, controle, client)
+                if not controle:
+                    plan["remarques"].append("groupe validé à la main")
                 if absentes:
                     plan["remarques"].append("fiches absentes : " + ", ".join(absentes))
             if ecartees and plan["statut"] != ECARTE:
@@ -1053,6 +1064,9 @@ def main(argv=None):
     parser.add_argument("--limite", type=int, help="nombre maximum de groupes à traiter")
     parser.add_argument("--rapport", help="chemin du rapport (défaut : <csv>_fusion_rapport.csv)")
     parser.add_argument("--portail", default=PORTAIL_DEFAUT, help="ID du portail HubSpot")
+    parser.add_argument("--valides", action="store_true",
+                        help="groupes validés à la main : fusion sans le contrôle « doublon "
+                             "certain » (les prénoms incompatibles restent bloquants)")
     parser.add_argument("--memoriser", metavar="FICHIER.csv",
                         help="ajoute à ce fichier les fiches déclarées distinctes à la relecture "
                              "(« Ne pas fusionner »), relu par les détections suivantes")
@@ -1101,7 +1115,7 @@ def main(argv=None):
         print("Décisions de relecture mémorisées dans {} : {} paires ajoutées".format(
             args.memoriser, memoriser_decisions(args.csv, args.memoriser)))
     compteur = traiter(args.csv, rapport, client=client, reel=args.executer, filtre=filtre,
-                       limite=args.limite, portail=args.portail)
+                       limite=args.limite, portail=args.portail, controle=not args.valides)
     print("\nBilan : " + ", ".join("{} {}".format(v, k) for k, v in sorted(compteur.items())))
     print("Rapport : {}".format(rapport))
     if not args.executer:

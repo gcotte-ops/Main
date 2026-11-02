@@ -249,6 +249,7 @@ python detection_contacts_hubspot.py --depuis-export contacts.csv
 |---|---|
 | **Bloquée** | Prénoms incompatibles (deux prénoms complets différents, initiales qui ne correspondent pas) : onglet « Personnes distinctes ». |
 | **Certain** | Même email (principal identique, ou principal de l'un parmi les emails secondaires de l'autre), sauf adresse générique ; même boîte sur un domaine mal orthographié + même nom de famille ; même prénom et même nom (à l'espace, au tiret ou à l'apostrophe près : « Le Bihan » / « Lebihan ») + un lien fort, **quelle que soit l'entreprise associée** : même entreprise associée (ou même nom d'entreprise saisi quand une fiche n'est pas associée), même domaine email professionnel, domaines email de la même organisation (`lumina.fr` / `lumina-retail.com`, `orvane.com` / `orvanegestion.onmicrosoft.com`, ou domaines déclarés équivalents dans `domaines_equivalents.csv` : enseigne renommée…), fiche sans email dont le poste ou l'entreprise nomme l'organisation de l'email de l'autre (« Responsable Energie - Brionne-Les-Bains » / `marc@ville-brionne.fr`), même mobile, même téléphone fixe. |
+| Certain par le contexte | `contexte_contacts.py` (jeton HubSpot) : doublon Probable au même prénom et nom dont les emails HubSpot se recoupent : même interlocuteur Alter Watt dans les échanges des deux fiches, et organisation de l'email de l'une citée dans les échanges de l'autre (adresse de son domaine, ou correspondant qui en porte le nom). Le contrôle avant fusion applique la même règle. Les Probable restants à deux organisations différentes sont listés pour une vérification des expériences LinkedIn, en session. |
 | Jamais Certain | Webmails et fournisseurs d'accès seuls (gmail, orange, numericable…), entreprises différentes sans autre lien, nom à une faute près (même sur le même domaine : deux collègues aux noms voisins), prénom réduit à une initiale (sauf même email), adresse générique partagée (contact@, accueil@…). |
 | **Probable** | Les cas ci-dessus ; nom à une faute près, incomplet ou composé + un lien fort ; fiche sans nom dont l'email reprend le prénom et le nom de l'autre. Un prénom + nom porté par plus de 3 fiches sans autre lien n'est pas proposé (homonymes). |
 
@@ -268,7 +269,13 @@ python fusion_doublons_hubspot.py doublons_contacts.xlsx --hors-ligne        # a
 python fusion_doublons_hubspot.py doublons_contacts.xlsx                     # simulation, fiches lues dans HubSpot
 python fusion_doublons_hubspot.py doublons_contacts.xlsx --groupes G-001,G-002 --executer   # test sur 2 groupes
 python fusion_doublons_hubspot.py doublons_contacts.xlsx --executer          # tous les groupes « Certain »
+python fusion_doublons_hubspot.py liste.csv --valides --executer             # groupes validés à la main
 ```
+
+`--valides` : groupes relus et validés à la main (CSV avec les colonnes `Groupe` et `ID HubSpot`). Le
+contrôle « doublon certain » fait avant chaque fusion est sauté ; des prénoms incompatibles bloquent toujours
+le groupe, et le rapport porte la remarque « groupe validé à la main ». Une fiche marquée `Oui` dans la colonne
+`Racine suggérée` donne l'entreprise et l'email gardés (par exemple l'entreprise la plus récente sur LinkedIn).
 
 Règles appliquées à chaque groupe :
 
