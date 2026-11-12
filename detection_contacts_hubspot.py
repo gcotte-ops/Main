@@ -128,9 +128,10 @@ REGLES_PAR_COLONNE = {
 class FicheContact(fc.Fiche):
     """Fiche contact du script de fusion, avec la date de dernière activité."""
 
-    def __init__(self, *args, activite="", **kwargs):
+    def __init__(self, *args, activite="", motif_echec="", **kwargs):
         super().__init__(*args, **kwargs)
         self.activite = date_iso(nz.nettoyer(activite))
+        self.motif_echec = nz.nettoyer(motif_echec).upper()
 
 
 def personne(texte):
@@ -160,6 +161,8 @@ class Normes:
                 self.numeros[d] = "mobile" if d[:2] in ("06", "07") else "fixe"
         self.entreprise = str(fiche.id_entreprise or "").strip()
         self.nom_entreprise = nz.compact(personne(fiche.entreprise or ""))
+        # Entreprise créée par HubSpot à partir du domaine de l'email (« stjospeh-exemple.fr »).
+        self.entreprise_auto = fc.ressemble_domaine(fiche.entreprise or "")
         self.complet = nz.compact(self.prenom + self.nom)
         # Partie locale réduite à ses lettres : « remy.viallet » -> « remyviallet ».
         self.local = re.sub(r"[^a-z]", "", nz.sans_accents(nz.local_email(self.email)))
@@ -189,6 +192,10 @@ class PaireContact:
         self.niveau = ""
         self.categorie = ""
         self.adresse = ""              # adresse partagée
+        self.ecart = ""                # CC5 : erreur de saisie qui explique l'écart
+        self.preuves = []              # CC5 : faits qui la confirment
+        self.fautive = None            # CC5 : fiche qui porte l'erreur, si on la connaît
+        self.promue = False            # Certain avec les règles CC5, pas avant
 
     @property
     def bloquee(self):
@@ -197,16 +204,226 @@ class PaireContact:
 
 def designe(n_sans_nom, n_nomme):
     """L'email de la fiche sans nom reprend le prénom et le nom de l'autre."""
-    if not n_sans_nom.local or not n_nomme.prenom or not n_nomme.nom:
+    if not n_sans_nom.local or not n_nomme.prenom:
         return False
+    if not n_nomme.nom:                 # prénom et nom saisis ensemble dans le champ prénom
+        return len(n_nomme.prenom.split()) >= 2 and n_sans_nom.local == n_nomme.complet
     nom = nz.compact(n_nomme.nom)
     return n_sans_nom.local in (nz.compact(n_nomme.prenom) + nom, n_nomme.prenom[0] + nom,
                                 nom + nz.compact(n_nomme.prenom))
 
 
-def evaluer(a, b, frequences=None):
+# --------------------------------------------------------------------------- #
+# CC5 : erreur de saisie + preuve
+# --------------------------------------------------------------------------- #
+
+# Mots d'un « nom » qui désigne une fonction, pas une personne (« Services Techniques »).
+MOTS_FONCTION = {"service", "services", "technique", "techniques", "commande", "publique",
+                 "accueil", "contact", "secretariat", "direction", "mairie", "comptabilite",
+                 "compta", "gestion", "administration", "agence", "syndic", "copro",
+                 "maintenance", "intendance", "economat", "standard", "info", "infos",
+                 "econome", "dgs", "daf", "raf", "hotel", "reception", "atelier", "architecte",
+                 "architectes", "architecture", "cabinet", "bureau", "travaux"}
+DOMAINES_INTERNES = {"alter-watt.com"}     # salariés : leurs fiches ne sont pas fusionnées
+
+
+def boite_de_fonction(adresse):
+    """contact@, agence@, dgs@, secretariat.direction@ : adresse d'un service."""
+    mots = [m for m in re.split(r"[._-]+", nz.sans_accents(nz.local_email(adresse))) if m]
+    return nz.est_generique(adresse) or bool(mots) and all(m in MOTS_FONCTION for m in mots)
+
+PROCHES_HEURES = 48            # deux fiches créées à moins de 48 h : la seconde corrige la première
+REBOND_PREUVE = "UNKNOWN_USER"  # seul rebond qui prouve qu'une adresse n'existe pas
+
+
+class Statistiques:
+    """Comptes sur toute la base : fiches par domaine d'email, fiches par entreprise et nom."""
+
+    def __init__(self, fiches):
+        self.domaines, self.noms_entreprise = {}, {}
+        for f in fiches:
+            n = normes(f)
+            d = nz.domaine_email(n.email)
+            if d:
+                self.domaines[d] = self.domaines.get(d, 0) + 1
+            if n.entreprise and n.nom:
+                cle = (n.entreprise, nz.compact(n.nom))
+                self.noms_entreprise[cle] = self.noms_entreprise.get(cle, 0) + 1
+
+
+def nom_pollue(na, nb):
+    """Même prénom ; le nom de l'une est le nom de l'autre suivi du nom d'une des deux
+    entreprises (« Morel Agec Sainte Rose » / « Morel », entreprise AGEC SAINTE ROSE)."""
+    if not (na.prenom and na.prenom == nb.prenom and na.nom and nb.nom and na.nom != nb.nom):
+        return False
+    court, long_ = sorted((na.nom, nb.nom), key=len)
+    if not long_.startswith(court + " "):
+        return False
+    reste = nz.compact(long_[len(court):])
+    if not (len(reste) >= 4 and any(reste in e for e in (na.nom_entreprise, nb.nom_entreprise)
+                                    if e)):
+        return False
+    # L'email de la fiche au nom allongé doit être le sien, une messagerie ou une adresse de
+    # fonction : « Léa Morel - Agence 8 » sur nina.garel@… est une autre personne.
+    pollue = na if na.nom == long_ else nb
+    return not pollue.email or nz.est_webmail(pollue.email) or nz.est_generique(
+        pollue.email) or nz.compact(court) in pollue.local
+
+
+def _heure(fiche):
+    try:
+        return datetime.datetime.fromisoformat(fiche.creation[:19])
+    except ValueError:
+        return None
+
+
+def creees_proches(a, b):
+    ha, hb = _heure(a), _heure(b)
+    return bool(ha and hb) and abs((ha - hb).total_seconds()) <= PROCHES_HEURES * 3600
+
+
+def erreur_de_saisie(a, b, p, stats=None):
+    """CC5. (écart, [preuves], fiche fautive ou None) si une erreur de saisie typique explique
+    l'écart entre les deux fiches et qu'au moins un fait indépendant la confirme, sinon None.
+
+    Erreurs reconnues : domaine mal saisi (faute, extension, ponctuation, lettres ajoutées,
+    sigle), variante d'adresse sur le même domaine (accents, chiffres ajoutés, une faute),
+    prénom absent, fiche sans nom, faute dans le nom. Preuves : fiches créées à moins de 48 h,
+    rebond « utilisateur inconnu » sur une seule des deux adresses, domaine fautif isolé dans la
+    base, même entreprise (pas une entreprise créée depuis le domaine), même téléphone, domaine
+    professionnel (chiffres ajoutés seulement)."""
+    na, nb, L = normes(a), normes(b), p.liens
+    stats = stats or Statistiques([a, b])
+    if any(nz.domaine_email(e) in DOMAINES_INTERNES for e in na.emails + nb.emails):
+        return None
+    if na.nom and nb.nom and not L & {"meme_nom_famille", "nom_faute"}:
+        return None                                   # deux noms de famille différents
+    rebonds = [f for f in (a, b) if getattr(f, "motif_echec", "") == REBOND_PREUVE]
+    rebond = rebonds[0] if len(rebonds) == 1 else None
+    proche = creees_proches(a, b)
+    entreprise = "meme_entreprise" in L and not (na.entreprise_auto or nb.entreprise_auto)
+    telephone = bool(L & {"meme_mobile", "meme_fixe"})
+
+    def faits(*noms):
+        table = {"rebond": rebond is not None, "proche": proche, "entreprise": entreprise,
+                 "telephone": telephone}
+        libelles = {"rebond": "rebond « utilisateur inconnu » sur une seule adresse",
+                    "proche": "fiches créées à moins de 48 h",
+                    "entreprise": "même entreprise", "telephone": "même téléphone"}
+        return [libelles[n] for n in noms if table[n]]
+
+    ea, eb = na.email, nb.email
+    if ea and eb and ea != eb and "@" in ea and "@" in eb:
+        (la, da), (lb, db) = (e.rsplit("@", 1) for e in (ea, eb))
+        generique = boite_de_fonction(ea) or boite_de_fonction(eb)
+        if nz.sans_accents(la) == nz.sans_accents(lb) and da != db:
+            sorte = nz.domaines_voisins(da, db)
+            ca, cb = stats.domaines.get(da, 0), stats.domaines.get(db, 0)
+            isole = None
+            if min(ca, cb) == 1 and max(ca, cb) >= 2:
+                isole = a if ca == 1 else b
+            if sorte in ("ponctuation", "faute", "ajout"):
+                preuves = faits("rebond", "entreprise", "telephone")
+                if isole is not None:
+                    preuves.append("domaine {} présent sur cette seule fiche".format(
+                        nz.domaine_email(normes(isole).email)))
+                if generique:
+                    # Boîte de fonction (contact@, direction@) : deux structures voisines
+                    # (agence@arkea-archi / agence@arkeo-archi) en ont chacune une.
+                    preuves = faits("entreprise", "telephone")
+                    if isole is not None and (sorte == "ponctuation" or proche):
+                        preuves += ["domaine {} présent sur cette seule fiche".format(
+                            nz.domaine_email(normes(isole).email))] + faits("proche")
+                    if sorte == "ajout":
+                        preuves = faits("entreprise")
+                if preuves:
+                    return ("domaine mal saisi ({} / {})".format(da, db), preuves,
+                            isole or rebond)
+            elif (sorte == "sigle" or (not sorte and nz.domaines_apparentes(da, db))) \
+                    and not generique and (L & {"meme_personne", "prenom_compatible",
+                                                "email_designe"}) and proche:
+                return ("même adresse sur deux domaines de la même organisation ({} / {})"
+                        .format(da, db), faits("proche"), rebond)
+        elif la != lb and (da == db or nz.domaines_voisins(da, db)):
+            sorte = nz.variante_locale(la, lb)
+            if sorte == "faute" and na.nom and nb.nom and na.nom != nb.nom:
+                sorte = ""            # l'adresse reprend deux noms différents (Marchais / Marchai)
+            if sorte == "accents":
+                accentuee = a if la != nz.sans_accents(la) else b
+                return ("accent dans l’adresse ({} / {})".format(ea, eb),
+                        ["une adresse email ne peut pas porter d’accent"], accentuee)
+            nus = [x for x in (la, lb) if not re.search(r"\d$", x)]
+            nommees = [n for n in (na, nb) if n.nom]
+            designee = any(nz.compact(n.nom) in nz.sans_accents(min(la, lb, key=len))
+                           for n in nommees)
+            if sorte == "chiffres" and not generique and len(nus) == 1 and (
+                    designee or (not nommees and nz.est_webmail(ea))):
+                # jdurand / jdurand2 ; pas syndic3 / syndic4 (deux boîtes numérotées).
+                preuves = faits("rebond", "proche", "telephone")
+                if designee and not nz.est_webmail(ea):
+                    preuves.append("même domaine professionnel, adresse au nom de la personne")
+                if preuves:
+                    longue = a if len(la) > len(lb) else b
+                    return ("chiffres ajoutés à l’adresse ({} / {})".format(ea, eb), preuves,
+                            rebond or longue)
+            if sorte == "faute" and not generique:
+                preuves = faits("rebond", "proche", "telephone")
+                if preuves:
+                    return ("une faute dans l’adresse ({} / {})".format(ea, eb), preuves, rebond)
+
+    if "nom_incomplet" in L:
+        preuves = faits("telephone")
+        n = na if na.prenom else nb
+        deux_adresses = (na.email and nb.email and na.email != nb.email
+                         and nz.domaine_email(na.email) == nz.domaine_email(nb.email))
+        if (entreprise and not deux_adresses
+                and stats.noms_entreprise.get((n.entreprise, nz.compact(n.nom)), 0) <= 2):
+            preuves.append("seul homonyme dans l’entreprise")
+        if preuves:
+            return ("prénom absent sur une fiche", preuves, None)
+    fonction = any(set(n.nom.split() + n.prenom.split()) & MOTS_FONCTION for n in (na, nb))
+    if "email_designe" in L and not fonction:
+        preuves = faits("proche", "entreprise", "telephone")
+        if preuves:
+            return ("fiche sans nom, email au nom de l’autre fiche", preuves, None)
+    meme_organisation = entreprise or bool(L & {"meme_domaine_pro", "domaine_apparente"})
+    if "nom_faute" in L and meme_organisation and (rebond is not None or telephone):
+        preuves = []
+        if rebond is not None and nz.compact(normes(rebond).nom) in normes(rebond).local:
+            preuves.append("rebond « utilisateur inconnu » sur l’adresse au nom mal orthographié")
+        preuves += faits("telephone")
+        if preuves:
+            return ("faute dans le nom ({} / {})".format(a.nom, b.nom), preuves, rebond)
+    return None
+
+
+def cles_erreurs(n):
+    """Clés de rapprochement des erreurs de saisie (CC5)."""
+    cles = set()
+    if not n.email or "@" not in n.email:
+        return cles
+    local, domaine = n.email.rsplit("@", 1)
+    ascii_ = nz.sans_accents(local)
+    if nz.est_generique(n.email) or len(ascii_) < 4:
+        for sq in nz.squelettes_domaine(domaine):
+            if len(sq) >= 4:
+                cles.add(("domaine_proche", ascii_, sq[:4]))
+                for v in nz.suppressions(sq):
+                    cles.add(("domaine_proche", ascii_, v))
+    base = re.sub(r"[._-]?\d+$", "", ascii_)
+    if len(base) >= 5:
+        for v in nz.suppressions(base):
+            cles.add(("adresse_proche", domaine, v))
+    if n.prenom and len(n.nom.split()) >= 2:
+        cles.add(("nom", nz.compact(n.nom.split()[0]) + "|" + n.prenom[0]))
+    return cles
+
+
+def evaluer(a, b, frequences=None, stats=None, preuves=True):
     """Compare deux fiches contacts (sections 6.1 à 6.4). frequences : nombre de fiches par
-    prénom + nom (base complète), pour écarter les noms courants sans autre lien."""
+    prénom + nom (base complète), pour écarter les noms courants sans autre lien. stats :
+    Statistiques de la base (domaines, noms par entreprise) pour la règle CC5. preuves=False :
+    règles d'avant CC5 (erreur de saisie + preuve), pour repérer les paires promues."""
     na, nb = normes(a), normes(b)
     p = PaireContact(a, b)
     L = p.liens
@@ -230,8 +447,10 @@ def evaluer(a, b, frequences=None):
         seul, complet = (na, nb) if not na.prenom else (nb, na)
         if nz.compact(seul.nom) in (complet.complet, nz.compact(complet.nom + complet.prenom)):
             L.update(("meme_personne", "nom_un_champ"))
+    if preuves and "meme_personne" not in L and nom_pollue(na, nb):
+        L.update(("meme_personne", "nom_pollue"))
     if na.nom and nb.nom and (nz.compact(na.nom) == nz.compact(nb.nom) or "inverses" in L
-                              or "nom_un_champ" in L):
+                              or "nom_un_champ" in L or "nom_pollue" in L):
         L.add("meme_nom_famille")
     if "meme_personne" not in L and fc.prenoms_compatibles(a, b):
         if (na.nom and na.nom == nb.nom and bool(na.prenom) != bool(nb.prenom)) or \
@@ -276,7 +495,8 @@ def evaluer(a, b, frequences=None):
     for numero in set(na.numeros) & set(nb.numeros):
         L.add("meme_mobile" if na.numeros[numero] == "mobile" else "meme_fixe")
     p.forts = sum(1 for f in FORTS if f in L)
-    if na.entreprise and nb.entreprise and na.entreprise != nb.entreprise:
+    if (na.entreprise and nb.entreprise and na.entreprise != nb.entreprise
+            and not (preuves and (na.entreprise_auto or nb.entreprise_auto))):
         L.add("entreprises_differentes")
     if na.webmail and nb.webmail and not p.forts:
         L.add("webmails_seuls")
@@ -298,6 +518,14 @@ def evaluer(a, b, frequences=None):
         p.exclusions.append("prénom réduit à une initiale")
     if "email_generique" in L or "boite_generique" in L:
         p.exclusions.append("adresse générique partagée")
+
+    # CC5 : une erreur de saisie explique l'écart et un fait indépendant la confirme.
+    if preuves and not p.bloquee and not (p.regles and not p.exclusions):
+        ecart = erreur_de_saisie(a, b, p, stats)
+        if ecart:
+            p.regles.append("CC5")
+            p.ecart, p.preuves, p.fautive = ecart
+            p.exclusions = [e for e in p.exclusions if e != "adresse générique partagée"]
 
     # Probable.
     courant = (frequences or {}).get(na.complet, 0) > NOM_COURANT - 1 if na.complet else False
@@ -354,6 +582,10 @@ def raison(p):
                          ("meme_mobile", "même mobile"), ("meme_fixe", "même téléphone")):
         if cle in L:
             texte += " + " + libelle
+    if p.ecart:
+        texte += " + erreur de saisie : {} (preuve : {})".format(p.ecart, ", ".join(p.preuves))
+    if "nom_pollue" in L:
+        texte += " + nom suivi du nom de l’entreprise"
     notes = [libelle for cle, libelle in (("entreprises_differentes", "entreprises différentes"),
                                           ("webmails_seuls", "webmails seulement"))
              if cle in L]
@@ -389,6 +621,8 @@ def liens_texte(p):
                          ("webmails_seuls", "webmails seulement")):
         if cle in L:
             items.append(libelle)
+    if p.ecart:
+        items.append("erreur de saisie : {} ({})".format(p.ecart, ", ".join(p.preuves)))
     items += p.exclusions + p.blocage
     return ", ".join(dict.fromkeys(items)) or "aucun lien direct"
 
@@ -401,7 +635,8 @@ def cle_racine(fiche):
     """Email valide et non en échec, entreprise associée, activité la plus récente, la plus
     complète, puis le plus petit ID."""
     n = normes(fiche)
-    email_sur = bool(n.email) and fc.email_valide(n.email) and not fiche.en_echec
+    email_sur = (bool(n.email) and fc.email_valide(n.email) and not fiche.en_echec
+                 and not getattr(fiche, "_fautive", False))
     complete = sum(1 for v in (fiche.prenom_net, fiche.nom_net, fiche.email, fiche.telephone,
                                fiche.mobile, fiche.entreprise or fiche.id_entreprise,
                                fiche.poste) if v)
@@ -420,16 +655,23 @@ class AnalyseContacts(de.AnalyseDoublons):
     CATEGORIES = [("generique", "A-")]
     PREFIXE_BLOQUEES = "P-"
 
-    def __init__(self, fiches, journal=print, distinctes=None):
+    def __init__(self, fiches, journal=print, distinctes=None, preuves=True):
         super().__init__(fiches, journal, distinctes)
+        self.preuves = preuves
         self.frequences = {}
         for f in self.fiches:
             cle = normes(f).complet
             if cle:
                 self.frequences[cle] = self.frequences.get(cle, 0) + 1
+        self.stats = Statistiques(self.fiches)
 
     def comparer(self, a, b):
-        return evaluer(a, b, self.frequences)
+        p = evaluer(a, b, self.frequences, self.stats, self.preuves)
+        if p.niveau == CERTAIN and (p.ecart or p.liens & {"nom_pollue"}):
+            p.promue = evaluer(a, b, self.frequences, self.stats, False).niveau != CERTAIN
+        if p.niveau == CERTAIN and p.fautive is not None:
+            p.fautive._fautive = True
+        return p
 
     def rapprochee(self, p):
         """Paire bloquée à lister : elle aurait eu un niveau, ou partage un email, une boîte,
@@ -469,6 +711,8 @@ class AnalyseContacts(de.AnalyseDoublons):
             cles.add(("designe", n.local))
         for numero in n.numeros:
             cles.add(("telephone", numero))
+        if self.preuves:
+            cles |= cles_erreurs(n)
         return cles
 
     def lignes(self, portail=PORTAIL_DEFAUT, noms_entreprises=None):
@@ -555,7 +799,8 @@ def fiche_depuis_hubspot(brut, proprietaires):
         proprietaire_actif=actif, creation=date_iso(p.get("createdate") or brut.get("createdAt")),
         en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
         emails_secondaires=p.get("hs_additional_emails"),
-        activite=p.get("notes_last_updated") or "")
+        activite=p.get("notes_last_updated") or "",
+        motif_echec=p.get("hs_email_hard_bounce_reason_enum") or "")
 
 
 def fiche_depuis_mcp(p):
@@ -570,7 +815,8 @@ def fiche_depuis_mcp(p):
         proprietaire_actif=False if "deactivated" in proprietaire.lower() else None,
         creation=date_iso(p.get("createdate_iso") or ""),
         en_echec=bool(p.get("hs_email_hard_bounce_reason_enum")),
-        activite=p.get("notes_last_updated_iso") or "")
+        activite=p.get("notes_last_updated_iso") or "",
+        motif_echec=p.get("hs_email_hard_bounce_reason_enum") or "")
 
 
 def lire_mcp(chemins):

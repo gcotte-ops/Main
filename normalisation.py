@@ -418,3 +418,121 @@ def texte_designe_domaine(texte, domaines):
     suites = {"".join(mots[i:j]) for i in range(len(mots))
               for j in range(i + 1, min(i + 4, len(mots)) + 1)}
     return any(m in suites for d in domaines for m in mots_domaine(d))
+
+
+# --------------------------------------------------------------------------- #
+# Erreurs de saisie dans un email
+# --------------------------------------------------------------------------- #
+
+def damerau(a, b, limite=2):
+    """Distance d'édition avec transposition (« stjospeh » / « stjoseph » = 1), plafonnée à
+    limite + 1 pour aller vite."""
+    if a == b:
+        return 0
+    if abs(len(a) - len(b)) > limite:
+        return limite + 1
+    precedente, courante = None, list(range(len(b) + 1))
+    for i in range(1, len(a) + 1):
+        avant, precedente, courante = precedente, courante, [i] + [0] * len(b)
+        for j in range(1, len(b) + 1):
+            cout = 0 if a[i - 1] == b[j - 1] else 1
+            courante[j] = min(precedente[j] + 1, courante[j - 1] + 1, precedente[j - 1] + cout)
+            if (i > 1 and j > 1 and a[i - 1] == b[j - 2] and a[i - 2] == b[j - 1]):
+                courante[j] = min(courante[j], avant[j - 2] + 1)
+        if min(courante) > limite:
+            return limite + 1
+    return min(courante[len(b)], limite + 1)
+
+
+def suppressions(texte):
+    """Le texte et ses variantes privées d'un caractère (clés de rapprochement des fautes de
+    frappe : deux textes à une faute près partagent au moins une variante)."""
+    return {texte} | {texte[:i] + texte[i + 1:] for i in range(len(texte))}
+
+
+def squelettes_domaine(domaine):
+    """Formes d'un domaine sans ponctuation, avec et sans l'extension :
+    « hotelsoleil.paris » -> {"hotelsoleil", "hotelsoleilparis"},
+    « ec.valmont.fr » -> {"ecvalmont", "ecvalmontfr"}."""
+    d = sans_accents((domaine or "").lower())
+    if "." not in d:
+        return {re.sub(r"[^a-z0-9]", "", d)} - {""}
+    corps = d.rsplit(".", 1)[0]
+    return {re.sub(r"[^a-z0-9]", "", corps), re.sub(r"[^a-z0-9]", "", d)} - {""}
+
+
+def sigle(domaine):
+    """Initiales du domaine sans l'extension : « enseignement-catholique.bzh » -> « ec »."""
+    corps = sans_accents((domaine or "").lower()).rsplit(".", 1)[0]
+    mots = [m for m in re.split(r"[-_.]", corps) if m]
+    return "".join(m[0] for m in mots) if len(mots) >= 2 else ""
+
+
+def jeton_distinct(da, db):
+    """Les domaines ne diffèrent que par un mot court ou un nombre entier, qui désigne une
+    autre entité (« ville-a.fr » / « ville-b.fr », « college-75.fr » / « college-78.fr »)."""
+    ja = re.split(r"[-_.]", sans_accents(da.lower()).rsplit(".", 1)[0])
+    jb = re.split(r"[-_.]", sans_accents(db.lower()).rsplit(".", 1)[0])
+    if len(ja) != len(jb) or len(ja) < 2:
+        return False
+    diff = [(x, y) for x, y in zip(ja, jb) if x != y]
+    return len(diff) == 1 and all(len(t) <= 2 or t.isdigit() for t in diff[0])
+
+
+def domaines_voisins(da, db):
+    """Type d'écart entre deux domaines d'une même boîte, ou "" :
+    « ponctuation » : seuls les points, tirets ou l'extension diffèrent (ec.valmont /
+    ecvalmont, hotelsoleil.paris / hotelsoleilparis.com, wanadoo.fr / wanadoo.com) ;
+    « faute » : une faute de frappe (lettre oubliée, en trop, remplacée, deux lettres inversées :
+    stjospeh / stjoseph), deux sur un nom d'au moins 11 lettres (ecvalmonteau / eccvalmontau) ;
+    « ajout » : une ou deux lettres ajoutées à la fin (rtk.com / rtktv.com) ;
+    « sigle » : l'un est le sigle de l'autre (e-p.fr / enseignement-prive.fr)."""
+    if not da or not db or da == db:
+        return ""
+    if nombres_differents(da, db):
+        return ""
+    sa, sb = squelettes_domaine(da), squelettes_domaine(db)
+    if sa & sb:
+        return "ponctuation"
+    ca, cb = (re.sub(r"[^a-z0-9]", "", sans_accents(d.lower()).rsplit(".", 1)[0])
+              for d in (da, db))
+    court = min(len(ca), len(cb))
+    if jeton_distinct(da, db):
+        return ""
+    if court >= 11 and damerau(ca, cb, 2) <= 2:
+        return "faute"
+    if court >= 4 and damerau(ca, cb, 1) <= 1:
+        return "faute"
+    petit, grand = sorted((ca, cb), key=len)
+    if len(petit) >= 3 and grand.startswith(petit) and len(grand) - len(petit) <= 2:
+        return "ajout"
+    ta, tb = da.rsplit(".", 1)[-1], db.rsplit(".", 1)[-1]
+    if ta == tb and ((sigle(da) and sigle(da) == cb) or (sigle(db) and sigle(db) == ca)):
+        return "sigle"
+    return ""
+
+
+def nombres_differents(da, db):
+    """Deux numéros différents désignent deux entités (« asso95 » / « asso40 », « college82 »
+    / « college95 ») ; un chiffre oublié reste une faute (« stpaul9 » / « stpaul94 »)."""
+    na, nb = "".join(re.findall(r"\d", da)), "".join(re.findall(r"\d", db))
+    return bool(na and nb and na != nb and not (na.startswith(nb) or nb.startswith(na)))
+
+
+def variante_locale(la, lb):
+    """Type d'écart entre deux parties locales d'un même domaine, ou "" :
+    « accents » (domainedesaules / domainedesaulès), « chiffres » (jdurand2 /
+    jdurand), « faute » (aimee.valdor / aime.valdor : une faute, ni sur la première lettre ni
+    sur une adresse courte)."""
+    if not la or not lb or la == lb:
+        return ""
+    if sans_accents(la) == sans_accents(lb):
+        return "accents"
+    a, b = sans_accents(la), sans_accents(lb)
+    if re.sub(r"[._-]?\d+$", "", a) == re.sub(r"[._-]?\d+$", "", b) and re.sub(
+            r"[._-]?\d+$", "", a):
+        return "chiffres"
+    if (min(len(a), len(b)) >= 6 and a[0] == b[0] and not re.search(r"\d", a + b)
+            and damerau(a, b, 1) == 1):
+        return "faute"
+    return ""

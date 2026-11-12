@@ -150,7 +150,11 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
    pour le compte rendu (« à vérifier sur LinkedIn, en session »).
 4. Fusion des groupes Certain, comme pour les entreprises, avec
    `python fusion_doublons_hubspot.py travail/doublons_contacts_AAAA-MM-JJ.xlsx --executer --oui --limite 20 --rapport travail/fusion_contacts.csv`
-   (ou `--hors-ligne`).
+   (ou `--hors-ligne`). Le contrôle avant fusion recalcule la règle CC5 (erreur de saisie confirmée
+   par une preuve) avec les comptes lus dans HubSpot, et applique son garde-fou : un groupe Certain
+   par la seule règle CC5 n'est pas fusionné si l'une des fiches a eu un appel depuis le 01/01/2025
+   (statut « À VÉRIFIER », remarque « garde-fou »). En `--hors-ligne`, ces groupes restent « À
+   VÉRIFIER ». Lister ces groupes dans le compte rendu (« bloqués par le garde-fou des appels »).
 5. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
 6. Liste des doublons probables : comme pour les entreprises, avec le classeur des contacts, la liste `2856`
    (« MKT_Doublons de contacts probables ») et `objectType` `CONTACT`.

@@ -458,7 +458,8 @@ def meme_entreprise(fiche, reference):
 def choisir_email(fiches, reference):
     """Fiche dont l'adresse devient l'email principal : celle de l'entreprise retenue si
     possible ; puis l'adresse du dernier échange, la racine suggérée, la plus à jour."""
-    candidates = [f for f in fiches if f.email and email_valide(f.email) and not f.en_echec]
+    candidates = [f for f in fiches if f.email and email_valide(f.email) and not f.en_echec
+                  and not getattr(f, "_fautive", False)]
     if not candidates:
         candidates = [f for f in fiches if f.email] or list(fiches)
     if reference is not None:
@@ -498,18 +499,85 @@ def choisir_proprietaire(fiches, principale):
     return "", ""
 
 
+# Garde-fou de la règle CC5 (erreur de saisie + preuve) : une paire qui n'était pas Certain
+# avec les règles précédentes n'est pas fusionnée si l'une des fiches a eu un échange commercial
+# depuis cette date. Objets HubSpot comptés comme échange commercial :
+GARDE_FOU_DEPUIS = "2025-01-01"
+GARDE_FOU_OBJETS = ("calls",)
+
+
+class _Compteur:
+    """Dictionnaire en lecture seule rempli à la demande par une fonction (une requête)."""
+
+    def __init__(self, fonction):
+        self.fonction, self.valeurs = fonction, {}
+
+    def get(self, cle, defaut=0):
+        if cle not in self.valeurs:
+            try:
+                self.valeurs[cle] = self.fonction(cle)
+            except ErreurHubSpot:
+                self.valeurs[cle] = None
+        v = self.valeurs[cle]
+        return defaut if v is None else v
+
+
+class StatistiquesHubSpot:
+    """Comptes de la base lus dans HubSpot pour les preuves de la règle CC5 : fiches par
+    domaine d'email, fiches par entreprise et nom de famille."""
+
+    def __init__(self, client):
+        self.domaines = _Compteur(client.contacts_par_domaine)
+        self.noms_entreprise = _Compteur(lambda cle: client.homonymes_entreprise(*cle))
+
+
+def garde_fou(client, fiches):
+    """Échanges commerciaux (appels) depuis GARDE_FOU_DEPUIS sur ces fiches, ou None si HubSpot
+    n'est pas lu (garde-fou non vérifiable)."""
+    if client is None:
+        return None
+    trouves = []
+    for f in fiches:
+        for objet in GARDE_FOU_OBJETS:
+            trouves += ["{} du {} sur la fiche {}".format(
+                "appel" if objet == "calls" else "réunion", d, f.id)
+                for d in client.echanges_depuis(objet, f.id, GARDE_FOU_DEPUIS)]
+    return trouves
+
+
 def controler_paires(fiches, client=None):
     """Filet de sécurité : remarque si une paire du groupe n'a pas de lien certain (section
-    6.3, recalculée sur les fiches lues, ou contexte des échanges lu dans HubSpot), sinon ""."""
+    6.3 et règle CC5, recalculées sur les fiches lues, ou contexte des échanges lu dans
+    HubSpot), ou si une paire promue par la règle CC5 tombe sous le garde-fou des appels ;
+    sinon ""."""
     import detection_contacts_hubspot as dc       # import ici : ce module importe la fusion
     import contexte_contacts as cc
     cache = {}
+    stats = StatistiquesHubSpot(client) if client is not None else None
     for i, a in enumerate(fiches):
         for b in fiches[i + 1:]:
-            p = dc.evaluer(a, b)
-            if p.niveau != dc.CERTAIN and not (client and cc.confirmer(client, a, b, cache)):
-                return "lien indirect : {} et {} ne sont pas en doublon certain ({}{})".format(
-                    a.id, b.id, dc.raison(p), "".join(" ; " + e for e in p.blocage))
+            p = dc.evaluer(a, b, stats=stats)
+            if p.niveau != dc.CERTAIN:
+                if not (client and cc.confirmer(client, a, b, cache)):
+                    return "lien indirect : {} et {} ne sont pas en doublon certain ({}{})".format(
+                        a.id, b.id, dc.raison(p), "".join(" ; " + e for e in p.blocage))
+                continue
+            if p.fautive is not None:
+                p.fautive._fautive = True             # son adresse ne devient pas l'email principal
+            if not (p.ecart or "nom_pollue" in p.liens):
+                continue
+            if dc.evaluer(a, b, preuves=False).niveau == dc.CERTAIN or (
+                    client and cc.confirmer(client, a, b, cache)):
+                continue                              # déjà Certain avant la règle CC5
+            echanges = garde_fou(client, [a, b])
+            if echanges is None:
+                return ("garde-fou non vérifiable sans lecture HubSpot : {} et {} sont Certain par "
+                        "la seule règle CC5 ({})".format(a.id, b.id, p.ecart or "nom pollué"))
+            if echanges:
+                return ("garde-fou : {} et {} sont Certain par la règle CC5 ({}), mais échange "
+                        "commercial depuis le {} : {}".format(
+                            a.id, b.id, p.ecart or "nom pollué",
+                            date_iso(GARDE_FOU_DEPUIS)[:10], " ; ".join(echanges[:3])))
     return ""
 
 
@@ -714,7 +782,7 @@ class ClientHubSpot:
         actifs = self.proprietaires_actifs()
         proprietaire = p.get("hubspot_owner_id") or ""
         dernier_echange, adresse_echange = self.dernier_email_recu(brut["id"])
-        return Fiche(
+        fiche = Fiche(
             id=brut["id"], prenom=p.get("firstname"), nom=p.get("lastname"),
             email=p.get("email"), telephone=p.get("phone"), mobile=p.get("mobilephone"),
             poste=p.get("jobtitle"), entreprise=entreprise, id_entreprise=id_entreprise,
@@ -725,6 +793,40 @@ class ClientHubSpot:
             racine=racine, emails_secondaires=p.get("hs_additional_emails"),
             dernier_echange=dernier_echange, adresse_echange=adresse_echange,
         )
+        fiche.motif_echec = (p.get("hs_email_hard_bounce_reason_enum") or "").upper()
+        return fiche
+
+    # Lectures des preuves et du garde-fou de la règle CC5.
+
+    def rechercher(self, objet, filtres, proprietes=(), limite=100):
+        return self.requete("POST", "/crm/v3/objects/{}/search".format(objet), {
+            "filterGroups": [{"filters": filtres}], "properties": list(proprietes),
+            "limit": limite})
+
+    def contacts_par_domaine(self, domaine):
+        rep = self.rechercher("contacts", [{"propertyName": "hs_email_domain", "operator": "EQ",
+                                            "value": domaine}], limite=1)
+        return int(rep.get("total", 0))
+
+    def homonymes_entreprise(self, id_entreprise, nom_compact):
+        rep = self.rechercher("contacts", [{"propertyName": "associatedcompanyid",
+                                            "operator": "EQ", "value": str(id_entreprise)}],
+                              ["lastname"], limite=200)
+        return sum(1 for r in rep.get("results", [])
+                   if normaliser(r.get("properties", {}).get("lastname") or "").replace(
+                       " ", "").replace("-", "").replace("'", "") == nom_compact.replace(
+                       "-", "").replace("'", ""))
+
+    def echanges_depuis(self, objet, id_contact, depuis):
+        import datetime
+        ms = int(datetime.datetime.fromisoformat(depuis).replace(
+            tzinfo=datetime.timezone.utc).timestamp() * 1000)
+        rep = self.rechercher(objet, [
+            {"propertyName": "associations.contact", "operator": "EQ", "value": str(id_contact)},
+            {"propertyName": "hs_timestamp", "operator": "GTE", "value": str(ms)}],
+            ["hs_timestamp"], limite=10)
+        return sorted({(r.get("properties", {}).get("hs_timestamp") or "")[:10]
+                       for r in rep.get("results", [])}, reverse=True)
 
     def fusionner(self, id_principal, id_a_fusionner):
         rep = self.requete("POST", "/crm/v3/objects/contacts/merge",

@@ -726,7 +726,8 @@ class Contacts(unittest.TestCase):
         self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # prénom et nom inversés
         a = contact(1, "M.", "BORIES", telephone="+33680180121")
         b = contact(2, "Philippe", "Bories", mobile="06 80 18 01 21")
-        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)       # nom incomplet
+        self.assertEqual(dc.evaluer(a, b, preuves=False).niveau, PROBABLE)   # nom incomplet
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # CC5 : + même téléphone
         a = contact(1, "Sylvie", "Kalyniak", id_entreprise="9")
         b = contact(2, "", "Sylvie KALYNIAK", id_entreprise="9")
         self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # nom complet dans un champ
@@ -1341,6 +1342,95 @@ class ConnecteurHubSpot(unittest.TestCase):
 def iter_synthese(chemin):
     import openpyxl
     return openpyxl.load_workbook(chemin)["Synthèse"].iter_rows(values_only=True)
+
+
+class ErreursDeSaisie(unittest.TestCase):
+    """CC5 : une erreur de saisie explique l'écart et un fait indépendant la confirme."""
+
+    def niveau(self, a, b, base=()):
+        stats = dc.Statistiques([a, b] + list(base))
+        return dc.evaluer(a, b, stats=stats)
+
+    def test_domaine_mal_saisi(self):
+        a = contact(1, email="crb@diakonat.fr")
+        b = contact(2, email="crb@diakoat.fr", creation="2022-06-01")
+        autres = [contact(10 + i, email="x{}@diakonat.fr".format(i)) for i in range(3)]
+        p = self.niveau(a, b, autres)
+        self.assertEqual(p.niveau, CERTAIN)                       # domaine fautif isolé
+        self.assertIs(p.fautive, b)
+        self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)     # aucune preuve
+        a = contact(1, email="psp@ktv.com", motif_echec="UNKNOWN_USER")
+        b = contact(2, email="psp@ktvtv.com", creation="2023-01-01")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)        # lettres ajoutées + rebond
+
+    def test_boite_de_fonction(self):
+        # Deux agences voisines ont chacune leur adresse agence@ : pas de doublon.
+        a = contact(1, email="agence@indarchi.com", creation="2023-07-18")
+        b = contact(2, email="agence@intiarchi.com", creation="2023-07-21")
+        autres = [contact(10, email="y@indarchi.com")]
+        self.assertNotEqual(self.niveau(a, b, autres).niveau, CERTAIN)
+        # Même boîte de fonction, domaine fautif isolé, fiches créées le même jour.
+        a = contact(1, email="compta2@stjoseph-tintin.fr", creation="2022-11-16 10:00")
+        b = contact(2, email="compta2@stjospeh-tintin.fr", creation="2022-11-16 11:00")
+        autres = [contact(10, email="y@stjoseph-tintin.fr")]
+        self.assertEqual(self.niveau(a, b, autres).niveau, CERTAIN)
+
+    def test_numeros_differents(self):
+        a = contact(1, email="secretariat@asso95.fr", id_entreprise="1")
+        b = contact(2, email="secretariat@asso40.fr", id_entreprise="1")
+        self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)
+
+    def test_variantes_d_adresse(self):
+        a = contact(1, "Jean", "Durand", "jdurand@gmail.com", creation="2023-06-06 15:00")
+        b = contact(2, email="jdurand2@gmail.com", creation="2023-06-06 16:00")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)        # chiffres ajoutés
+        a = contact(1, email="syndic3@cabinet-x.fr", id_entreprise="4")
+        b = contact(2, email="syndic4@cabinet-x.fr", id_entreprise="4")
+        self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)     # deux boîtes numérotées
+        a = contact(1, "Aimée", "Valdor", "aimee.valdor@wanadoo.fr", motif_echec="UNKNOWN_USER")
+        b = contact(2, email="aime.valdor@wanadoo.fr", creation="2025-01-01")
+        p = self.niveau(a, b)
+        self.assertEqual(p.niveau, CERTAIN)                        # une faute + rebond
+        self.assertIs(p.fautive, a)
+        a = contact(1, email="domainedelabrière@gmail.com")
+        b = contact(2, email="domainedelabriere@gmail.com", creation="2020-01-01")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)        # accent
+
+    def test_noms_differents_dans_l_adresse(self):
+        # Deux élues : l'adresse reprend deux noms différents, pas une faute de frappe.
+        a = contact(1, "Hélène", "Marchais", "helene.marchais@assemblee.fr", id_entreprise="7")
+        b = contact(2, "Hélène", "Marchai", "helene.marchai@assemblee.fr", id_entreprise="7")
+        self.assertEqual(self.niveau(a, b).niveau, PROBABLE)
+
+    def test_noms(self):
+        a = contact(1, "", "Varenne", id_entreprise="3", telephone="0677000000")
+        b = contact(2, "Marc", "Varenne", "m.varenne@nepsy.fr", id_entreprise="3",
+                    mobile="+33 6 77 00 00 00")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)        # prénom absent + téléphone
+        a = contact(1, "Paul", "Rivet", "ogec.49@gmail.com", creation="2022-07-27 10:00")
+        b = contact(2, email="rivet.paul@gmail.com", creation="2022-07-27 11:00")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)        # sans nom, créées ensemble
+        a = contact(1, "Services Techniques", "", "st@ville-a.fr", creation="2023-04-20")
+        b = contact(2, email="services.techniques@ville-b.fr", creation="2023-04-19")
+        self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)     # nom de fonction
+
+    def test_nom_suivi_de_l_entreprise(self):
+        a = contact(1, "Léa", "Morel", "gestion@stero.fr", entreprise="AGEC SAINTE ROSE",
+                    mobile="0650000000")
+        b = contact(2, "Léa", "Morel Agec Sainte Rose", "agec@orange.fr",
+                    mobile="0650000000")
+        self.assertEqual(self.niveau(a, b).niveau, CERTAIN)
+        # Le nom allongé porte l'adresse d'une autre personne : pas la même.
+        b = contact(2, "Léa", "Morel Agec Sainte Rose", "nina.garel@stero.fr",
+                    mobile="0650000000")
+        self.assertNotIn("nom_pollue", self.niveau(a, b).liens)
+
+    def test_faute_dans_le_nom_autre_organisation(self):
+        # Rebond sur l'adresse d'un homonyme à une lettre près, dans une autre organisation.
+        a = contact(1, "Pierre", "Dumond", "p.dumond@a-conseil.fr", id_entreprise="1")
+        b = contact(2, "Pierre", "Dupond", "p.dupond@b-energie.fr", id_entreprise="2",
+                    motif_echec="UNKNOWN_USER")
+        self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)
 
 
 if __name__ == "__main__":

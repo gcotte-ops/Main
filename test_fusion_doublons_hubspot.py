@@ -225,6 +225,17 @@ class FauxHubSpot:
         copie.racine = racine
         return copie
 
+    def contacts_par_domaine(self, domaine):
+        return sum(1 for f in self.contacts.values()
+                   if (f.email or "").lower().endswith("@" + domaine))
+
+    def homonymes_entreprise(self, id_entreprise, nom_compact):
+        return sum(1 for f in self.contacts.values() if f.id_entreprise == id_entreprise
+                   and (f.nom or "").lower().replace(" ", "") == nom_compact)
+
+    def echanges_depuis(self, objet, id_contact, depuis):
+        return [d for d in getattr(self, "echanges", {}).get(str(id_contact), []) if d >= depuis]
+
     def fusionner(self, principal, autre):
         self.appels.append(("merge", principal, autre))
         p, a = self.contacts.pop(principal), self.contacts.pop(autre)
@@ -396,6 +407,47 @@ class Jeton(unittest.TestCase):
     def test_fichier_introuvable(self):
         with self.assertRaises(SystemExit):
             fus.main(["fichier_absent.csv", "--hors-ligne"])
+
+
+class GardeFouCC5(unittest.TestCase):
+    """Règle CC5 au contrôle avant fusion : preuves lues dans HubSpot, garde-fou des appels."""
+
+    def base(self):
+        f = lambda i, email, creation="2023-01-01": fus.Fiche(id=str(i), email=email,
+                                                              creation=creation)
+        contacts = {"1": f(1, "crb@diakonat.fr", creation="2022-06-01"),
+                    "2": f(2, "crb@diakoat.fr"),
+                    "3": f(3, "x@diakonat.fr"), "4": f(4, "y@diakonat.fr")}
+        return FauxHubSpot(contacts)
+
+    def test_domaine_mal_saisi_sans_appel(self):
+        client = self.base()
+        plan = fus.planifier("G-1", [client.fiche("1"), client.fiche("2")], client=client)
+        self.assertEqual(plan["statut"], "À FUSIONNER")
+        self.assertEqual(plan["email"], "crb@diakonat.fr")      # pas l'adresse fautive
+
+    def test_appel_depuis_2025(self):
+        client = self.base()
+        client.echanges = {"2": ["2025-03-12"]}
+        plan = fus.planifier("G-1", [client.fiche("1"), client.fiche("2")], client=client)
+        self.assertEqual(plan["statut"], "À VÉRIFIER")
+        self.assertIn("garde-fou", plan["remarques"][0])
+        client.echanges = {"2": ["2024-11-30"]}                  # appel plus ancien : sans effet
+        plan = fus.planifier("G-1", [client.fiche("1"), client.fiche("2")], client=client)
+        self.assertEqual(plan["statut"], "À FUSIONNER")
+
+    def test_sans_lecture_hubspot(self):
+        client = self.base()
+        plan = fus.planifier("G-1", [client.fiche("1"), client.fiche("2")])
+        self.assertEqual(plan["statut"], "À VÉRIFIER")          # domaine isolé non vérifiable
+
+    def test_deja_certain_hors_garde_fou(self):
+        f = lambda i: fus.Fiche(id=str(i), prenom="Anne", nom="Rivet", email="anne.rivet@x.fr",
+                                creation="2023-01-01")
+        client = FauxHubSpot({"1": f(1), "2": f(2)})
+        client.echanges = {"1": ["2026-01-05"]}
+        plan = fus.planifier("G-2", [client.fiche("1"), client.fiche("2")], client=client)
+        self.assertEqual(plan["statut"], "À FUSIONNER")          # même email (CC1)
 
 
 if __name__ == "__main__":
