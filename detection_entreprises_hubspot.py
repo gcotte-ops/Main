@@ -210,6 +210,8 @@ class FicheEntreprise:
             self.hote = nz.hote_utile(self.nom)        # « marmoutier.org » sans domaine saisi
         self.domaine_p = nz.domaine_principal(self.hote) if self.hote else ""
         self.siren = nz.siren_depuis(self.siren_brut, self.siret_brut)
+        siret = re.sub(r"\D", "", self.siret_brut)
+        self.siret = siret if len(siret) == 14 else ""
         self.centralise = normaliser(self.type_de_decideur) == "centralise"
         self.etiquettes = familles.etiquettes(self.nom)
         # Nom générique : la longueur ici, la fréquence dans la base (Analyse).
@@ -351,6 +353,10 @@ def evaluer(a, b, contexte=CONTEXTE_DEFAUT):
     # Règles bloquantes.
     if "siren_differents" in L:
         p.blocage.append("B1 – SIREN différents ({} / {})".format(a.siren, b.siren))
+    elif "meme_siren" in L and a.siret and b.siret and a.siret != b.siret:
+        # Même entreprise, deux établissements : jamais un doublon.
+        p.blocage.append("B3 – même SIREN, SIRET différents ({} / {}) : établissements "
+                         "distincts".format(a.siret, b.siret))
     p.familles = familles.comparer_etiquettes(a.etiquettes, b.etiquettes)
     if p.familles:
         p.blocage.append("B2 – familles incompatibles ({})".format(p.familles))
