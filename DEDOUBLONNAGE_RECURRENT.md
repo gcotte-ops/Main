@@ -60,6 +60,7 @@ garder la fiche « garder » comme fiche principale.
 | Portail HubSpot | `20368543` (EU) |
 | GT 3.0 : « 0 - SUIVI PROJETS », onglet `GT3`, colonnes `Lien_hubspot` (FF) et `Id_hubspot` (FG) : **ID d'entreprise** | `1K2kXDwHK_k4H-PEp-X-2J3F2h-iXqYbK1bzsjbkt6P0` |
 | Journal des dédoublonnages (Google Sheet, onglet `Journal`) | `1RsxyzCXyeZrhEnZ2EW4R5N5fyjna07iOSBNbz_elOe8` |
+| Listes HubSpot des doublons probables | contacts `2856`, entreprises `2857` |
 | Destinataire du compte rendu | gcotte@alter-watt.com |
 
 ---
@@ -129,7 +130,12 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
    - FUSION = oui : `python fusion_entreprises_hubspot.py travail/doublons_entreprises_AAAA-MM-JJ.xlsx --gt3 travail/gt3.csv --executer --oui --limite 20 --rapport travail/fusion_entreprises.csv`
    - FUSION = non : la même commande avec `--hors-ligne` au lieu de `--executer --oui` (rien n'est modifié).
 4. `python outils_routine.py bilan travail/doublons_entreprises_AAAA-MM-JJ.xlsx --rapport travail/fusion_entreprises.csv`
-5. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_entreprises.csv` et
+5. Liste des doublons probables : `python outils_routine.py probables travail/doublons_entreprises_AAAA-MM-JJ.xlsx`,
+   puis `manage_segment` (connecteur HubSpot), `AddMembersOperation`, liste `2857`
+   (« MKT_Doublons d'entreprises probables »), `objectType` `COMPANY`, ces ID (par lots de 450 au plus).
+   Deux entreprises au même SIREN et aux SIRET différents ne sont jamais des doublons (règle B3 de la
+   détection) : elles n'y figurent pas.
+6. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_entreprises.csv` et
    le classeur des entreprises.
 
 ### 4. Contacts (après la fusion des entreprises)
@@ -146,7 +152,9 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
    `python fusion_doublons_hubspot.py travail/doublons_contacts_AAAA-MM-JJ.xlsx --executer --oui --limite 20 --rapport travail/fusion_contacts.csv`
    (ou `--hors-ligne`).
 5. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
-6. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
+6. Liste des doublons probables : comme pour les entreprises, avec le classeur des contacts, la liste `2856`
+   (« MKT_Doublons de contacts probables ») et `objectType` `CONTACT`.
+7. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
    classeur des contacts.
 
 ### 5. Journal des dédoublonnages

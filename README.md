@@ -205,7 +205,7 @@ factices (`4313.co`), punycode, plateformes (wixsite, e-lyco…), téléphones `
 
 | Niveau | Règle |
 |---|---|
-| **Bloquée** | SIREN différents (B1), ou **familles incompatibles** (B2). La paire n'est dans aucun groupe : onglet « Entités distinctes ». |
+| **Bloquée** | SIREN différents (B1), **familles incompatibles** (B2), ou même SIREN avec deux SIRET différents (B3 : deux établissements distincts, jamais un doublon). La paire n'est dans aucun groupe : onglet « Entités distinctes ». |
 | **Certain** | Même nom / nom équivalent + au moins un lien fort (même domaine, même téléphone, même ville), sans contradiction ; nom générique (nom distinctif de 6 caractères ou moins, ou porté dans 3 villes) : deux liens forts ; domaines différents tolérés avec deux liens forts. Fiche sans nom ou nommée par son domaine + même site + même téléphone ou même ville. Même SIREN + « Centralisé » sur les deux fiches. Nom à une faute près + même SIREN. |
 | Jamais Certain | Nom à une faute près sans SIREN identique, nom seulement inclus, domaine seulement proche (y compris deux sous-domaines d'un même domaine), villes différentes, ville absente sans autre lien fort, domaines différents avec un seul lien fort. |
 | **Probable** | Nom identique, équivalent, à une faute près ou inclus + un lien fort ou une ville absente ; fiche sans nom ou nommée par son domaine + domaine identique ou proche, ou même téléphone ; noms différents + même domaine + même téléphone. |

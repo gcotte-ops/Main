@@ -25,6 +25,8 @@ requête, fenêtre de 10 000 résultats) : par tours de 20 pages lancées en par
   python outils_routine.py lignes DECISIONS.csv               # CSV écrit par --memoriser ->
                                                               # lignes JSON à ajouter à la feuille
   python outils_routine.py bilan CLASSEUR.xlsx [--rapport FUSION.csv]  # compte rendu (email)
+  python outils_routine.py probables CLASSEUR.xlsx            # ID des fiches « Probable » (JSON)
+                                                              # pour les listes HubSpot MKT_
   python outils_routine.py journal FUSION.csv --classeur CLASSEUR.xlsx --origine TEXTE
                                                               # fusions faites -> lignes JSON du
                                                               # journal (sheets_append_values)
@@ -339,6 +341,17 @@ def journal(rapport, classeur=None, origine="", heure=""):
     return sortie
 
 
+def probables(classeur):
+    """ID HubSpot (entiers) des fiches de niveau « Probable » d'un classeur de détection."""
+    import fusion_entreprises_hubspot as fe
+    ids = []
+    for l in fe.lire_xlsx(classeur):
+        i = str(l.get("ID HubSpot") or "").strip()
+        if str(l.get("Niveau") or "").strip() == "Probable" and i.isdigit() and int(i) not in ids:
+            ids.append(int(i))
+    return ids
+
+
 def lignes(decisions):
     """Lignes d'un CSV écrit par --memoriser (sans l'en-tête), en JSON, pour
     sheets_append_values."""
@@ -378,6 +391,8 @@ def main(argv=None):
     p.add_argument("sortie")
     p = sous.add_parser("lignes", help="CSV de décisions -> lignes JSON")
     p.add_argument("decisions")
+    p = sous.add_parser("probables", help="ID des fiches Probable d'un classeur (JSON)")
+    p.add_argument("classeur")
     p = sous.add_parser("journal", help="rapport de fusion -> lignes JSON du journal")
     p.add_argument("rapport")
     p.add_argument("--classeur", help="classeur de détection (motif du rapprochement)")
@@ -426,6 +441,8 @@ def main(argv=None):
         print("{} écrit : {} lignes".format(args.sortie, valeurs(args.reponse, args.sortie)))
     elif args.commande == "bilan":
         print(bilan(args.classeur, args.rapport, args.portail))
+    elif args.commande == "probables":
+        print(json.dumps(probables(args.classeur)))
     elif args.commande == "journal":
         print(json.dumps(journal(args.rapport, args.classeur, args.origine, args.heure),
                          ensure_ascii=False))

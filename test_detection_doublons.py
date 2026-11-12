@@ -386,6 +386,17 @@ class PairesEntreprises(unittest.TestCase):
         a, _, c = REFERENCES["G-084"]
         self.assertIn("B2", self.niveau(a, c).blocage[0])
 
+    def test_b3_meme_siren_siret_differents(self):
+        a = ent(1, "Résidence Lumina Nord", "Lille", siret="12345678900011")
+        b = ent(2, "Résidence Lumina", "Lille", siret="12345678900029")
+        p = de.evaluer(a, b)
+        self.assertTrue(p.bloquee)
+        self.assertIn("B3", p.blocage[0])
+        b = ent(2, "Résidence Lumina", "Lille", siren="123456789")       # SIRET absent
+        self.assertFalse(de.evaluer(a, b).bloquee)
+        b = ent(2, "Résidence Lumina Nord", "Lille", siret="12345678900011")
+        self.assertFalse(de.evaluer(a, b).bloquee)                      # même établissement
+
     def test_filiale_et_lieux(self):
         contexte = de.Contexte(lieux={"paris", "angers"})
         a = ent("1", "ESSCA Angers", "Angers", domaine="essca.fr")
