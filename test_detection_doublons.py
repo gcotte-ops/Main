@@ -707,10 +707,12 @@ class Contacts(unittest.TestCase):
         a = contact(1, "Sophie", "Duchêne", "sophie.duchene@gmail.com", id_entreprise="55")
         b = contact(2, "sophie", "DUCHENE", "s.duchene@yahoo.fr", id_entreprise="55")
         self.assertEqual(dc.evaluer(a, b).regles, ["CC3"])
-        b = contact(2, "Sophie", "Duchene", "s.duchene@yahoo.fr")
+        b = contact(2, "Sophie", "Duchene", "s.duchene@yahoo.fr", creation="2025-03-01")
         p = dc.evaluer(a, b)
         self.assertEqual(p.niveau, PROBABLE)                      # webmails seuls
         self.assertIn("webmails seulement", dc.raison(p))
+        b = contact(2, "Sophie", "Duchene", "s.duchene@yahoo.fr")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # CC5 : saisie deux fois
         b = contact(2, "Sophie", "Duchene", "s.duchene@archimeet.fr", id_entreprise="77")
         self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)       # entreprises différentes
         b = contact(2, "S", "Duchene", "s.duchene@yahoo.fr", id_entreprise="55")
@@ -1375,6 +1377,20 @@ class ErreursDeSaisie(unittest.TestCase):
         autres = [contact(10, email="y@stjoseph-tintin.fr")]
         self.assertEqual(self.niveau(a, b, autres).niveau, CERTAIN)
 
+    def test_domaine_accentue(self):
+        # « xn--hpitalsud-g7a.fr » est l'écriture internationalisée de « hôpitalsud.fr ».
+        self.assertEqual(nz.domaine_lisible("xn--hpitalsud-g7a.fr"), "hopitalsud.fr")
+        self.assertEqual(nz.domaines_voisins("xn--hpitalsud-g7a.fr", "hopitalsud.fr"), "ponctuation")
+        a = contact(1, "Paul", "Morin", "p.morin@hopitalsud.fr", id_entreprise="2")
+        b = contact(2, email="p.morin@xn--hpitalsud-g7a.fr", creation="2025-01-01")
+        autres = [contact(10, email="y@hopitalsud.fr")]
+        self.assertEqual(self.niveau(a, b, autres).niveau, CERTAIN)
+        c = contact(3, email="travaux@xn--hpitalsud-g7a.fr", creation="2025-01-01")
+        d = contact(4, email="travaux@hopitalsud.fr")
+        p = self.niveau(c, d)
+        self.assertEqual(p.niveau, CERTAIN)                        # boîte de service aussi
+        self.assertIs(p.fautive, c)
+
     def test_numeros_differents(self):
         a = contact(1, email="secretariat@asso95.fr", id_entreprise="1")
         b = contact(2, email="secretariat@asso40.fr", id_entreprise="1")
@@ -1431,6 +1447,34 @@ class ErreursDeSaisie(unittest.TestCase):
         b = contact(2, "Pierre", "Dupond", "p.dupond@b-energie.fr", id_entreprise="2",
                     motif_echec="UNKNOWN_USER")
         self.assertNotEqual(self.niveau(a, b).niveau, CERTAIN)
+
+
+class NomTireDeLEmail(unittest.TestCase):
+    """Fiches dont le nom a été rempli à partir de l'adresse email."""
+
+    def test_nom_faute_tire_de_l_adresse(self):
+        a = contact(1, "Sandrine", "Potin", "s.potin@fncr.fr", id_entreprise="5",
+                    creation="2024-07-16 10:00")
+        b = contact(2, "", "Pottin", "s.pottin@fncr.fr", id_entreprise="5",
+                    creation="2024-07-16 10:05", motif_echec="UNKNOWN_USER")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)
+
+    def test_initiale_et_nom_dans_l_adresse(self):
+        a = contact(1, "Vincent", "de Lorgue", "fvdl@lasalle-x.fr", id_entreprise="8")
+        b = contact(2, "", "Delorgue", "v.delorgue@lasalle-x.fr", id_entreprise="8",
+                    creation="2020-01-01")
+        self.assertEqual(dc.evaluer(a, b).niveau, CERTAIN)        # même entreprise
+
+    def test_faute_rattachee_a_la_bonne_personne(self):
+        a = contact(1, "Sophie", "Potin", "so.potin@fncr.fr", id_entreprise="5")
+        b = contact(2, "", "Pottin", "s.pottin@fncr.fr", id_entreprise="5",
+                    motif_echec="UNKNOWN_USER")
+        self.assertNotEqual(dc.evaluer(a, b).niveau, CERTAIN)
+
+    def test_deux_personnes_nommees_restent_distinctes(self):
+        a = contact(1, "Hélène", "Marchais", "helene.marchais@assemblee.fr", id_entreprise="7")
+        b = contact(2, "Hélène", "Marchai", "helene.marchai@assemblee.fr", id_entreprise="7")
+        self.assertEqual(dc.evaluer(a, b).niveau, PROBABLE)
 
 
 if __name__ == "__main__":

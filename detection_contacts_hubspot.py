@@ -277,6 +277,12 @@ def _heure(fiche):
         return None
 
 
+def nom_tire_de_l_email(n):
+    """Fiche sans prénom dont le nom de famille se lit dans son adresse email."""
+    return (not n.prenom and bool(n.nom) and len(nz.compact(n.nom)) >= 3
+            and nz.compact(n.nom).replace("-", "").replace("'", "") in n.local)
+
+
 def creees_proches(a, b):
     ha, hb = _heure(a), _heure(b)
     return bool(ha and hb) and abs((ha - hb).total_seconds()) <= PROCHES_HEURES * 3600
@@ -316,6 +322,12 @@ def erreur_de_saisie(a, b, p, stats=None):
     if ea and eb and ea != eb and "@" in ea and "@" in eb:
         (la, da), (lb, db) = (e.rsplit("@", 1) for e in (ea, eb))
         generique = boite_de_fonction(ea) or boite_de_fonction(eb)
+        if (nz.sans_accents(la) == nz.sans_accents(lb) and da != db and "xn--" in da + db
+                and nz.domaine_lisible(da) == nz.domaine_lisible(db)):
+            # stfrançoisdesales.com (xn--…) / stfrancoisdesales.com : même domaine, accent en plus.
+            accentuee = a if "xn--" in da else b
+            return ("domaine accentué ({} / {})".format(da, db),
+                    ["le domaine accentué est la même adresse écrite avec un accent"], accentuee)
         if nz.sans_accents(la) == nz.sans_accents(lb) and da != db:
             sorte = nz.domaines_voisins(da, db)
             ca, cb = stats.domaines.get(da, 0), stats.domaines.get(db, 0)
@@ -346,7 +358,8 @@ def erreur_de_saisie(a, b, p, stats=None):
                         .format(da, db), faits("proche"), rebond)
         elif la != lb and (da == db or nz.domaines_voisins(da, db)):
             sorte = nz.variante_locale(la, lb)
-            if sorte == "faute" and na.nom and nb.nom and na.nom != nb.nom:
+            if sorte == "faute" and na.prenom and nb.prenom and na.nom and nb.nom and \
+                    nz.compact(na.nom) != nz.compact(nb.nom):
                 sorte = ""            # l'adresse reprend deux noms différents (Marchais / Marchai)
             if sorte == "accents":
                 accentuee = a if la != nz.sans_accents(la) else b
@@ -371,6 +384,15 @@ def erreur_de_saisie(a, b, p, stats=None):
                 if preuves:
                     return ("une faute dans l’adresse ({} / {})".format(ea, eb), preuves, rebond)
 
+    fonction = any(set(n.nom.split() + n.prenom.split()) & MOTS_FONCTION for n in (na, nb))
+    deux_organisations = "entreprises_differentes" in L or (
+        na.domaines_pro and nb.domaines_pro and not na.domaines_pro & nb.domaines_pro)
+    if "meme_personne" in L and proche and not fonction and not deux_organisations and \
+            bool(na.entreprise) != bool(nb.entreprise) and any(
+            n.local and nz.compact(n.nom) in n.local for n in (na, nb) if n.nom):
+        # Même prénom et nom, fiches créées ensemble, une adresse au nom de la personne.
+        return ("même personne saisie deux fois", faits("proche") + faits("entreprise", "telephone"),
+                None)
     if "nom_incomplet" in L:
         preuves = faits("telephone")
         n = na if na.prenom else nb
@@ -381,13 +403,16 @@ def erreur_de_saisie(a, b, p, stats=None):
             preuves.append("seul homonyme dans l’entreprise")
         if preuves:
             return ("prénom absent sur une fiche", preuves, None)
-    fonction = any(set(n.nom.split() + n.prenom.split()) & MOTS_FONCTION for n in (na, nb))
     if "email_designe" in L and not fonction:
         preuves = faits("proche", "entreprise", "telephone")
         if preuves:
             return ("fiche sans nom, email au nom de l’autre fiche", preuves, None)
     meme_organisation = entreprise or bool(L & {"meme_domaine_pro", "domaine_apparente"})
-    if "nom_faute" in L and meme_organisation and (rebond is not None or telephone):
+    # Faute dans le nom de deux fiches nommées. Une fiche sans prénom (nom tiré de l'email) ne
+    # passe que par une faute dans l'adresse : « s.pottier » corrige « s.potier » (Sandrine),
+    # pas « so.potier » (Sophie, même famille de nom).
+    if "nom_faute" in L and meme_organisation and na.prenom and nb.prenom and (
+            rebond is not None or telephone):
         preuves = []
         if rebond is not None and nz.compact(normes(rebond).nom) in normes(rebond).local:
             preuves.append("rebond « utilisateur inconnu » sur l’adresse au nom mal orthographié")
@@ -416,6 +441,9 @@ def cles_erreurs(n):
             cles.add(("adresse_proche", domaine, v))
     if n.prenom and len(n.nom.split()) >= 2:
         cles.add(("nom", nz.compact(n.nom.split()[0]) + "|" + n.prenom[0]))
+    if nom_tire_de_l_email(n) and not n.local.startswith(nz.compact(n.nom)):
+        # p.delabre@ sans prénom : rapprochée des « P… Delabre ».
+        cles.add(("nom", nz.compact(n.nom) + "|" + n.local[0]))
     return cles
 
 
@@ -447,19 +475,31 @@ def evaluer(a, b, frequences=None, stats=None, preuves=True):
         seul, complet = (na, nb) if not na.prenom else (nb, na)
         if nz.compact(seul.nom) in (complet.complet, nz.compact(complet.nom + complet.prenom)):
             L.update(("meme_personne", "nom_un_champ"))
+    if (preuves and not (na.prenom and nb.prenom) and na.nom and nb.nom
+            and "meme_personne" not in L and fc.prenoms_compatibles(a, b)
+            and min(len(nz.compact(na.nom)), len(nz.compact(nb.nom))) >= 5
+            and nz.distance_un(nz.compact(na.nom), nz.compact(nb.nom))):
+        L.add("nom_faute")                       # « Pottier » (tiré de l'email) / « Sandrine Potier »
     if preuves and "meme_personne" not in L and nom_pollue(na, nb):
         L.update(("meme_personne", "nom_pollue"))
     if na.nom and nb.nom and (nz.compact(na.nom) == nz.compact(nb.nom) or "inverses" in L
                               or "nom_un_champ" in L or "nom_pollue" in L):
         L.add("meme_nom_famille")
     if "meme_personne" not in L and fc.prenoms_compatibles(a, b):
-        if (na.nom and na.nom == nb.nom and bool(na.prenom) != bool(nb.prenom)) or \
+        meme_nom = na.nom and (nz.compact(na.nom) == nz.compact(nb.nom) if preuves
+                               else na.nom == nb.nom)
+        if (meme_nom and bool(na.prenom) != bool(nb.prenom)) or \
                 (na.prenom and na.prenom == nb.prenom and bool(na.nom) != bool(nb.nom)):
             L.add("nom_incomplet")               # « M. BORIES » / « Philippe Bories »
         elif (na.prenom and nb.prenom and na.nom and nb.nom and na.nom != nb.nom
               and nz.contient_suite(na.nom, nb.nom)):
             L.add("nom_inclus")                  # « Lopes Da Trindade » / « Da Trindade »
     sans_nom_a, sans_nom_b = not (na.prenom or na.nom), not (nb.prenom or nb.nom)
+    if preuves:
+        # Nom de famille seul, tiré de l'email de la fiche (« Deleglise » pour v.deleglise@) :
+        # la fiche est traitée comme une fiche sans nom.
+        sans_nom_a = sans_nom_a or nom_tire_de_l_email(na)
+        sans_nom_b = sans_nom_b or nom_tire_de_l_email(nb)
     if (sans_nom_a and designe(na, nb)) or (sans_nom_b and designe(nb, na)):
         L.add("email_designe")
     initiale = na.initiale or nb.initiale
