@@ -450,11 +450,25 @@ def suppressions(texte):
     return {texte} | {texte[:i] + texte[i + 1:] for i in range(len(texte))}
 
 
+def domaine_lisible(domaine):
+    """Domaine en minuscules, labels internationalisés décodés puis sans accents :
+    « xn--stfranoisdesales-hpb.com » (stfrançoisdesales.com) -> « stfrancoisdesales.com »."""
+    labels = []
+    for label in (domaine or "").lower().split("."):
+        if label.startswith("xn--"):
+            try:
+                label = label.encode("ascii").decode("idna")
+            except (UnicodeError, ValueError):
+                pass
+        labels.append(label)
+    return sans_accents(".".join(labels))
+
+
 def squelettes_domaine(domaine):
     """Formes d'un domaine sans ponctuation, avec et sans l'extension :
     « hotelsoleil.paris » -> {"hotelsoleil", "hotelsoleilparis"},
     « ec.valmont.fr » -> {"ecvalmont", "ecvalmontfr"}."""
-    d = sans_accents((domaine or "").lower())
+    d = domaine_lisible(domaine)
     if "." not in d:
         return {re.sub(r"[^a-z0-9]", "", d)} - {""}
     corps = d.rsplit(".", 1)[0]
@@ -481,7 +495,8 @@ def jeton_distinct(da, db):
 
 def domaines_voisins(da, db):
     """Type d'écart entre deux domaines d'une même boîte, ou "" :
-    « ponctuation » : seuls les points, tirets ou l'extension diffèrent (ec.valmont /
+    « ponctuation » : seuls les points, tirets, accents (domaine internationalisé « xn-- »)
+    ou l'extension diffèrent (ec.valmont /
     ecvalmont, hotelsoleil.paris / hotelsoleilparis.com, wanadoo.fr / wanadoo.com) ;
     « faute » : une faute de frappe (lettre oubliée, en trop, remplacée, deux lettres inversées :
     stjospeh / stjoseph), deux sur un nom d'au moins 11 lettres (ecvalmonteau / eccvalmontau) ;
@@ -494,8 +509,7 @@ def domaines_voisins(da, db):
     sa, sb = squelettes_domaine(da), squelettes_domaine(db)
     if sa & sb:
         return "ponctuation"
-    ca, cb = (re.sub(r"[^a-z0-9]", "", sans_accents(d.lower()).rsplit(".", 1)[0])
-              for d in (da, db))
+    ca, cb = (re.sub(r"[^a-z0-9]", "", domaine_lisible(d).rsplit(".", 1)[0]) for d in (da, db))
     court = min(len(ca), len(cb))
     if jeton_distinct(da, db):
         return ""

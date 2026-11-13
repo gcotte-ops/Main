@@ -322,6 +322,12 @@ def erreur_de_saisie(a, b, p, stats=None):
     if ea and eb and ea != eb and "@" in ea and "@" in eb:
         (la, da), (lb, db) = (e.rsplit("@", 1) for e in (ea, eb))
         generique = boite_de_fonction(ea) or boite_de_fonction(eb)
+        if (nz.sans_accents(la) == nz.sans_accents(lb) and da != db and "xn--" in da + db
+                and nz.domaine_lisible(da) == nz.domaine_lisible(db)):
+            # stfrançoisdesales.com (xn--…) / stfrancoisdesales.com : même domaine, accent en plus.
+            accentuee = a if "xn--" in da else b
+            return ("domaine accentué ({} / {})".format(da, db),
+                    ["le domaine accentué est la même adresse écrite avec un accent"], accentuee)
         if nz.sans_accents(la) == nz.sans_accents(lb) and da != db:
             sorte = nz.domaines_voisins(da, db)
             ca, cb = stats.domaines.get(da, 0), stats.domaines.get(db, 0)

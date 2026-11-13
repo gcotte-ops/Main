@@ -1377,6 +1377,20 @@ class ErreursDeSaisie(unittest.TestCase):
         autres = [contact(10, email="y@stjoseph-tintin.fr")]
         self.assertEqual(self.niveau(a, b, autres).niveau, CERTAIN)
 
+    def test_domaine_accentue(self):
+        # « xn--hpitalsud-g7a.fr » est l'écriture internationalisée de « hôpitalsud.fr ».
+        self.assertEqual(nz.domaine_lisible("xn--hpitalsud-g7a.fr"), "hopitalsud.fr")
+        self.assertEqual(nz.domaines_voisins("xn--hpitalsud-g7a.fr", "hopitalsud.fr"), "ponctuation")
+        a = contact(1, "Paul", "Morin", "p.morin@hopitalsud.fr", id_entreprise="2")
+        b = contact(2, email="p.morin@xn--hpitalsud-g7a.fr", creation="2025-01-01")
+        autres = [contact(10, email="y@hopitalsud.fr")]
+        self.assertEqual(self.niveau(a, b, autres).niveau, CERTAIN)
+        c = contact(3, email="travaux@xn--hpitalsud-g7a.fr", creation="2025-01-01")
+        d = contact(4, email="travaux@hopitalsud.fr")
+        p = self.niveau(c, d)
+        self.assertEqual(p.niveau, CERTAIN)                        # boîte de service aussi
+        self.assertIs(p.fautive, c)
+
     def test_numeros_differents(self):
         a = contact(1, email="secretariat@asso95.fr", id_entreprise="1")
         b = contact(2, email="secretariat@asso40.fr", id_entreprise="1")
