@@ -74,6 +74,8 @@ Règles de conduite :
   probable) et le signaler en tête du compte rendu ;
 - jeton absent ou refusé, HubSpot injoignable : ne rien fusionner (simulation hors ligne) ; le compte rendu
   le dit et liste les Certain à fusionner à la main ;
+- jamais un député (email `@assemblee-nationale.fr`) ni la fiche rapprochée de lui dans les doublons
+  Probable de contacts ni dans la liste `2856` (règle B-D1, 26/11/2026) ;
 - ne jamais afficher, écrire ni transmettre la valeur de `HUBSPOT_TOKEN` ;
 - compte rendu court, en français : chiffres, groupes, liens, alertes.
 
@@ -158,6 +160,10 @@ la base se lit par tours de 20 requêtes, chaque tour reprenant après le plus g
 5. `python outils_routine.py bilan travail/doublons_contacts_AAAA-MM-JJ.xlsx --rapport travail/fusion_contacts.csv`
 6. Liste des doublons probables : comme pour les entreprises, avec le classeur des contacts, la liste `2856`
    (« MKT_Doublons de contacts probables ») et `objectType` `CONTACT`.
+   Un député n'est jamais un doublon probable (règle B-D1 de la détection, décidée par Grégoire le
+   26/11/2026 : Alter Watt ne contacte pas les députés) : ni lui ni la fiche rapprochée de lui n'y
+   figurent. `probables` écarte en plus d'office tout groupe Probable qui contiendrait un email
+   `@assemblee-nationale.fr` (garde-fou si un classeur ancien est relu).
 7. Journal (si des groupes ont été fusionnés) : section 5 avec le rapport `travail/fusion_contacts.csv` et le
    classeur des contacts.
 

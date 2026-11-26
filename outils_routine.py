@@ -341,13 +341,24 @@ def journal(rapport, classeur=None, origine="", heure=""):
     return sortie
 
 
+DOMAINES_DEPUTES = ("@assemblee-nationale.fr",)
+
+
 def probables(classeur):
-    """ID HubSpot (entiers) des fiches de niveau « Probable » d'un classeur de détection."""
+    """ID HubSpot (entiers) des fiches de niveau « Probable » d'un classeur de détection.
+    Garde-fou de la règle B-D1 (26/11/2026) : un groupe qui contient un député (email
+    @assemblee-nationale.fr) n'est jamais transmis, ni le député ni l'autre fiche."""
     import fusion_entreprises_hubspot as fe
+    lignes = [l for l in fe.lire_xlsx(classeur)
+              if str(l.get("Niveau") or "").strip() == "Probable"]
+    avec_depute = {str(l.get("Groupe") or "") for l in lignes
+                   if str(l.get("E-mail") or "").strip().lower().endswith(DOMAINES_DEPUTES)}
     ids = []
-    for l in fe.lire_xlsx(classeur):
+    for l in lignes:
         i = str(l.get("ID HubSpot") or "").strip()
-        if str(l.get("Niveau") or "").strip() == "Probable" and i.isdigit() and int(i) not in ids:
+        if str(l.get("Groupe") or "") in avec_depute:
+            continue
+        if i.isdigit() and int(i) not in ids:
             ids.append(int(i))
     return ids
 

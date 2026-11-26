@@ -677,6 +677,31 @@ class Contacts(unittest.TestCase):
         self.assertFalse(analyse.doublons)
         self.assertEqual(len(analyse.relecture["bloquees"]), 1)
 
+    def test_b_d1_deputes(self):
+        # Décision du 26/11/2026 : un député n'est jamais un doublon probable.
+        depute = contact(1, "Philippe", "Gosselin", "philippe.gosselin@assemblee-nationale.fr",
+                         poste="Droite Republicaine")
+        homonyme = contact(2, "Philippe", "Gosselin", "toutlameublement@gmail.com")
+        p = dc.evaluer(depute, homonyme)
+        self.assertEqual(p.niveau_brut, PROBABLE)
+        self.assertEqual(p.niveau, "")
+        self.assertTrue(any(b.startswith("B-D1") for b in p.blocage))
+        analyse = dc.AnalyseContacts([depute, homonyme], journal=lambda *x: 0).executer()
+        self.assertFalse(analyse.doublons)
+        # Deux députés au nom proche, même domaine : pas Probable non plus.
+        a = contact(3, "Béatrice", "Bellamy", "beatrice.bellamy@assemblee-nationale.fr")
+        b = contact(4, "Béatrice", "Bellay", "beatrice.bellay@assemblee-nationale.fr")
+        self.assertEqual(dc.evaluer(a, b).niveau, "")
+        # Poste « Député… » sans email de l'Assemblée ; « Deputy CEO » n'est pas un député.
+        c = contact(5, "Jean", "Martin", "jean.martin@gmail.com", poste="Député de l'Ain")
+        d = contact(6, "Jean", "Martin", "jmartin@exemple.fr")
+        self.assertEqual(dc.evaluer(c, d).niveau, "")
+        e = contact(7, "Jean", "Martin", "jean.martin@gmail.com", poste="Deputy CEO")
+        self.assertEqual(dc.evaluer(e, d).niveau, PROBABLE)
+        # Le Certain reste possible : même député importé deux fois.
+        f = contact(8, "Philippe", "Gosselin", "philippe.gosselin@assemblee-nationale.fr")
+        self.assertEqual(dc.evaluer(depute, f).niveau, CERTAIN)
+
     def test_cc1_meme_email(self):
         a = contact(1, "Jean", "Dupont", "j.dupont@abc.fr")
         b = contact(2, "J", "DUPONT", "J.Dupont@abc.fr ")
@@ -1339,6 +1364,23 @@ class ConnecteurHubSpot(unittest.TestCase):
         bilan = outils.bilan(sortie)
         self.assertIn("garder 10 Jean Dupont https://app-eu1.hubspot.com/contacts/20368543/"
                       "record/0-1/10", bilan)
+
+    def test_probables_sans_deputes(self):
+        # Garde-fou B-D1 : un groupe Probable avec un député n'est jamais transmis à la liste.
+        import outils_routine as outils
+        colonnes = ["Groupe", "Niveau", "ID HubSpot", "E-mail"]
+        lignes = [
+            {"Groupe": "G-001", "Niveau": "Probable", "ID HubSpot": "1",
+             "E-mail": "philippe.gosselin@assemblee-nationale.fr"},
+            {"Groupe": "G-001", "Niveau": "Probable", "ID HubSpot": "2",
+             "E-mail": "toutlameublement@gmail.com"},
+            {"Groupe": "G-002", "Niveau": "Probable", "ID HubSpot": "3", "E-mail": "a@x.fr"},
+            {"Groupe": "G-002", "Niveau": "Probable", "ID HubSpot": "4", "E-mail": "a@y.fr"},
+        ]
+        sortie = os.path.join(self.dossier, "probables.xlsx")
+        de.ecrire_classeur(sortie, [], [("Doublons", colonnes, lignes)],
+                           datetime.datetime(2026, 11, 26))
+        self.assertEqual(outils.probables(sortie), [3, 4])
 
 
 def iter_synthese(chemin):

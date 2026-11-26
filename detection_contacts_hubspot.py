@@ -15,7 +15,10 @@ Liens forts : même entreprise associée, même domaine email professionnel (hor
 adresse générique), même mobile, même téléphone fixe.
 
   Bloquée    B-C1 prénoms incompatibles (deux prénoms complets différents, initiales qui ne
-             correspondent pas) : la paire n'est jamais groupée (« Personnes distinctes »).
+             correspondent pas) : la paire n'est jamais groupée (« Personnes distinctes ») ;
+             B-D1 député (email @assemblee-nationale.fr ou poste « Député… ») : une paire avec
+             un député n'est jamais Probable (Alter Watt ne contacte pas les députés) ; le
+             Certain reste possible.
   Certain    CC1 même email (principal identique, ou principal de l'un parmi les emails
              secondaires de l'autre) ; une adresse générique (contact@, accueil@...) avec des
              noms de famille différents ne fait aucun lien ;
@@ -75,6 +78,13 @@ LIENS_DIRECTS = {"meme_email", "email_generique", "meme_boite", "boite_generique
                  "meme_personne", "prenom_compatible", "nom_faute", "nom_incomplet",
                  "nom_inclus", "email_designe", "meme_mobile", "meme_fixe"}
 LIENS_GENERIQUES = {"email_generique", "boite_generique"}
+
+# Règle B-D1 (décision de Grégoire Cotte du 26/11/2026) : Alter Watt ne contacte jamais les
+# députés, une fiche de député n'est donc jamais un doublon probable. Député : email sur un de
+# ces domaines, ou intitulé de poste qui commence par « Député » / « Députée ». Le Certain reste
+# possible (même email : un député importé deux fois).
+DOMAINES_DEPUTES = {"assemblee-nationale.fr"}
+POSTE_DEPUTE = re.compile(r"^deputee?s?\b")
 
 COLONNES = ["Groupe", "Niveau", "Raison du rapprochement", "Racine suggérée", "ID HubSpot",
             "Lien HubSpot", "Prénom", "Nom", "E-mail", "Téléphone", "Entreprise",
@@ -173,6 +183,15 @@ def normes(fiche):
     if n is None:
         n = fiche._normes = Normes(fiche)
     return n
+
+
+def est_depute(fiche):
+    """Fiche d'un député (règle B-D1) : email @assemblee-nationale.fr ou poste « Député… »
+    (« Deputy CEO » n'en est pas un)."""
+    n = normes(fiche)
+    if any(nz.domaine_email(e) in DOMAINES_DEPUTES for e in n.emails):
+        return True
+    return bool(POSTE_DEPUTE.match(personne(getattr(fiche, "poste", "") or "")))
 
 
 # --------------------------------------------------------------------------- #
@@ -581,6 +600,11 @@ def evaluer(a, b, frequences=None, stats=None, preuves=True):
         p.niveau_brut = PROBABLE
     if not p.niveau_brut and ("email_generique" in L or "boite_generique" in L):
         p.categorie = "generique"
+    # Règle B-D1 : une paire avec un député n'est jamais Probable (listée en « Personnes
+    # distinctes », jamais dans la liste HubSpot 2856).
+    if p.niveau_brut == PROBABLE and (est_depute(a) or est_depute(b)):
+        p.blocage.append("B-D1 – député (jamais un doublon probable : Alter Watt ne contacte "
+                         "pas les députés)")
     p.niveau = "" if p.bloquee else p.niveau_brut
     return p
 
