@@ -16,6 +16,8 @@ adresse générique), même mobile, même téléphone fixe.
 
   Bloquée    B-C1 prénoms incompatibles (deux prénoms complets différents, initiales qui ne
              correspondent pas) : la paire n'est jamais groupée (« Personnes distinctes ») ;
+             B-C2 prénoms de genres différents (Stéphane / Stéphanie, Michel / Michèle) : deux
+             personnes, sauf même email ou même boîte ;
              B-D1 député (email @assemblee-nationale.fr ou poste « Député… ») : une paire avec
              un député n'est jamais Probable (Alter Watt ne contacte pas les députés) ; le
              Certain reste possible.
@@ -183,6 +185,52 @@ def normes(fiche):
     if n is None:
         n = fiche._normes = Normes(fiche)
     return n
+
+
+# Terminaisons qui forment un prénom féminin à partir d'un prénom masculin (Michel -> Michèle,
+# Jean -> Jeanne, Daniel -> Danielle, Stéphane -> Stéphanie, Alexandre -> Alexandra,
+# Valentin -> Valentine, Antoine -> Antoinette, Fabien -> Fabienne).
+SUFFIXES_FEMININS = ("e", "ie", "ne", "le", "te", "a", "ine", "ette", "elle", "enne")
+# Un prénom qui finit ainsi est déjà féminin : il ne sert pas de forme masculine (Sophie /
+# Sophia, Marie / Maria, Anne / Annie sont des variantes, pas un couple masculin / féminin).
+FINS_FEMININES = ("ie", "ine", "ette", "lle", "enne", "nne", "a", "ise", "ee")
+# Prénoms féminins en « e » qui ne sont la forme masculine d'aucun autre (Carole / Caroline).
+FEMININS_EN_E = {"carole", "nicole", "claire", "cecile", "odile", "lucile", "sabine",
+                 "agathe", "aude", "maude", "solange", "clemence", "constance", "florence",
+                 "laurence", "berenice", "beatrice", "alice", "eloise", "heloise", "adele",
+                 "estelle", "isabelle", "chantal", "muriel", "lauriane", "oriane", "tatiane",
+                 "marianne", "diane", "ariane", "emeline", "jeanne"}
+# Après la racine sans « e » final (Stéphane -> Stéphan-ie), seules ces terminaisons.
+SUFFIXES_SUR_RACINE = ("ie", "a", "ine", "ette")
+
+
+def genres_differents(pa, pb):
+    """Règle B-C2 : deux prénoms normalisés (sans accents) dont l'un est la forme féminine de
+    l'autre. Le prénom masculin, ou sa racine sans « e » final, suivi d'une terminaison
+    féminine donne l'autre prénom (racine de 3 lettres au moins). Prénoms composés : premier
+    mot comparé au premier mot."""
+    pa, pb = (pa or "").split(), (pb or "").split()
+    if not pa or not pb:
+        return False
+    pa, pb = pa[0], pb[0]
+    if pa == pb or len(pa) < 3 or len(pb) < 3:
+        return False
+    for m, f in ((pa, pb), (pb, pa)):
+        if m.endswith(FINS_FEMININES) or m in FEMININS_EN_E:
+            continue
+        if m.endswith("c") and f == m[:-1] + "que":          # Frédéric / Frédérique
+            return True
+        racines = {m, m[:-1]} if m.endswith("e") else {m}
+        for r in racines:
+            suffixe = f[len(r):] if f.startswith(r) else None
+            if len(r) < 3 or suffixe not in SUFFIXES_FEMININS:
+                continue
+            if r != m and suffixe not in SUFFIXES_SUR_RACINE:
+                continue
+            if suffixe == "e" and r[-1] in "aiouy":     # « Nathali » / « Nathalie » : faute
+                continue
+            return True
+    return False
 
 
 def est_depute(fiche):
@@ -563,6 +611,11 @@ def evaluer(a, b, frequences=None, stats=None, preuves=True):
     # Règle bloquante B-C1.
     if not fc.prenoms_compatibles(a, b):
         p.blocage.append("B-C1 – prénoms incompatibles (« {} » / « {} »)".format(
+            a.prenom_net, b.prenom_net))
+    # Règle bloquante B-C2 (26/11/2026) : prénoms de genres différents (Stéphane / Stéphanie,
+    # Michel / Michèle) : deux personnes, sauf même email ou même boîte.
+    elif genres_differents(na.prenom, nb.prenom) and not L & {"meme_email", "meme_boite"}:
+        p.blocage.append("B-C2 – prénoms de genres différents (« {} » / « {} »)".format(
             a.prenom_net, b.prenom_net))
 
     # Certain (6.3) et exclusions (6.4).

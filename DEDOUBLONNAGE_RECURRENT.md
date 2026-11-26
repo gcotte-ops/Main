@@ -74,6 +74,8 @@ Règles de conduite :
   probable) et le signaler en tête du compte rendu ;
 - jeton absent ou refusé, HubSpot injoignable : ne rien fusionner (simulation hors ligne) ; le compte rendu
   le dit et liste les Certain à fusionner à la main ;
+- jamais deux contacts aux prénoms de genres différents (Stéphane / Stéphanie) dans les doublons
+  Probable ou Certain, sauf même email (règle B-C2, 26/11/2026) ;
 - jamais un député (email `@assemblee-nationale.fr`) ni la fiche rapprochée de lui dans les doublons
   Probable de contacts ni dans la liste `2856` (règle B-D1, 26/11/2026) ;
 - ne jamais afficher, écrire ni transmettre la valeur de `HUBSPOT_TOKEN` ;

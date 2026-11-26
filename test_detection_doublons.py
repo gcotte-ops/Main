@@ -702,6 +702,29 @@ class Contacts(unittest.TestCase):
         f = contact(8, "Philippe", "Gosselin", "philippe.gosselin@assemblee-nationale.fr")
         self.assertEqual(dc.evaluer(depute, f).niveau, CERTAIN)
 
+    def test_b_c2_genres_differents(self):
+        # Décision du 26/11/2026 : Stéphane / Stéphanie ne sont pas des homonymes.
+        a = contact(1, "Stephanie", "Besson", "saintemarguerite95@gmail.com")
+        b = contact(2, "Stephane", "Besson", "mairie.montret@wanadoo.fr")
+        p = dc.evaluer(a, b)
+        self.assertEqual(p.niveau, "")
+        self.assertTrue(any(x.startswith("B-C2") for x in p.blocage))
+        # Même entreprise : jamais Certain non plus (deux personnes).
+        c = contact(3, "Michel", "Martin", "m.martin@abc.fr")
+        d = contact(4, "Michèle", "Martin", "michele.martin@abc.fr")
+        self.assertEqual(dc.evaluer(c, d).niveau, "")
+        # Même email : même personne, le Certain reste.
+        e = contact(5, "Pascale", "Meunier", "m.martin@abc.fr")
+        f = contact(6, "Pascal", "Meunier", "m.martin@abc.fr")
+        self.assertEqual(dc.evaluer(e, f).niveau, CERTAIN)
+        # Variantes du même genre : la faute reste un doublon possible.
+        for x, y in (("Lauriane", "Laurianne"), ("Sophie", "Sophia"), ("Carole", "Caroline"),
+                     ("Nathalie", "Nathali")):
+            self.assertFalse(dc.genres_differents(dc.personne(x), dc.personne(y)), (x, y))
+        for x, y in (("Alexandre", "Alexandra"), ("François", "Françoise"), ("René", "Renée"),
+                     ("Frédéric", "Frédérique"), ("Jean", "Jeanne"), ("Daniel", "Danielle")):
+            self.assertTrue(dc.genres_differents(dc.personne(x), dc.personne(y)), (x, y))
+
     def test_cc1_meme_email(self):
         a = contact(1, "Jean", "Dupont", "j.dupont@abc.fr")
         b = contact(2, "J", "DUPONT", "J.Dupont@abc.fr ")
